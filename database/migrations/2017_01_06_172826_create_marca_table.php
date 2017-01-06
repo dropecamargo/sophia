@@ -12,7 +12,13 @@ class CreateMarcaTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('marca', function(Blueprint $table){
+            $table->engine = 'InnoDB';
+
+            $table->increments('id');
+            $table->string('marca_modelo',25);
+            $table->boolean('marca_activo');
+        });
     }
 
     /**
@@ -22,6 +28,6 @@ class CreateMarcaTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('marca');
     }
 }
