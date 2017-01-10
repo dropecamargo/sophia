@@ -11,11 +11,9 @@
 
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
-        {{-- Secure tags TuProyecto --}}
+        {{-- Secure tags koi --}}
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-        {{-- Icons css --}}
-        <link href="{{ asset("/css/icons.min.css") }}" rel="stylesheet" type="text/css" />
         {{-- Vendor css --}}
         <link href="{{ asset("/css/vendor.min.css") }}" rel="stylesheet" type="text/css" />
 
@@ -63,8 +61,6 @@
 			</div>
 		</div>
 
-	    {{-- jQuery  --}}
-	    <script src="{{ asset ("/js/jquery.min.js") }}"></script>
 	    {{-- Vendor KOI App --}}
 	    <script src="{{ asset ("/js/vendor.min.js") }}" type="text/javascript"></script>
 	    {{-- KOI App --}}
