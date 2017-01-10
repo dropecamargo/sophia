@@ -31,7 +31,7 @@
                         {{-- Menu Footer --}}
                         <li class="user-footer">
                             <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat" title="{{ trans('app.logout') }}">
+                                <a href="logout" class="btn btn-default btn-flat" title="{{ trans('app.logout') }}">
                                 {{ trans('app.logout') }}
                                 </a>
                             </div>

@@ -34,6 +34,7 @@ class CreateTerceroTable extends Migration
 
             $table->rememberToken();
             $table->timestamps();
+        });
     }
 
     /**
