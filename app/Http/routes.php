@@ -28,4 +28,17 @@ Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout
 Route::group(['middleware' => 'auth'], function()
 {
 	Route::get('/', ['as' => 'dashboard', 'uses' => 'HomeController@index']);
+
+	/*
+	|-------------------------
+	| Admin Routes
+	|-------------------------
+	*/
+	Route::group(['prefix' => 'terceros'], function()
+	{
+		Route::get('dv', ['as' => 'terceros.dv', 'uses' => 'Admin\TerceroController@dv']);
+		Route::get('rcree', ['as' => 'terceros.rcree', 'uses' => 'Admin\TerceroController@rcree']);
+		Route::get('search', ['as' => 'terceros.search', 'uses' => 'Admin\TerceroController@search']);
+	});
+	Route::resource('terceros', 'Admin\TerceroController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'show']]);
 });
