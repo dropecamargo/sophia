@@ -51,4 +51,25 @@
             </li> --}}
         </ul>
     </li>
+
+    {{-- Tecnico --}}
+    <li class="treeview {{ in_array(Request::segment(1), ['modelos']) ? 'active' : '' }}">
+        <a href="#">
+            <i class="fa fa-cogs"></i> <span>Técnico</span><i class="fa fa-angle-left pull-right"></i>
+        </a>
+
+        <ul class="treeview-menu">
+            {{-- Referencias produccion --}}
+            <li class="{{ in_array(Request::segment(1), ['modelos']) ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-circle-o"></i> Referencias <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ Request::segment(1) == 'modelos' ? 'active' : '' }}">
+                        <a href="{{ route('modelos.index') }}"><i class="fa fa-circle-o"></i> Modelos</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
 </ul>

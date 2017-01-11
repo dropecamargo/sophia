@@ -58,9 +58,9 @@ elixir(function(mix) {
         'models/*.js',
         'collections/*.js',
         'views/**/*.js',
-        'routers/*.js',
         'helpers/misc.js',
         'helpers/routes.js',
+        'routes.js',
         'init.js'
     ], 'public/js/app.min.js')
 });

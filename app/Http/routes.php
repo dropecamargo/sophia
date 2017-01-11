@@ -41,5 +41,4 @@ Route::group(['middleware' => 'auth'], function()
 		Route::get('search', ['as' => 'terceros.search', 'uses' => 'Admin\TerceroController@search']);
 	});
 	Route::resource('terceros', 'Admin\TerceroController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'show']]);
-	Route::resource('marcas', 'Tecnico\MarcaController', ['except' => ['destroy']]);
-});
+}
