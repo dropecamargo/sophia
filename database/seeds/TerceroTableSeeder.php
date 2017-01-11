@@ -12,7 +12,7 @@ class TerceroTableSeeder extends Seeder
      */
     public function run()
     {
-         	 Tercero::create([
+        Tercero::create([
             'tercero_nit'   => 1023878024,
             'tercero_tipo'   => 'CC',
             'tercero_regimen'   => 1,
@@ -21,7 +21,6 @@ class TerceroTableSeeder extends Seeder
             'tercero_nombre2'   => 'Daniel',
             'tercero_apellido1'   => 'Camargo',
             'tercero_apellido2'   => 'Jimenez',
-                       
             'username'    => 'admin',
             'password' => bcrypt('admin')
         ]);

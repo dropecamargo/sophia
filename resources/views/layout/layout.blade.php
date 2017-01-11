@@ -16,6 +16,8 @@
 
         {{-- Vendor css --}}
         <link href="{{ asset("/css/vendor.min.css") }}" rel="stylesheet" type="text/css" />
+        {{-- App css --}}
+        <link href="{{ asset("/css/app.min.css") }}" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,17 +30,14 @@
         <div class="wrapper">
 
             {{-- Main Header --}}
-    		@include('layout.header')
+            @include('layout.header')
 
             {{-- Content Wrapper. Contains page content --}}
             <div class="content-wrapper">
-            	@yield('content')
+                @yield('content')
 
                 {{-- Global templates --}}
-                {{-- @include('templates') --}}
-
-                {{-- Modales --}}
-                {{-- @include('modals') --}}
+                @include('templates')
             </div>
 
             <!-- Main Footer -->
@@ -47,7 +46,6 @@
         </div>
 
         <script>window.document.url = "{{ URL::to('/') }}";</script>
-
         {{-- Vendor KOI App --}}
         <script src="{{ asset ("/js/vendor.min.js") }}" type="text/javascript"></script>
         {{-- KOI App --}}
