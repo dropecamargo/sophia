@@ -29,3 +29,4 @@ Route::group(['middleware' => 'auth'], function()
 {
 	Route::get('/', ['as' => 'dashboard', 'uses' => 'HomeController@index']);
 });
+
