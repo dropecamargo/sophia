@@ -52,47 +52,24 @@
         </ul>
     </li>
 
-    {{-- Produccion --}}
-    <li class="treeview {{ in_array(Request::segment(1), ['ordenes', 'productosp', 'areasp', 'acabadosp', 'maquinasp', 'materialesp']) ? 'active' : '' }}">
+    {{-- Tecnico --}}
+    <li class="treeview {{ in_array(Request::segment(1), ['modelos']) ? 'active' : '' }}">
         <a href="#">
             <i class="fa fa-cogs"></i> <span>Técnico</span><i class="fa fa-angle-left pull-right"></i>
         </a>
 
-        {{-- <ul class="treeview-menu"> --}}
-            {{-- Modulos produccion --}}
-            {{-- <li class="{{ in_array(Request::segment(1), ['ordenes', 'productosp']) ? 'active' : '' }}">
-                <a href="#">
-                    <i class="fa fa-wpforms"></i> Módulos <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="{{ Request::segment(1) == 'productosp' ? 'active' : '' }}">
-                        <a href="{{ route('productosp.index') }}"><i class="fa fa-barcode"></i> Productos</a>
-                    </li>
-                    <li class="{{ Request::segment(1) == 'ordenes' ? 'active' : '' }}">
-                        <a href="{{ route('ordenes.index') }}"><i class="fa fa-building-o"></i> Ordenes</a>
-                    </li>
-                </ul>
-            </li> --}}
+        <ul class="treeview-menu">
             {{-- Referencias produccion --}}
-           {{--  <li class="{{ in_array(Request::segment(1), ['areasp', 'acabadosp', 'maquinasp', 'materialesp']) ? 'active' : '' }}">
+            <li class="{{ in_array(Request::segment(1), ['modelos']) ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-circle-o"></i> Referencias <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ Request::segment(1) == 'acabadosp' ? 'active' : '' }}">
-                        <a href="{{ route('acabadosp.index') }}"><i class="fa fa-circle-o"></i> Acabados</a>
-                    </li>
-                    <li class="{{ Request::segment(1) == 'areasp' ? 'active' : '' }}">
-                        <a href="{{ route('areasp.index') }}"><i class="fa fa-circle-o"></i> Áreas</a>
-                    </li>
-                    <li class="{{ Request::segment(1) == 'maquinasp' ? 'active' : '' }}">
-                        <a href="{{ route('maquinasp.index') }}"><i class="fa fa-circle-o"></i> Máquinas</a>
-                    </li>
-                    <li class="{{ Request::segment(1) == 'materialesp' ? 'active' : '' }}">
-                        <a href="{{ route('materialesp.index') }}"><i class="fa fa-circle-o"></i> Materiales</a>
+                    <li class="{{ Request::segment(1) == 'modelos' ? 'active' : '' }}">
+                        <a href="{{ route('modelos.index') }}"><i class="fa fa-circle-o"></i> Modelos</a>
                     </li>
                 </ul>
             </li>
-        </ul> --}}
+        </ul>
     </li>
 </ul>
