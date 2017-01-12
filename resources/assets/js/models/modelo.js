@@ -1,5 +1,5 @@
 /**
-* Class AreapModel extend of Backbone Model
+* Class ModeloModel extend of Backbone Model
 * @author KOI || @dropecamargo
 * @link http://koi-ti.com
 */
