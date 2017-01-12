@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use DB, Log, Datatables, Cache;
+
+use App\Models\Tecnico\Modelo;
+
 class ModeloController extends Controller
 {
     /**
@@ -14,9 +18,15 @@ class ModeloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('tecnico.modelo.index');
+        
+       if ($request->ajax()) {
+            $query = Modelo::query();
+            return Datatables::of($query)->make(true);
+        }
+        
+        return view('tecnico.modelo.index');     
     }
 
     /**
@@ -26,7 +36,7 @@ class ModeloController extends Controller
      */
     public function create()
     {
-        //
+         return view('tecnico.modelo.create');
     }
 
     /**
@@ -37,7 +47,7 @@ class ModeloController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd('hola');
     }
 
     /**
@@ -48,7 +58,7 @@ class ModeloController extends Controller
      */
     public function show($id)
     {
-        //
+        dd('show');
     }
 
     /**

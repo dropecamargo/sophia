@@ -12,9 +12,15 @@ app || (app = {});
     app.AppRouter = new( Backbone.Router.extend({
         
         routes : {
+<<<<<<< HEAD
             'login(/)': 'getLogin',
             'marcas(/)': 'getMarcasMain',
             'marcas/create(/)': 'getMarcasCreate',
+=======
+        	'login(/)': 'getLogin',
+            'modelos(/)': 'getModelosMain',
+            'modelos/create(/)': 'getModelosCreate',
+>>>>>>> 045ba9f20fa73b4bd5fd5e3a39aa1d52af4313c5
         },
 
         /**
@@ -76,6 +82,7 @@ app || (app = {});
         },
 
         /**
+<<<<<<< HEAD
         * show view main terceros
         */
         getMarcasMain: function () {
@@ -100,6 +107,31 @@ app || (app = {});
             this.createMarcaView.render();
         },
 
+=======
+        * show view main modelos
+        */
+        getModelosMain: function () {
+
+            if ( this.mainModeloView instanceof Backbone.View ){
+                this.mainModeloView.stopListening();
+                this.mainModeloView.undelegateEvents();
+            }
+
+            this.mainModeloView = new app.MainModelosView( );
+        },
+
+         getModelosCreate: function () {
+            this.modeloModel = new app.ModeloModel();
+            
+            if ( this.createModeloView instanceof Backbone.View ){
+                this.createModeloView.stopListening();
+                this.createModeloView.undelegateEvents();
+            }
+
+            this.createModeloView = new app.CreateModeloView({ model: this.modeloModel });
+            this.createModeloView.render();
+        },
+>>>>>>> 045ba9f20fa73b4bd5fd5e3a39aa1d52af4313c5
     }) );
 
 })(jQuery, this, this.document);
