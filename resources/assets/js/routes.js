@@ -10,8 +10,11 @@ app || (app = {});
 (function ($, window, document, undefined) {
 
     app.AppRouter = new( Backbone.Router.extend({
+        
         routes : {
-        	'login(/)': 'getLogin'
+            'login(/)': 'getLogin',
+            'marcas(/)': 'getMarcasMain',
+            'marcas/create(/)': 'getMarcasCreate',
         },
 
         /**
@@ -43,7 +46,7 @@ app || (app = {});
         * Constructor Method
         */
         initialize : function ( opts ){
-            // Initialize resources
+
       	},
 
         /**
@@ -59,10 +62,11 @@ app || (app = {});
         },
 
         /**
-        * show view login
+        * show view in Calendar Event
         * @param String show
         */
         getLogin: function () {
+
             if ( this.loginView instanceof Backbone.View ){
                 this.loginView.stopListening();
                 this.loginView.undelegateEvents();
@@ -70,6 +74,32 @@ app || (app = {});
 
             this.loginView = new app.UserLoginView( );
         },
+
+        /**
+        * show view main terceros
+        */
+        getMarcasMain: function () {
+
+            if ( this.mainMarcaView instanceof Backbone.View ){
+                this.mainMarcaView.stopListening();
+                this.mainMarcaView.undelegateEvents();
+            }
+
+            this.mainMarcaView = new app.MainMarcasView( );
+        },
+
+        getMarcasCreate: function () {
+            this.marcaModel = new app.MarcaModel();
+
+            if ( this.createMarcaView instanceof Backbone.View ){
+                this.createMarcaView.stopListening();
+                this.createMarcalView.undelegateEvents();
+            }
+
+            this.createMarcaView = new app.CreateMarcaView({ model: this.marcaModel });
+            this.createMarcaView.render();
+        },
+
     }) );
 
 })(jQuery, this, this.document);

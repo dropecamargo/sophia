@@ -197,11 +197,7 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
-<<<<<<< HEAD
-
-=======
         'Datatables' => Yajra\Datatables\Datatables::class
->>>>>>> 491a339ea3a3272542cf1f5cc63d9d4ded70b323
     ],
 
 ];
