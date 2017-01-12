@@ -14,6 +14,8 @@ app || (app = {});
         routes : {
 
             'login(/)': 'getLogin',
+
+            //tecnicos
             'marcas(/)': 'getMarcasMain',
             'marcas/create(/)': 'getMarcasCreate',
             'modelos(/)': 'getModelosMain',
@@ -80,8 +82,7 @@ app || (app = {});
         },
 
         /**
-         HEAD
-        * show view main tecnico
+        * show view main TECNICO
         */
         getMarcasMain: function () {
 
