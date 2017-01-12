@@ -11,13 +11,13 @@ app || (app = {});
 
     app.UserLoginView = Backbone.View.extend({
 
-        el: '#login-box',
+        el: '#login-box', 
 
         /**
         * Constructor Method
         */
         initialize : function() {
- 			console.log('initialize UserLoginView');
+ 			//console.log('initialize UserLoginView');
             //Init Attributes 
             this.$loginForm = $('#form-login-account');
             this.$loginForm.validator();

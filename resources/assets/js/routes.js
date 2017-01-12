@@ -11,7 +11,9 @@ app || (app = {});
 
     app.AppRouter = new( Backbone.Router.extend({
         routes : {
-        	'login(/)': 'getLogin'
+        	'login(/)': 'getLogin',
+            'modelos(/)': 'getModelosMain',
+            'modelos/create(/)': 'getModelosCreate',
         },
 
         /**
@@ -69,6 +71,31 @@ app || (app = {});
             }
 
             this.loginView = new app.UserLoginView( );
+        },
+
+        /**
+        * show view main modelos
+        */
+        getModelosMain: function () {
+
+            if ( this.mainModeloView instanceof Backbone.View ){
+                this.mainModeloView.stopListening();
+                this.mainModeloView.undelegateEvents();
+            }
+
+            this.mainModeloView = new app.MainModelosView( );
+        },
+
+         getModelosCreate: function () {
+            this.modeloModel = new app.ModeloModel();
+
+            if ( this.createModeloView instanceof Backbone.View ){
+                this.createModeloView.stopListening();
+                this.createModeloView.undelegateEvents();
+            }
+
+            this.createModeloView = new app.CreateModeloView({ model: this.modeloModel });
+            this.createModeloView.render();
         },
     }) );
 

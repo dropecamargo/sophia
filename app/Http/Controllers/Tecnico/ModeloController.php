@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use DB, Log, Datatables, Cache;
+
+use App\Models\Tecnico\Modelo;
+
 class ModeloController extends Controller
 {
     /**
@@ -14,9 +18,15 @@ class ModeloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('tecnico.modelo.index');
+        
+       if ($request->ajax()) {
+            $query = Modelo::query();
+            return Datatables::of($query)->make(true);
+        }
+        
+        return view('tecnico.modelo.index');     
     }
 
     /**
@@ -26,7 +36,7 @@ class ModeloController extends Controller
      */
     public function create()
     {
-        //
+         return view('tecnico.modelo.create');
     }
 
     /**
@@ -37,7 +47,32 @@ class ModeloController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $data = $request->all();
+
+            $modelo = new Modelo;
+            if ($modelo->isValid($data)) {
+                DB::beginTransaction();
+                try {
+                    // modelo
+                    $modelo->fill($data);
+                    $modelo->save();
+
+                    // Commit Transaction
+                    DB::commit();
+                    // Forget cache
+                    //Cache::forget( Modelo::$key_cache );
+                    dd($data);
+                    //return response()->json(['success' => true, 'id' => $modelo->id]);
+                }catch(\Exception $e){
+                    DB::rollback();
+                    Log::error($e->getMessage());
+                    return response()->json(['success' => false, 'errors' => trans('app.exception')]);
+                }
+            }
+            return response()->json(['success' => false, 'errors' => $modelo->errors]);
+        }
+        abort(403);
     }
 
     /**
