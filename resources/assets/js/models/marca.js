@@ -12,7 +12,7 @@ app || (app = {});
     app.MarcaModel = Backbone.Model.extend({
 
         urlRoot: function () {
-            return window.Misc.urlFull( Route.route('marca.index') );
+            return window.Misc.urlFull( Route.route('marcas.index') );
         },
         idAttribute: 'id',
         defaults: {

@@ -21,4 +21,19 @@ class Marca extends Model
      * @var array
      */
     protected $fillable = ['marca_modelo','marca_activo'];
+
+    public function isValid($data)
+    {
+        $rules = [
+            'marca_modelo' => 'required|max:200',
+            'marca_activo' => 'required|max:1'
+        ];
+
+        $validator = Validator::make($data, $rules);
+        if ($validator->passes()) {
+            return true;
+        }
+        $this->errors = $validator->errors();
+        return false;
+    }
 }

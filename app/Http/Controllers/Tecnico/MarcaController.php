@@ -45,7 +45,8 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->ajax()) {
+        dd('hola store');
+       /* if ($request->ajax()) {
             $data = $request->all();
             
             $marca = new Marca;
@@ -59,7 +60,6 @@ class MarcaController extends Controller
 
                     // Commit Transaction
                     DB::commit();
-                    // DB::rollback();
                     return response()->json(['success' => true, 'id' => $marca->id]);
                 }catch(\Exception $e){
                     DB::rollback();
@@ -69,7 +69,7 @@ class MarcaController extends Controller
             }
             return response()->json(['success' => false, 'errors' => $marca->errors]);
         }
-        abort(403);
+        abort(403);*/
     }
 
     /**
