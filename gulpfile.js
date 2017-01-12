@@ -31,6 +31,10 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
+    mix.sass('app.scss', 'public/css/app.min.css');
+});
+
+elixir(function(mix) {
     mix.scripts([
     	paths.adminlte + 'plugins/jQuery/jquery-2.2.3.min.js',
         paths.adminlte + 'bootstrap/js/bootstrap.min.js',
