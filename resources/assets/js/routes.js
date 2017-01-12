@@ -12,15 +12,13 @@ app || (app = {});
     app.AppRouter = new( Backbone.Router.extend({
         
         routes : {
-<<<<<<< HEAD
+
             'login(/)': 'getLogin',
             'marcas(/)': 'getMarcasMain',
             'marcas/create(/)': 'getMarcasCreate',
-=======
-        	'login(/)': 'getLogin',
             'modelos(/)': 'getModelosMain',
             'modelos/create(/)': 'getModelosCreate',
->>>>>>> 045ba9f20fa73b4bd5fd5e3a39aa1d52af4313c5
+
         },
 
         /**
@@ -82,8 +80,8 @@ app || (app = {});
         },
 
         /**
-<<<<<<< HEAD
-        * show view main terceros
+         HEAD
+        * show view main tecnico
         */
         getMarcasMain: function () {
 
@@ -107,9 +105,8 @@ app || (app = {});
             this.createMarcaView.render();
         },
 
-=======
-        * show view main modelos
-        */
+
+      
         getModelosMain: function () {
 
             if ( this.mainModeloView instanceof Backbone.View ){
@@ -131,7 +128,7 @@ app || (app = {});
             this.createModeloView = new app.CreateModeloView({ model: this.modeloModel });
             this.createModeloView.render();
         },
->>>>>>> 045ba9f20fa73b4bd5fd5e3a39aa1d52af4313c5
+
     }) );
 
 })(jQuery, this, this.document);

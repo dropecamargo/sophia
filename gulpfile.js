@@ -73,20 +73,13 @@ elixir(function(mix) {
     mix.copy(paths.adminlte + 'bootstrap/fonts/', 'public/fonts');
     mix.copy(paths.libs + 'font-awesome/fonts/', 'public/fonts');
 
-<<<<<<< HEAD
-    copy: {
-            img: {
-                files: [
-                    //move iCheck images to public/css
-                    {expand: true, cwd: './bower_components/AdminLTE/plugins/iCheck/minimal/', src: ['red**.png'], dest: '../../public/css'}      
-=======
+
     // copiying files
         copy: {
             img: {
                 files: [
                     //move iCheck images to public/css
                     {expand: true, cwd: './bower_components/AdminLTE/plugins/iCheck/minimal/', src: ['red**.png'], dest: '../../public/css'}   
->>>>>>> 045ba9f20fa73b4bd5fd5e3a39aa1d52af4313c5
                 ]
             }
         }

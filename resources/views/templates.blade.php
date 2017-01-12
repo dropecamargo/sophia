@@ -1,5 +1,5 @@
 {{-- Js templates --}}
-<<<<<<< HEAD
+
 <script type="text/template" id="add-marca-tpl">
 	<div class="row">
 		<div class="form-group col-md-8">
@@ -13,7 +13,8 @@
 			</label>
 		</div>
     </div> 
-=======
+    </script>
+
 <script type="text/template" id="add-modelo-tpl">
 
 <div class="row">
@@ -28,5 +29,5 @@
 		</div>
  </div>
 
->>>>>>> 045ba9f20fa73b4bd5fd5e3a39aa1d52af4313c5
+
 </script>
