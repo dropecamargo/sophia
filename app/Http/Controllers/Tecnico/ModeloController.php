@@ -47,32 +47,7 @@ class ModeloController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->ajax()) {
-            $data = $request->all();
-
-            $modelo = new Modelo;
-            if ($modelo->isValid($data)) {
-                DB::beginTransaction();
-                try {
-                    // modelo
-                    $modelo->fill($data);
-                    $modelo->save();
-
-                    // Commit Transaction
-                    DB::commit();
-                    // Forget cache
-                    //Cache::forget( Modelo::$key_cache );
-                    dd($data);
-                    //return response()->json(['success' => true, 'id' => $modelo->id]);
-                }catch(\Exception $e){
-                    DB::rollback();
-                    Log::error($e->getMessage());
-                    return response()->json(['success' => false, 'errors' => trans('app.exception')]);
-                }
-            }
-            return response()->json(['success' => false, 'errors' => $modelo->errors]);
-        }
-        abort(403);
+        dd('hola');
     }
 
     /**
@@ -83,7 +58,7 @@ class ModeloController extends Controller
      */
     public function show($id)
     {
-        //
+        dd('show');
     }
 
     /**

@@ -56,7 +56,7 @@ app || (app = {});
 
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
-
+            
             this.ready();
         },
 
@@ -65,6 +65,10 @@ app || (app = {});
         */
         ready: function () {
             // to fire plugins
+            if( typeof window.initComponent.initICheck == 'function' )
+                window.initComponent.initICheck(); 
+
+            
             if( typeof window.initComponent.initToUpper == 'function' )
                 window.initComponent.initToUpper();
         },
@@ -94,7 +98,7 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('areasp.show', { areasp: resp.id})) );
+                window.Misc.redirect( window.Misc.urlFull( Route.route('modelos.show', { modelo: resp.id})) );
             }
         }
     });
