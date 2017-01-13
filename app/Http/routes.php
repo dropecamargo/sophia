@@ -49,5 +49,6 @@ Route::group(['middleware' => 'auth'], function()
 	*/
 	Route::resource('modelos','Tecnico\ModeloController', ['except' => ['destroy']]);
 	Route::resource('marcas', 'Tecnico\MarcaController', ['except' => ['destroy']]);
+	Route::resource('tipos', 'Tecnico\TipoController', ['except' => ['destroy']]);
 });
 
