@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMarcaTable extends Migration
+class CreateTipoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,13 @@ class CreateMarcaTable extends Migration
      */
     public function up()
     {
-        Schema::create('marca', function(Blueprint $table){
-            $table->engine = 'InnoDB';
+        Schema::create('tipo', function (Blueprint $table){
+            $table->engine = "InnoDB";
 
             $table->increments('id');
-            $table->string('marca_modelo',200)->comment = "Es el nombre de la MARCA";
-            $table->boolean('marca_activo');
+            $table->string('tipo_codigo', 2)->unique();
+            $table->string('tipo_nombre', 200);
+            $table->boolean('tipo_activo');
         });
     }
 
@@ -28,6 +29,6 @@ class CreateMarcaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marca');
+        Schema::dropIfExists('tipo');
     }
 }

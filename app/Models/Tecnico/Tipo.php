@@ -8,39 +8,42 @@ use App\Models\BaseModel;
 
 use Validator;
 
-class Modelo extends BaseModel
+class Tipo extends BaseModel
 {
-     /**
+    /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'modelo';
+    protected $table = 'tipo';
 
     public $timestamps = false;
 
-    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['modelo_nombre'];
+    protected $fillable = ['tipo_codigo','tipo_nombre'];
 
     /**
      * The attributes that are mass boolean assignable.
      *
      * @var array
      */
-    protected $boolean = ['modelo_activo'];
-
+    protected $boolean = ['tipo_activo'];
 
     public function isValid($data)
     {
         $rules = [
-            'modelo_nombre' => 'required|max:200',
+            'tipo_codigo' => 'required|max:2|min:1|unique:tipo',
+            'tipo_nombre' => 'required|max:200'
         
         ];
+
+        if($this->exists){
+            $rules['tipo_codigo'] .= ',tipo_codigo,' . $this->id;
+        }
 
         $validator = Validator::make($data, $rules);
         if ($validator->passes()) {

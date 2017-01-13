@@ -1,14 +1,14 @@
-@extends('tecnico.marca.main')
+@extends('admin.estado.main')
 
 @section('breadcrumb')
-    <li class="active">Marcas</li>
+    <li class="active">Estados</li>
 @stop
 
 @section('module')
-	<div id="marcas-main">
+	<div id="estados-main">
         <div class="box box-danger">
             <div class="box-body table-responsive">
-                <table id="marcas-search-table" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                <table id="estados-search-table" class="table table-bordered table-striped" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Código</th>

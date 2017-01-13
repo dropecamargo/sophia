@@ -1,4 +1,5 @@
 {{-- Js templates --}}
+
 {{--template Sucursal--}}
 <script type="text/template" id="add-sucursal-tpl">
     <div class="row">
@@ -9,6 +10,24 @@
 		<div class="form-group col-md-8">
 			<label for="sucursal_direccion" class="control-label">Direccion</label>
 			<input type="text" id="sucursal_direccion" name="sucursal_direccion" value="<%- sucursal_direccion %>" placeholder="Direccion" class="form-control input-sm input-toupper" maxlength="100" required>
+		</div>
+	</div>
+</script>
+
+{{-- templeates Administrado --}}
+
+<script type="text/template" id="add-estado-tpl">
+	<div class="row">
+		<div class="form-group col-md-8">
+			<label for="estado_nombre" class="control-label">Nombre</label>
+			<input type="text" id="estado_nombre" name="estado_nombre" value="<%- estado_nombre %>" placeholder="Estado" class="form-control input-sm input-toupper" maxlength="200" required>
+		</div>
+
+		<div class="form-group col-md-2 col-xs-8 col-sm-3">
+			<br><label class="checkbox-inline" for="estado_activo">
+				<input type="checkbox" id="estado_activo" name="estado_activo" value="estado_activo" <%- estado_activo ? 'checked': ''%>> Activo
+			</label>
+
 		</div>
     </div>
 </script>
@@ -43,6 +62,7 @@
 	</div>
 </script>
 
+
 <script type="text/template" id="add-actividad-tpl">
     <div class="row">
 		<div class="form-group col-md-2">
@@ -62,6 +82,24 @@
     	<div class="form-group col-md-2">
 			<label for="actividad_categoria" class="control-label">Categoria</label>
 			<input type="text" id="actividad_categoria" name="actividad_categoria" value="<%- actividad_categoria %>" placeholder="Categoria" class="form-control input-sm input-toupper" maxlength="3">
+
+<script type="text/template" id="add-tipo-tpl">
+	<div class="row">
+		<div class="form-group col-md-1">
+			<label for="tipo_codigo" class="control-label">Tipo</label>
+			<input type="text" id="tipo_codigo" name="tipo_codigo" value="<%- tipo_codigo %>" placeholder="Tipo" class="form-control input-sm input-toupper" maxlength="2" required>
+		</div>
+
+		<div class="form-group col-md-8">
+			<label for="tipo_nombre" class="control-label">Nombre</label>
+			<input type="text" id="tipo_nombre" name="tipo_nombre" value="<%- tipo_nombre %>" placeholder="Nombre" class="form-control input-sm input-toupper" maxlength="200" required>
+		</div>
+
+		<div class="form-group col-md-2 col-xs-8 col-sm-3">
+			<br><label class="checkbox-inline" for="tipo_activo">
+				<input type="checkbox" id="tipo_activo" name="tipo_activo" value="tipo_activo" <%- tipo_activo ? 'checked': ''%>> Activo
+			</label>
+
 		</div>
     </div>
 </script>

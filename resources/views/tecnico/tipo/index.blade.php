@@ -1,17 +1,18 @@
-@extends('tecnico.marca.main')
+@extends('tecnico.tipo.main')
 
 @section('breadcrumb')
     <li class="active">Marcas</li>
 @stop
 
 @section('module')
-	<div id="marcas-main">
+	<div id="tipos-main">
         <div class="box box-danger">
             <div class="box-body table-responsive">
-                <table id="marcas-search-table" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                <table id="tipos-search-table" class="table table-bordered table-striped" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Código</th>
+                            <th>Tipo</th>
                             <th>Nombre</th>
                             <th>Activo</th>
                         </tr>
