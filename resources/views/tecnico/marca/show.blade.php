@@ -29,14 +29,12 @@
                     <label class="control-label">Nombre</label>
                     <div>{{ $marca->marca_modelo }}</div>
             	</div>
-            </div>
-            <div class="row">
                 <div class="form-group col-md-2 col-xs-8 col-sm-3">
                     <label class="checkbox-inline" for="marca_activo">
-						<input type="checkbox" id="marca_activo" name="marca_activo" value="marca_activo" disabled {{ $marca->marca_activo ? 'checked': '' }}> Activo
-					</label>
-	            </div>
-	        </div>	   
+                        <input type="checkbox" id="marca_activo" name="marca_activo" value="marca_activo" disabled {{ $marca->marca_activo ? 'checked': '' }}> Activo
+                    </label>
+                </div>
+            </div>        
         </div>
     </div>
 @stop
