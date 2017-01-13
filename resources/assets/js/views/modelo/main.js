@@ -48,7 +48,7 @@ app || (app = {});
                         targets: 0,
                         width: '10%',
                         render: function ( data, type, full, row ) {
-                            return '<a href="'+ window.Misc.urlFull( Route.route('modelos.show', {modelo: full.id }) )  +'">' + data + '</a>';
+                            return '<a href="'+ window.Misc.urlFull( Route.route('modelos.show', {modelos: full.id }) )  +'">' + data + '</a>';
                         }
                     }
                 ]

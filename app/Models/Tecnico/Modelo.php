@@ -4,9 +4,11 @@ namespace App\Models\Tecnico;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\BaseModel;
+
 use Validator, Cache;
 
-class Modelo extends Model
+class Modelo extends BaseModel
 {
      /**
      * The database table used by the model.
@@ -29,13 +31,21 @@ class Modelo extends Model
      *
      * @var array
      */
-    protected $fillable = ['modelo_nombre','modelo_activo'];
+    protected $fillable = ['modelo_nombre'];
+
+    /**
+     * The attributes that are mass boolean assignable.
+     *
+     * @var array
+     */
+    protected $boolean = ['modelo_activo'];
+
 
     public function isValid($data)
     {
         $rules = [
             'modelo_nombre' => 'required|max:200',
-            'modelo_activo' => 'required'
+        
         ];
 
         $validator = Validator::make($data, $rules);

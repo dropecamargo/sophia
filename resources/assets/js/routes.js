@@ -22,6 +22,8 @@ app || (app = {});
 
             'modelos(/)': 'getModelosMain',
             'modelos/create(/)': 'getModelosCreate',
+            'modelos/:modelo/edit(/)': 'getModelosEdit',
+            
 
         },
 
@@ -143,6 +145,19 @@ app || (app = {});
 
             this.createModeloView = new app.CreateModeloView({ model: this.modeloModel });
             this.createModeloView.render();
+        },
+
+          getModelosEdit: function (modelos) {
+            this.modeloModel = new app.ModeloModel();
+            this.modeloModel.set({'id': modelos}, {'silent':true});
+
+            if ( this.createModeloView instanceof Backbone.View ){
+                this.createModeloView.stopListening();
+                this.createModeloView.undelegateEvents();
+            }
+
+            this.createModeloView = new app.CreateModeloView({ model: this.modeloModel });
+            this.modeloModel.fetch();
         },
 
     }) );
