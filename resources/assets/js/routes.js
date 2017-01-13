@@ -10,10 +10,17 @@ app || (app = {});
 (function ($, window, document, undefined) {
 
     app.AppRouter = new( Backbone.Router.extend({
+        
         routes : {
-        	'login(/)': 'getLogin',
+
+            'login(/)': 'getLogin',
+            'marcas(/)': 'getMarcasMain',
+            'marcas/create(/)': 'getMarcasCreate',
             'modelos(/)': 'getModelosMain',
             'modelos/create(/)': 'getModelosCreate',
+            'modelos/:modelo/edit(/)': 'getModelosEdit',
+            
+
         },
 
         /**
@@ -45,7 +52,7 @@ app || (app = {});
         * Constructor Method
         */
         initialize : function ( opts ){
-            // Initialize resources
+
       	},
 
         /**
@@ -61,10 +68,11 @@ app || (app = {});
         },
 
         /**
-        * show view login
+        * show view in Calendar Event
         * @param String show
         */
         getLogin: function () {
+
             if ( this.loginView instanceof Backbone.View ){
                 this.loginView.stopListening();
                 this.loginView.undelegateEvents();
@@ -74,8 +82,33 @@ app || (app = {});
         },
 
         /**
-        * show view main modelos
+         HEAD
+        * show view main tecnico
         */
+        getMarcasMain: function () {
+
+            if ( this.mainMarcaView instanceof Backbone.View ){
+                this.mainMarcaView.stopListening();
+                this.mainMarcaView.undelegateEvents();
+            }
+
+            this.mainMarcaView = new app.MainMarcasView( );
+        },
+
+        getMarcasCreate: function () {
+            this.marcaModel = new app.MarcaModel();
+
+            if ( this.createMarcaView instanceof Backbone.View ){
+                this.createMarcaView.stopListening();
+                this.createMarcalView.undelegateEvents();
+            }
+
+            this.createMarcaView = new app.CreateMarcaView({ model: this.marcaModel });
+            this.createMarcaView.render();
+        },
+
+
+      
         getModelosMain: function () {
 
             if ( this.mainModeloView instanceof Backbone.View ){
@@ -97,6 +130,20 @@ app || (app = {});
             this.createModeloView = new app.CreateModeloView({ model: this.modeloModel });
             this.createModeloView.render();
         },
+
+          getModelosEdit: function (modelos) {
+            this.modeloModel = new app.ModeloModel();
+            this.modeloModel.set({'id': modelos}, {'silent':true});
+
+            if ( this.createModeloView instanceof Backbone.View ){
+                this.createModeloView.stopListening();
+                this.createModeloView.undelegateEvents();
+            }
+
+            this.createModeloView = new app.CreateModeloView({ model: this.modeloModel });
+            this.modeloModel.fetch();
+        },
+
     }) );
 
 })(jQuery, this, this.document);

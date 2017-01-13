@@ -20,13 +20,12 @@ class ModeloController extends Controller
      */
     public function index(Request $request)
     {
-        
-       if ($request->ajax()) {
+        if ($request->ajax()) {
             $query = Modelo::query();
             return Datatables::of($query)->make(true);
         }
-        
-        return view('tecnico.modelo.index');     
+
+        return view('tecnico.modelo.index');
     }
 
     /**
@@ -36,7 +35,7 @@ class ModeloController extends Controller
      */
     public function create()
     {
-         return view('tecnico.modelo.create');
+        return view('tecnico.modelo.create');
     }
 
     /**
@@ -47,7 +46,30 @@ class ModeloController extends Controller
      */
     public function store(Request $request)
     {
-        dd('hola');
+        if ($request->ajax()) {
+            $data = $request->all();
+            
+            $modelo = new Modelo;
+            if ($modelo->isValid($data)) {
+                DB::beginTransaction();
+                try {
+                    // Modelo
+                    $modelo->fill($data);
+                    $modelo->fillBoolean($data);
+                    $modelo->save();
+
+                    // Commit Transaction
+                    DB::commit();
+                    return response()->json(['success' => true, 'id' => $modelo->id]);
+                }catch(\Exception $e){
+                    DB::rollback();
+                    Log::error($e->getMessage());
+                    return response()->json(['success' => false, 'errors' => trans('app.exception')]);
+                }
+            }
+            return response()->json(['success' => false, 'errors' => $modelo->errors]);
+        }
+        abort(403);
     }
 
     /**
@@ -56,9 +78,14 @@ class ModeloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request ,$id)
     {
-        dd('show');
+        $modelo = Modelo::findOrFail($id);
+        
+        if ($request->ajax()) {
+            return response()->json($modelo);    
+        }        
+        return view('tecnico.modelo.show', ['modelo' => $modelo]);
     }
 
     /**
@@ -69,7 +96,8 @@ class ModeloController extends Controller
      */
     public function edit($id)
     {
-        //
+        $modelo = Modelo::findOrFail($id);
+        return view('tecnico.modelo.edit', ['modelo' => $modelo]);
     }
 
     /**
@@ -81,7 +109,33 @@ class ModeloController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $data = $request->all();
+
+            $modelo = Modelo::findOrFail($id);
+            if ($modelo->isValid($data)) {
+                DB::beginTransaction();
+                try {
+                    // Modelo
+                    $modelo->fill($data);
+                    $modelo->fillBoolean($data);
+                    $modelo->save();
+
+                    // Commit Transaction
+                    DB::commit();
+                    // Forget cache
+                    //Cache::forget( Modelo::$key_cache );
+
+                    return response()->json(['success' => true, 'id' => $modelo->id]);
+                }catch(\Exception $e){
+                    DB::rollback();
+                    Log::error($e->getMessage());
+                    return response()->json(['success' => false, 'errors' => trans('app.exception')]);
+                }
+            }
+            return response()->json(['success' => false, 'errors' => $modelo->errors]);
+        }
+        abort(403);
     }
 
     /**
