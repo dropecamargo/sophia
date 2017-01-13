@@ -19,13 +19,7 @@ class Modelo extends BaseModel
 
     public $timestamps = false;
 
-    /**
-     * The key used by cache store.
-     *
-     * @var static string
-     */
- //public static $key_cache = '';
-
+  
     /**
      * The attributes that are mass assignable.
      *
