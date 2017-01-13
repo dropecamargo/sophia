@@ -70,8 +70,6 @@ app || (app = {});
             
             if( typeof window.initComponent.initToUpper == 'function' )
                 window.initComponent.initToUpper();
-
-            console.log('hola response Server');
         },
 
         /**
@@ -99,7 +97,7 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('marcas.show', { marca: resp.id})) );
+                window.Misc.redirect( window.Misc.urlFull( Route.route('marcas.show', { marcas: resp.id})) );
             }
         }
     });

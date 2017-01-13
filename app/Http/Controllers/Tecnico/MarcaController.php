@@ -45,8 +45,7 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        dd('hola store');
-       /* if ($request->ajax()) {
+        if ($request->ajax()) {
             $data = $request->all();
             
             $marca = new Marca;
@@ -60,6 +59,7 @@ class MarcaController extends Controller
 
                     // Commit Transaction
                     DB::commit();
+
                     return response()->json(['success' => true, 'id' => $marca->id]);
                 }catch(\Exception $e){
                     DB::rollback();
@@ -69,7 +69,7 @@ class MarcaController extends Controller
             }
             return response()->json(['success' => false, 'errors' => $marca->errors]);
         }
-        abort(403);*/
+        abort(403);
     }
 
     /**
@@ -78,9 +78,13 @@ class MarcaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        dd('hola show marca');
+        $marca = Marca::findOrFail($id);
+        if ($request->ajax()) {
+            return response()->json($marca);    
+        }        
+        return view('tecnico.marca.show', ['marca' => $marca]);
     }
 
     /**
@@ -91,7 +95,8 @@ class MarcaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $marca = Marca::findOrFail($id);
+        return view('tecnico.marca.edit', ['marca' => $marca]);
     }
 
     /**
@@ -103,7 +108,30 @@ class MarcaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $data = $request->all();
+            $marca = Marca::findOrFail($id);
+            if ($marca->isValid($data)) {
+                DB::beginTransaction();
+                try {
+                    // marca
+                    $marca->fill($data);
+                    $marca->fillBoolean($data);
+                    $marca->save();
+                    // Commit Transaction
+                    DB::commit();
+                    // Forget cache
+                    //Cache::forget( marca::$key_cache );
+                    return response()->json(['success' => true, 'id' => $marca->id]);
+                }catch(\Exception $e){
+                    DB::rollback();
+                    Log::error($e->getMessage());
+                    return response()->json(['success' => false, 'errors' => trans('app.exception')]);
+                }
+            }
+            return response()->json(['success' => false, 'errors' => $marca->errors]);
+        }
+        abort(403);    
     }
 
     /**

@@ -20,13 +20,12 @@ class ModeloController extends Controller
      */
     public function index(Request $request)
     {
-        
-       if ($request->ajax()) {
+        if ($request->ajax()) {
             $query = Modelo::query();
             return Datatables::of($query)->make(true);
         }
-        
-        return view('tecnico.modelo.index');     
+
+        return view('tecnico.modelo.index');
     }
 
     /**
@@ -36,7 +35,7 @@ class ModeloController extends Controller
      */
     public function create()
     {
-         return view('tecnico.modelo.create');
+        return view('tecnico.modelo.create');
     }
 
     /**
