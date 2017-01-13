@@ -19,9 +19,17 @@ app || (app = {});
             'marcas/create(/)': 'getMarcasCreate',
             'marcas/:marcas/edit(/)': 'getMarcasEdit',
 
+            'tipos(/)': 'getTiposMain',
+            'tipos/create(/)': 'getTiposCreate',
+            'tipos/:tipos/edit(/)': 'getTiposEdit',
+
             'modelos(/)': 'getModelosMain',
             'modelos/create(/)': 'getModelosCreate',
             'modelos/:modelo/edit(/)': 'getModelosEdit',
+
+            'estados(/)': 'getEstadosMain',
+            'estados/create(/)': 'getEstadosCreate',
+            'estados/:modelo/edit(/)': 'getEstadosEdit',
         },
 
         /**
@@ -104,7 +112,7 @@ app || (app = {});
 
             if ( this.createMarcaView instanceof Backbone.View ){
                 this.createMarcaView.stopListening();
-                this.createMarcalView.undelegateEvents();
+                this.createMarcaView.undelegateEvents();
             }
 
             this.createMarcaView = new app.CreateMarcaView({ model: this.marcaModel });
@@ -124,7 +132,40 @@ app || (app = {});
             this.marcaModel.fetch();
         },
 
+        getTiposMain: function () {
 
+            if ( this.mainTipoView instanceof Backbone.View ){
+                this.mainTipoView.stopListening();
+                this.mainTipoView.undelegateEvents();
+            }
+
+            this.mainTipoView = new app.MainTiposView( );
+        },
+
+        getTiposCreate: function () {
+            this.tipoModel = new app.TipoModel();
+
+            if ( this.createTipoView instanceof Backbone.View ){
+                this.createTipoView.stopListening();
+                this.createTipoView.undelegateEvents();
+            }
+
+            this.createTipoView = new app.CreateTipoView({ model: this.tipoModel });
+            this.createTipoView.render();
+        },
+
+        getTiposEdit: function (tipos) {
+            this.tipoModel = new app.TipoModel();
+            this.tipoModel.set({'id': tipos}, {'silent':true});
+
+            if ( this.createTipoView instanceof Backbone.View ){
+                this.createTipoView.stopListening();
+                this.createTipoView.undelegateEvents();
+            }
+
+            this.createTipoView = new app.CreateTipoView({ model: this.tipoModel });
+            this.tipoModel.fetch();
+        },
 
         getModelosMain: function () {
 
@@ -159,6 +200,41 @@ app || (app = {});
 
             this.createModeloView = new app.CreateModeloView({ model: this.modeloModel });
             this.modeloModel.fetch();
+        },
+
+        getEstadosMain: function () {
+
+            if ( this.mainEstadoView instanceof Backbone.View ){
+                this.mainEstadoView.stopListening();
+                this.mainEstadoView.undelegateEvents();
+            }
+
+            this.mainEstadoView = new app.MainEstadosView( );
+        },
+
+        getEstadosCreate: function () {
+            this.estadoModel = new app.EstadoModel();
+
+            if ( this.createEstadoView instanceof Backbone.View ){
+                this.createEstadoView.stopListening();
+                this.createEstadoView.undelegateEvents();
+            }
+
+            this.createEstadoView = new app.CreateEstadoView({ model: this.estadoModel });
+            this.createEstadoView.render();
+        },
+
+        getEstadosEdit: function (estados) {
+            this.estadoModel = new app.EstadoModel();
+            this.estadoModel.set({'id': estados}, {'silent':true});
+
+            if ( this.createEstadoView instanceof Backbone.View ){
+                this.createEstadoView.stopListening();
+                this.createEstadoView.undelegateEvents();
+            }
+
+            this.createEstadoView = new app.CreateEstadoView({ model: this.estadoModel });
+            this.estadoModel.fetch();
         },
 
     }) );

@@ -36,10 +36,14 @@ class Tipo extends BaseModel
     public function isValid($data)
     {
         $rules = [
-            'tipo_codigo' => 'required|max:2|min:1',
+            'tipo_codigo' => 'required|max:2|min:1|unique:tipo',
             'tipo_nombre' => 'required|max:200'
         
         ];
+
+        if($this->exists){
+            $rules['tipo_codigo'] .= ',tipo_codigo,' . $this->id;
+        }
 
         $validator = Validator::make($data, $rules);
         if ($validator->passes()) {

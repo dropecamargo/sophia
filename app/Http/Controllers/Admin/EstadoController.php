@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Tecnico;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
@@ -9,9 +9,9 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Datatables;
 
-use App\Models\Tecnico\Tipo;
+use App\Models\Base\Estado;
 
-class TipoController extends Controller
+class EstadoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,11 +20,11 @@ class TipoController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax()){
-            $query = Tipo::query();
+        if ($request->ajax()){
+            $query = Estado::query();
             return Datatables::of($query)->make(true);
         }
-        return view('tecnico.tipo.index');
+        return view('admin.estado.index');
     }
 
     /**
@@ -34,7 +34,7 @@ class TipoController extends Controller
      */
     public function create()
     {
-        return view('tecnico.tipo.create');
+        return view('admin.estado.create');
     }
 
     /**
@@ -48,25 +48,25 @@ class TipoController extends Controller
         if ($request->ajax()) {
             $data = $request->all();
 
-            $tipo = new Tipo;
-            if ($tipo->isValid($data)) {
+            $estado = new Estado;
+            if ($estado->isValid($data)) {
                 DB::beginTransaction();
                 try {
                     // Centro costo
-                    $tipo->fill($data);
-                    $tipo->fillBoolean($data);
-                    $tipo->save();
+                    $estado->fill($data);
+                    $estado->fillBoolean($data);
+                    $estado->save();
 
                     // Commit Transaction
                     DB::commit();
-                    return response()->json(['success' => true, 'id' => $tipo->id]);
+                    return response()->json(['success' => true, 'id' => $estado->id]);
                 }catch(\Exception $e){
                     DB::rollback();
                     Log::error($e->getMessage());
                     return response()->json(['success' => false, 'errors' => trans('app.exception')]);
                 }
             }
-            return response()->json(['success' => false, 'errors' => $tipo->errors]);
+            return response()->json(['success' => false, 'errors' => $estado->errors]);
         }
         abort(403);
     }
@@ -79,11 +79,11 @@ class TipoController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $tipo = Tipo::findOrFail($id);
+        $estado = Estado::findOrFail($id);
         if ($request->ajax()) {
-            return response()->json($tipo);
+            return response()->json($estado);
         }
-        return view('tecnico.tipo.show', ['tipo' => $tipo]);
+        return view('admin.estado.show', ['estado' => $estado]);
     }
 
     /**
@@ -94,8 +94,8 @@ class TipoController extends Controller
      */
     public function edit($id)
     {
-        $tipo = Tipo::findOrFail($id);
-        return view('tecnico.tipo.edit', ['tipo' => $tipo]);
+        $estado = Estado::findOrFail($id);
+        return view('admin.estado.edit', ['estado' => $estado]);
     }
 
     /**
@@ -109,25 +109,25 @@ class TipoController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-            $tipo = Tipo::findOrFail($id);
-            if ($tipo->isValid($data)) {
+            $estado = Estado::findOrFail($id);
+            if ($estado->isValid($data)) {
                 DB::beginTransaction();
                 try {
-                    // tipo
-                    $tipo->fill($data);
-                    $tipo->fillBoolean($data);
-                    $tipo->save();
+                    // estado
+                    $estado->fill($data);
+                    $estado->fillBoolean($data);
+                    $estado->save();
                     // Commit Transaction
                     DB::commit();
                     
-                    return response()->json(['success' => true, 'id' => $tipo->id]);
+                    return response()->json(['success' => true, 'id' => $estado->id]);
                 }catch(\Exception $e){
                     DB::rollback();
                     Log::error($e->getMessage());
                     return response()->json(['success' => false, 'errors' => trans('app.exception')]);
                 }
             }
-            return response()->json(['success' => false, 'errors' => $tipo->errors]);
+            return response()->json(['success' => false, 'errors' => $estado->errors]);
         }
         abort(403);
     }
