@@ -6,7 +6,7 @@
 @stop
 
 @section('module')
-    <div class="box box-success">
+    <div class="box box-danger">
         <div class="box-header with-border">
             <div class="row">
                 <div class="col-md-2 col-sm-6 col-xs-6 text-left">
@@ -34,7 +34,7 @@
                         <input type="checkbox" id="marca_activo" name="marca_activo" value="marca_activo" disabled {{ $marca->marca_activo ? 'checked': '' }}> Activo
                     </label>
                 </div>
-            </div>        
+            </div>
         </div>
     </div>
 @stop

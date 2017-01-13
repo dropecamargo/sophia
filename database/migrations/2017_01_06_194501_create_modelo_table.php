@@ -5,13 +5,12 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateModeloTable extends Migration
 {
- 
     /**
      * Run the migrations.
      *
      * @return void
      */
-    
+
     public function up()
     {
         Schema::create('modelo', function (Blueprint $table) {

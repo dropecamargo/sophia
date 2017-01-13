@@ -1,13 +1,13 @@
 @extends('tecnico.modelo.main')
 
-@section('breadcrumb')	
+@section('breadcrumb')
 	<li><a href="{{ route('modelos.index') }}">Modelo</a></li>
 	<li><a href="{{ route('modelos.show', ['modelos' => $modelo->id]) }}">{{ $modelo->id }}</a></li>
 	<li class="active">Editar</li>
 @stop
 
 @section('module')
-	<div class="box box-success" id="modelo-create">
+	<div class="box box-danger" id="modelo-create">
 		{!! Form::open(['id' => 'form-modelo', 'data-toggle' => 'validator']) !!}
 	        <div class="box-header with-border">
 	        <div class="box-body" id="render-form-modelo">

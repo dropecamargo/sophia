@@ -10,12 +10,11 @@ app || (app = {});
 (function ($, window, document, undefined) {
 
     app.AppRouter = new( Backbone.Router.extend({
-        
-        routes : {
 
+        routes : {
             'login(/)': 'getLogin',
 
-            //tecnicos
+            // Tecnico
             'marcas(/)': 'getMarcasMain',
             'marcas/create(/)': 'getMarcasCreate',
             'marcas/:marcas/edit(/)': 'getMarcasEdit',
@@ -23,8 +22,6 @@ app || (app = {});
             'modelos(/)': 'getModelosMain',
             'modelos/create(/)': 'getModelosCreate',
             'modelos/:modelo/edit(/)': 'getModelosEdit',
-            
-
         },
 
         /**
@@ -56,7 +53,11 @@ app || (app = {});
         * Constructor Method
         */
         initialize : function ( opts ){
-
+            // Initialize resources
+            this.componentGlobalView = new app.ComponentGlobalView();
+            this.componentSearchTerceroView = new app.ComponentSearchTerceroView();
+            this.componentReportView = new app.ComponentReportView();
+            this.componentTerceroView = new app.ComponentTerceroView();
       	},
 
         /**
@@ -124,7 +125,7 @@ app || (app = {});
         },
 
 
-      
+
         getModelosMain: function () {
 
             if ( this.mainModeloView instanceof Backbone.View ){
@@ -135,9 +136,9 @@ app || (app = {});
             this.mainModeloView = new app.MainModelosView( );
         },
 
-         getModelosCreate: function () {
+        getModelosCreate: function () {
             this.modeloModel = new app.ModeloModel();
-            
+
             if ( this.createModeloView instanceof Backbone.View ){
                 this.createModeloView.stopListening();
                 this.createModeloView.undelegateEvents();
@@ -147,7 +148,7 @@ app || (app = {});
             this.createModeloView.render();
         },
 
-          getModelosEdit: function (modelos) {
+        getModelosEdit: function (modelos) {
             this.modeloModel = new app.ModeloModel();
             this.modeloModel.set({'id': modelos}, {'silent':true});
 
