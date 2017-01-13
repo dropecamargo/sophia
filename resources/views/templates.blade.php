@@ -1,5 +1,9 @@
 {{-- Js templates --}}
 
+
+
+
+{{-- templeates Tecnicos --}}
 <script type="text/template" id="add-marca-tpl">
 	<div class="row">
 		<div class="form-group col-md-8">
@@ -13,11 +17,10 @@
 			</label>
 		</div>
     </div> 
-    </script>
+</script>
 
 <script type="text/template" id="add-modelo-tpl">
-
-<div class="row">
+	<div class="row">
 		<div class="form-group col-md-8">
 			<label for="modelo_nombre" class="control-label">Nombre</label>
 			<input type="text" id="modelo_nombre" name="modelo_nombre" value="<%- modelo_nombre %>" placeholder="Nombre Modelo" class="form-control input-sm input-toupper" maxlength="200" required>
@@ -27,7 +30,5 @@
 				<input type="checkbox" id="modelo_activo" name="modelo_activo" value="modelo_activo" <%- modelo_activo ? 'checked': ''%>> Activo
 			</label>
 		</div>
- </div>
-
-
+	</div>
 </script>

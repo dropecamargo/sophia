@@ -1,8 +1,9 @@
 @extends('tecnico.marca.main')
 
 @section('breadcrumb')
-    <li><a href="{{ route('marcas.index')}}">Marcas</a></li>
-	<li class="active">Nuevo</li>
+    <li><a href="{{ route('marcas.index')}}">Editar</a></li>
+    <li><a href="{{ route('marcas.show', ['marca' => $marca->id]) }}">{{ $marca->id }}</a></li>
+	<li class="active">Editar</li>
 @stop
 
 @section('module')
@@ -18,7 +19,7 @@
 						<a href="{{ route('marcas.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
                     </div>
                     <div class="col-md-2 col-md-offset-8 col-sm-6 col-xs-6 text-right">
-						<button type="submit" class="btn btn-primary btn-sm btn-block">{{ trans('app.create') }}</button>
+						<button type="submit" class="btn btn-primary btn-sm btn-block">{{ trans('app.edit') }}</button>
                     </div>
                 </div>
             </div>

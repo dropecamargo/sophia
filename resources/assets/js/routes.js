@@ -14,8 +14,12 @@ app || (app = {});
         routes : {
 
             'login(/)': 'getLogin',
+
+            //tecnicos
             'marcas(/)': 'getMarcasMain',
             'marcas/create(/)': 'getMarcasCreate',
+            'marcas/:marcas/edit(/)': 'getMarcasEdit',
+
             'modelos(/)': 'getModelosMain',
             'modelos/create(/)': 'getModelosCreate',
             'modelos/:modelo/edit(/)': 'getModelosEdit',
@@ -82,8 +86,7 @@ app || (app = {});
         },
 
         /**
-         HEAD
-        * show view main tecnico
+        * show view main TECNICO
         */
         getMarcasMain: function () {
 
@@ -105,6 +108,19 @@ app || (app = {});
 
             this.createMarcaView = new app.CreateMarcaView({ model: this.marcaModel });
             this.createMarcaView.render();
+        },
+
+        getMarcasEdit: function (marcas) {
+            this.marcaModel = new app.MarcaModel();
+            this.marcaModel.set({'id': marcas}, {'silent':true});
+
+            if ( this.createMarcaView instanceof Backbone.View ){
+                this.createMarcaView.stopListening();
+                this.createMarcaView.undelegateEvents();
+            }
+
+            this.createMarcaView = new app.CreateMarcaView({ model: this.marcaModel });
+            this.marcaModel.fetch();
         },
 
 

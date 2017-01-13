@@ -47,7 +47,7 @@ app || (app = {});
                         targets: 0,
                         width: '10%',
                         render: function ( data, type, full, row ) {
-                            return '<a href="'+ window.Misc.urlFull( Route.route('marcas.show', {marca: full.id }) )  +'">' + data + '</a>';
+                            return '<a href="'+ window.Misc.urlFull( Route.route('marcas.show', {marcas: full.id }) )  +'">' + data + '</a>';
                         }
                     }
                 ]
