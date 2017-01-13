@@ -42,6 +42,12 @@ Route::group(['middleware' => 'auth'], function()
 	});
 	Route::resource('terceros', 'Admin\TerceroController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'show']]);
 
+	Route::resource('actividades', 'Admin\ActividadController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'show']]);
+	Route::resource('departamentos', 'Admin\DepartamentoController', ['only' => ['index', 'show']]);
+	Route::resource('municipios', 'Admin\MunicipioController', ['only' => ['index']]);
+	Route::resource('sucursales', 'Admin\SucursalController', ['except' => ['destroy']]);
+
+
 	/*
 	|-------------------------
 	| Tecnico Routes

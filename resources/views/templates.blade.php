@@ -1,4 +1,18 @@
 {{-- Js templates --}}
+{{--template Sucursal--}}
+<script type="text/template" id="add-sucursal-tpl">
+    <div class="row">
+		<div class="form-group col-md-8">
+			<label for="sucursal_nombre" class="control-label">Nombre</label>
+			<input type="text" id="sucursal_nombre" name="sucursal_nombre" value="<%- sucursal_nombre %>" placeholder="Nombre" class="form-control input-sm input-toupper" maxlength="100" required>
+		</div>
+		<div class="form-group col-md-8">
+			<label for="sucursal_direccion" class="control-label">Direccion</label>
+			<input type="text" id="sucursal_direccion" name="sucursal_direccion" value="<%- sucursal_direccion %>" placeholder="Direccion" class="form-control input-sm input-toupper" maxlength="100" required>
+		</div>
+    </div>
+</script>
+
 {{-- templeates Tecnicos --}}
 <script type="text/template" id="add-marca-tpl">
 	<div class="row">
@@ -27,4 +41,27 @@
 			</label>
 		</div>
 	</div>
+</script>
+
+<script type="text/template" id="add-actividad-tpl">
+    <div class="row">
+		<div class="form-group col-md-2">
+			<label for="actividad_codigo" class="control-label">Código</label>
+			<input type="text" id="actividad_codigo" name="actividad_codigo" value="<%- actividad_codigo %>" placeholder="Código" class="form-control input-sm input-toupper" maxlength="11" required>
+		</div>
+		<div class="form-group col-md-8">
+			<label for="actividad_nombre" class="control-label">Nombre</label>
+			<input type="text" id="actividad_nombre" name="actividad_nombre" value="<%- actividad_nombre %>" placeholder="Nombre" class="form-control input-sm input-toupper" required>
+		</div>
+    </div>
+    <div class="row">
+		<div class="form-group col-md-2">
+			<label for="actividad_tarifa" class="control-label">% Cree</label>
+			<input type="text" id="actividad_tarifa" name="actividad_tarifa" value="<%- actividad_tarifa %>" placeholder="% Cree" class="form-control input-sm spinner-percentage" maxlength="4" required>
+		</div>
+    	<div class="form-group col-md-2">
+			<label for="actividad_categoria" class="control-label">Categoria</label>
+			<input type="text" id="actividad_categoria" name="actividad_categoria" value="<%- actividad_categoria %>" placeholder="Categoria" class="form-control input-sm input-toupper" maxlength="3">
+		</div>
+    </div>
 </script>

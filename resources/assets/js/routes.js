@@ -14,6 +14,20 @@ app || (app = {});
         routes : {
             'login(/)': 'getLogin',
 
+            //Actividades
+            'actividades(/)': 'getActividadesMain',
+            'actividades/create(/)': 'getActividadesCreate',
+            'actividades/:actividad/edit(/)': 'getActividadesEdit', 
+
+            //Sucursales
+            'sucursales(/)': 'getSucursalesMain',
+            'sucursales/create(/)': 'getSucursalesCreate',
+            'sucursales/:sucursal/edit(/)': 'getSucursalesEdit',
+
+            //Departamentos & Municipios
+            'departamentos(/)': 'getDepartamentosMain',
+            'municipios(/)': 'getMunicipiosMain',
+
             // Tecnico
             'marcas(/)': 'getMarcasMain',
             'marcas/create(/)': 'getMarcasCreate',
@@ -22,6 +36,8 @@ app || (app = {});
             'modelos(/)': 'getModelosMain',
             'modelos/create(/)': 'getModelosCreate',
             'modelos/:modelo/edit(/)': 'getModelosEdit',
+
+
         },
 
         /**
@@ -84,6 +100,120 @@ app || (app = {});
             }
 
             this.loginView = new app.UserLoginView( );
+        },
+
+        /**
+        * show view main actividades
+        */
+        getActividadesMain: function () {
+
+            if ( this.mainActividadView instanceof Backbone.View ){
+                this.mainActividadView.stopListening();
+                this.mainActividadView.undelegateEvents();
+            }
+
+            this.mainActividadView = new app.MainActividadView( );
+        },
+
+        /**
+        * show view create actividades
+        */
+        getActividadesCreate: function () {
+            this.actividadModel = new app.ActividadModel();
+
+            if ( this.createActividadView instanceof Backbone.View ){
+                this.createActividadView.stopListening();
+                this.createActividadView.undelegateEvents();
+            }
+
+            this.createActividadView = new app.CreateActividadView({ model: this.actividadModel });
+            this.createActividadView.render();
+        },
+
+        /**
+        * show view edit actividades
+        */
+        getActividadesEdit: function (actividad) {
+            this.actividadModel = new app.ActividadModel();
+            this.actividadModel.set({'id': actividad}, {silent: true});
+
+            if ( this.createActividadView instanceof Backbone.View ){
+                this.createActividadView.stopListening();
+                this.createActividadView.undelegateEvents();
+            }
+
+            this.createActividadView = new app.CreateActividadView({ model: this.actividadModel });
+            this.actividadModel.fetch();
+        },
+
+        /**
+        * show view main sucursales
+        */
+        getSucursalesMain: function () {
+
+            if ( this.mainSucursalesView instanceof Backbone.View ){
+                this.mainSucursalesView.stopListening();
+                this.mainSucursalesView.undelegateEvents();
+            }
+
+            this.mainSucursalesView = new app.MainSucursalesView( );
+        },
+
+        /**
+        * show view create sucursales
+        */
+        getSucursalesCreate: function () {
+            this.sucursalModel = new app.SucursalModel();
+
+            if ( this.createSucursalView instanceof Backbone.View ){
+                this.createSucursalView.stopListening();
+                this.createSucursalView.undelegateEvents();
+            }
+
+            this.createSucursalView = new app.CreateSucursalView({ model: this.sucursalModel });
+            this.createSucursalView.render();
+        },
+
+        /**
+        * show view edit sucursales
+        */
+        getSucursalesEdit: function (sucursal) {
+            this.sucursalModel = new app.SucursalModel();
+            this.sucursalModel.set({'id': sucursal}, {silent: true});
+
+            if ( this.createSucursalView instanceof Backbone.View ){
+                this.createSucursalView.stopListening();
+                this.createSucursalView.undelegateEvents();
+            }
+
+            this.createSucursalView = new app.CreateSucursalView({ model: this.sucursalModel });
+            this.sucursalModel.fetch();
+        },
+
+         /**
+        * show view main departamentos
+        */
+        getDepartamentosMain: function () {
+
+            if ( this.mainDepartamentoView instanceof Backbone.View ){
+                this.mainDepartamentoView.stopListening();
+                this.mainDepartamentoView.undelegateEvents();
+            }
+
+            this.mainDepartamentoView = new app.MainDepartamentoView( );
+        },
+
+        /**
+        * show view main municipios
+        */
+        getMunicipiosMain: function () {
+
+            if ( this.mainMunicipioView instanceof Backbone.View ){
+                this.mainMunicipioView.stopListening();
+                this.mainMunicipioView.undelegateEvents();
+            }
+
+            this.mainMunicipioView = new app.MainMunicipioView( );
         },
 
         /**

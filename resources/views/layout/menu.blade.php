@@ -27,7 +27,7 @@
             </li>
 
             {{-- Referencias administracion --}}
-            {{-- <li class="{{ in_array(Request::segment(1), ['actividades', 'municipios', 'departamentos', 'sucursales']) ? 'active' : '' }}">
+            <li class="{{ in_array(Request::segment(1), ['actividades', 'municipios', 'departamentos', 'sucursales']) ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-circle-o"></i> Referencias <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -41,14 +41,14 @@
                     <li class="{{ Request::segment(1) == 'municipios' ? 'active' : '' }}">
                         <a href="{{ route('municipios.index') }}"><i class="fa fa-circle-o"></i> Municipios</a>
                     </li>
-                    <li class="{{ Request::segment(1) == 'puntosventa' ? 'active' : '' }}">
+                    {{--<li class="{{ Request::segment(1) == 'puntosventa' ? 'active' : '' }}">
                         <a href="{{ route('puntosventa.index') }}"><i class="fa fa-circle-o"></i> Puntos de venta</a>
-                    </li>
+                    </li>--}}
                     <li class="{{ Request::segment(1) == 'sucursales' ? 'active' : '' }}">
                         <a href="{{ route('sucursales.index') }}"><i class="fa fa-circle-o"></i> Sucursales</a>
                     </li>
                 </ul>
-            </li> --}}
+            </li> 
         </ul>
     </li>
 
