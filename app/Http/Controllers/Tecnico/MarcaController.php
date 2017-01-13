@@ -120,8 +120,7 @@ class MarcaController extends Controller
                     $marca->save();
                     // Commit Transaction
                     DB::commit();
-                    // Forget cache
-                    //Cache::forget( marca::$key_cache );
+                    
                     return response()->json(['success' => true, 'id' => $marca->id]);
                 }catch(\Exception $e){
                     DB::rollback();
