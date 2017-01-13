@@ -47,7 +47,7 @@ class MarcaController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-            
+
             $marca = new Marca;
             if ($marca->isValid($data)) {
                 DB::beginTransaction();
@@ -59,7 +59,6 @@ class MarcaController extends Controller
 
                     // Commit Transaction
                     DB::commit();
-
                     return response()->json(['success' => true, 'id' => $marca->id]);
                 }catch(\Exception $e){
                     DB::rollback();
@@ -82,8 +81,8 @@ class MarcaController extends Controller
     {
         $marca = Marca::findOrFail($id);
         if ($request->ajax()) {
-            return response()->json($marca);    
-        }        
+            return response()->json($marca);
+        }
         return view('tecnico.marca.show', ['marca' => $marca]);
     }
 
@@ -131,7 +130,7 @@ class MarcaController extends Controller
             }
             return response()->json(['success' => false, 'errors' => $marca->errors]);
         }
-        abort(403);    
+        abort(403);
     }
 
     /**
