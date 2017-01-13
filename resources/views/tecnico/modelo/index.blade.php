@@ -13,7 +13,7 @@
                         <tr>
                             <th>Código</th>
                             <th>Nombre</th>
-                            <th>Estado</th>
+                            <th>Activo</th>
                         </tr>
                     </thead>
                 </table>

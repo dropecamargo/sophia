@@ -19,7 +19,7 @@ class Modelo extends BaseModel
 
     public $timestamps = false;
 
-  
+    
     /**
      * The attributes that are mass assignable.
      *
