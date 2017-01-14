@@ -14,7 +14,7 @@
 	</div>
 </script>
 
-{{-- templeates Administrado --}}
+{{-- templeates Administrador --}}
 
 <script type="text/template" id="add-estado-tpl">
 	<div class="row">
@@ -82,6 +82,9 @@
     	<div class="form-group col-md-2">
 			<label for="actividad_categoria" class="control-label">Categoria</label>
 			<input type="text" id="actividad_categoria" name="actividad_categoria" value="<%- actividad_categoria %>" placeholder="Categoria" class="form-control input-sm input-toupper" maxlength="3">
+		</div>
+	</div>
+</script>
 
 <script type="text/template" id="add-tipo-tpl">
 	<div class="row">
