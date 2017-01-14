@@ -39,6 +39,8 @@ Route::group(['middleware' => 'auth'], function()
 		Route::get('dv', ['as' => 'terceros.dv', 'uses' => 'Admin\TerceroController@dv']);
 		Route::get('rcree', ['as' => 'terceros.rcree', 'uses' => 'Admin\TerceroController@rcree']);
 		Route::get('search', ['as' => 'terceros.search', 'uses' => 'Admin\TerceroController@search']);
+
+		//Route::resource('contactos', 'Admin\ContactoController', ['only' => ['index', 'store', 'update']]);
 	});
 	Route::resource('terceros', 'Admin\TerceroController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'show']]);
 
@@ -46,16 +48,24 @@ Route::group(['middleware' => 'auth'], function()
 	Route::resource('departamentos', 'Admin\DepartamentoController', ['only' => ['index', 'show']]);
 	Route::resource('municipios', 'Admin\MunicipioController', ['only' => ['index']]);
 	Route::resource('sucursales', 'Admin\SucursalController', ['except' => ['destroy']]);
+	Route::resource('estados', 'Admin\EstadoController', ['except' => ['destroy']]);
 
 
 	/*
 	|-------------------------
-	| Tecnico Routes
+	| Inventario Routes
 	|-------------------------
 	*/
-	Route::resource('modelos','Tecnico\ModeloController', ['except' => ['destroy']]);
-	Route::resource('marcas', 'Tecnico\MarcaController', ['except' => ['destroy']]);
-	Route::resource('tipos', 'Tecnico\TipoController', ['except' => ['destroy']]);
-	Route::resource('estados', 'Admin\EstadoController', ['except' => ['destroy']]);
+	Route::resource('modelos','Inventario\ModeloController', ['except' => ['destroy']]);
+	Route::resource('marcas', 'Inventario\MarcaController', ['except' => ['destroy']]);
+	Route::resource('tipos', 'Inventario\TipoController', ['except' => ['destroy']]);
+	Route::resource('contadores', 'Inventario\ContadorController', ['except' => ['destroy']]);
+
+	/*
+	|-------------------------
+	| Tecnico
+	|-------------------------
+	*/
+	Route::resource('tiposorden', 'Tecnico\TipoOrdenController', ['except' => ['destroy']]);
 });
 

@@ -12,7 +12,14 @@ app || (app = {});
     app.AppRouter = new( Backbone.Router.extend({
 
         routes : {
+            //Login
             'login(/)': 'getLogin',
+
+            //Terceros
+            'terceros(/)': 'getTercerosMain',
+            'terceros/create(/)': 'getTercerosCreate',
+            'terceros/:tercero(/)': 'getTercerosShow',
+            'terceros/:tercero/edit(/)': 'getTercerosEdit',
 
             //Actividades
             'actividades(/)': 'getActividadesMain',
@@ -28,24 +35,30 @@ app || (app = {});
             'departamentos(/)': 'getDepartamentosMain',
             'municipios(/)': 'getMunicipiosMain',
 
-            // Tecnico
+            //Tecnico
             'marcas(/)': 'getMarcasMain',
             'marcas/create(/)': 'getMarcasCreate',
             'marcas/:marcas/edit(/)': 'getMarcasEdit',
 
+            //Tipos
             'tipos(/)': 'getTiposMain',
             'tipos/create(/)': 'getTiposCreate',
             'tipos/:tipos/edit(/)': 'getTiposEdit',
 
+            //Modelos
             'modelos(/)': 'getModelosMain',
             'modelos/create(/)': 'getModelosCreate',
             'modelos/:modelo/edit(/)': 'getModelosEdit',
 
-
+            //Estados
             'estados(/)': 'getEstadosMain',
             'estados/create(/)': 'getEstadosCreate',
             'estados/:modelo/edit(/)': 'getEstadosEdit',
 
+            //Contadores
+            'contadores(/)': 'getContadoresMain',
+            'contadores/create(/)': 'getContadoresCreate',
+            'contadores/:contadores/edit(/)': 'getContadoresEdit',
         },
 
         /**
@@ -108,6 +121,65 @@ app || (app = {});
             }
 
             this.loginView = new app.UserLoginView( );
+        },
+
+        /**
+        * show view main terceros
+        */
+        getTercerosMain: function () {
+
+            if ( this.mainTerceroView instanceof Backbone.View ){
+                this.mainTerceroView.stopListening();
+                this.mainTerceroView.undelegateEvents();
+            }
+
+            this.mainTerceroView = new app.MainTerceroView( );
+        },
+
+        /**
+        * show view create terceros
+        */
+        getTercerosCreate: function () {
+            this.terceroModel = new app.TerceroModel();
+
+            if ( this.createTerceroView instanceof Backbone.View ){
+                this.createTerceroView.stopListening();
+                this.createTerceroView.undelegateEvents();
+            }
+
+            this.createTerceroView = new app.CreateTerceroView({ model: this.terceroModel });
+            this.createTerceroView.render();
+        },
+
+        /**
+        * show view show tercero
+        */
+        getTercerosShow: function (tercero) {
+            this.terceroModel = new app.TerceroModel();
+            this.terceroModel.set({'id': tercero}, {'silent':true});
+
+            if ( this.showTerceroView instanceof Backbone.View ){
+                this.showTerceroView.stopListening();
+                this.showTerceroView.undelegateEvents();
+            }
+
+            this.showTerceroView = new app.ShowTerceroView({ model: this.terceroModel });
+        },
+
+        /**
+        * show view edit terceros
+        */
+        getTercerosEdit: function (tercero) {
+            this.terceroModel = new app.TerceroModel();
+            this.terceroModel.set({'id': tercero}, {'silent':true});
+
+            if ( this.createTerceroView instanceof Backbone.View ){
+                this.createTerceroView.stopListening();
+                this.createTerceroView.undelegateEvents();
+            }
+
+            this.createTerceroView = new app.CreateTerceroView({ model: this.terceroModel });
+            this.terceroModel.fetch();
         },
 
         /**
@@ -224,6 +296,41 @@ app || (app = {});
             this.mainMunicipioView = new app.MainMunicipioView( );
         },
 
+        getEstadosMain: function () {
+
+            if ( this.mainEstadoView instanceof Backbone.View ){
+                this.mainEstadoView.stopListening();
+                this.mainEstadoView.undelegateEvents();
+            }
+
+            this.mainEstadoView = new app.MainEstadosView( );
+        },
+
+        getEstadosCreate: function () {
+            this.estadoModel = new app.EstadoModel();
+
+            if ( this.createEstadoView instanceof Backbone.View ){
+                this.createEstadoView.stopListening();
+                this.createEstadoView.undelegateEvents();
+            }
+
+            this.createEstadoView = new app.CreateEstadoView({ model: this.estadoModel });
+            this.createEstadoView.render();
+        },
+
+        getEstadosEdit: function (estados) {
+            this.estadoModel = new app.EstadoModel();
+            this.estadoModel.set({'id': estados}, {'silent':true});
+
+            if ( this.createEstadoView instanceof Backbone.View ){
+                this.createEstadoView.stopListening();
+                this.createEstadoView.undelegateEvents();
+            }
+
+            this.createEstadoView = new app.CreateEstadoView({ model: this.estadoModel });
+            this.estadoModel.fetch();
+        },
+
         /**
         * show view main TECNICO
         */
@@ -332,41 +439,41 @@ app || (app = {});
             this.modeloModel.fetch();
         },
 
-        getEstadosMain: function () {
+        getContadoresMain: function () {
 
-            if ( this.mainEstadoView instanceof Backbone.View ){
-                this.mainEstadoView.stopListening();
-                this.mainEstadoView.undelegateEvents();
+            if ( this.mainContadorView instanceof Backbone.View ){
+                this.mainContadorView.stopListening();
+                this.mainContadorView.undelegateEvents();
             }
 
-            this.mainEstadoView = new app.MainEstadosView( );
+            this.mainContadorView = new app.MainContadoresView( );
         },
 
-        getEstadosCreate: function () {
-            this.estadoModel = new app.EstadoModel();
+        getContadoresCreate: function () {
+            this.contadorModel = new app.ContadorModel();
 
-            if ( this.createEstadoView instanceof Backbone.View ){
-                this.createEstadoView.stopListening();
-                this.createEstadoView.undelegateEvents();
+            if ( this.createContadorView instanceof Backbone.View ){
+                this.createContadorView.stopListening();
+                this.createContadorView.undelegateEvents();
             }
 
-            this.createEstadoView = new app.CreateEstadoView({ model: this.estadoModel });
-            this.createEstadoView.render();
+            this.createContadorView = new app.CreateContadorView({ model: this.contadorModel });
+            this.createContadorView.render();
         },
 
-        getEstadosEdit: function (estados) {
-            this.estadoModel = new app.EstadoModel();
-            this.estadoModel.set({'id': estados}, {'silent':true});
+        getContadoresEdit: function (contadores) {
+            this.contadorModel = new app.ContadorModel();
+            this.contadorModel.set({'id': contadores}, {'silent':true});
 
-            if ( this.createEstadoView instanceof Backbone.View ){
-                this.createEstadoView.stopListening();
-                this.createEstadoView.undelegateEvents();
+            if ( this.createContadorView instanceof Backbone.View ){
+                this.createContadorView.stopListening();
+                this.createContadorView.undelegateEvents();
             }
 
-            this.createEstadoView = new app.CreateEstadoView({ model: this.estadoModel });
-            this.estadoModel.fetch();
+            this.createContadorView = new app.CreateContadorView({ model: this.contadorModel });
+            this.contadorModel.fetch();
         },
-
+        
     }) );
 
 })(jQuery, this, this.document);

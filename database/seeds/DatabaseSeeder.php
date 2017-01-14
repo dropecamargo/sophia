@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call(TerceroTableSeeder::class);
-        $this->call(MarcaTableSeeder::class);
 
         Model::reguard();
     }

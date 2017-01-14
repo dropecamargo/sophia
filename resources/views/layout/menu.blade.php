@@ -5,7 +5,7 @@
     </li>
 
     {{-- Administracion --}}
-    <li class="treeview {{ in_array(Request::segment(1), ['empresa', 'terceros', 'actividades', 'municipios', 'departamentos', 'sucursales']) ? 'active' : '' }}">
+    <li class="treeview {{ in_array(Request::segment(1), ['empresa', 'terceros', 'actividades', 'municipios', 'departamentos', 'sucursales','estados']) ? 'active' : '' }}">
         <a href="{{ route('dashboard') }}">
             <i class="fa fa-cog"></i> <span>Administración</span><i class="fa fa-angle-left pull-right"></i>
         </a>
@@ -63,15 +63,15 @@
         </ul>
     </li>
 
-    {{-- Tecnico --}}
-    <li class="treeview {{ in_array(Request::segment(1), ['modelos','marcas','tipos']) ? 'active' : '' }}">
+    {{-- Inventario --}}
+    <li class="treeview {{ in_array(Request::segment(1), ['modelos','marcas','tipos','contadores']) ? 'active' : '' }}">
         <a href="#">
-            <i class="fa fa-cogs"></i> <span>Técnico</span><i class="fa fa-angle-left pull-right"></i>
+            <i class="fa fa-list"></i> <span>Inventario</span><i class="fa fa-angle-left pull-right"></i>
         </a>
 
         <ul class="treeview-menu">
             {{-- Referencias produccion --}}
-            <li class="{{ in_array(Request::segment(1), ['modelos','marcas','tipos']) ? 'active' : '' }}">
+            <li class="{{ in_array(Request::segment(1), ['modelos','marcas','tipos','contadores']) ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-circle-o"></i> Referencias <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -84,6 +84,30 @@
                     </li>
                     <li class="{{ Request::segment(1) == 'tipos' ? 'active' : '' }}">
                         <a href="{{ route('tipos.index') }}"><i class="fa fa-circle-o"></i> Tipos</a>
+                    </li>
+                    <li class="{{ Request::segment(1) == 'tipos' ? 'active' : '' }}">
+                        <a href="{{ route('contadores.index') }}"><i class="fa fa-circle-o"></i> Contadores</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+    {{-- Tecnico --}}
+    <li class="treeview {{ in_array(Request::segment(1), ['tiposorden']) ? 'active' : '' }}">
+        <a href="#">
+            <i class="fa fa-cogs"></i> <span>Tecnico</span><i class="fa fa-angle-left pull-right"></i>
+        </a>
+
+        <ul class="treeview-menu">
+            {{-- Referencias produccion --}}
+            <li class="{{ in_array(Request::segment(1), ['tiposorden']) ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-circle-o"></i> Referencias <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ Request::segment(1) == 'tiposorden' ? 'active' : '' }}">
+                        <a href="{{ route('tiposorden.index') }}"><i class="fa fa-circle-o"></i> Tipo de Orden</a>
                     </li>
                 </ul>
             </li>
