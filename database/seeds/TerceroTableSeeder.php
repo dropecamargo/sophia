@@ -17,12 +17,17 @@ class TerceroTableSeeder extends Seeder
             'tercero_tipo'   => 'CC',
             'tercero_regimen'   => 1,
             'tercero_persona'   => 'N',
-            'tercero_nombre1'   => 'Cristian',
-            'tercero_nombre2'   => 'Daniel',
+            'tercero_nombre1'   => 'Pedro',
+            'tercero_nombre2'   => 'Antonio',
             'tercero_apellido1'   => 'Camargo',
             'tercero_apellido2'   => 'Jimenez',
+            // 'tercero_actividad'   => 204,
+            'tercero_activo'   => true,
+            'tercero_interno'   => true,
+            'tercero_email'    => 'dropecamargo@gmail.com',
             'username'    => 'admin',
             'password' => bcrypt('admin')
         ]);
     }
-}
+ }
+

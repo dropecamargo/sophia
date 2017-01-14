@@ -10,9 +10,11 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+use App\Models\BaseModel;
+
 use Validator, DB;
 
-class Tercero extends Model implements AuthenticatableContract,
+class Tercero extends BaseModel implements AuthenticatableContract,
                                     AuthorizableContract,
                                     CanResetPasswordContract
 {
@@ -26,11 +28,79 @@ class Tercero extends Model implements AuthenticatableContract,
     protected $table = 'tercero';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['tercero_nit', 'tercero_digito', 'tercero_tipo', 'tercero_regimen', 'tercero_persona', 'tercero_nombre1', 'tercero_nombre2', 'tercero_apellido1', 'tercero_apellido2', 'tercero_razonsocial', 'tercero_direccion', 'tercero_municipio', 'tercero_direccion', 'tercero_email', 'tercero_representante', 'tercero_cc_representante', 'tercero_telefono1', 'tercero_telefono2', 'tercero_fax', 'tercero_celular', 'tercero_actividad', 'tercero_cual', 'username', 'password'];
+
+    /**
+     * The attributes that are mass boolean assignable.
+     *
+     * @var array
+     */
+    protected $boolean = ['tercero_activo', 'tercero_responsable_iva', 'tercero_autoretenedor_cree', 'tercero_gran_contribuyente', 'tercero_autoretenedor_renta', 'tercero_autoretenedor_ica', 'tercero_socio', 'tercero_cliente', 'tercero_acreedor', 'tercero_interno', 'tercero_mandatario', 'tercero_empleado', 'tercero_proveedor', 'tercero_extranjero', 'tercero_afiliado', 'tercero_otro'];
+
+    /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function isValid($data)
+    {
+        $rules = [
+            'tercero_nit' => 'required|max:15|min:1|unique:tercero',
+            'tercero_digito' => 'required',
+            'tercero_tipo' => 'required',
+            'tercero_regimen' => 'required',
+            'tercero_persona' => 'required',
+            'tercero_direccion' => 'required',
+            'tercero_municipio' => 'required',
+            'tercero_actividad' => 'required'
+        ];
+
+        if ($this->exists){
+            $rules['tercero_nit'] .= ',tercero_nit,' . $this->id;
+        }else{
+            $rules['tercero_nit'] .= '|required';
+        }
+
+        $validator = Validator::make($data, $rules);
+        if ($validator->passes())
+        {
+            if($data['tercero_persona'] == 'N') {
+                if(empty($data['tercero_nombre1'])) {
+                    $this->errors = trans('validation.required', ['attribute' => '1er. Nombre']);
+                    return false;
+                }
+                if(empty($data['tercero_apellido1'])) {
+                    $this->errors = trans('validation.required', ['attribute' => '1er. Apellido']);
+                    return false;
+                }
+            }else{
+                if(empty($data['tercero_razonsocial'])) {
+                    $this->errors = trans('validation.required', ['attribute' => 'Razón Social, Comercial o Establecimiento']);
+                    return false;
+                }
+            }
+            return true;
+        }
+        $this->errors = $validator->errors();
+        return false;
+    }
+
+    public static function getTercero($id)
+    {
+        $query = Tercero::query();
+        $query->select('tercero.*', 'actividad_nombre', 'actividad_tarifa', DB::raw("CONCAT(municipio_nombre, ' - ', departamento_nombre) as municipio_nombre"));
+        $query->leftJoin('actividad', 'tercero_actividad', '=', 'actividad.id');
+        $query->leftJoin('municipio', 'tercero_municipio', '=', 'municipio.id');
+        $query->leftJoin('departamento', 'municipio.departamento_codigo', '=', 'departamento.departamento_codigo');
+        $query->where('tercero.id', $id);
+        return $query->first();
+    }
 
     public function getName()
     {

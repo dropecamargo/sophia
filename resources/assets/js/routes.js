@@ -12,7 +12,14 @@ app || (app = {});
     app.AppRouter = new( Backbone.Router.extend({
 
         routes : {
+            //Login
             'login(/)': 'getLogin',
+
+            //Terceros
+            'terceros(/)': 'getTercerosMain',
+            'terceros/create(/)': 'getTercerosCreate',
+            'terceros/:tercero(/)': 'getTercerosShow',
+            'terceros/:tercero/edit(/)': 'getTercerosEdit',
 
             //Actividades
             'actividades(/)': 'getActividadesMain',
@@ -40,7 +47,6 @@ app || (app = {});
             'modelos(/)': 'getModelosMain',
             'modelos/create(/)': 'getModelosCreate',
             'modelos/:modelo/edit(/)': 'getModelosEdit',
-
 
             'estados(/)': 'getEstadosMain',
             'estados/create(/)': 'getEstadosCreate',
@@ -108,6 +114,65 @@ app || (app = {});
             }
 
             this.loginView = new app.UserLoginView( );
+        },
+
+        /**
+        * show view main terceros
+        */
+        getTercerosMain: function () {
+
+            if ( this.mainTerceroView instanceof Backbone.View ){
+                this.mainTerceroView.stopListening();
+                this.mainTerceroView.undelegateEvents();
+            }
+
+            this.mainTerceroView = new app.MainTerceroView( );
+        },
+
+        /**
+        * show view create terceros
+        */
+        getTercerosCreate: function () {
+            this.terceroModel = new app.TerceroModel();
+
+            if ( this.createTerceroView instanceof Backbone.View ){
+                this.createTerceroView.stopListening();
+                this.createTerceroView.undelegateEvents();
+            }
+
+            this.createTerceroView = new app.CreateTerceroView({ model: this.terceroModel });
+            this.createTerceroView.render();
+        },
+
+        /**
+        * show view show tercero
+        */
+        getTercerosShow: function (tercero) {
+            this.terceroModel = new app.TerceroModel();
+            this.terceroModel.set({'id': tercero}, {'silent':true});
+
+            if ( this.showTerceroView instanceof Backbone.View ){
+                this.showTerceroView.stopListening();
+                this.showTerceroView.undelegateEvents();
+            }
+
+            this.showTerceroView = new app.ShowTerceroView({ model: this.terceroModel });
+        },
+
+        /**
+        * show view edit terceros
+        */
+        getTercerosEdit: function (tercero) {
+            this.terceroModel = new app.TerceroModel();
+            this.terceroModel.set({'id': tercero}, {'silent':true});
+
+            if ( this.createTerceroView instanceof Backbone.View ){
+                this.createTerceroView.stopListening();
+                this.createTerceroView.undelegateEvents();
+            }
+
+            this.createTerceroView = new app.CreateTerceroView({ model: this.terceroModel });
+            this.terceroModel.fetch();
         },
 
         /**

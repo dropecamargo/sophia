@@ -6,7 +6,7 @@
 @stop
 
 @section('module')
-	<div class="box box-success">
+	<div class="box box-danger">
 		<div class="box-header with-border">
         	<div class="row">
 				<div class="col-md-2 col-sm-6 col-xs-6 text-left">
@@ -132,7 +132,6 @@
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#tab_contabilidad" data-toggle="tab">Contabilidad</a></li>
 							<li><a href="#tab_contactos" data-toggle="tab">Contactos</a></li>
-							<li><a href="#tab_proveedor" data-toggle="tab">Proveedor</a></li>
 						</ul>
 						<div class="tab-content">
 
@@ -260,7 +259,7 @@
 
 							{{-- Tab contactos --}}
 							<div class="tab-pane" id="tab_contactos">
-								<div class="box box-primary">
+								<div class="box box-danger">
 									<div class="box-body table-responsive no-padding">
 										<table id="browse-contact-list" class="table table-hover table-bordered" cellspacing="0" width="100%">
 								            <thead>
@@ -278,30 +277,7 @@
 									</div>
 								</div>
 							</div>
-
-							{{-- Tab proveedor --}}
-							<div class="tab-pane" id="tab_proveedor">
-								<div class="box box-primary">
-									<div class="box-body table-responsive no-padding">
-										<table id="browse-facturap-list" class="table table-hover table-bordered" cellspacing="0" width="100%">
-								            <thead>
-									            <tr>
-									                <th>Factura</th>
-									                <th>Cuota</th>
-									                <th>Expedición</th>
-									                <th>Vencimiento</th>
-									                <th>Valor</th>
-									                <th>Días</th>
-									            </tr>
-								           </thead>
-								           <tbody>
-												{{-- Render facturap list --}}
-								           </tbody>
-									    </table>
-									</div>
-								</div>
-							</div>
-
+							
 						</div>
 					</div>
 				</div>
