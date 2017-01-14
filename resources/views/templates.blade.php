@@ -32,7 +32,30 @@
     </div>
 </script>
 
-{{-- templeates Tecnicos --}}
+<script type="text/template" id="add-actividad-tpl">
+    <div class="row">
+		<div class="form-group col-md-2">
+			<label for="actividad_codigo" class="control-label">Código</label>
+			<input type="text" id="actividad_codigo" name="actividad_codigo" value="<%- actividad_codigo %>" placeholder="Código" class="form-control input-sm input-toupper" maxlength="11" required>
+		</div>
+		<div class="form-group col-md-8">
+			<label for="actividad_nombre" class="control-label">Nombre</label>
+			<input type="text" id="actividad_nombre" name="actividad_nombre" value="<%- actividad_nombre %>" placeholder="Nombre" class="form-control input-sm input-toupper" required>
+		</div>
+    </div>
+    <div class="row">
+		<div class="form-group col-md-2">
+			<label for="actividad_tarifa" class="control-label">% Cree</label>
+			<input type="text" id="actividad_tarifa" name="actividad_tarifa" value="<%- actividad_tarifa %>" placeholder="% Cree" class="form-control input-sm spinner-percentage" maxlength="4" required>
+		</div>
+    	<div class="form-group col-md-2">
+			<label for="actividad_categoria" class="control-label">Categoria</label>
+			<input type="text" id="actividad_categoria" name="actividad_categoria" value="<%- actividad_categoria %>" placeholder="Categoria" class="form-control input-sm input-toupper" maxlength="3">
+		</div>
+	</div>
+</script>
+
+{{-- templeates Inventarios --}}
 <script type="text/template" id="add-marca-tpl">
 	<div class="row">
 		<div class="form-group col-md-8">
@@ -62,30 +85,6 @@
 	</div>
 </script>
 
-
-<script type="text/template" id="add-actividad-tpl">
-    <div class="row">
-		<div class="form-group col-md-2">
-			<label for="actividad_codigo" class="control-label">Código</label>
-			<input type="text" id="actividad_codigo" name="actividad_codigo" value="<%- actividad_codigo %>" placeholder="Código" class="form-control input-sm input-toupper" maxlength="11" required>
-		</div>
-		<div class="form-group col-md-8">
-			<label for="actividad_nombre" class="control-label">Nombre</label>
-			<input type="text" id="actividad_nombre" name="actividad_nombre" value="<%- actividad_nombre %>" placeholder="Nombre" class="form-control input-sm input-toupper" required>
-		</div>
-    </div>
-    <div class="row">
-		<div class="form-group col-md-2">
-			<label for="actividad_tarifa" class="control-label">% Cree</label>
-			<input type="text" id="actividad_tarifa" name="actividad_tarifa" value="<%- actividad_tarifa %>" placeholder="% Cree" class="form-control input-sm spinner-percentage" maxlength="4" required>
-		</div>
-    	<div class="form-group col-md-2">
-			<label for="actividad_categoria" class="control-label">Categoria</label>
-			<input type="text" id="actividad_categoria" name="actividad_categoria" value="<%- actividad_categoria %>" placeholder="Categoria" class="form-control input-sm input-toupper" maxlength="3">
-		</div>
-	</div>
-</script>
-
 <script type="text/template" id="add-tipo-tpl">
 	<div class="row">
 		<div class="form-group col-md-1">
@@ -102,7 +101,37 @@
 			<br><label class="checkbox-inline" for="tipo_activo">
 				<input type="checkbox" id="tipo_activo" name="tipo_activo" value="tipo_activo" <%- tipo_activo ? 'checked': ''%>> Activo
 			</label>
+		</div>
+    </div>
+</script>
 
+<script type="text/template" id="add-contador-tpl">
+	<div class="row">
+		<div class="form-group col-md-8">
+			<label for="contador_nombre" class="control-label">Nombre</label>
+			<input type="text" id="contador_nombre" name="contador_nombre" value="<%- contador_nombre %>" placeholder="Contador" class="form-control input-sm input-toupper" maxlength="10" required>
+		</div>
+
+		<div class="form-group col-md-2 col-xs-8 col-sm-3">
+			<br><label class="checkbox-inline" for="contador_activo">
+				<input type="checkbox" id="contador_activo" name="contador_activo" value="contador_activo" <%- contador_activo ? 'checked': ''%>> Activo
+			</label>
+		</div>
+    </div>
+</script>
+
+{{-- templeates Tecnicos --}}
+<script type="text/template" id="add-tipoorden-tpl">
+	<div class="row">
+		<div class="form-group col-md-8">
+			<label for="tipoorden_nombre" class="control-label">Nombre</label>
+			<input type="text" id="tipoorden_nombre" name="tipoorden_nombre" value="<%- tipoorden_nombre %>" placeholder="tipoorden" class="form-control input-sm input-toupper" maxlength="200" required>
+		</div>
+
+		<div class="form-group col-md-2 col-xs-8 col-sm-3">
+			<br><label class="checkbox-inline" for="tipoorden_activo">
+				<input type="checkbox" id="tipoorden_activo" name="tipoorden_activo" value="tipoorden_activo" <%- tipoorden_activo ? 'checked': ''%>> Activo
+			</label>
 		</div>
     </div>
 </script>
