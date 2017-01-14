@@ -14,7 +14,7 @@
 	</div>
 </script>
 
-{{-- templeates Administrado --}}
+{{-- templeates Administrador --}}
 
 <script type="text/template" id="add-estado-tpl">
 	<div class="row">

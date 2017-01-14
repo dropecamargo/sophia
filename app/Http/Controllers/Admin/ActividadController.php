@@ -121,8 +121,6 @@ class ActividadController extends Controller
 
                     // Commit Transaction
                     DB::commit();
-                    // Forget cache
-                    Cache::forget( Actividad::$key_cache );
 
                     return response()->json(['success' => true, 'id' => $actividad->id]);
                 }catch(\Exception $e){
