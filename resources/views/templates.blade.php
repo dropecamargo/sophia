@@ -210,7 +210,7 @@
 	<div class="row">
 		<div class="form-group col-md-8">
 			<label for="tipoorden_nombre" class="control-label">Nombre</label>
-			<input type="text" id="tipoorden_nombre" name="tipoorden_nombre" value="<%- tipoorden_nombre %>" placeholder="tipoorden" class="form-control input-sm input-toupper" maxlength="200" required>
+			<input type="text" id="tipoorden_nombre" name="tipoorden_nombre" value="<%- tipoorden_nombre %>" placeholder="Tipo de Orden" class="form-control input-sm input-toupper" maxlength="200" required>
 		</div>
 
 		<div class="form-group col-md-2 col-xs-8 col-sm-3">

@@ -35,7 +35,7 @@ app || (app = {});
             'departamentos(/)': 'getDepartamentosMain',
             'municipios(/)': 'getMunicipiosMain',
 
-            //Tecnico
+            //Marcas
             'marcas(/)': 'getMarcasMain',
             'marcas/create(/)': 'getMarcasCreate',
             'marcas/:marcas/edit(/)': 'getMarcasEdit',
@@ -59,6 +59,11 @@ app || (app = {});
             'contadores(/)': 'getContadoresMain',
             'contadores/create(/)': 'getContadoresCreate',
             'contadores/:contadores/edit(/)': 'getContadoresEdit',
+
+            //Tipo de Orden
+            'tiposorden(/)': 'getTiposOrdenMain',
+            'tiposorden/create(/)': 'getTiposOrdenCreate',
+            'tiposorden/:tiposorden/edit(/)': 'getTiposOrdenEdit',
         },
 
         /**
@@ -332,7 +337,7 @@ app || (app = {});
         },
 
         /**
-        * show view main TECNICO
+        * show view main Inventario
         */
         getMarcasMain: function () {
 
@@ -473,6 +478,45 @@ app || (app = {});
             this.createContadorView = new app.CreateContadorView({ model: this.contadorModel });
             this.contadorModel.fetch();
         },
+
+
+
+        getTiposOrdenMain: function () {
+
+            if ( this.mainTipoOrdenView instanceof Backbone.View ){
+                this.mainTipoOrdenView.stopListening();
+                this.mainTipoOrdenView.undelegateEvents();
+            }
+
+            this.mainTipoOrdenView = new app.MainTiposOrdenView( );
+        },
+
+        getTiposOrdenCreate: function () {
+            this.tipoordenModel = new app.TipoOrdenModel();
+
+            if ( this.createTipoOrdenView instanceof Backbone.View ){
+                this.createTipoOrdenView.stopListening();
+                this.createTipoOrdenView.undelegateEvents();
+            }
+
+            this.createTipoOrdenView = new app.CreateTipoOrdenView({ model: this.tipoordenModel });
+            this.createTipoOrdenView.render();
+        },
+
+        getTiposOrdenEdit: function (tiposorden) {
+            this.tipoordenModel = new app.TipoOrdenModel();
+            this.tipoordenModel.set({'id': tiposorden}, {'silent':true});
+
+            if ( this.createTipoOrdenView instanceof Backbone.View ){
+                this.createTipoOrdenView.stopListening();
+                this.createTipoOrdenView.undelegateEvents();
+            }
+
+            this.createTipoOrdenView = new app.CreateTipoOrdenView({ model: this.tipoordenModel });
+            this.tipoordenModel.fetch();
+        },
+
+
         
     }) );
 

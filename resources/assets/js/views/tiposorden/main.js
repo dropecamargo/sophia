@@ -31,7 +31,7 @@ app || (app = {});
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'tipoorden_nombre', name: 'tipoorden_nombre' },
-                    { data: 'tiposorden_activo', name: 'tiposorden_activo'}
+                    { data: 'tipoorden_activo', name: 'tipoorden_activo'}
                 ],
                 buttons: [
                     {
