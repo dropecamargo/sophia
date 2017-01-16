@@ -24,7 +24,7 @@ app || (app = {});
             //Actividades
             'actividades(/)': 'getActividadesMain',
             'actividades/create(/)': 'getActividadesCreate',
-            'actividades/:actividad/edit(/)': 'getActividadesEdit', 
+            'actividades/:actividad/edit(/)': 'getActividadesEdit',
 
             //Sucursales
             'sucursales(/)': 'getSucursalesMain',
@@ -108,7 +108,7 @@ app || (app = {});
         start: function () {
             var config = { pushState: true };
 
-            if( document.domain.search("localhost") != '-1')
+            if( document.domain.search(/(104.236.57.82|localhost)/gi) != '-1' )
                 config.root = '/sophia/public/';
 
             Backbone.history.start( config );
@@ -479,8 +479,6 @@ app || (app = {});
             this.contadorModel.fetch();
         },
 
-
-
         getTiposOrdenMain: function () {
 
             if ( this.mainTipoOrdenView instanceof Backbone.View ){
@@ -515,8 +513,6 @@ app || (app = {});
             this.createTipoOrdenView = new app.CreateTipoOrdenView({ model: this.tipoordenModel });
             this.tipoordenModel.fetch();
         },
-
-
         
     }) );
 

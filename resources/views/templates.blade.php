@@ -112,7 +112,6 @@
 			<br><label class="checkbox-inline" for="estado_activo">
 				<input type="checkbox" id="estado_activo" name="estado_activo" value="estado_activo" <%- estado_activo ? 'checked': ''%>> Activo
 			</label>
-
 		</div>
     </div>
 </script>
