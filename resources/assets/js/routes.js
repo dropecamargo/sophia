@@ -10,7 +10,6 @@ app || (app = {});
 (function ($, window, document, undefined) {
 
     app.AppRouter = new( Backbone.Router.extend({
-
         routes : {
             //Login
             'login(/)': 'getLogin',

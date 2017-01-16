@@ -49,7 +49,7 @@ class Actividad extends Model
 
     public static function getActividades()
     {
-        if (Cache::has( self::$key_cache )) {
+        if ( Cache::has( self::$key_cache )) {
             return Cache::get( self::$key_cache );
         }
 

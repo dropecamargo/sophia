@@ -122,5 +122,52 @@ return [
             'Vía' => 'VIA',
             'ZN' => 'Zona'
         ]
+    ],
+
+    'contabilidad' => [
+        'plancuentas' => [
+            'naturaleza' => [
+                'D' => 'Débito',
+                'C' => 'Crédito'
+            ],
+            'tipo' => [
+                'N' => 'Ninguno',
+                'I' => 'Inventario',
+                'C' => 'Cartera',
+                'P' => 'Cuentas por pagar'
+            ],
+            'niveles' => [
+                '1' => 'Uno',
+                '2' => 'Dos',
+                '3' => 'Tres',
+                '4' => 'Cuatro',
+                '5' => 'Cinco',
+                '6' => 'Seis',
+                '7' => 'Siete',
+                '8' => 'Ocho'
+            ]
+        ],
+
+        'centrocosto' => [
+            'tipo' => [
+                'N' => 'Ninguno',
+                'O' => 'Orden',
+                'I' => 'Inventario'
+            ]
+        ],
+
+        'documento' => [
+            'consecutivo' => [
+                'A' => 'Automático',
+                'M' => 'Manual'
+            ]
+        ]
+    ],
+
+    'produccion' => [
+        'formaspago' => [
+            'CO' => 'Contado',
+            'CT' => 'Crédito'
+        ]
     ]
 ];
