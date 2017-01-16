@@ -112,7 +112,6 @@
 			<br><label class="checkbox-inline" for="estado_activo">
 				<input type="checkbox" id="estado_activo" name="estado_activo" value="estado_activo" <%- estado_activo ? 'checked': ''%>> Activo
 			</label>
-
 		</div>
     </div>
 </script>
@@ -210,7 +209,7 @@
 	<div class="row">
 		<div class="form-group col-md-8">
 			<label for="tipoorden_nombre" class="control-label">Nombre</label>
-			<input type="text" id="tipoorden_nombre" name="tipoorden_nombre" value="<%- tipoorden_nombre %>" placeholder="tipoorden" class="form-control input-sm input-toupper" maxlength="200" required>
+			<input type="text" id="tipoorden_nombre" name="tipoorden_nombre" value="<%- tipoorden_nombre %>" placeholder="Tipo de Orden" class="form-control input-sm input-toupper" maxlength="200" required>
 		</div>
 
 		<div class="form-group col-md-2 col-xs-8 col-sm-3">
