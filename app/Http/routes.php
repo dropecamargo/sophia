@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function()
 		Route::get('rcree', ['as' => 'terceros.rcree', 'uses' => 'Admin\TerceroController@rcree']);
 		Route::get('search', ['as' => 'terceros.search', 'uses' => 'Admin\TerceroController@search']);
 
-		//Route::resource('contactos', 'Admin\ContactoController', ['only' => ['index', 'store', 'update']]);
+		Route::resource('contactos', 'Admin\ContactoController', ['only' => ['index', 'store', 'update']]);
 	});
 	Route::resource('terceros', 'Admin\TerceroController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'show']]);
 

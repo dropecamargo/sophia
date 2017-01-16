@@ -19,11 +19,11 @@ class Municipio extends Model
 
     public static function getMunicipios()
     {
-        if (Cache::has('_municipios')) {
-            return Cache::get('_municipios');    
+        if (Cache::has('municipios')) {
+            return Cache::get('municipios');    
         }
 
-        return Cache::rememberForever('_municipios', function() {
+        return Cache::rememberForever('municipios', function() {
             $query = Municipio::query();
             $query->select('municipio.id', DB::raw("CONCAT(municipio_nombre, ' - ', departamento_nombre) as municipio_nombre"));
             $query->join('departamento', 'municipio.departamento_codigo', '=', 'departamento.departamento_codigo');
