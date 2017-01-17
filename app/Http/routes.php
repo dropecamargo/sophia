@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function()
 		Route::get('search', ['as' => 'terceros.search', 'uses' => 'Admin\TerceroController@search']);
 
 		Route::resource('contactos', 'Admin\ContactoController', ['only' => ['index', 'store', 'update']]);
+		
 	});
 	Route::resource('terceros', 'Admin\TerceroController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'show']]);
 
@@ -61,11 +62,14 @@ Route::group(['middleware' => 'auth'], function()
 	Route::resource('tipos', 'Inventario\TipoController', ['except' => ['destroy']]);
 	Route::resource('contadores', 'Inventario\ContadorController', ['except' => ['destroy']]);
 
+	
 	/*
 	|-------------------------
 	| Tecnico
 	|-------------------------
-	*/
+	*/	
 	Route::resource('tiposorden', 'Tecnico\TipoOrdenController', ['except' => ['destroy']]);
+	
+	
 });
 

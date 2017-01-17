@@ -110,6 +110,11 @@
                         <a href="{{ route('tiposorden.index') }}"><i class="fa fa-circle-o"></i> Tipo de Orden</a>
                     </li>
                 </ul>
+                 {{--<ul class="treeview-menu">
+                    <li class="{{ Request::segment(1) == 'contratos' ? 'active' : '' }}">
+                        <a href="{{ route('contratos.index') }}"><i class="fa fa-circle-o"></i> Contratos</a>
+                    </li>
+                </ul>--}}
             </li>
         </ul>
     </li>
