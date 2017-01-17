@@ -27,43 +27,47 @@
             </div>
 
             <div class="row">
-                <div class="form-group col-md-8">
+                <div class="form-group col-md-3">
                     <label class="control-label">Número De Contrato</label>
                     <div>{{ $contrato->contrato_numero }}</div>
             	</div>
 
-                <div class="form-group col-md-2 col-xs-8 col-sm-3">
-                    <label class="checkbox-inline" for="contrato_activo">
-                        <input type="checkbox" id="contrato_activo" name="contrato_activo" value="contrato_activo" disabled {{ $contrato->contrato_activo ? 'checked': '' }}> Activo
-                    </label>
+                <div class="form-group col-md-3">
+                    <label class="control-label">Contrato Tercero</label>
+                    <div> {{ $contrato->contrato_tercero }}</div>
                 </div>
+            
 
             </div>
 
-            <div class="row">
-              	<div class="form-group col-md-8">
-            		<label class="control-label">Contrato Tercero</label>
-            		<div> {{ $contrato->contrato_tercero }}</div>
-            	</div>
-            </div>
+            
 
             <div class="row">
-            	<div class="form-group col-md-8">
+            	<div class="form-group col-md-3">
             		<label class="control-label">Fecha Inicio</label>
             		<div>{{ $contrato->contrato_fecha }}</div>
             	</div>
 
-            	<div class="form-group col-md-8">
+            	<div class="form-group col-md-3"   >
             		<label class="control-label">Fecha De Vencimiento</label>
             		<div>{{ $contrato->contrato_vencimiento }}</div>
             	</div>
             </div>
 
             <div class="row">
-            	<div class="form-group col-md-8">
+
+              
+            	<div class="col-md-3">
             		<label class="control-label"> Condiciones </label>
             		<div>{{ $contrato->contrato_condiciones }}</div>
-            	</div>
+            	</div></br>
+
+                <div class="form-group col-md-3">
+                    <label class="checkbox-inline" for="contrato_activo">
+                        <input type="checkbox" id="contrato_activo" name="contrato_activo" value="contrato_activo" disabled {{ $contrato->contrato_activo ? 'checked': '' }}> Activo
+                    </label>
+                </div>
+
             </div>
 
         </div>

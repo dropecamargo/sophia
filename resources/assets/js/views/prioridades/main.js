@@ -1,5 +1,5 @@
 /**
-* Class MainContratoView
+* Class MainPrioridadesView
 * @author KOI || @dropecamargo
 * @link http://koi-ti.com
 */
@@ -9,40 +9,36 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.MainContratosView = Backbone.View.extend({
+    app.MainPrioridadesView = Backbone.View.extend({
 
-        el: '#contrato-main',
+        el: '#prioridades-main',
 
         /**
         * Constructor Method
         */
         initialize : function() {
 
-            this.$contratoSearchTable = this.$('#contrato-search-table');
+            this.$prioridadesSearchTable = this.$('#prioridades-search-table');
 
-            this.$contratoSearchTable.DataTable({
+            this.$prioridadesSearchTable.DataTable({
                 dom: "<'row'<'col-sm-4'B><'col-sm-4 text-center'l><'col-sm-4'f>>" +
                     "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 processing: true,
                 serverSide: true,
                 language: window.Misc.dataTableES(),
-                ajax: window.Misc.urlFull( Route.route('contratos.index') ),
+                ajax: window.Misc.urlFull( Route.route('prioridades.index') ),
                 columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'contrato_numero', name: 'contrato_numero' },
-                    { data: 'contrato_tercero', name: 'contrato_tercero' },
-                    { data: 'contrato_fecha', name: 'contrato_fecha' },
-                    { data: 'contrato_vencimiento', name: 'contrato_vencimiento' },
-                    { data: 'contrato_activo', name: 'contrato_activo' },
-                    { data: 'contrato_condiciones', name: 'contrato_condiciones'}
+                    { data: 'prioridad_nombre', name: 'prioridad_nombre' },
+                    { data: 'prioridad_activo', name: 'prioridad_activo'}
                 ],
                 buttons: [
                     {
-                        text: '<i class="fa fa-plus"></i> Nuevo contrato',
+                        text: '<i class="fa fa-plus"></i> Nueva prioridad',
                         className: 'btn-sm',
                         action: function ( e, dt, node, config ) {
-                            window.Misc.redirect( window.Misc.urlFull( Route.route('contratos.create') ) )
+                            window.Misc.redirect( window.Misc.urlFull( Route.route('prioridades.create') ) )
                         }
                     }
                 ],
@@ -51,11 +47,11 @@ app || (app = {});
                         targets: 0,
                         width: '10%',
                         render: function ( data, type, full, row ) {
-                            return '<a href="'+ window.Misc.urlFull( Route.route('contratos.show', {contratos: full.id }) )  +'">' + data + '</a>';
+                            return '<a href="'+ window.Misc.urlFull( Route.route('prioridades.show', {prioridades: full.id }) )  +'">' + data + '</a>';
                         }
                     },
                     {
-                        targets: 5  ,
+                        targets: 2,
                         width: '10%',
                         render: function ( data, type, full, row ) {
                             return data ? 'Si' : 'No';

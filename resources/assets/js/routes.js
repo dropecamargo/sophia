@@ -22,12 +22,7 @@ app || (app = {});
             'terceros(/)': 'getTercerosMain',
             'terceros/create(/)': 'getTercerosCreate',
             'terceros/:tercero(/)': 'getTercerosShow',
-            'terceros/:tercero/edit(/)': 'getTercerosEdit',
-
-            //Contratos
-            'contratos(/)': 'getContratosMain',
-            'contratos/create(/)': 'getContratosCreate',
-            
+            'terceros/:tercero/edit(/)': 'getTercerosEdit',            
 
             //Actividades
             'actividades(/)': 'getActividadesMain',
@@ -90,6 +85,15 @@ app || (app = {});
             'danos(/)': 'getDanosMain',
             'danos/create(/)': 'getDanosCreate',
             'danos/:danos/edit(/)': 'getDanosEdit',
+
+            //Contratos
+            'contratos(/)': 'getContratosMain',
+            'contratos/create(/)': 'getContratosCreate',
+
+            //Prioridad
+            'prioridades(/)': 'getPrioridadesMain',
+            'prioridades/create(/)': 'getPrioridadesCreate',
+            'prioridades/:prioridades/edit(/)': 'getPrioridadesEdit',
         },
 
         /**
@@ -204,20 +208,6 @@ app || (app = {});
 
             this.createTerceroView = new app.CreateTerceroView({ model: this.terceroModel });
             this.terceroModel.fetch();
-        },
-
-
-        /**
-        *show view main contratos
-        */
-
-        getContratosMain: function(){
-            if ( this.mainContratoView instanceof Backbone.View ){
-                this.mainContratoView.stopListening();
-                this.mainContratoView.undelegateEvents();
-            }
-
-            this.mainContratoView = new app.MainContratosView( );
         },
 
         /**
@@ -612,7 +602,50 @@ app || (app = {});
             this.danoModel.fetch();
         },
 
-        
+        // Prioridad
+        getPrioridadesMain: function () {
+
+            if ( this.mainPrioridadView instanceof Backbone.View ){
+                this.mainPrioridadView.stopListening();
+                this.mainPrioridadView.undelegateEvents();
+            }
+
+            this.mainPrioridadView = new app.MainPrioridadesView( );
+        },
+
+        getPrioridadesCreate: function () {
+            this.prioridadModel = new app.PrioridadModel();
+
+            if ( this.createPrioridadView instanceof Backbone.View ){
+                this.createPrioridadView.stopListening();
+                this.createPrioridadView.undelegateEvents();
+            }
+
+            this.createPrioridadView = new app.CreatePrioridadView({ model: this.prioridadModel });
+            this.createPrioridadView.render();
+        },
+
+        getPrioridadesEdit: function (prioridades) {
+            this.prioridadModel = new app.PrioridadModel();
+            this.prioridadModel.set({'id': prioridades}, {'silent':true});
+
+            if ( this.createPrioridadView instanceof Backbone.View ){
+                this.createPrioridadView.stopListening();
+                this.createPrioridadView.undelegateEvents();
+            }
+
+            this.createPrioridadView = new app.CreatePrioridadView({ model: this.prioridadModel });
+            this.prioridadModel.fetch();
+        },
+
+        //Contratos
+        getContratosMain: function(){
+            if ( this.mainContratoView instanceof Backbone.View ){
+                this.mainContratoView.stopListening();
+                this.mainContratoView.undelegateEvents();
+            }
+            this.mainContratoView = new app.MainContratosView( );
+        },    
     }) );
 
 })(jQuery, this, this.document);

@@ -72,5 +72,6 @@ Route::group(['middleware' => 'auth'], function()
 	Route::resource('solicitantes', 'Tecnico\SolicitanteController', ['except' => ['destroy']]);
 	Route::resource('danos', 'Tecnico\DanoController', ['except' => ['destroy']]);
 	Route::resource('contratos', 'Tecnico\ContratoController', ['except' => ['destroy']]);
+	Route::resource('prioridades', 'Tecnico\PrioridadController', ['except' => ['destroy']]);
 });
 

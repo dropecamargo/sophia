@@ -94,14 +94,20 @@
     </li>
 
     {{-- Tecnico --}}
-    <li class="treeview {{ in_array(Request::segment(1), ['tiposorden','solicitantes','danos']) ? 'active' : '' }}">
+    <li class="treeview {{ in_array(Request::segment(1), ['tiposorden','solicitantes','danos','contratos','prioridades']) ? 'active' : '' }}">
         <a href="#">
             <i class="fa fa-cogs"></i> <span>Tecnico</span><i class="fa fa-angle-left pull-right"></i>
         </a>
 
         <ul class="treeview-menu">
+        <li class="{{ Request::segment(1) == 'contratos' ? 'active' : '' }}">
+                        <a href="{{ route('contratos.index') }}"><i class="fa fa-briefcase"></i> Contratos</a>
+                    </li>
+        </ul>
+
+        <ul class="treeview-menu">
             {{-- Referencias produccion --}}
-            <li class="{{ in_array(Request::segment(1), ['tiposorden','solicitantes','danos']) ? 'active' : '' }}">
+            <li class="{{ in_array(Request::segment(1), ['tiposorden','solicitantes','danos','prioridades']) ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-circle-o"></i> Referencias <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -115,10 +121,8 @@
                     <li class="{{ Request::segment(1) == 'danos' ? 'active' : '' }}">
                         <a href="{{ route('danos.index') }}"><i class="fa fa-circle-o"></i> Daños</a>
                     </li>
-                </ul>
-                 <ul class="treeview-menu">
-                    <li class="{{ Request::segment(1) == 'contratos' ? 'active' : '' }}">
-                        <a href="{{ route('contratos.index') }}"><i class="fa fa-circle-o"></i> Contratos</a>
+                    <li class="{{ Request::segment(1) == 'prioridades' ? 'active' : '' }}">
+                        <a href="{{ route('prioridades.index') }}"><i class="fa fa-circle-o"></i> Prioridades</a>
                     </li>
                 </ul>
             </li>

@@ -54,9 +54,13 @@ class ContratoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $contrato = Contrato::findOrFail($id);
+        if($request->ajax()){
+            return response()->json($contrato);
+        }
+        return view('tecnico.contrato.show', ['contrato' => $contrato]);
     }
 
     /**
