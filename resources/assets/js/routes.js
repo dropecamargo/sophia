@@ -24,6 +24,11 @@ app || (app = {});
             'terceros/:tercero(/)': 'getTercerosShow',
             'terceros/:tercero/edit(/)': 'getTercerosEdit',
 
+            //Contratos
+            'contratos(/)': 'getContratosMain',
+            'contratos/create(/)': 'getContratosCreate',
+            
+
             //Actividades
             'actividades(/)': 'getActividadesMain',
             'actividades/create(/)': 'getActividadesCreate',
@@ -201,7 +206,23 @@ app || (app = {});
             this.terceroModel.fetch();
         },
 
-        // Actividades
+
+        /**
+        *show view main contratos
+        */
+
+        getContratosMain: function(){
+            if ( this.mainContratoView instanceof Backbone.View ){
+                this.mainContratoView.stopListening();
+                this.mainContratoView.undelegateEvents();
+            }
+
+            this.mainContratoView = new app.MainContratosView( );
+        },
+
+        /**
+        * show view main actividades
+        */
         getActividadesMain: function () {
 
             if ( this.mainActividadView instanceof Backbone.View ){
