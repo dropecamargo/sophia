@@ -1,6 +1,6 @@
 {{-- Js templates --}}
-{{--template Base--}}
 
+{{--template Base--}}
 <script type="text/template" id="add-contacto-tpl">
     <div class="row">
 		<div class="form-group col-md-4">
@@ -69,20 +69,6 @@
 			</div>
 		</div>
 	</div>
-</script>
-
-
-
-<script type="text/template" id="contact-item-list-tpl">
-	<td><%- tcontacto_nombres %> <%- tcontacto_apellidos %></td>
-	<td><%- tcontacto_direccion %></td>
-	<td><%- tcontacto_telefono %></td>
-	<td><%- tcontacto_celular %></td>
-	<!-- td class="text-center">
-		<a class="btn btn-default btn-xs btn-edit-tcontacto" data-resource="<%- id %>">
-			<span><i class="fa fa-pencil-square-o"></i></span>
-		</a>
-	</td -->
 </script>
 
 {{--template Sucursal--}}
@@ -220,6 +206,35 @@
     </div>
 </script>
 
+<script type="text/template" id="add-solicitante-tpl">
+	<div class="row">
+		<div class="form-group col-md-8">
+			<label for="solicitante_nombre" class="control-label">Nombre</label>
+			<input type="text" id="solicitante_nombre" name="solicitante_nombre" value="<%- solicitante_nombre %>" placeholder="Solicitante" class="form-control input-sm input-toupper" maxlength="200" required>
+		</div>
+
+		<div class="form-group col-md-2 col-xs-8 col-sm-3">
+			<br><label class="checkbox-inline" for="solicitante_activo">
+				<input type="checkbox" id="solicitante_activo" name="solicitante_activo" value="solicitante_activo" <%- solicitante_activo ? 'checked': ''%>> Activo
+			</label>
+		</div>
+    </div>
+</script>
+
+<script type="text/template" id="add-dano-tpl">
+	<div class="row">
+		<div class="form-group col-md-8">
+			<label for="dano_nombre" class="control-label">Nombre</label>
+			<input type="text" id="dano_nombre" name="dano_nombre" value="<%- dano_nombre %>" placeholder="Daño" class="form-control input-sm input-toupper" maxlength="200" required>
+		</div>
+
+		<div class="form-group col-md-2 col-xs-8 col-sm-3">
+			<br><label class="checkbox-inline" for="dano_activo">
+				<input type="checkbox" id="dano_activo" name="dano_activo" value="dano_activo" <%- dano_activo ? 'checked': ''%>> Activo
+			</label>
+		</div>
+    </div>
+</script>
 
 
 
@@ -395,7 +410,7 @@
 					{{-- Tab contabilidad --}}
 					<div class="tab-pane active" id="tab_contabilidad">
 	    	    	    <div class="row">
-					    	{{-- <div class="form-group col-md-10">
+					    {{--<div class="form-group col-md-10">
 					    		<label for="tercero_actividad" class="control-label">Actividad Económica</label>
 					    		<select name="tercero_actividad" id="tercero_actividad" class="form-control select2-default change-actividad-koi-component" required data-field="tercero_retecree">
 									@foreach( App\Models\Base\Actividad::getActividades() as $key => $value)
@@ -520,39 +535,40 @@
 
 					<% if( !_.isUndefined(tercero_nit) && !_.isNull(tercero_nit) && tercero_nit != ''){ %>
 						{{-- Tab contactos --}}
-						<div class="tab-pane" id="tab_contactos">
-
+						<d       iv class="tab-pane" id="tab_contactos">
 						    <div class="row">
+						    <!-- div class="row">
 								<div class="col-md-offset-4 col-md-4 col-sm-offset-2 col-sm-8 col-xs-12">
 									<button type="button" class="btn btn-primary btn-block btn-sm btn-add-tcontacto" data-resource="contacto" data-tercero="<%- id %>">
 										<i class="fa fa-user-plus"></i>  Nuevo contacto
 									</button>
 								</div>
 							</div>
-
-							<div class="box box-primary">
-								<div class="box-body table-responsive no-padding">
-									<table id="browse-contact-list" class="table table-hover table-bordered" cellspacing="0" width="100%">
-							            <thead>
-								            <tr>
-								                <th>Nombre</th>
-								                <th>Dirección</th>
-								                <th>Teléfono</th>
-								                <th>Celular</th>
-								            </tr>
-							           </thead>
-							           <tbody>
-											{{-- Render contact list --}}
-							           </tbody>
-									</table>
+							<br / -->
+								<div class="box box-primary">
+									<div class="box-body table-responsive no-padding">
+										<table id="browse-contact-list" class="table table-hover table-bordered" cellspacing="0" width="100%">
+							            	<thead>
+								            	<tr>
+								                	<th>Nombre</th>
+								                	<th>Dirección</th>
+								                	<th>Teléfono</th>
+								                	<th>Celular</th>
+								            	</tr>
+							           		</thead>
+							         		<tbody>
+												{{-- Render contact list --}}
+							           		</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
-						</div>
-					<% } %>
+						<% } %>
+					</div>
 				</div>
 			</div>
-		</div>
-    </div>
+    	</div>
+	</div>
 </script>
 
 <script type="text/template" id="contact-item-list-tpl">
@@ -566,3 +582,4 @@
 		</a>
 	</td -->
 </script>
+

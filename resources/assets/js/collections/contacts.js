@@ -22,5 +22,4 @@ app || (app = {});
         initialize : function(){
         }
    });
-
 })(this, this.document);

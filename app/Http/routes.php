@@ -67,5 +67,7 @@ Route::group(['middleware' => 'auth'], function()
 	|-------------------------
 	*/
 	Route::resource('tiposorden', 'Tecnico\TipoOrdenController', ['except' => ['destroy']]);
+	Route::resource('solicitantes', 'Tecnico\SolicitanteController', ['except' => ['destroy']]);
+	Route::resource('danos', 'Tecnico\DanoController', ['except' => ['destroy']]);
 });
 

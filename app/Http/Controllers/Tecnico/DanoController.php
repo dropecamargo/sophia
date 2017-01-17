@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tecnico;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use DB, Log, Datatables, Cache;
+use DB, Log, Datatables;
 
-use App\Models\Base\Actividad;
+use App\Models\Tecnico\Dano;
 
-class ActividadController extends Controller
+class DanoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,10 +20,11 @@ class ActividadController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            return Datatables::of(Actividad::query())->make(true);
+        if($request->ajax()){
+            $query = Dano::query();
+            return Datatables::of($query)->make(true);
         }
-        return view('admin.actividades.index');
+        return view('tecnico.dano.index');
     }
 
     /**
@@ -33,7 +34,7 @@ class ActividadController extends Controller
      */
     public function create()
     {
-        return view('admin.actividades.create');
+        return view('tecnico.dano.create');
     }
 
     /**
@@ -47,27 +48,25 @@ class ActividadController extends Controller
         if ($request->ajax()) {
             $data = $request->all();
 
-            $actividad = new Actividad;
-            if ($actividad->isValid($data)) {
+            $dano = new Dano;
+            if ($dano->isValid($data)) {
                 DB::beginTransaction();
                 try {
-                    // Actividad
-                    $actividad->fill($data);
-                    $actividad->save();
+                    // daños
+                    $dano->fill($data);
+                    $dano->fillBoolean($data);
+                    $dano->save();
 
                     // Commit Transaction
                     DB::commit();
-                    //Forget cache
-                    //Cache::forget( Actividad::$key_cache );
-
-                    return response()->json(['success' => true, 'id' => $actividad->id]);
+                    return response()->json(['success' => true, 'id' => $dano->id]);
                 }catch(\Exception $e){
                     DB::rollback();
                     Log::error($e->getMessage());
                     return response()->json(['success' => false, 'errors' => trans('app.exception')]);
                 }
             }
-            return response()->json(['success' => false, 'errors' => $actividad->errors]);
+            return response()->json(['success' => false, 'errors' => $dano->errors]);
         }
         abort(403);
     }
@@ -80,11 +79,11 @@ class ActividadController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $actividad = Actividad::findOrFail($id);
-        if ($request->ajax()) {
-            return response()->json($actividad);
+        $dano = Dano::findOrFail($id);
+        if($request->ajax()){
+            return response()->json($dano);
         }
-        return view('admin.actividades.show', ['actividad' => $actividad]);
+        return view('tecnico.dano.show', ['dano' => $dano]);
     }
 
     /**
@@ -95,8 +94,8 @@ class ActividadController extends Controller
      */
     public function edit($id)
     {
-        $actividad = Actividad::findOrFail($id);
-        return view('admin.actividades.edit', ['actividad' => $actividad]);
+        $dano = Dano::findOrFail($id);
+        return view('tecnico.dano.edit', ['dano' => $dano]);
     }
 
     /**
@@ -110,26 +109,25 @@ class ActividadController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
-            $actividad = Actividad::findOrFail($id);
-            if ($actividad->isValid($data)) {
+            $dano = Dano::findOrFail($id);
+            if ($dano->isValid($data)) {
                 DB::beginTransaction();
                 try {
-                    // Actividad
-                    $actividad->fill($data);
-                    $actividad->save();
-
+                    // daños
+                    $dano->fill($data);
+                    $dano->fillBoolean($data);
+                    $dano->save();
                     // Commit Transaction
                     DB::commit();
-
-                    return response()->json(['success' => true, 'id' => $actividad->id]);
+                    
+                    return response()->json(['success' => true, 'id' => $dano->id]);
                 }catch(\Exception $e){
                     DB::rollback();
                     Log::error($e->getMessage());
                     return response()->json(['success' => false, 'errors' => trans('app.exception')]);
                 }
             }
-            return response()->json(['success' => false, 'errors' => $actividad->errors]);
+            return response()->json(['success' => false, 'errors' => $dano->errors]);
         }
         abort(403);
     }

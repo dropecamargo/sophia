@@ -21,8 +21,7 @@ app || (app = {});
             if( this.model.id != undefined ) {
 
                 this.contactsList = new app.ContactsList();
-                this.facturaptList = new app.FacturaptList();
-
+                
                 // Reference views
                 this.referenceViews();
             }
@@ -42,15 +41,6 @@ app || (app = {});
                }
             });
 
-            // Facturap list
-            this.facturaptListView = new app.FacturaptListView( {
-                collection: this.facturaptList,
-                parameters: {
-                    dataFilter: {
-                        'tercero_id': this.model.get('id')
-                    }
-               }
-            });
         }
     });
 

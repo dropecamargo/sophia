@@ -13,6 +13,10 @@ app || (app = {});
         routes : {
             //Login
             'login(/)': 'getLogin',
+            
+            /*-------------------------
+            | Administracion
+            /*-----------------------*/
 
             //Terceros
             'terceros(/)': 'getTercerosMain',
@@ -34,6 +38,15 @@ app || (app = {});
             'departamentos(/)': 'getDepartamentosMain',
             'municipios(/)': 'getMunicipiosMain',
 
+            //Estados
+            'estados(/)': 'getEstadosMain',
+            'estados/create(/)': 'getEstadosCreate',
+            'estados/:modelo/edit(/)': 'getEstadosEdit',
+
+            /*--------------
+            | Inventario
+            /*-------------*/
+
             //Marcas
             'marcas(/)': 'getMarcasMain',
             'marcas/create(/)': 'getMarcasCreate',
@@ -49,20 +62,29 @@ app || (app = {});
             'modelos/create(/)': 'getModelosCreate',
             'modelos/:modelo/edit(/)': 'getModelosEdit',
 
-            //Estados
-            'estados(/)': 'getEstadosMain',
-            'estados/create(/)': 'getEstadosCreate',
-            'estados/:modelo/edit(/)': 'getEstadosEdit',
-
             //Contadores
             'contadores(/)': 'getContadoresMain',
             'contadores/create(/)': 'getContadoresCreate',
             'contadores/:contadores/edit(/)': 'getContadoresEdit',
 
+            /*--------------
+            | Tecnico
+            /*-------------*/
+
             //Tipo de Orden
             'tiposorden(/)': 'getTiposOrdenMain',
             'tiposorden/create(/)': 'getTiposOrdenCreate',
             'tiposorden/:tiposorden/edit(/)': 'getTiposOrdenEdit',
+
+            //Solicitante
+            'solicitantes(/)': 'getSolicitantesMain',
+            'solicitantes/create(/)': 'getSolicitantesCreate',
+            'solicitantes/:solicitantes/edit(/)': 'getSolicitantesEdit',
+
+            //Daño
+            'danos(/)': 'getDanosMain',
+            'danos/create(/)': 'getDanosCreate',
+            'danos/:danos/edit(/)': 'getDanosEdit',
         },
 
         /**
@@ -127,9 +149,11 @@ app || (app = {});
             this.loginView = new app.UserLoginView( );
         },
 
-        /**
-        * show view main terceros
-        */
+        /*------------------------
+        | Administracion
+        /*-----------------------*/
+
+        // Tercero
         getTercerosMain: function () {
 
             if ( this.mainTerceroView instanceof Backbone.View ){
@@ -140,9 +164,6 @@ app || (app = {});
             this.mainTerceroView = new app.MainTerceroView( );
         },
 
-        /**
-        * show view create terceros
-        */
         getTercerosCreate: function () {
             this.terceroModel = new app.TerceroModel();
 
@@ -155,9 +176,6 @@ app || (app = {});
             this.createTerceroView.render();
         },
 
-        /**
-        * show view show tercero
-        */
         getTercerosShow: function (tercero) {
             this.terceroModel = new app.TerceroModel();
             this.terceroModel.set({'id': tercero}, {'silent':true});
@@ -170,9 +188,6 @@ app || (app = {});
             this.showTerceroView = new app.ShowTerceroView({ model: this.terceroModel });
         },
 
-        /**
-        * show view edit terceros
-        */
         getTercerosEdit: function (tercero) {
             this.terceroModel = new app.TerceroModel();
             this.terceroModel.set({'id': tercero}, {'silent':true});
@@ -186,9 +201,7 @@ app || (app = {});
             this.terceroModel.fetch();
         },
 
-        /**
-        * show view main actividades
-        */
+        // Actividades
         getActividadesMain: function () {
 
             if ( this.mainActividadView instanceof Backbone.View ){
@@ -199,9 +212,6 @@ app || (app = {});
             this.mainActividadView = new app.MainActividadView( );
         },
 
-        /**
-        * show view create actividades
-        */
         getActividadesCreate: function () {
             this.actividadModel = new app.ActividadModel();
 
@@ -214,9 +224,6 @@ app || (app = {});
             this.createActividadView.render();
         },
 
-        /**
-        * show view edit actividades
-        */
         getActividadesEdit: function (actividad) {
             this.actividadModel = new app.ActividadModel();
             this.actividadModel.set({'id': actividad}, {silent: true});
@@ -230,9 +237,7 @@ app || (app = {});
             this.actividadModel.fetch();
         },
 
-        /**
-        * show view main sucursales
-        */
+        // Sucursales
         getSucursalesMain: function () {
 
             if ( this.mainSucursalesView instanceof Backbone.View ){
@@ -243,9 +248,6 @@ app || (app = {});
             this.mainSucursalesView = new app.MainSucursalesView( );
         },
 
-        /**
-        * show view create sucursales
-        */
         getSucursalesCreate: function () {
             this.sucursalModel = new app.SucursalModel();
 
@@ -258,9 +260,6 @@ app || (app = {});
             this.createSucursalView.render();
         },
 
-        /**
-        * show view edit sucursales
-        */
         getSucursalesEdit: function (sucursal) {
             this.sucursalModel = new app.SucursalModel();
             this.sucursalModel.set({'id': sucursal}, {silent: true});
@@ -274,9 +273,7 @@ app || (app = {});
             this.sucursalModel.fetch();
         },
 
-         /**
-        * show view main departamentos
-        */
+        // Vistas de Departamentos
         getDepartamentosMain: function () {
 
             if ( this.mainDepartamentoView instanceof Backbone.View ){
@@ -287,9 +284,7 @@ app || (app = {});
             this.mainDepartamentoView = new app.MainDepartamentoView( );
         },
 
-        /**
-        * show view main municipios
-        */
+        // Vistas de Municipios
         getMunicipiosMain: function () {
 
             if ( this.mainMunicipioView instanceof Backbone.View ){
@@ -300,6 +295,7 @@ app || (app = {});
             this.mainMunicipioView = new app.MainMunicipioView( );
         },
 
+        // Estados
         getEstadosMain: function () {
 
             if ( this.mainEstadoView instanceof Backbone.View ){
@@ -335,9 +331,11 @@ app || (app = {});
             this.estadoModel.fetch();
         },
 
-        /**
-        * show view main Inventario
-        */
+        /*------------------------
+        | Inventario
+        /*----------------------*/
+
+        // Marca
         getMarcasMain: function () {
 
             if ( this.mainMarcaView instanceof Backbone.View ){
@@ -373,6 +371,7 @@ app || (app = {});
             this.marcaModel.fetch();
         },
 
+        // Tipo
         getTiposMain: function () {
 
             if ( this.mainTipoView instanceof Backbone.View ){
@@ -408,6 +407,7 @@ app || (app = {});
             this.tipoModel.fetch();
         },
 
+        // Modelo
         getModelosMain: function () {
 
             if ( this.mainModeloView instanceof Backbone.View ){
@@ -443,6 +443,7 @@ app || (app = {});
             this.modeloModel.fetch();
         },
 
+        // Contador
         getContadoresMain: function () {
 
             if ( this.mainContadorView instanceof Backbone.View ){
@@ -478,6 +479,11 @@ app || (app = {});
             this.contadorModel.fetch();
         },
 
+        /*---------------------
+        | Tecnicos
+        /*--------------------*/
+
+        // Tipo de Orden
         getTiposOrdenMain: function () {
 
             if ( this.mainTipoOrdenView instanceof Backbone.View ){
@@ -512,6 +518,79 @@ app || (app = {});
             this.createTipoOrdenView = new app.CreateTipoOrdenView({ model: this.tipoordenModel });
             this.tipoordenModel.fetch();
         },
+
+        // Solicitante
+        getSolicitantesMain: function () {
+
+            if ( this.mainSolicitanteView instanceof Backbone.View ){
+                this.mainSolicitanteView.stopListening();
+                this.mainSolicitanteView.undelegateEvents();
+            }
+
+            this.mainSolicitanteView = new app.MainSolicitantesView( );
+        },
+
+        getSolicitantesCreate: function () {
+            this.solicitanteModel = new app.SolicitanteModel();
+
+            if ( this.createSolicitanteView instanceof Backbone.View ){
+                this.createSolicitanteView.stopListening();
+                this.createSolicitanteView.undelegateEvents();
+            }
+
+            this.createSolicitanteView = new app.CreateSolicitanteView({ model: this.solicitanteModel });
+            this.createSolicitanteView.render();
+        },
+
+        getSolicitantesEdit: function (solicitantes) {
+            this.solicitanteModel = new app.SolicitanteModel();
+            this.solicitanteModel.set({'id': solicitantes}, {'silent':true});
+
+            if ( this.createSolicitanteView instanceof Backbone.View ){
+                this.createSolicitanteView.stopListening();
+                this.createSolicitanteView.undelegateEvents();
+            }
+
+            this.createSolicitanteView = new app.CreateSolicitanteView({ model: this.solicitanteModel });
+            this.solicitanteModel.fetch();
+        },
+
+        // Daños
+        getDanosMain: function () {
+
+            if ( this.mainDanoView instanceof Backbone.View ){
+                this.mainDanoView.stopListening();
+                this.mainDanoView.undelegateEvents();
+            }
+
+            this.mainDanoView = new app.MainDanosView( );
+        },
+
+        getDanosCreate: function () {
+            this.danoModel = new app.DanoModel();
+
+            if ( this.createDanoView instanceof Backbone.View ){
+                this.createDanoView.stopListening();
+                this.createDanoView.undelegateEvents();
+            }
+
+            this.createDanoView = new app.CreateDanoView({ model: this.danoModel });
+            this.createDanoView.render();
+        },
+
+        getDanosEdit: function (danos) {
+            this.danoModel = new app.DanoModel();
+            this.danoModel.set({'id': danos}, {'silent':true});
+
+            if ( this.createDanoView instanceof Backbone.View ){
+                this.createDanoView.stopListening();
+                this.createDanoView.undelegateEvents();
+            }
+
+            this.createDanoView = new app.CreateDanoView({ model: this.danoModel });
+            this.danoModel.fetch();
+        },
+
         
     }) );
 

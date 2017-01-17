@@ -94,20 +94,26 @@
     </li>
 
     {{-- Tecnico --}}
-    <li class="treeview {{ in_array(Request::segment(1), ['tiposorden']) ? 'active' : '' }}">
+    <li class="treeview {{ in_array(Request::segment(1), ['tiposorden','solicitantes','danos']) ? 'active' : '' }}">
         <a href="#">
             <i class="fa fa-cogs"></i> <span>Tecnico</span><i class="fa fa-angle-left pull-right"></i>
         </a>
 
         <ul class="treeview-menu">
             {{-- Referencias produccion --}}
-            <li class="{{ in_array(Request::segment(1), ['tiposorden']) ? 'active' : '' }}">
+            <li class="{{ in_array(Request::segment(1), ['tiposorden','solicitantes','danos']) ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-circle-o"></i> Referencias <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="{{ Request::segment(1) == 'tiposorden' ? 'active' : '' }}">
                         <a href="{{ route('tiposorden.index') }}"><i class="fa fa-circle-o"></i> Tipo de Orden</a>
+                    </li>
+                    <li class="{{ Request::segment(1) == 'solicitantes' ? 'active' : '' }}">
+                        <a href="{{ route('solicitantes.index') }}"><i class="fa fa-circle-o"></i> Solicitantes</a>
+                    </li>
+                    <li class="{{ Request::segment(1) == 'danos' ? 'active' : '' }}">
+                        <a href="{{ route('danos.index') }}"><i class="fa fa-circle-o"></i> Daños</a>
                     </li>
                 </ul>
             </li>

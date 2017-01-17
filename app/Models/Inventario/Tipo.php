@@ -44,7 +44,7 @@ class Tipo extends BaseModel
         if($this->exists){
             $rules['tipo_codigo'] .= ',tipo_codigo,' . $this->id;
         }else{
-            $rules['tipo_codigo'] .= '|required';
+            $rules['tipo_codigo'] .= 'required';
         }
 
         $validator = Validator::make($data, $rules);
