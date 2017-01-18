@@ -54,7 +54,7 @@ app || (app = {});
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
 
-            this.$form = this.$('#form-ordenes');
+            this.$form = this.$('#form-contratos');
 
             // Model exist
             if( this.model.id != undefined ) {
@@ -195,7 +195,7 @@ app || (app = {});
                 }
 
                 // Redirect to edit orden
-                Backbone.history.navigate(Route.route('ordenes.edit', { ordenes: resp.id}), { trigger:true });
+                Backbone.history.navigate(Route.route('contratos.edit', { contratos: resp.id}), { trigger:true });
             }
         }
     });
