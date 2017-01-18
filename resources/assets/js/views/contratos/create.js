@@ -59,7 +59,7 @@ app || (app = {});
 
         /**
         * reference to views
-        */
+        
         referenceViews: function () {
             // Productos list
             this.productopOrdenListView = new app.ProductopOrdenListView( {
