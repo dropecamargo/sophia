@@ -425,14 +425,14 @@
 					{{-- Tab contabilidad --}}
 					<div class="tab-pane active" id="tab_contabilidad">
 	    	    	    <div class="row">
-					    {{--<div class="form-group col-md-10">
+					    <div class="form-group col-md-10">
 					    		<label for="tercero_actividad" class="control-label">Actividad Económica</label>
 					    		<select name="tercero_actividad" id="tercero_actividad" class="form-control select2-default change-actividad-koi-component" required data-field="tercero_retecree">
 									@foreach( App\Models\Base\Actividad::getActividades() as $key => $value)
 										<option value="{{ $key }}" <%- tercero_actividad == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
 									@endforeach
 								</select>
-					    	</div> --}}
+					    	</div>
 					    	<div class="form-group col-md-2">
 					    		<label for="tercero_retecree" class="control-label">% Cree</label>
 					    		<div id="tercero_retecree"><%- actividad_tarifa %></div>
