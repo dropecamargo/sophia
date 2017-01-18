@@ -47,7 +47,7 @@
                                                 <i class="fa fa-paper-plane"></i>
                                             </div>
                                             
-                                            <input id="contrato_numero" value="<%- contrato_numero %>" placeholder="Número Contrato" class="form-control  input-sm input-toupper" name="contrato_numero" type="text" maxlength="200" required>
+                                            <input id="contrato_numero" value="<%- contrato_numero %>" placeholder="Número Contrato" class="form-control  input-sm input-toupper" name="contrato_numero" type=text maxlength="200" required>
                                         </div>
                                         
                                         
@@ -79,7 +79,7 @@
                                      <input type="checkbox" id="contrato_activo" name="contrato_activo" value="contrato_activo" <%- contrato_activo ? 'checked': ''%>> <b>Activo</b>
                                     </label>
                                 </div>                         
-                    
+                                
                                 </form><br/>    
 
                                 <div class="row">
@@ -87,7 +87,7 @@
                                         <a href="{{ route('contratos.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
                                     </div>
                                     <div class="col-md-2 col-sm-6 col-xs-6">
-                                        <button type="button" class="btn btn-primary btn-sm btn-block submit-contrato">{{ trans('app.save') }}</button>
+                                        <button type="submit" class="btn btn-primary btn-sm btn-block ">{{ trans('app.save') }}</button>
                                     </div>
                                 </div>
                                 <br/>

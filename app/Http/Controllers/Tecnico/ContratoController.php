@@ -80,10 +80,10 @@ class ContratoController extends Controller
     public function show(Request $request, $id)
     {
 
-        /*$contrato = Contrato::findOrFail($id);
+        $contrato = Contrato::findOrFail($id);
         if($request->ajax()){
             return response()->json($contrato);
-        }*/
+        }
         return view('tecnico.contrato.show', ['contrato' => $contrato]);
     }
 
@@ -95,8 +95,8 @@ class ContratoController extends Controller
      */
     public function edit($id)
     {
-        //
-    }
+        $contrato = Contrato::findOrFail($id);
+        return view('tecnico.contrato.edit', ['contrato' => $contrato]);    }
 
     /**
      * Update the specified resource in storage.

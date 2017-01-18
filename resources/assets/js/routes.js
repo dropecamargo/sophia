@@ -90,6 +90,7 @@ app || (app = {});
             //Contratos
             'contratos(/)': 'getContratosMain',
             'contratos/create(/)': 'getContratosCreate',
+            'contratos/:contratos/edit(/)': 'getContratosEdit',
 
             //Prioridad
             'prioridades(/)': 'getPrioridadesMain',
@@ -667,7 +668,20 @@ app || (app = {});
             this.createContratoView = new app.CreateContratoView({ model: this.contratoModel });
 
             this.createContratoView.render();
-        },    
+        },  
+
+         getContratosEdit: function (contratos) {
+            this.contratoModel = new app.ContactoModel();
+            this.contratoModel.set({'id': contratos}, {'silent':true});
+
+            if ( this.createContratoView instanceof Backbone.View ){
+                this.createContratoView.stopListening();
+                this.createContratoView.undelegateEvents();
+            }
+
+            this.createContratoView = new app.CreateContratoView({ model: this.contratoModel });
+            this.contratoModel.fetch();
+        },  
        
     }) );
 
