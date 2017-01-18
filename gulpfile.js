@@ -49,6 +49,7 @@ elixir(function(mix) {
         paths.libs + 'datatables.net/js/jquery.dataTables.min.js',
         paths.libs + 'datatables.net-bs/js/dataTables.bootstrap.min.js',
         paths.libs + 'datatables.net-buttons/js/buttons.html5.js',
+        paths.libs + 'jquery.inputmask/dist/jquery.inputmask.bundle.js',
         paths.libs + 'datatables.net-buttons/js/dataTables.buttons.js',
         paths.libs + 'datatables.net-buttons-bs/js/buttons.bootstrap.min.js',
         paths.libs + 'accounting.js/accounting.min.js',
