@@ -22,7 +22,7 @@ class Contrato extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['contrato_numero,contrato_tercero','contrato_fecha','contrato_vencimiento','contrato_text'];
+    protected $fillable = ['contrato_numero','contrato_tercero','contrato_fecha','contrato_vencimiento','contrato_text'];
 
     protected $boolean = ['contrato_activo'];
 

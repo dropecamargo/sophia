@@ -1,7 +1,7 @@
 @extends('tecnico.contrato.main')
 
 @section('breadcrumb')
-    <li><a href="{{ route('contratos.index')}}">Ordenes</a></li>
+    <li><a href="{{ route('contratos.index')}}">Contrato</a></li>
 	<li class="active">Nuevo</li>
 @stop
 

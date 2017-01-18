@@ -646,9 +646,16 @@ app || (app = {});
                 this.mainContratoView.undelegateEvents();
             }
             this.mainContratoView = new app.MainContratosView( );
-        }, 
+
+        },
+
+        /**
+        * show view create Contratos
+        */
+
 
        getContratosCreate:function(){ 
+
 
             this.contratoModel = new app.ContratoModel();
 
@@ -658,8 +665,10 @@ app || (app = {});
             }
 
             this.createContratoView = new app.CreateContratoView({ model: this.contratoModel });
-            this.createContratoView.render();   
-        },
+
+            this.createContratoView.render();
+        },    
+       
     }) );
 
 })(jQuery, this, this.document);

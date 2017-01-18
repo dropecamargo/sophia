@@ -37,7 +37,7 @@ var app = app || {};
             this.initAlertify();
             this.initSelect2();
             this.initToUpper();
-            this.initInputMask();
+            //this.initInputMask();
             this.initDatePicker();
         },
 
