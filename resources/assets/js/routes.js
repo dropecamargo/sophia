@@ -645,6 +645,21 @@ app || (app = {});
                 this.mainContratoView.undelegateEvents();
             }
             this.mainContratoView = new app.MainContratosView( );
+        },
+
+        /**
+        * show view create Contratos
+        */
+        getContratosCreate: function () {
+            this.contratoModel = new app.ContratoModel();
+
+            if ( this.createContratoView instanceof Backbone.View ){
+                this.createContratoView.stopListening();
+                this.createContratoView.undelegateEvents();
+            }
+
+            this.createContratoView = new app.CreateContratoView({ model: this.contratoModel });
+            this.createContratoView.render();
         },    
     }) );
 
