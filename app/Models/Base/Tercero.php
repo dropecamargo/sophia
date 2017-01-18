@@ -39,7 +39,7 @@ class Tercero extends BaseModel implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $boolean = ['tercero_activo', 'tercero_responsable_iva', 'tercero_autoretenedor_cree','tercero_socio', 'tercero_cliente', 'tercero_acreedor', 'tercero_interno', 'tercero_mandatario', 'tercero_empleado', 'tercero_proveedor', 'tercero_extranjero', 'tercero_afiliado'];
+    protected $boolean = ['tercero_activo', 'tercero_responsable_iva', 'tercero_autoretenedor_cree','tercero_socio', 'tercero_cliente', 'tercero_acreedor', 'tercero_interno', 'tercero_mandatario', 'tercero_empleado', 'tercero_proveedor', 'tercero_extranjero', 'tercero_afiliado','tercero_autoretenedor_renta','tercero_autoretenedor_ica','tercero_gran_contribuyente'];
 
     /**
      * The attributes excluded from the model's JSON form.
