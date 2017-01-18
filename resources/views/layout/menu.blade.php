@@ -70,6 +70,18 @@
         </a>
 
         <ul class="treeview-menu">
+
+         <li class="{{ in_array(Request::segment(1), ['empresa', 'terceros']) ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-wpforms"></i> Módulos <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    
+                    <li class="{{ Request::segment(1) == 'terceros' ? 'active' : '' }}">
+                        <a href="{{ route('terceros.index') }}"><i class="fa fa-users"></i> Contratos</a>
+                    </li>
+                </ul>
+            </li>
             {{-- Referencias produccion --}}
             <li class="{{ in_array(Request::segment(1), ['modelos','marcas','tipos','contadores']) ? 'active' : '' }}">
                 <a href="#">
@@ -94,15 +106,15 @@
     </li>
 
     {{-- Tecnico --}}
-    <li class="treeview {{ in_array(Request::segment(1), ['tiposorden','solicitantes','danos','contratos','prioridades']) ? 'active' : '' }}">
+    <li class="treeview {{ in_array(Request::segment(1), ['tiposorden','solicitantes','danos','prioridades']) ? 'active' : '' }}">
         <a href="#">
             <i class="fa fa-cogs"></i> <span>Tecnico</span><i class="fa fa-angle-left pull-right"></i>
         </a>
 
         <ul class="treeview-menu">
-        <li class="{{ Request::segment(1) == 'contratos' ? 'active' : '' }}">
+            <li class="{{ Request::segment(1) == 'contratos' ? 'active' : '' }}">
                         <a href="{{ route('contratos.index') }}"><i class="fa fa-briefcase"></i> Contratos</a>
-                    </li>
+            </li>
         </ul>
 
         <ul class="treeview-menu">
