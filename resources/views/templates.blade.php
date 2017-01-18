@@ -550,7 +550,7 @@
 
 					<% if( !_.isUndefined(tercero_nit) && !_.isNull(tercero_nit) && tercero_nit != ''){ %>
 						{{-- Tab contactos --}}
-						<d       iv class="tab-pane" id="tab_contactos">
+						<div class="tab-pane" id="tab_contactos">
 						    <div class="row">
 						    <!-- div class="row">
 								<div class="col-md-offset-4 col-md-4 col-sm-offset-2 col-sm-8 col-xs-12">
@@ -560,7 +560,7 @@
 								</div>
 							</div>
 							<br / -->
-								<div class="box box-primary">
+								<div class="box box-danger">
 									<div class="box-body table-responsive no-padding">
 										<table id="browse-contact-list" class="table table-hover table-bordered" cellspacing="0" width="100%">
 							            	<thead>
