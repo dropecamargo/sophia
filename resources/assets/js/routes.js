@@ -71,6 +71,7 @@ app || (app = {});
             | Tecnico
             /*-------------*/
 
+            
             //Tipo de Orden
             'tiposorden(/)': 'getTiposOrdenMain',
             'tiposorden/create(/)': 'getTiposOrdenCreate',
@@ -645,12 +646,17 @@ app || (app = {});
                 this.mainContratoView.undelegateEvents();
             }
             this.mainContratoView = new app.MainContratosView( );
+
         },
 
         /**
         * show view create Contratos
         */
-        getContratosCreate: function () {
+
+
+       getContratosCreate:function(){ 
+
+
             this.contratoModel = new app.ContratoModel();
 
             if ( this.createContratoView instanceof Backbone.View ){
@@ -659,8 +665,10 @@ app || (app = {});
             }
 
             this.createContratoView = new app.CreateContratoView({ model: this.contratoModel });
+
             this.createContratoView.render();
         },    
+       
     }) );
 
 })(jQuery, this, this.document);

@@ -45,7 +45,30 @@ class ContratoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $data = $request->all();
+
+            $contrato = new Contrato;
+            if ($contrato->isValid($data)) {
+                DB::beginTransaction();
+                try {
+                    // Contrato
+                    $contrato->fill($data);
+                    $contrato->fillBoolean($data);
+                    $contrato->save();
+
+                    // Commit Transaction
+                    DB::commit();
+                    return response()->json(['success' => true, 'id' => $contrato->id]);
+                }catch(\Exception $e){
+                    DB::rollback();
+                    Log::error($e->getMessage());
+                    return response()->json(['success' => false, 'errors' => trans('app.exception')]);
+                }
+            }
+            return response()->json(['success' => false, 'errors' => $contrato->errors]);
+        }
+        abort(403);
     }
 
     /**
@@ -56,10 +79,11 @@ class ContratoController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $contrato = Contrato::findOrFail($id);
+
+        /*$contrato = Contrato::findOrFail($id);
         if($request->ajax()){
             return response()->json($contrato);
-        }
+        }*/
         return view('tecnico.contrato.show', ['contrato' => $contrato]);
     }
 

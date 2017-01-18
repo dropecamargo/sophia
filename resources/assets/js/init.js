@@ -37,6 +37,7 @@ var app = app || {};
             this.initAlertify();
             this.initSelect2();
             this.initToUpper();
+            //this.initInputMask();
             this.initDatePicker();
         },
 
@@ -78,6 +79,22 @@ var app = app || {};
         initToUpper: function () {
             $('.input-toupper').keyup(function(){
                 $(this).val( $(this).val().toUpperCase() );
+            });
+        },
+
+        /**
+        * Init inputMask
+        */
+        initInputMask: function () {
+
+            $("[data-mask]").inputmask();
+
+            $("[data-currency]").inputmask({
+                radixPoint: ",",
+                alias: 'currency',
+                removeMaskOnSubmit: true,
+                unmaskAsNumber: true,
+                min: 0
             });
         },
 
