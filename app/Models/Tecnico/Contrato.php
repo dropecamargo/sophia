@@ -22,7 +22,7 @@ class Contrato extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['contrato_numero','contrato_tercero','contrato_fecha','contrato_vencimiento','contrato_text'];
+    protected $fillable = ['contrato_numero','contrato_tercero','contrato_fecha','contrato_vencimiento','contrato_condiciones'];
 
     protected $boolean = ['contrato_activo'];
 
@@ -30,7 +30,7 @@ class Contrato extends BaseModel
     {
         $rules = [
             'contrato_numero' => 'required|max:10',
-            'contrato_tercero' => 'required',
+            //'contrato_tercero' => 'required',
             'contrato_fecha' => 'required',
             'contrato_vencimiento' => 'required'
         ];

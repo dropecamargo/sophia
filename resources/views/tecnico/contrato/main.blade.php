@@ -31,16 +31,16 @@
                     <div class="tab-pane active" id="tab_contrato" >
                         <div class="box box-whithout-border">
                             <div class="box-body">
-                                <form method="POST" accept-charset="UTF-8" id="form-contratos" data-toggle="validator">
-                                    
+                                {!! Form::open(['id' => 'form-contrato', 'data-toggle' => 'validator']) !!}
+                                    <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
                                     <div class="row">
-                                        <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
-                                            <label class="col-sm-1 control-label">Id Contrato</label>
-                                            <div class="form-group col-md-1">
-                                                <%- id %>
-                                            </div>
-                                        <% } %>
+                                        <label class="col-sm-2 control-label">Id Contrato</label>
+                                        <div class="form-group col-md-1">
+                                               <%-id%>
+                                        </div>
                                     </div>
+                                    <% } %>
+                                    
 
                                     <div class="row">
                                         <label for="contrato_numero" class="col-sm-2 control-label">Número De Contrato</label>
@@ -54,6 +54,7 @@
                                         </div>
                                     </div>
 
+                                    
                                     <div class="row">
                                         <label for="contrato_fecha" class="col-sm-2 control-label">F. Inicio</label>
                                         <div class="form-group col-md-2">
@@ -70,13 +71,13 @@
                                         <div class="form-group col-md-6">
                                             <textarea id="contrato_condiciones" name="contrato_condiciones" class="form-control" rows="2" placeholder="Condiciones Contrato"><%- contrato_condiciones %></textarea>
                                         </div>
-                                    </div>  
+                                    </div> 
 
                                     <div class="row">
                                         <br><label class="checkbox-inline control-label col-sm-2" for="contrato_activo" >
                                          <input type="checkbox" id="contrato_activo" name="contrato_activo" value="contrato_activo" <%- contrato_activo ? 'checked': ''%>> <b>Activo</b>
                                         </label>
-                                    </div>    
+                                    </div> 
 
                                     <div class="row">
                                         <div class="col-md-2 col-md-offset-2 col-sm-6 col-xs-6">
@@ -86,8 +87,9 @@
                                             <button type="submit" class="btn btn-primary btn-sm btn-block ">{{ trans('app.save') }}</button>
                                         </div>
                                         <br/>
-                                    </div>   
-                                </form>
+                                    </div>
+                                    <br/>
+                                {!! Form::close() !!}
                             </div>
                         </div>
                     </div>

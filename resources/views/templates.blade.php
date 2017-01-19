@@ -569,6 +569,8 @@
 								                	<th>Dirección</th>
 								                	<th>Teléfono</th>
 								                	<th>Celular</th>
+								                	
+
 								            	</tr>
 							           		</thead>
 							         		<tbody>
@@ -591,6 +593,7 @@
 	<td><%- tcontacto_direccion %></td>
 	<td><%- tcontacto_telefono %></td>
 	<td><%- tcontacto_celular %></td>
+	
 	<!-- td class="text-center">
 		<a class="btn btn-default btn-xs btn-edit-tcontacto" data-resource="<%- id %>">
 			<span><i class="fa fa-pencil-square-o"></i></span>

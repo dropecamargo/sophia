@@ -108,7 +108,29 @@ class ContratoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         if ($request->ajax()) {
+            $data = $request->all();
+            $contrato = Contrato::findOrFail($id);
+            if ($contrato->isValid($data)) {
+                DB::beginTransaction();
+                try {
+                    // contratos
+                    $contrato->fill($data);
+                    $contrato->fillBoolean($data);
+                    $contrato->save();
+                    // Commit Transaction
+                    DB::commit();
+                    
+                    return response()->json(['success' => true, 'id' => $contrato->id]);
+                }catch(\Exception $e){
+                    DB::rollback();
+                    Log::error($e->getMessage());
+                    return response()->json(['success' => false, 'errors' => trans('app.exception')]);
+                }
+            }
+            return response()->json(['success' => false, 'errors' => $contrato->errors]);
+        }
+        abort(403);
     }
 
     /**
