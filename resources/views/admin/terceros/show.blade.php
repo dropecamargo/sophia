@@ -265,7 +265,7 @@
 								            <thead>
 									            <tr>
 									                <th>Nombre</th>
-									                <th>Email</th>
+									                <th>Dirección</th>
 									                <th>Teléfono</th>
 									                <th>Celular</th>
 									            </tr>

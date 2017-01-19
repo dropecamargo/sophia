@@ -54,6 +54,7 @@ class Tercero extends BaseModel implements AuthenticatableContract,
             'tercero_nit' => 'required|max:15|min:1|unique:tercero',
             'tercero_digito' => 'required',
             'tercero_tipo' => 'required',
+            'tercero_celular' => 'max:15',
             'tercero_regimen' => 'required',
             'tercero_persona' => 'required',
            

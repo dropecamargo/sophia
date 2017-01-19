@@ -95,7 +95,8 @@ class ContratoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contrato = Contrato::findOrFail($id);
+        return view('tecnico.contrato.edit', ['contrato' => $contrato]);
     }
 
     /**
