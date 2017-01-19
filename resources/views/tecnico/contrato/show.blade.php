@@ -18,7 +18,6 @@
             </div>
         </div>
         <div class="box-body">
-
             <div class="row">
                 <div class="form-group col-md-2">
                     <label class="control-label">Código</label>
@@ -36,11 +35,7 @@
                     <label class="control-label">Contrato Tercero</label>
                     <div> {{ $contrato->contrato_tercero }}</div>
                 </div>
-            
-
             </div>
-
-            
 
             <div class="row">
             	<div class="form-group col-md-3">
@@ -55,8 +50,6 @@
             </div>
 
             <div class="row">
-
-              
             	<div class="col-md-3">
             		<label class="control-label"> Condiciones </label>
             		<div>{{ $contrato->contrato_condiciones }}</div>
@@ -67,10 +60,7 @@
                         <input type="checkbox" id="contrato_activo" name="contrato_activo" value="contrato_activo" disabled {{ $contrato->contrato_activo ? 'checked': '' }}> Activo
                     </label>
                 </div>
-
             </div>
-
         </div>
     </div>
-    
 @stop

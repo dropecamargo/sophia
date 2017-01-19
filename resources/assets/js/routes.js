@@ -14,9 +14,11 @@ app || (app = {});
             //Login
             'login(/)': 'getLogin',
             
-            /*-------------------------
+            /*
+            |-----------------------
             | Administracion
-            /*-----------------------*/
+            |-----------------------
+            */
 
             //Terceros
             'terceros(/)': 'getTercerosMain',
@@ -43,9 +45,11 @@ app || (app = {});
             'estados/create(/)': 'getEstadosCreate',
             'estados/:modelo/edit(/)': 'getEstadosEdit',
 
-            /*--------------
+            /*
+            |----------------------
             | Inventario
-            /*-------------*/
+            |----------------------
+            */
 
             //Marcas
             'marcas(/)': 'getMarcasMain',
@@ -67,11 +71,12 @@ app || (app = {});
             'contadores/create(/)': 'getContadoresCreate',
             'contadores/:contadores/edit(/)': 'getContadoresEdit',
 
-            /*--------------
+            /*
+            |----------------------
             | Tecnico
-            /*-------------*/
+            |----------------------
+            */
 
-            
             //Tipo de Orden
             'tiposorden(/)': 'getTiposOrdenMain',
             'tiposorden/create(/)': 'getTiposOrdenCreate',
@@ -671,7 +676,7 @@ app || (app = {});
         },  
 
          getContratosEdit: function (contratos) {
-            this.contratoModel = new app.ContactoModel();
+            this.contratoModel = new app.ContratoModel();
             this.contratoModel.set({'id': contratos}, {'silent':true});
 
             if ( this.createContratoView instanceof Backbone.View ){
