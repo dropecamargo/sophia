@@ -54,16 +54,22 @@
                                                 </button>
                                             </div>
                                         </div>--}}
-                                    <div class="row">
+                                    
 
                                         <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
-                                            <label class="col-sm-1 control-label">Id Contrato</label>
+                                        <div class="row">
+                                            <label class="col-sm-2 control-label">Id Contrato</label>
                                             <div class="form-group col-md-1">
-                                                <%- id %>
+                                                <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa fa-paperclip"></i>
+                                                </div>
+                                                <input id="contrato_numero" value="<%-id%>" placeholder="Número Contrato" class="form-control  input-sm input-toupper" name="contrato_numero" type="text" maxlength="200" required>
+                                            </div>  
                                             </div>
-
+                                        </div>
                                         <% } %>
-
+                                        <div class="row">
                                         <label for="contrato_numero" class="col-sm-2 control-label">Número De Contrato</label>
                                         <div class="form-group col-md-6">
                                             <div class="input-group">

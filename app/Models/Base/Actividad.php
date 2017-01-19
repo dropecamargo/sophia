@@ -16,7 +16,6 @@ class Actividad extends Model
     protected $table = 'actividad';
 
     public $timestamps = false;
-
     
     /**
      * The attributes that are mass assignable.

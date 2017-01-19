@@ -57,6 +57,7 @@ app || (app = {});
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
 
+           
             this.ready();
         },
 
@@ -70,6 +71,9 @@ app || (app = {});
             
             if( typeof window.initComponent.initToUpper == 'function' )
                 window.initComponent.initToUpper();
+            
+             if( typeof window.initComponent.initDatePicker == 'function' )
+                window.initComponent.initDatePicker();
         },
 
         /**

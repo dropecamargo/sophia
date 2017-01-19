@@ -671,7 +671,7 @@ app || (app = {});
         },  
 
          getContratosEdit: function (contratos) {
-            this.contratoModel = new app.ContactoModel();
+            this.contratoModel = new app.ContratoModel();
             this.contratoModel.set({'id': contratos}, {'silent':true});
 
             if ( this.createContratoView instanceof Backbone.View ){
