@@ -31,7 +31,7 @@
                     <div class="tab-pane active" id="tab_contrato" >
                         <div class="box box-whithout-border">
                             <div class="box-body">
-                                <form method="POST" accept-charset="UTF-8" id="form-contratos" data-toggle="validator">
+                                {{--<form method="POST" accept-charset="UTF-8" id="form-contrato" data-toggle="validator">--}}
                                 
                                         {{--<div class="row">
                                             <label for="contrato_tercero" class="col-sm-1 control-label">Cliente</label>
@@ -109,20 +109,11 @@
 
                                 </div>
                                 
-                                                       
+                                         
                                 
-                                </form><br/>    
+                                {{--</form><br/>--}}    
 
-                                <div class="row">
-                                    <div class="col-md-2 col-md-offset-2 col-sm-6 col-xs-6">
-                                        <a href="{{ route('contratos.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
-                                    </div>
-                                    <div class="col-md-2 col-sm-6 col-xs-6">
-                                        <button type="submit" class="btn btn-primary btn-sm btn-block ">{{ trans('app.save') }}</button>
-                                    </div>
-
-                                   
-                                    </div>  
+                                
                                     <br/>
                                     
                                 </form>
