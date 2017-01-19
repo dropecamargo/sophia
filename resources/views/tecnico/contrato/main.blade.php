@@ -39,6 +39,7 @@
                                             <div class="form-group col-md-1">
                                                 <%- id %>
                                             </div>
+
                                         <% } %>
 
                                         <label for="contrato_numero" class="col-sm-2 control-label">Número De Contrato</label>
@@ -49,6 +50,7 @@
                                                 </div>
                                                 <input id="contrato_numero" value="<%- contrato_numero %>" placeholder="Número Contrato" class="form-control  input-sm input-toupper" name="contrato_numero" type="text" maxlength="200" required>
                                             </div>                                        
+
                                         </div>
                                     </div>
 
@@ -64,6 +66,31 @@
                                         </div>     
                                     </div>
                                     
+
+                                </div>
+                                
+                                <div class="row">
+                                    <label for="contrato_condiciones" class="col-sm-2 control-label">Condiciones Contrato</label>
+                                    <div class="form-group col-md-6">
+                                        <textarea id="contrato_condiciones" name="contrato_condiciones" class="form-control" rows="2" placeholder="Condiciones Contrato"><%- contrato_condiciones %></textarea>
+                                    </div>
+                                </div>  
+
+                                <div class="row">
+                                    <br><label class="checkbox-inline control-label col-sm-2" for="contrato_activo" >
+                                     <input type="checkbox" id="contrato_activo" name="contrato_activo" value="contrato_activo" <%- contrato_activo ? 'checked': ''%>> <b>Activo</b>
+                                    </label>
+                                </div>                         
+                                
+                                </form><br/>    
+
+                                <div class="row">
+                                    <div class="col-md-2 col-md-offset-2 col-sm-6 col-xs-6">
+                                        <a href="{{ route('contratos.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
+                                    </div>
+                                    <div class="col-md-2 col-sm-6 col-xs-6">
+                                        <button type="submit" class="btn btn-primary btn-sm btn-block ">{{ trans('app.save') }}</button>
+
                                     <div class="row">
                                         <label for="contrato_condiciones" class="col-sm-2 control-label">Condiciones Contrato</label>
                                         <div class="form-group col-md-6">
@@ -85,9 +112,10 @@
                                         <div class="col-md-2 col-sm-6 col-xs-6">
                                             <button type="submit" class="btn btn-primary btn-sm btn-block">{{ trans('app.create') }}</button>
                                         </div>
+
                                     </div>
                                     <br/>
-                                    <input type = "hidden" name = "_token" value = "{{ csrf_token() }}">
+                                    
                                 </form>
                             </div>
                         </div>
