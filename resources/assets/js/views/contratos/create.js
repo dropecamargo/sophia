@@ -72,7 +72,7 @@ app || (app = {});
             if( typeof window.initComponent.initToUpper == 'function' )
                 window.initComponent.initToUpper();
             
-             if( typeof window.initComponent.initDatePicker == 'function' )
+            if( typeof window.initComponent.initDatePicker == 'function' )
                 window.initComponent.initDatePicker();
         },
 

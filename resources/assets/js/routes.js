@@ -14,9 +14,11 @@ app || (app = {});
             //Login
             'login(/)': 'getLogin',
             
-            /*-------------------------
+            /*
+            |-----------------------
             | Administracion
-            /*-----------------------*/
+            |-----------------------
+            */
 
             //Terceros
             'terceros(/)': 'getTercerosMain',
@@ -43,9 +45,11 @@ app || (app = {});
             'estados/create(/)': 'getEstadosCreate',
             'estados/:modelo/edit(/)': 'getEstadosEdit',
 
-            /*--------------
+            /*
+            |----------------------
             | Inventario
-            /*-------------*/
+            |----------------------
+            */
 
             //Marcas
             'marcas(/)': 'getMarcasMain',
@@ -67,11 +71,12 @@ app || (app = {});
             'contadores/create(/)': 'getContadoresCreate',
             'contadores/:contadores/edit(/)': 'getContadoresEdit',
 
-            /*--------------
+            /*
+            |----------------------
             | Tecnico
-            /*-------------*/
+            |----------------------
+            */
 
-            
             //Tipo de Orden
             'tiposorden(/)': 'getTiposOrdenMain',
             'tiposorden/create(/)': 'getTiposOrdenCreate',

@@ -43,14 +43,18 @@ Route::group(['middleware' => 'auth'], function()
 		Route::resource('contactos', 'Admin\ContactoController', ['only' => ['index', 'store', 'update']]);
 		
 	});
-	Route::resource('terceros', 'Admin\TerceroController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'show']]);
 
-	Route::resource('actividades', 'Admin\ActividadController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'show']]);
+	/*
+	|--------------------------
+	| Admin Routes
+	|--------------------------
+	*/
+	Route::resource('terceros', 'Admin\TerceroController', ['except' => ['destroy']]);
+	Route::resource('actividades', 'Admin\ActividadController', ['except' => ['destroy']]);
 	Route::resource('departamentos', 'Admin\DepartamentoController', ['only' => ['index', 'show']]);
 	Route::resource('municipios', 'Admin\MunicipioController', ['only' => ['index']]);
 	Route::resource('sucursales', 'Admin\SucursalController', ['except' => ['destroy']]);
 	Route::resource('estados', 'Admin\EstadoController', ['except' => ['destroy']]);
-
 
 	/*
 	|-------------------------
@@ -61,11 +65,10 @@ Route::group(['middleware' => 'auth'], function()
 	Route::resource('marcas', 'Inventario\MarcaController', ['except' => ['destroy']]);
 	Route::resource('tipos', 'Inventario\TipoController', ['except' => ['destroy']]);
 	Route::resource('contadores', 'Inventario\ContadorController', ['except' => ['destroy']]);
-
 	
 	/*
 	|-------------------------
-	| Tecnico
+	| Tecnico Routes
 	|-------------------------
 	*/	
 	Route::resource('tiposorden', 'Tecnico\TipoOrdenController', ['except' => ['destroy']]);

@@ -31,6 +31,7 @@ class Contrato extends BaseModel
         $rules = [
             'contrato_numero' => 'required|max:10',
             'contrato_condiciones' => 'required',
+            //'contrato_tercero' => 'required',
             'contrato_fecha' => 'required',
             'contrato_vencimiento' => 'required'
         ];

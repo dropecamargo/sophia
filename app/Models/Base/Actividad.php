@@ -24,6 +24,14 @@ class Actividad extends Model
      */
     protected $fillable = ['actividad_codigo', 'actividad_nombre', 'actividad_tarifa', 'actividad_categoria'];
 
+
+     /**
+     * The key used by cache store.
+     *
+     * @var static string
+     */
+    public static $key_cache = '_actividades';
+
     public function isValid($data)
     {
         $rules = [
@@ -48,11 +56,12 @@ class Actividad extends Model
 
     public static function getActividades()
     {
-        /*if ( Cache::has( self::$key_cache )) {
-            return Cache::get( self::$key_cache );
+        if ( Cache::has(self::$key_cache)) 
+        {
+            return Cache::get(self::$key_cache);
         }
 
-        return Cache::rememberForever( self::$key_cache , function() {*/
+        return Cache::rememberForever( self::$key_cache , function() {
             $query = Actividad::query();
             $query->select('id', DB::raw("UPPER(CONCAT(actividad_codigo, ' - ', actividad_nombre)) as actividad_nombre"));
             $query->orderby('actividad_codigo', 'asc');
@@ -60,6 +69,6 @@ class Actividad extends Model
 
 			$collection->prepend('', '');
         	return $collection;
-        //});
+        });
     }
 }
