@@ -1,5 +1,5 @@
 /**
-* Class CreateContratoView  of Backbone Router
+* Class CreateProductoView  of Backbone Router
 * @author KOI || @dropecamargo
 * @link http://koi-ti.com
 */
@@ -9,12 +9,12 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.CreateContratoView = Backbone.View.extend({
+    app.CreateProductoView = Backbone.View.extend({
 
-        el: '#contratos-create',
-        template: _.template( ($('#add-contrato-tpl').html() || '') ),
+        el: '#producto-create',
+        template: _.template( ($('#add-producto-tpl').html() || '') ),
         events: {
-            'submit #form-contrato': 'onStore'
+            'submit #form-producto': 'onStore'
         },
         parameters: {
         },
@@ -28,7 +28,7 @@ app || (app = {});
                 this.parameters = $.extend({}, this.parameters, opts.parameters);
 
             // Attributes
-            this.$wraperForm = this.$('#render-form-contrato');
+            this.$wraperForm = this.$('#render-form-producto');
 
             // Events
             this.listenTo( this.model, 'change', this.render );
@@ -57,8 +57,6 @@ app || (app = {});
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
 
-            this.$form = this.$('#form-contrato');
-           
             this.ready();
         },
 
@@ -66,15 +64,9 @@ app || (app = {});
         * fires libraries js
         */
         ready: function () {
-            // to fire plugins
-            if( typeof window.initComponent.initICheck == 'function' )
-                window.initComponent.initICheck();
-            
+            // to fire plugins            
             if( typeof window.initComponent.initToUpper == 'function' )
                 window.initComponent.initToUpper();
-            
-            if( typeof window.initComponent.initDatePicker == 'function' )
-                window.initComponent.initDatePicker();
         },
 
         /**
@@ -102,7 +94,7 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('contratos.show', { contratos: resp.id})) );
+                window.Misc.redirect( window.Misc.urlFull( Route.route('productos.show', { productos: resp.id})) );
             }
         }
     });

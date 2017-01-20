@@ -5,7 +5,7 @@
     </li>
 
     {{-- Administracion --}}
-    <li class="treeview {{ in_array(Request::segment(1), ['empresa', 'terceros', 'actividades', 'municipios', 'departamentos', 'sucursales','estados']) ? 'active' : '' }}">
+    <li class="treeview {{ in_array(Request::segment(1), ['empresa', 'terceros', 'actividades', 'municipios', 'departamentos', 'sucursales']) ? 'active' : '' }}">
         <a href="{{ route('dashboard') }}">
             <i class="fa fa-cog"></i> <span>Administración</span><i class="fa fa-angle-left pull-right"></i>
         </a>
@@ -27,7 +27,7 @@
             </li>
 
             {{-- Referencias administracion --}}
-            <li class="{{ in_array(Request::segment(1), ['actividades', 'municipios', 'departamentos', 'sucursales','estados']) ? 'active' : '' }}">
+            <li class="{{ in_array(Request::segment(1), ['actividades', 'municipios', 'departamentos', 'sucursales']) ? 'active' : '' }}">
 
                 <a href="#">
                     <i class="fa fa-circle-o"></i> Referencias <i class="fa fa-angle-left pull-right"></i>
@@ -38,10 +38,6 @@
                     </li>
                     <li class="{{ Request::segment(1) == 'departamentos' ? 'active' : '' }}">
                         <a href="{{ route('departamentos.index') }}"><i class="fa fa-circle-o"></i> Departamentos</a>
-                    </li>
-
-                    <li class="{{ Request::segment(1) == 'estados' ? 'active' : '' }}">
-                        <a href="{{ route('estados.index') }}"><i class="fa fa-circle-o"></i> Estados</a>
                     </li>
 
                     <li class="{{ Request::segment(1) == 'municipios' ? 'active' : '' }}">
@@ -64,22 +60,37 @@
     </li>
 
     {{-- Inventario --}}
-    <li class="treeview {{ in_array(Request::segment(1), ['modelos','marcas','tipos','contadores']) ? 'active' : '' }}">
+    <li class="treeview {{ in_array(Request::segment(1), ['modelos','marcas','tipos','contadores','productos','estados']) ? 'active' : '' }}">
         <a href="#">
             <i class="fa fa-list"></i> <span>Inventario</span><i class="fa fa-angle-left pull-right"></i>
         </a>
 
         <ul class="treeview-menu">
+            {{-- Modulos Inventario --}}
+            <li class="{{ in_array(Request::segment(1), ['productos']) ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-wpforms"></i> Modulos <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ Request::segment(1) == 'productos' ? 'active' : '' }}">
+                            <a href="{{ route('productos.index') }}"><i class="fa fa-barcode"></i> Productos</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
 
+        <ul class="treeview-menu">
            {{-- Referencias Inventario --}}
-
-            <li class="{{ in_array(Request::segment(1), ['modelos','marcas','tipos','contadores']) ? 'active' : '' }}">
+            <li class="{{ in_array(Request::segment(1), ['modelos','marcas','tipos','contadores','estados']) ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-circle-o"></i> Referencias <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="{{ Request::segment(1) == 'modelos' ? 'active' : '' }}">
                         <a href="{{ route('modelos.index') }}"><i class="fa fa-circle-o"></i> Modelos</a>
+                    </li>
+                    <li class="{{ Request::segment(1) == 'estados' ? 'active' : '' }}">
+                        <a href="{{ route('estados.index') }}"><i class="fa fa-circle-o"></i> Estados</a>
                     </li>
                     <li class="{{ Request::segment(1) == 'marcas' ? 'active' : '' }}">
                         <a href="{{ route('marcas.index') }}"><i class="fa fa-circle-o"></i> Marcas</a>
@@ -101,11 +112,7 @@
             <i class="fa fa-cogs"></i> <span>Tecnico</span><i class="fa fa-angle-left pull-right"></i>
         </a>
 
-
         <ul class="treeview-menu">
-
-            
-
             {{-- Modulos Tecnico --}}
             <li class="{{ in_array(Request::segment(1), ['contratos']) ? 'active' : '' }}">
                 <a href="#">

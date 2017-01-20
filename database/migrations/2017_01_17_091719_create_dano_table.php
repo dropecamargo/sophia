@@ -17,7 +17,7 @@ class CreateDanoTable extends Migration
 
             $table->increments('id');
             $table->string('dano_nombre', 200);
-            $table->boolean('dano_activo');
+            $table->boolean('dano_activo')->default(false);
         });
     }
 

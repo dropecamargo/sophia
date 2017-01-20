@@ -18,7 +18,7 @@ class CreateTipoTable extends Migration
             $table->increments('id');
             $table->string('tipo_codigo', 2)->unique();
             $table->string('tipo_nombre', 200);
-            $table->boolean('tipo_activo');
+            $table->boolean('tipo_activo')->default(false);
         });
     }
 

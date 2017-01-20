@@ -31,6 +31,7 @@ app || (app = {});
 		},
 
 		searchTercero: function(e) {
+            
             e.preventDefault();
             var _this = this;
 
@@ -44,17 +45,21 @@ app || (app = {});
             this.$tercerosSearchTable = this.$modalComponent.find('#koi-search-tercero-component-table');
 			this.$inputContent = this.$("#"+$(e.currentTarget).attr("data-field"));
             this.$inputName = this.$("#"+this.$inputContent.attr("data-name"));
-            this.$btnContact = this.$("#"+this.$inputContent.attr("data-contacto"));
-
+            //this.$btnContact = this.$("#"+this.$inputContent.attr("data-contacto"));
+               
+               
+            
             this.tercerosSearchTable = this.$tercerosSearchTable.DataTable({
                 dom: "<'row'<'col-sm-12'tr>>" +
                		"<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 processing: true,
                 serverSide: true,
                 language: window.Misc.dataTableES(),
+
                 ajax: {
                     url: window.Misc.urlFull( Route.route('terceros.index') ),
                     data: function( data ) {
+                      console.log(data);
                         data.tercero_nit = _this.$searchNit.val();
                         data.tercero_nombre = _this.$searchName.val();
                     }
@@ -92,7 +97,7 @@ app || (app = {});
 
             // Modal show
             this.ready();
-			this.$modalComponent.modal('show');
+			this.$modalComponent.modal(' ');
 		},
 
 		setTercero: function(e) {

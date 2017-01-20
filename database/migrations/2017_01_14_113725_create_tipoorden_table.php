@@ -17,7 +17,7 @@ class CreateTipoordenTable extends Migration
 
             $table->increments('id');
             $table->string('tipoorden_nombre',200);
-            $table->boolean('tipoorden_activo');
+            $table->boolean('tipoorden_activo')->default(false);
         });
     }
 

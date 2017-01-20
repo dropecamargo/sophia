@@ -18,7 +18,7 @@ class CreateModeloTable extends Migration
 
             $table->increments('id');
             $table->string('modelo_nombre', 200);
-            $table->boolean('modelo_activo');
+            $table->boolean('modelo_activo')->default(false);
         });
     }
 

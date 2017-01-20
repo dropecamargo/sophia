@@ -17,7 +17,7 @@ class CreateEstadoTable extends Migration
 
             $table->increments('id');
             $table->string('estado_nombre', 200);
-            $table->boolean('estado_activo');
+            $table->boolean('estado_activo')->default(false);
         });
     }
 
