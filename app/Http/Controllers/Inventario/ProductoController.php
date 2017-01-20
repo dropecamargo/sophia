@@ -91,7 +91,8 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $producto = Producto::findOrFail($id);
+        return view('inventario.producto.edit', ['producto' => $producto]);
     }
 
     /**

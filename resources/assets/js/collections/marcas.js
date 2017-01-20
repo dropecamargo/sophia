@@ -1,5 +1,5 @@
 /**
-* Class MarcaList of Backbone Collection
+* Class MarcasList of Backbone Collection
 * @author KOI || @dropecamargo
 * @link http://koi-ti.com
 */
@@ -9,10 +9,10 @@ app || (app = {});
 
 (function (window, document, undefined) {
 
-    app.MarcaList = Backbone.Collection.extend({
+    app.MarcasList = Backbone.Collection.extend({
 
         url: function() {
-            return window.Misc.urlFull( Route.route('inventario.marca') );
+            return window.Misc.urlFull( Route.route('inventario.marcas.index') );
         },
         model: app.MarcaModel,
 

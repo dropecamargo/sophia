@@ -53,14 +53,14 @@ app || (app = {});
         * Render view contact by model
         * @param Object productop3Model Model instance
         */
-        addOne: function (productoModel) {
+        addOne: function (producto1Model) {
             var view = new app.MarcaItemView({
-                model: productoModel,
+                model: marcaModel,
                 parameters: {
                     edit: this.parameters.edit
                 }
             });
-            productoModel.view = view;
+            marcaModel.view = view;
             this.$el.prepend( view.render().el );
 
         },
@@ -83,11 +83,11 @@ app || (app = {});
             window.Misc.setSpinner( this.parameters.wrapper );
 
             // Prepare data
-            data.producto_producto = this.parameters.dataFilter.producto_id;
+            data.marca.id = this.parameters.dataFilter.producto_id;
 
             // Add model in collection
-            var productoModel = new app.ProductoModel();
-            productoModel.save(data, {
+            var marcaModel = new app.MarcaModel();
+            marcaModel.save(data, {
                 success : function(model, resp) {
                     if(!_.isUndefined(resp.success)) {
                         window.Misc.removeSpinner( _this.parameters.wrapper );
