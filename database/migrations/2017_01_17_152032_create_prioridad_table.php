@@ -17,7 +17,7 @@ class CreatePrioridadTable extends Migration
 
             $table->increments('id');
             $table->string('prioridad_nombre', 200);
-            $table->boolean('prioridad_activo');
+            $table->boolean('prioridad_activo')->default(false);
         });
     }
 

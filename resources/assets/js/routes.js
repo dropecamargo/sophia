@@ -51,6 +51,11 @@ app || (app = {});
             |----------------------
             */
 
+            //Productos
+            'productos(/)': 'getProductosMain',
+            'productos/create(/)': 'getProductosCreate',
+            'productos/:productos/edit(/)': 'getProductosEdit',
+
             //Marcas
             'marcas(/)': 'getMarcasMain',
             'marcas/create(/)': 'getMarcasCreate',
@@ -352,6 +357,43 @@ app || (app = {});
         /*------------------------
         | Inventario
         /*----------------------*/
+
+        // Producto
+        getProductosMain: function () {
+
+            if ( this.mainProductoView instanceof Backbone.View ){
+                this.mainProductoView.stopListening();
+                this.mainProductoView.undelegateEvents();
+            }
+
+            this.mainProductoView = new app.MainProductosView( );
+        },
+
+        getProductosCreate: function () {
+            this.productoModel = new app.ProductoModel();
+
+            if ( this.createProductoView instanceof Backbone.View ){
+                this.createProductoView.stopListening();
+                this.createProductoView.undelegateEvents();
+            }
+
+            this.createProductoView = new app.CreateProductoView({ model: this.productoModel });
+            this.createProductoView.render();
+        },
+
+        getProductosEdit: function (productos) {
+            this.productoModel = new app.ProductoModel();
+            this.productoModel.set({'id': productos}, {'silent':true});
+
+            if ( this.createProductoView instanceof Backbone.View ){
+                this.createProductoView.stopListening();
+                this.createProductoView.undelegateEvents();
+            }
+
+            this.createProductoView = new app.CreateProductoView({ model: this.productoModel });
+            this.productoModel.fetch();
+        },
+
 
         // Marca
         getMarcasMain: function () {

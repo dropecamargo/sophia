@@ -15,7 +15,7 @@ class ActividadTableSeeder extends Seeder
         Actividad::create([
         	'actividad_codigo' => '1',
         	'actividad_nombre' => 'Ilicita',
-        	'actividad_tarifa' => 5000,
+        	'actividad_tarifa' => 400,
         	'actividad_categoria' => 'A'
         	]);
     }

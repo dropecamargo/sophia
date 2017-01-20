@@ -17,7 +17,7 @@ class CreateSolicitanteTable extends Migration
 
             $table->increments('id');
             $table->string('solicitante_nombre', 200);
-            $table->boolean('solicitante_activo');
+            $table->boolean('solicitante_activo')->default(false);
         });
     }
 

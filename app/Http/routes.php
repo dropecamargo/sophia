@@ -65,6 +65,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::resource('marcas', 'Inventario\MarcaController', ['except' => ['destroy']]);
 	Route::resource('tipos', 'Inventario\TipoController', ['except' => ['destroy']]);
 	Route::resource('contadores', 'Inventario\ContadorController', ['except' => ['destroy']]);
+	Route::resource('productos', 'Inventario\ProductoController', ['except' => ['destroy']]);
 	
 	/*
 	|-------------------------

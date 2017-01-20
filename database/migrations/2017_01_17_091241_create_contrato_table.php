@@ -20,7 +20,7 @@ class CreateContratoTable extends Migration
             $table->integer('contrato_tercero');
             $table->date('contrato_fecha');
             $table->date('contrato_vencimiento');
-            $table->boolean('contrato_activo');
+            $table->boolean('contrato_activo')->default(false);
             $table->text('contrato_condiciones');
 
         });

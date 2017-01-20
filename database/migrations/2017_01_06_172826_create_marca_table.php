@@ -17,7 +17,7 @@ class CreateMarcaTable extends Migration
 
             $table->increments('id');
             $table->string('marca_modelo',200)->comment = "Es el nombre de la MARCA";
-            $table->boolean('marca_activo');
+            $table->boolean('marca_activo')->default(false);
         });
     }
 
