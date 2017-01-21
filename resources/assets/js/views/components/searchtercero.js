@@ -43,9 +43,10 @@ app || (app = {});
             this.$searchName = this.$('#koi_search_tercero_nombre');
 
             this.$tercerosSearchTable = this.$modalComponent.find('#koi-search-tercero-component-table');
+            
 			this.$inputContent = this.$("#"+$(e.currentTarget).attr("data-field"));
             this.$inputName = this.$("#"+this.$inputContent.attr("data-name"));
-            //this.$btnContact = this.$("#"+this.$inputContent.attr("data-contacto"));
+             //this.$btnContact = this.$("#"+this.$inputContent.attr("data-contacto"));
                
                
             
@@ -57,13 +58,14 @@ app || (app = {});
                 language: window.Misc.dataTableES(),
 
                 ajax: {
-                    url: window.Misc.urlFull( Route.route('terceros.index') ),
+                    url: window.Misc.urlFull( Route.route('terceros') ),
                     data: function( data ) {
-                      console.log(data);
+                      
                         data.tercero_nit = _this.$searchNit.val();
                         data.tercero_nombre = _this.$searchName.val();
                     }
                 },
+
                 columns: [
                     { data: 'tercero_nit', name: 'tercero_nit' },
                     { data: 'tercero_nombre', name: 'tercero_nombre' },
@@ -97,7 +99,7 @@ app || (app = {});
 
             // Modal show
             this.ready();
-			this.$modalComponent.modal(' ');
+			this.$modalComponent.modal('show');
 		},
 
 		setTercero: function(e) {

@@ -32,7 +32,7 @@
                         <div class="box box-whithout-border">
                             <div class="box-body">
 
-                                {{--{!! Form::open(['id' => 'form-contrato', 'data-toggle' => 'validator']) !!} --}}
+                                {{--{!! Form::open(['id' => 'form-contrato', 'data-toggle' => 'validator']) !!}--}}
 
                                 <form method="POST" accept-charset="UTF-8" id="form-contrato" data-toggle="validator">
                                     <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
@@ -74,16 +74,17 @@
                                         </div>
                                     </div> 
 
+                                      
                                     <div class="row">
                                         <label for="contrato_tercero" class="col-sm-2 control-label">Cliente</label>
                                         <div class="form-group col-sm-2">
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary btn-flat btn-koi-search-tercero-component-table" data-field="contrato_tercero">
+                                                    <button type="button" class="btn btn-primary btn-flat btn-koi-search-tercero-component-table" data-field="">
                                                         <i class="fa fa-user"></i>
                                                     </button>
                                                 </span>
-                                                <input id="contrato_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="contrato_tercero" type="text" maxlength="15" data-wrapper="contratos-create" data-name="contrato_terecero_nombre" data-contacto="btn-add-contact" value="" required>
+                                                <input id="contrato_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="contrato_tercero" type="text" maxlength="15" data-wrapper="contratos-create" data-name="contrato_terecero_nombre" data-contacto="btn-add-contact" value="<%- contrato_tercero %>" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-5 col-xs-10">
@@ -95,7 +96,6 @@
                                             </button>
                                         </div>
                                     </div>
-
                                     <div class="row">
                                         <br><label class="checkbox-inline control-label col-sm-2" for="contrato_activo" >
                                          <input type="checkbox" id="contrato_activo" name="contrato_activo" value="contrato_activo" <%- contrato_activo ? 'checked': ''%>> <b>Activo</b>
@@ -111,7 +111,8 @@
                                         </div>
                                         <br/>
                                     </div>
-                                {!! Form::close() !!}
+                               {{--{!! Form::close() !!}--}}
+
                             </div>
                         </div>
                     </div>
