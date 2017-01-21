@@ -31,7 +31,7 @@
 			<label for="tcontacto_municipio" class="control-label">Municipio</label>
 			<select name="tcontacto_municipio" id="tcontacto_municipio" class="form-control select2-default" required>
 				@foreach( App\Models\Base\Municipio::getMunicipios() as $key => $value)
-					<option value="{{ $key }}" <%- tcontacto_municipio == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
+					<option value="{{ $key }}" <%- tcontacto_municipio == '{{ $key }}' ? 'selected': ''%> >{{ $key }}</option>
 				@endforeach
 			</select>
 		</div>

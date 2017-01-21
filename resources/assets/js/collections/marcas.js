@@ -14,7 +14,7 @@ app || (app = {});
         url: function() {
             return window.Misc.urlFull( Route.route('inventario.marcas.index') );
         },
-        model: app.MarcaModel,
+        model: app.ProductomarcaModel,
 
         /**
         * Constructor Method

@@ -1,39 +1,34 @@
 <?php
 
-namespace App\Models\Tecnico;
+namespace App\Models\Inventario;
 
 use Illuminate\Database\Eloquent\Model;
-use Validator;
 use App\Models\BaseModel;
+use Validator;
 
-class Contrato extends BaseModel
+class ProductoMarca extends BaseModel
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'contrato';
+    protected $table = 'productomarca';
 
     public $timestamps = false;
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['contrato_numero','contrato_tercero','contrato_fecha','contrato_vencimiento','contrato_condiciones'];
-
-    protected $boolean = ['contrato_activo'];
+    protected $fillable = ['productomarca_marca'];
 
     public function isValid($data)
     {
         $rules = [
-            'contrato_numero' => 'required|max:10',
-            'contrato_condiciones' => 'required',
-            //'contrato_tercero' => 'required',
-            'contrato_fecha' => 'required',
-            'contrato_vencimiento' => 'required'
+            'productomarca_producto' => 'required|integer',
+            'productomarca_marca' => 'required|integer',
         ];
 
         $validator = Validator::make($data, $rules);
@@ -42,5 +37,10 @@ class Contrato extends BaseModel
         }
         $this->errors = $validator->errors();
         return false;
+    }
+
+    public function setProductoMarcaAttribute($marca)
+    {
+        $this->attributes['productomarca_marca'] = strtoupper($marca);
     }
 }

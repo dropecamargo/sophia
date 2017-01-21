@@ -146,23 +146,23 @@
                         <div class="tab-pane active" id="tab_marcas">
                             <div class="box box-danger" id="wrapper-producto-marcas">
                                 <div class="box-body">
-                                    <form method="POST" accept-charset="UTF-8" id="form-marca" data-toggle="validator">
+                                    <form method="POST" accept-charset="UTF-8" id="form-productomarca" data-toggle="validator">
                                         <div class="row">
-                                            <label for="producto_marca" class="control-label col-sm-1 col-sm-offset-1 hidden-xs">Marca</label>
+                                            <label for="productomarca_marca" class="control-label col-sm-1 col-sm-offset-1 hidden-xs">Marca</label>
                                             <div class="form-group col-sm-7 col-xs-10">
-                                                <select name="producto_marca" id="producto_marca" class="form-control select2-default" required>
+                                                <select name="productomarca_marca" id="productomarca_marca" class="form-control select2-default" required>
                                                     @foreach( App\Models\Inventario\Marca::getMarcas() as $key => $value)
                                                         <option value="{{ $key }}">{{ $value }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group col-sm-1 col-xs-2 text-right">
-                                                <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="marca" data-field="producto_marca">
+                                                <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="marcap" data-field="productomarca_marca">
                                                     <i class="fa fa-plus"></i>
                                                 </button>
                                             </div>
                                             <div class="form-group col-sm-1">
-                                                <button type="submit" class="btn btn-success btn-sm btn-block">
+                                                <button type="submit" class="btn btn-danger btn-sm btn-block">
                                                     <i class="fa fa-plus"></i>
                                                 </button>
                                             </div>
@@ -188,19 +188,19 @@
                     </div>
                 </div>
             </div> 
-            <% } %>
         </div>
+        <% } %>
     </div>
 </script>
 
 <script type="text/template" id="producto-marca-item-list-tpl">
         <% if(edit) { %>
         <td class="text-center">
-            <a class="btn btn-default btn-xs item-producto-remove" data-resource="<%- id %>">
+            <a class="btn btn-default btn-xs item-productomarca-remove" data-resource="<%- id %>">
                 <span><i class="fa fa-times"></i></span>
             </a>
         </td>
        <% } %>
-    <td><%- marca_modelo %></td>
+    <td><%- productomarca_marca %></td>
 </script>
 @stop

@@ -57,6 +57,7 @@ app || (app = {});
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
 
+            this.$form = this.$('#form-contrato');
            
             this.ready();
         },

@@ -104,7 +104,29 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $data = $request->all();
+
+            $producto = Producto::findOrFail($id);
+            if ($producto->isValid($data)) {
+                DB::beginTransaction();
+                try {
+                    // producto
+                    $producto->fill($data);
+                    $producto->save();
+
+                    // Commit Transaction
+                    DB::commit();
+                    return response()->json(['success' => true, 'id' => $producto->id]);
+                }catch(\Exception $e){
+                    DB::rollback();
+                    Log::error($e->getMessage());
+                    return response()->json(['success' => false, 'errors' => trans('app.exception')]);
+                }
+            }
+            return response()->json(['success' => false, 'errors' => $producto->errors]);
+        }
+        abort(403);
     }
 
     /**

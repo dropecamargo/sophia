@@ -6,9 +6,10 @@
 @stop
 
 @section('module')
-	<div class="box box-whithout-border" id="contratos-create">
-		<div id="render-form-contrato">
-			{{-- Render form Contrato --}}
-		</div>
+<div class="box box-danger" id="contratos-create">
+	<div class="box-body" id="render-form-contrato">
+		
+		{{-- Render form contratos --}}
 	</div>
+</div>
 @stop

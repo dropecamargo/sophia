@@ -7,7 +7,7 @@
 
 @section('module')
 	<div class="box box-danger" id="producto-create">
-		<div id="render-form-producto">
+		<div  id="render-form-producto">
 			{{-- Render form producto --}}
 		</div>
 	</div>

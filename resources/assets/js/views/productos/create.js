@@ -16,7 +16,7 @@ app || (app = {});
         events: {
             'click .submit-producto': 'submitProducto',
             'submit #form-producto': 'onStore',
-            'submit #form-marca': 'onStoreMarca'
+            'submit #form-productomarca': 'onStoreMarca'
         },
         parameters: {
         },
@@ -51,9 +51,8 @@ app || (app = {});
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
             this.$form = this.$('#form-producto');
-            // Model exist
-            if( this.model.id != undefined ) {
 
+            if( this.model.id != undefined ) {
                 // Reference views
                 this.referenceViews();
             }
@@ -69,7 +68,7 @@ app || (app = {});
                     edit: true,
                     wrapper: this.$('#wrapper-producto-marcas'),
                     dataFilter: {
-                        'id': this.model.get('id')
+                        'producto_id': this.model.get('id')
                     }
                }
             });
@@ -95,6 +94,9 @@ app || (app = {});
             }
         },
 
+        /**
+        * Event Create Tip
+        */
         onStoreMarca: function (e) {
 
             if (!e.isDefaultPrevented()) {
@@ -114,6 +116,12 @@ app || (app = {});
             // to fire plugins            
             if( typeof window.initComponent.initToUpper == 'function' )
                 window.initComponent.initToUpper();
+
+            if( typeof window.initComponent.initSelect2 == 'function' )
+                window.initComponent.initSelect2();
+
+            if( typeof window.initComponent.initValidator == 'function' )
+                window.initComponent.initValidator();
         },
 
         /**
@@ -141,6 +149,7 @@ app || (app = {});
                     return;
                 }
 
+                // ProductopView undelegateEvents
                 if ( this.createProductoView instanceof Backbone.View ){
                     this.createProductoView.stopListening();
                     this.createProductoView.undelegateEvents();

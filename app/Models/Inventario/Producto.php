@@ -21,7 +21,7 @@ class Producto extends Model
      *
      * @var array
      */
-    protected $fillable = ['producto_placa','producto_serie','producto_referencia','producto_codigo','producto_nombre','producto_parte','producto_vida_util','producto_costo_promedio','producto_ultimo_costo','producto_marca'];
+    protected $fillable = ['producto_placa','producto_serie','producto_referencia','producto_codigo','producto_nombre','producto_parte','producto_vida_util','producto_costo_promedio','producto_ultimo_costo'];
 
     public function isValid($data)
     {
@@ -39,10 +39,8 @@ class Producto extends Model
 
         if($this->exists){
             $rules['producto_placa'] .= ',producto_placa,' . $this->id;
-            $rules['producto_serie'] .= ',producto_serie,' . $this->id;
         }else{
             $rules['producto_placa'] .= '|max:20';
-            $rules['producto_serie'] .= '|max:20';
         }
 
         $validator = Validator::make($data, $rules);

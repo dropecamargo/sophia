@@ -10,10 +10,10 @@
 	<div class="box box-danger" id="dano-create">
 		{!! Form::open(['id' => 'form-dano', 'data-toggle' => 'validator']) !!}
 			<div class="box-body" id="render-form-dano">
-				{{-- Render form dano --}}
+				{{-- Render form dano --}}	
 			</div>
 
-			<div class="box-footer clearfix">
+			<div class="box-footer ">
                 <div class="row">
                     <div class="col-md-2 col-sm-6 col-xs-6 text-left">
 						<a href="{{ route('danos.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
