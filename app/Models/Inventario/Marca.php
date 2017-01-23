@@ -42,17 +42,11 @@ class Marca extends BaseModel
 
     public static function getMarcas()
     {
-/*        if (Cache::has( self::$key_cache )) {
-            return Cache::get( self::$key_cache );
-        }
+        $query = Marca::query();
+        $query->orderBy('marca_modelo', 'asc');
+        $collection = $query->lists('marca_modelo', 'marca.id');
 
-        return Cache::rememberForever( self::$key_cache , function() {*/
-            $query = Marca::query();
-            $query->orderBy('marca_modelo', 'asc');
-            $collection = $query->lists('marca_modelo', 'marca.id');
-
-            $collection->prepend('', '');
-            return $collection;
-        //});
+        $collection->prepend('', '');
+        return $collection;
     }
 }

@@ -54,4 +54,14 @@ class Tipo extends BaseModel
         $this->errors = $validator->errors();
         return false;
     }
+
+    public static function getTipos()
+    {
+        $query = Tipo::query();
+        $query->orderBy('tipo_nombre', 'asc');
+        $collection = $query->lists('tipo_nombre', 'tipo.id');
+
+        $collection->prepend('', '');
+        return $collection;
+    }
 }

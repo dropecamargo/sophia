@@ -38,4 +38,14 @@ class Estado extends BaseModel
         $this->errors = $validator->errors();
         return false;
     }
+
+    public static function getEstados()
+    {
+        $query = Estado::query();
+        $query->orderBy('estado_nombre', 'asc');
+        $collection = $query->lists('estado_nombre', 'estado.id');
+
+        $collection->prepend('', '');
+        return $collection;
+    }
 }

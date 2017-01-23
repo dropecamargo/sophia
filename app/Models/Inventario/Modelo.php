@@ -49,4 +49,14 @@ class Modelo extends BaseModel
         $this->errors = $validator->errors();
         return false;
     }
+
+    public static function getModelos()
+    {
+        $query = Modelo::query();
+        $query->orderBy('modelo_nombre', 'asc');
+        $collection = $query->lists('modelo_nombre', 'modelo.id');
+
+        $collection->prepend('', '');
+        return $collection;
+    }
 }

@@ -21,8 +21,12 @@ app || (app = {});
             'producto_referencia': '',
             'producto_codigo': '',
             'producto_nombre': '',
+            'producto_tipo': '',
             'producto_marca': '',
+            'producto_modelo': '',
+            'producto_estado': '',
             'producto_parte': '',
+            'producto_proveedor': '',
             'producto_vida_util': '',
             'producto_costo_promedio': '',
             'producto_ultimo_costo': ''

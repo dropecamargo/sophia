@@ -81,7 +81,7 @@
                         </ul>
 
                         <div class="tab-content">
-                            {{-- Content areas --}}
+                            {{-- Content marcas --}}
                             <div class="tab-pane active" id="tab_marcas">
                                 <div class="box box-danger" id="wrapper-producto-marcas">
                                     <div class="box-body">

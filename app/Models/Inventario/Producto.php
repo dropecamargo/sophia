@@ -21,7 +21,7 @@ class Producto extends Model
      *
      * @var array
      */
-    protected $fillable = ['producto_placa','producto_serie','producto_referencia','producto_codigo','producto_nombre','producto_parte','producto_vida_util','producto_costo_promedio','producto_ultimo_costo'];
+    protected $fillable = ['producto_placa','producto_serie','producto_referencia','producto_codigo','producto_nombre','producto_parte','producto_vida_util','producto_marca','producto_modelo','producto_estado','producto_tipo','producto_proveedor'];
 
     public function isValid($data)
     {
@@ -32,9 +32,7 @@ class Producto extends Model
             'producto_codigo' => 'required|max:20',
             'producto_nombre' => 'required|max:100',
             'producto_parte' => 'required|max:20',
-            'producto_vida_util' => 'required',
-            'producto_costo_promedio' => 'required',
-            'producto_ultimo_costo' => 'required',
+            'producto_vida_util' => 'required|numeric'
         ];
 
         if($this->exists){

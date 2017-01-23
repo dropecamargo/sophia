@@ -16,7 +16,6 @@ app || (app = {});
         events: {
             'click .submit-producto': 'submitProducto',
             'submit #form-producto': 'onStore',
-            'submit #form-productomarca': 'onStoreMarca'
         },
         parameters: {
         },
@@ -51,27 +50,7 @@ app || (app = {});
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
             this.$form = this.$('#form-producto');
-
-            if( this.model.id != undefined ) {
-                // Reference views
-                this.referenceViews();
-            }
-
             this.ready();
-        },
-
-        referenceViews: function () {
-            // Marcas list
-            this.marcasListView = new app.MarcasListView( {
-                collection: this.marcasList,
-                parameters: {
-                    edit: true,
-                    wrapper: this.$('#wrapper-producto-marcas'),
-                    dataFilter: {
-                        'producto_id': this.model.get('id')
-                    }
-               }
-            });
         },
 
         /**
@@ -91,21 +70,6 @@ app || (app = {});
                 e.preventDefault();
                 var data = window.Misc.formToJson( e.target );
                 this.model.save( data, {patch: true, silent: true} );
-            }
-        },
-
-        /**
-        * Event Create Tip
-        */
-        onStoreMarca: function (e) {
-
-            if (!e.isDefaultPrevented()) {
-
-                e.preventDefault();
-
-                // Prepare global data
-                var data = window.Misc.formToJson( e.target );
-                this.marcasList.trigger( 'store', data );
             }
         },
 
@@ -149,13 +113,7 @@ app || (app = {});
                     return;
                 }
 
-                // ProductopView undelegateEvents
-                if ( this.createProductoView instanceof Backbone.View ){
-                    this.createProductoView.stopListening();
-                    this.createProductoView.undelegateEvents();
-                }
-
-                window.Misc.redirect( window.Misc.urlFull( Route.route('productos.edit', { productos: resp.id})) );
+                window.Misc.redirect( window.Misc.urlFull( Route.route('productos.show', { productos: resp.id})) );
             }
         }
     });
