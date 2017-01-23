@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Datatables;
 
-use App\Models\Tecnico\Contrato;
+use App\Models\Tecnico\Contrato ,App\Models\Base\Tercero ;
 
 class ContratoController extends Controller
 {
@@ -22,6 +22,20 @@ class ContratoController extends Controller
     {
          if ($request->ajax()){
             $query = Contrato::query();
+            $query->select('contrato.id', 'contrato_numero', 'contrato_fecha', 'contrato_vencimiento', 'contrato_activo', 'contrato_condiciones',
+                DB::raw("
+                    CONCAT(
+                        (CASE WHEN tercero_persona = 'N'
+                            THEN CONCAT(tercero_nombre1,' ',tercero_nombre2,' ',tercero_apellido1,' ',tercero_apellido2,
+                                (CASE WHEN (tercero_razonsocial IS NOT NULL AND tercero_razonsocial != '') THEN CONCAT(' - ', tercero_razonsocial) ELSE '' END)
+                            )
+                            ELSE tercero_razonsocial
+                        END)
+                    
+                    ) AS tercero_nombre"
+                )
+            );
+            $query->join('tercero', 'contrato_tercero', '=', 'tercero.id');
             return Datatables::of($query)->make(true);
         }
         return view('tecnico.contrato.index');
@@ -49,12 +63,20 @@ class ContratoController extends Controller
             $data = $request->all();
 
             $contrato = new Contrato;
+
             if ($contrato->isValid($data)) {
                 DB::beginTransaction();
                 try {
+
+                    $tercero = Tercero::where('tercero_nit', $request->contrato_tercero)->first();
+                    if(!$tercero instanceof Tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
+                    }
                     // Contrato
                     $contrato->fill($data);
                     $contrato->fillBoolean($data);
+                    $contrato->contrato_tercero = $tercero->id;
                     $contrato->save();
 
                     // Commit Transaction

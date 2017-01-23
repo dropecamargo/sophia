@@ -13,11 +13,11 @@
                         <tr>
                             <th>Código</th>
                             <th>Número de contrato</th>
-                            <th>Id-Tercero</th>
+                            <th>Tercero</th>
                             <th>F. Inicio</th>
                             <th>F. Vencimiento</th>
                             <th>Activo</th>
-                            <th>Condiciones</th>
+                            
                         </tr>
                     </thead>
                 </table>

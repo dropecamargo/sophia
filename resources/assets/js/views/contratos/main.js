@@ -31,11 +31,11 @@ app || (app = {});
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'contrato_numero', name: 'contrato_numero' },
-                    { data: 'contrato_tercero', name: 'contrato_tercero' },
+                    { data: 'tercero_nombre', name: 'contrato_tercero' },
                     { data: 'contrato_fecha', name: 'contrato_fecha' },
                     { data: 'contrato_vencimiento', name: 'contrato_vencimiento' },
-                    { data: 'contrato_activo', name: 'contrato_activo' },
-                    { data: 'contrato_condiciones', name: 'contrato_condiciones'}
+                    { data: 'contrato_activo', name: 'contrato_activo' }
+                    
                 ],
                 buttons: [
                     {
