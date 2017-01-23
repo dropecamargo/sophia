@@ -41,7 +41,6 @@
 
                 {{-- Modals base --}}
                 @include('modals')
-
             </div>
 
             <!-- Main Footer -->

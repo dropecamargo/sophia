@@ -140,7 +140,6 @@ app || (app = {});
             // Initialize resources
             this.componentGlobalView = new app.ComponentGlobalView();
             this.componentSearchTerceroView = new app.ComponentSearchTerceroView();
-            //this.componentReportView = new app.ComponentReportView();
             this.componentTerceroView = new app.ComponentTerceroView();
             this.componentCreateResourceView = new app.ComponentCreateResourceView();
             
@@ -395,7 +394,6 @@ app || (app = {});
             this.createProductoView = new app.CreateProductoView({ model: this.productoModel });
             this.productoModel.fetch();
         },
-
 
         // Marca
         getMarcasMain: function () {

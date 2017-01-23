@@ -22,9 +22,22 @@ class CreateProductoTable extends Migration
             $table->string('producto_codigo', 20);
             $table->string('producto_nombre', 100);
             $table->string('producto_parte', 20);
-            $table->integer('producto_vida_util');
-            $table->float('producto_costo_promedio');
-            $table->float('producto_ultimo_costo');
+
+            $table->integer('producto_tipo')->unsigned()->nullable();
+            $table->integer('producto_marca')->unsigned()->nullable();
+            $table->integer('producto_modelo')->unsigned()->nullable();
+            $table->integer('producto_estado')->unsigned()->nullable();
+            $table->integer('producto_proveedor')->unsigned()->nullable();
+            
+            $table->integer('producto_vida_util')->unsigned();
+            $table->double('producto_costo_promedio');
+            $table->double('producto_ultimo_costo');
+
+            $table->foreign('producto_tipo')->references('id')->on('tipo')->onDelete('restrict');
+            $table->foreign('producto_marca')->references('id')->on('marca')->onDelete('restrict');
+            $table->foreign('producto_modelo')->references('id')->on('modelo')->onDelete('restrict');
+            $table->foreign('producto_estado')->references('id')->on('estado')->onDelete('restrict');
+            $table->foreign('producto_proveedor')->references('id')->on('tercero')->onDelete('restrict');
         });
     }
 

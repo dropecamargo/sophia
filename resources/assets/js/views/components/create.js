@@ -46,6 +46,34 @@ app || (app = {});
             // stuffToDo resource
             var _this = this,
 	            stuffToDo = {
+                    'marca' : function() {
+                        _this.$modalComponent.find('.inner-title-modal').html('Marca');
+
+                        _this.model = new app.MarcaModel();
+                        var template = _.template($('#add-marca-tpl').html());
+                        _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
+                    },
+                    'tipo' : function() {
+                        _this.$modalComponent.find('.inner-title-modal').html('Tipo');
+
+                        _this.model = new app.TipoModel();
+                        var template = _.template($('#add-tipo-tpl').html());
+                        _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
+                    },
+                    'modelo' : function() {
+                        _this.$modalComponent.find('.inner-title-modal').html('Modelo');
+
+                        _this.model = new app.ModeloModel();
+                        var template = _.template($('#add-modelo-tpl').html());
+                        _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
+                    },
+                    'estado' : function() {
+                        _this.$modalComponent.find('.inner-title-modal').html('Estado');
+
+                        _this.model = new app.EstadoModel();
+                        var template = _.template($('#add-estado-tpl').html());
+                        _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
+                    },
 	                'tercero' : function() {
                         _this.$modalComponent.find('.inner-title-modal').html('Tercero');
 
@@ -133,6 +161,22 @@ app || (app = {});
             // stuffToDo Response success
             var _this = this,
                 stuffToDo = {
+                    'marca' : function() {
+                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('marca_modelo')}] }).trigger('change');
+                        _this.$resourceField.val(_this.model.get('id')).trigger('change');
+                    },
+                    'tipo' : function() {
+                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('tipo_nombre')}] }).trigger('change');
+                        _this.$resourceField.val(_this.model.get('id')).trigger('change');
+                    },
+                    'modelo' : function() {
+                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('modelo_nombre')}] }).trigger('change');
+                        _this.$resourceField.val(_this.model.get('id')).trigger('change');
+                    },
+                    'estado' : function() {
+                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('estado_nombre')}] }).trigger('change');
+                        _this.$resourceField.val(_this.model.get('id')).trigger('change');
+                    },
                     'tercero' : function() {
                         _this.$resourceField.val(_this.model.get('tercero_nit')).trigger('change');
                     }
