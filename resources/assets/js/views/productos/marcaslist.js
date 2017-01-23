@@ -13,10 +13,10 @@ app || (app = {});
 
         el: '#browse-marcas-producto-list',
         events: {
-            'click .item-producto-remove': 'removeOne'
+            'click .item-productomarca-remove': 'removeOne'
         },
         parameters: {
-        	wrapper: null,
+            wrapper: null,
             edit: false,
             dataFilter: {}
         },
@@ -53,14 +53,14 @@ app || (app = {});
         * Render view contact by model
         * @param Object productop3Model Model instance
         */
-        addOne: function (productoModel) {
+        addOne: function (productomarcaModel) {
             var view = new app.MarcaItemView({
-                model: productoModel,
+                model: productomarcaModel,
                 parameters: {
                     edit: this.parameters.edit
                 }
             });
-            productoModel.view = view;
+            productomarcaModel.view = view;
             this.$el.prepend( view.render().el );
 
         },
@@ -83,11 +83,11 @@ app || (app = {});
             window.Misc.setSpinner( this.parameters.wrapper );
 
             // Prepare data
-            data.producto_producto = this.parameters.dataFilter.producto_id;
+            data.productomarca_producto = this.parameters.dataFilter.producto_id;
 
             // Add model in collection
-            var productoModel = new app.ProductoModel();
-            productoModel.save(data, {
+            var productomarcaModel = new app.ProductomarcaModel();
+            productomarcaModel.save(data, {
                 success : function(model, resp) {
                     if(!_.isUndefined(resp.success)) {
                         window.Misc.removeSpinner( _this.parameters.wrapper );

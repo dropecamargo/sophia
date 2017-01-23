@@ -14,7 +14,9 @@ app || (app = {});
         el: '#producto-create',
         template: _.template( ($('#add-producto-tpl').html() || '') ),
         events: {
-            'submit #form-producto': 'onStore'
+            'click .submit-producto': 'submitProducto',
+            'submit #form-producto': 'onStore',
+            'submit #form-productomarca': 'onStoreMarca'
         },
         parameters: {
         },
@@ -30,10 +32,53 @@ app || (app = {});
             // Attributes
             this.$wraperForm = this.$('#render-form-producto');
 
+            // Model exist
+            if( this.model.id != undefined ) {
+                this.marcasList = new app.MarcasList();
+           }
+
             // Events
             this.listenTo( this.model, 'change', this.render );
             this.listenTo( this.model, 'sync', this.responseServer );
             this.listenTo( this.model, 'request', this.loadSpinner );
+        },
+
+        /*
+        * Render View Element
+        */
+        render: function() {
+
+            var attributes = this.model.toJSON();
+            this.$wraperForm.html( this.template(attributes) );
+            this.$form = this.$('#form-producto');
+
+            if( this.model.id != undefined ) {
+                // Reference views
+                this.referenceViews();
+            }
+
+            this.ready();
+        },
+
+        referenceViews: function () {
+            // Marcas list
+            this.marcasListView = new app.MarcasListView( {
+                collection: this.marcasList,
+                parameters: {
+                    edit: true,
+                    wrapper: this.$('#wrapper-producto-marcas'),
+                    dataFilter: {
+                        'producto_id': this.model.get('id')
+                    }
+               }
+            });
+        },
+
+        /**
+        * Event submit producto
+        */
+        submitProducto: function (e) {
+            this.$form.submit();
         },
 
         /**
@@ -49,15 +94,19 @@ app || (app = {});
             }
         },
 
-        /*
-        * Render View Element
+        /**
+        * Event Create Tip
         */
-        render: function() {
+        onStoreMarca: function (e) {
 
-            var attributes = this.model.toJSON();
-            this.$wraperForm.html( this.template(attributes) );
+            if (!e.isDefaultPrevented()) {
 
-            this.ready();
+                e.preventDefault();
+
+                // Prepare global data
+                var data = window.Misc.formToJson( e.target );
+                this.marcasList.trigger( 'store', data );
+            }
         },
 
         /**
@@ -67,6 +116,12 @@ app || (app = {});
             // to fire plugins            
             if( typeof window.initComponent.initToUpper == 'function' )
                 window.initComponent.initToUpper();
+
+            if( typeof window.initComponent.initSelect2 == 'function' )
+                window.initComponent.initSelect2();
+
+            if( typeof window.initComponent.initValidator == 'function' )
+                window.initComponent.initValidator();
         },
 
         /**
@@ -94,7 +149,13 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('productos.show', { productos: resp.id})) );
+                // ProductopView undelegateEvents
+                if ( this.createProductoView instanceof Backbone.View ){
+                    this.createProductoView.stopListening();
+                    this.createProductoView.undelegateEvents();
+                }
+
+                window.Misc.redirect( window.Misc.urlFull( Route.route('productos.edit', { productos: resp.id})) );
             }
         }
     });

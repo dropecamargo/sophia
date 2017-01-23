@@ -21,10 +21,11 @@ app || (app = {});
             'producto_referencia': '',
             'producto_codigo': '',
             'producto_nombre': '',
+            'producto_marca': '',
             'producto_parte': '',
             'producto_vida_util': '',
-            'producto_costo_promedio': 0,
-            'producto_ultimo_costo': 0
+            'producto_costo_promedio': '',
+            'producto_ultimo_costo': ''
         }
     });
 

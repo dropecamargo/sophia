@@ -1,5 +1,5 @@
 /**
-* Class MarcaList of Backbone Collection
+* Class ContactsList of Backbone Collection
 * @author KOI || @dropecamargo
 * @link http://koi-ti.com
 */
@@ -9,12 +9,12 @@ app || (app = {});
 
 (function (window, document, undefined) {
 
-    app.MarcaList = Backbone.Collection.extend({
+    app.ContactsList = Backbone.Collection.extend({
 
         url: function() {
-            return window.Misc.urlFull( Route.route('inventario.marca') );
+            return window.Misc.urlFull( Route.route('terceros.contactos.index') );
         },
-        model: app.MarcaModel,
+        model: app.ContactoModel,
 
         /**
         * Constructor Method
@@ -22,5 +22,4 @@ app || (app = {});
         initialize : function(){
         }
    });
-
 })(this, this.document);
