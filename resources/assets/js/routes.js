@@ -141,6 +141,7 @@ app || (app = {});
             this.componentGlobalView = new app.ComponentGlobalView();
             this.componentSearchTerceroView = new app.ComponentSearchTerceroView();
             this.componentReportView = new app.ComponentReportView();
+            this.componentCreateResourceView = new app.ComponentCreateResourceView();
             this.componentTerceroView = new app.ComponentTerceroView();
       	},
 

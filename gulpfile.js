@@ -61,7 +61,7 @@ elixir(function(mix) {
    	], 'public/js/vendor.min.js')
     .scripts([
         'models/*.js',
-        'collections/*.js',
+        'collections/**/*.js',
         'views/**/*.js',
         'helpers/misc.js',
         'helpers/routes.js',

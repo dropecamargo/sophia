@@ -87,11 +87,11 @@
 
                     
                     <div class="form-group col-md-3">
-                    <label for="producto_nombre" class="control-label">Modelo</label>
-                        <select name="producto_nombre" id="producto_nombre" class="form-control select2-default">
+                    <label for="producto_modelo" class="control-label">Modelo</label>
+                        <select name="producto_modelo" id="producto_modelo" class="form-control select2-default">
                             <option value="" selected>Seleccione</option>
                             @foreach( App\Models\Inventario\Modelo::getModelos() as $key => $value)
-                                <option value="{{ $key }}" <%- producto_nombre == '{{ $value }}' ? 'selected': ''%> >{{ $value }}</option>
+                                <option value="{{ $key }}" <%- producto_modelo == '{{ $value }}' ? 'selected': ''%> >{{ $value }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -131,6 +131,21 @@
                     <div class="form-group col-md-1">
                     <br>
                         <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="estado" data-field="producto_estado" > <i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-3">
+                    <label for="producto_proveedor" class="control-label">Proveedor</label>
+                        <select name="producto_proveedor" id="producto_proveedor" class="form-control select2-default">
+                            <option value="" selected>Seleccione</option>
+                            {{--@foreach( App\Models\Base\Tercero::getTercero() as $key => $value)
+                                <option value="{{ $key }}" <%- producto_proveedor == '{{ $value }}' ? 'selected': ''%> >{{ $value }}</option>
+                            @endforeach--}}
+                        </select>
+                    </div>
+                    <div class="form-group col-md-1">
+                    <br>
+                        <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="producto_proveedor" > <i class="fa fa-plus"></i></button>
                     </div>
                 </div>
             </form>

@@ -161,19 +161,19 @@ app || (app = {});
             var _this = this,
                 stuffToDo = {
                     'marca' : function() {
-                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('producto_marca')}] }).trigger('change');
+                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('marca_modelo')}] }).trigger('change');
                         _this.$resourceField.val(_this.model.get('id')).trigger('change');
                     },
                     'tipo' : function() {
-                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('producto_tipo')}] }).trigger('change');
+                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('tipo_nombre')}] }).trigger('change');
                         _this.$resourceField.val(_this.model.get('id')).trigger('change');
                     },
                     'modelo' : function() {
-                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('producto_modelo')}] }).trigger('change');
+                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('modelo_nombre')}] }).trigger('change');
                         _this.$resourceField.val(_this.model.get('id')).trigger('change');
                     },
                     'estado' : function() {
-                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('producto_estado')}] }).trigger('change');
+                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('estado_nombre')}] }).trigger('change');
                         _this.$resourceField.val(_this.model.get('id')).trigger('change');
                     },
                     'tercero' : function() {
