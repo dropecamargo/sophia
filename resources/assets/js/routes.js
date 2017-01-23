@@ -140,8 +140,10 @@ app || (app = {});
             // Initialize resources
             this.componentGlobalView = new app.ComponentGlobalView();
             this.componentSearchTerceroView = new app.ComponentSearchTerceroView();
-            this.componentReportView = new app.ComponentReportView();
+            //this.componentReportView = new app.ComponentReportView();
             this.componentTerceroView = new app.ComponentTerceroView();
+            this.componentCreateResourceView = new app.ComponentCreateResourceView();
+            
       	},
 
         /**

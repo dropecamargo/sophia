@@ -32,9 +32,8 @@
                         <div class="box box-whithout-border">
                             <div class="box-body">
 
-                                {{--{!! Form::open(['id' => 'form-contrato', 'data-toggle' => 'validator']) !!}--}}
-
-                                <form method="POST" accept-charset="UTF-8" id="form-contrato" data-toggle="validator">
+                                {!! Form::open(['id' => 'form-contrato', 'data-toggle' => 'validator']) !!}
+                               {{--<form method="POST" accept-charset="UTF-8" id="form-contrato" data-toggle="validator">--}}
                                     <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
                                     <div class="row">
                                         <label class="col-sm-2 control-label">Id Contrato</label>
@@ -80,18 +79,18 @@
                                         <div class="form-group col-sm-2">
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary btn-flat btn-koi-search-tercero-component-table" data-field="contrato_tercero">
+                                                    <button type="button" class="btn btn-default btn-flat btn-koi-search-tercero-component-table" data-field="contrato_tercero">
                                                         <i class="fa fa-user"></i>
                                                     </button>
                                                 </span>
                                                 <input id="contrato_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="contrato_tercero" type="text" maxlength="15" data-wrapper="contratos-create" data-name="contrato_terecero_nombre" data-contacto="btn-add-contact" value="<%- contrato_tercero %>" required>
                                             </div>
                                         </div>
-                                        <div class="col-sm-5 col-xs-10">
-                                            <input id="contrato_terecero_nombre" name="contrato_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="" readonly required>
+                                       <div class="col-sm-5 col-xs-10">
+                                            <input id="contrato_terecero_nombre" name="" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="" readonly required>
                                         </div>
                                         <div class="col-sm-1 col-xs-2">
-                                            <button type="button" class="btn btn-primary btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="contrato_tercero">
+                                            <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="contrato_tercero">
                                                 <i class="fa fa-plus"></i>
                                             </button>
                                         </div>
@@ -101,7 +100,7 @@
                                          <input type="checkbox" id="contrato_activo" name="contrato_activo" value="contrato_activo" <%- contrato_activo ? 'checked': ''%>> <b>Activo</b>
                                         </label>
                                     </div> 
-                                </form>
+                                {{--</form>--}}
                                     <div class="row">
                                         <div class="col-md-2 col-md-offset-2 col-sm-6 col-xs-6">
                                             <a href="{{ route('contratos.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
@@ -111,7 +110,7 @@
                                         </div>
                                         <br/>
                                     </div>
-                               {{--{!! Form::close() !!}--}}
+                              {!! Form::close() !!}
 
                             </div>
                         </div>
