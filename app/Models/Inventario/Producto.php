@@ -3,7 +3,7 @@
 namespace App\Models\Inventario;
 
 use Illuminate\Database\Eloquent\Model;
-use Validator;
+use Validator,DB;
 
 class Producto extends Model
 {
@@ -27,7 +27,7 @@ class Producto extends Model
     {
         $rules = [
             'producto_placa' => 'unique:producto',
-            'producto_serie' => 'unique:producto|max:20',
+            'producto_serie' => 'unique:producto',
             'producto_referencia' => 'required|max:20',
             'producto_codigo' => 'required|max:20',
             'producto_nombre' => 'required|max:100',
@@ -37,8 +37,11 @@ class Producto extends Model
 
         if($this->exists){
             $rules['producto_placa'] .= ',producto_placa,' . $this->id;
+            $rules['producto_serie'] .= ',producto_serie,' . $this->id;
+            $rules['producto_proveedor'] .= ',producto_proveedor,' . $this->id;
         }else{
             $rules['producto_placa'] .= '|max:20';
+            $rules['producto_serie'] .= '|max:20';
         }
 
         $validator = Validator::make($data, $rules);
@@ -47,5 +50,18 @@ class Producto extends Model
         }
         $this->errors = $validator->errors();
         return false;
+    }
+
+    public static function getProducto($id)
+    {
+        $query = Producto::query();
+        $query->select('producto.*', 'marca_modelo', 'modelo_nombre', 'tipo_nombre', 'estado_nombre',DB::raw("CONCAT(tercero_nombre1, ' ', tercero_nombre2, ' ', tercero_apellido1, ' ', tercero_apellido2) as tercero_nombre"));
+        $query->join('marca', 'producto.producto_marca', '=', 'marca.id');
+        $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
+        $query->join('modelo', 'producto.producto_modelo', '=', 'modelo.id');
+        $query->join('estado', 'producto.producto_estado', '=', 'estado.id');
+        $query->join('tercero', 'producto.producto_proveedor', '=', 'tercero.id');
+        $query->where('producto.id', $id);
+        return $query->first();
     }
 }

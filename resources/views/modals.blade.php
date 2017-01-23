@@ -7,7 +7,7 @@
 				<h4 class="inner-title-modal modal-title"></h4>
 			</div>
 			{!! Form::open(['id' => 'form-create-resource-component', 'data-toggle' => 'validator']) !!}
-				<div class="modal-body box box-success">
+				<div class="modal-body box box-danger">
 					<div id="error-resource-component" class="alert alert-danger"></div>
 					<div class="content-modal"></div>
 				</div>

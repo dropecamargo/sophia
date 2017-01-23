@@ -31,11 +31,6 @@ app || (app = {});
             // Attributes
             this.$wraperForm = this.$('#render-form-producto');
 
-            // Model exist
-            if( this.model.id != undefined ) {
-                this.marcasList = new app.MarcasList();
-           }
-
             // Events
             this.listenTo( this.model, 'change', this.render );
             this.listenTo( this.model, 'sync', this.responseServer );

@@ -96,6 +96,9 @@
                                             </button>
                                         </div>
                                     </div>
+
+
+                                    
                                     <div class="row">
                                         <br><label class="checkbox-inline control-label col-sm-2" for="contrato_activo" >
                                          <input type="checkbox" id="contrato_activo" name="contrato_activo" value="contrato_activo" <%- contrato_activo ? 'checked': ''%>> <b>Activo</b>

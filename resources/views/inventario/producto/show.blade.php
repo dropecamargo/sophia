@@ -74,35 +74,28 @@
             </div>
 
             <div class="row">
-                <div class="form-group col-md-12">
-                    <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab_marcas" data-toggle="tab">Marcas</a></li>
-                        </ul>
+                <div class="form-group col-md-2">
+                    <label class="control-label">Marca</label>
+                    <div>{{ $producto->marca_modelo }}</div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label">Modelo</label>
+                    <div>{{ $producto->modelo_nombre }}</div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label">Estado</label>
+                    <div>{{ $producto->estado_nombre }}</div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label">Tipo</label>
+                    <div>{{ $producto->tipo_nombre }}</div>
+                </div>
+            </div>
 
-                        <div class="tab-content">
-                            {{-- Content marcas --}}
-                            <div class="tab-pane active" id="tab_marcas">
-                                <div class="box box-danger" id="wrapper-producto-marcas">
-                                    <div class="box-body">
-                                        <!-- table table-bordered table-striped -->
-                                        <div class="box-body table-responsive no-padding">
-                                            <table id="browse-marcas-producto-list" class="table table-hover table-bordered" cellspacing="0">
-                                                <thead>
-                                                    <tr>
-                                                        <th width="100px">Nombre</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {{-- Render content marcas --}}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="control-label">Proveedor</label>
+                    <div>{{ $producto->tercero_nombre }}</div>
                 </div>
             </div>
         </div>

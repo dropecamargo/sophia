@@ -37,6 +37,7 @@ app || (app = {});
         * Display form modal resource
         */
 		addResource: function(e) {
+            console.log('add');
             // References
             this.resource = $(e.currentTarget).attr("data-resource");
             this.$resourceField = $("#"+$(e.currentTarget).attr("data-field"));

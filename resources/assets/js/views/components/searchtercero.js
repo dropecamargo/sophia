@@ -58,7 +58,7 @@ app || (app = {});
                 language: window.Misc.dataTableES(),
 
                 ajax: {
-                    url: window.Misc.urlFull( Route.route('terceros') ),
+                    url: window.Misc.urlFull( Route.route('terceros.index') ),
                     data: function( data ) {
                       
                         data.tercero_nit = _this.$searchNit.val();

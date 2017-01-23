@@ -117,8 +117,7 @@
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>
-
-                    
+  
                     <div class="form-group col-md-3">
                     <label for="producto_estado" class="control-label">Estado</label>
                         <select name="producto_estado" id="producto_estado" class="form-control select2-default">
@@ -133,18 +132,24 @@
                         <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="estado" data-field="producto_estado" > <i class="fa fa-plus"></i></button>
                     </div>
                 </div>
+
                 <div class="row">
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
                     <label for="producto_proveedor" class="control-label">Proveedor</label>
-                        <select name="producto_proveedor" id="producto_proveedor" class="form-control select2-default">
-                            <option value="" selected>Seleccione</option>
-                            {{--@foreach( App\Models\Base\Tercero::getTercero() as $key => $value)
-                                <option value="{{ $key }}" <%- producto_proveedor == '{{ $value }}' ? 'selected': ''%> >{{ $value }}</option>
-                            @endforeach--}}
-                        </select>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-flat btn-koi-search-tercero-component-table" data-field="producto_proveedor">
+                                    <i class="fa fa-user"></i>
+                                </button>
+                            </span>
+                            <input id="producto_proveedor" placeholder="Cliente" class="form-control tercero-koi-component" name="producto_proveedor" type="text" maxlength="15" data-wrapper="contratos-create" data-name="contrato_terecero_nombre" data-contacto="btn-add-contact" value="<%- producto_proveedor %>" required>
+                        </div>
                     </div>
-                    <div class="form-group col-md-1">
                     <br>
+                    <div class="col-sm-5 col-xs-10">
+                        <input id="contrato_terecero_nombre" name="contrato_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="" readonly required>
+                    </div>
+                    <div class="col-sm-1 col-xs-2">
                         <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="producto_proveedor" > <i class="fa fa-plus"></i></button>
                     </div>
                 </div>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Datatables;
 use App\Models\Inventario\Producto;
+use App\Models\Base\Tercero;
 
 class ProductoController extends Controller
 {
@@ -50,8 +51,15 @@ class ProductoController extends Controller
             if ($producto->isValid($data)) {
                 DB::beginTransaction();
                 try {
+                    $tercero = Tercero::where('tercero_nit', $request->producto_proveedor)->first();
+                    if(!$tercero instanceof Tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
+                    }
+
                     // grupo
-                    $producto->fill($data);;
+                    $producto->fill($data); 
+                    $producto->producto_proveedor = $tercero->id;
                     $producto->save();
 
                     // Commit Transaction
@@ -76,11 +84,14 @@ class ProductoController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $producto = Producto::findOrFail($id);
-        if ($request->ajax()) {
-            return response()->json($producto);
+        $producto = Producto::getProducto($id);
+        if($producto instanceof Producto){
+            if ($request->ajax()) {
+                return response()->json($producto);
+            }
+            return view('inventario.producto.show', ['producto' => $producto]);
         }
-        return view('inventario.producto.show', ['producto' => $producto]);
+        abort(404);
     }
 
     /**
@@ -106,13 +117,19 @@ class ProductoController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $producto = Producto::findOrFail($id);
-            if ($producto->isValid($data)) {
                 DB::beginTransaction();
                 try {
+                    // Validar tercero
+                    $tercero = Tercero::where('tercero_nit', $request->producto_proveedor)->first();
+                    if(!$tercero instanceof Tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
+                    }
+
                     // producto
                     $producto->fill($data);
+                    $producto->producto_proveedor = $tercero->id;
                     $producto->save();
 
                     // Commit Transaction
@@ -125,8 +142,7 @@ class ProductoController extends Controller
                 }
             }
             return response()->json(['success' => false, 'errors' => $producto->errors]);
-        }
-        abort(403);
+        
     }
 
     /**

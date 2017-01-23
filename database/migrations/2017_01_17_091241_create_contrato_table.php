@@ -16,7 +16,7 @@ class CreateContratoTable extends Migration
             $table->engine = "InnoDB";
 
             $table->increments('id');
-            $table->string('contrato_numero',10);
+            $table->string('contratoo_numero',10);
             $table->integer('contrato_tercero')->unsigned();
             $table->date('contrato_fecha');
             $table->date('contrato_vencimiento');
