@@ -80,7 +80,7 @@
                                         <div class="form-group col-sm-2">
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary btn-flat btn-koi-search-tercero-component-table" data-field="">
+                                                    <button type="button" class="btn btn-primary btn-flat btn-koi-search-tercero-component-table" data-field="contrato_tercero">
                                                         <i class="fa fa-user"></i>
                                                     </button>
                                                 </span>

@@ -46,7 +46,7 @@ app || (app = {});
             
 			this.$inputContent = this.$("#"+$(e.currentTarget).attr("data-field"));
             this.$inputName = this.$("#"+this.$inputContent.attr("data-name"));
-             //this.$btnContact = this.$("#"+this.$inputContent.attr("data-contacto"));
+            this.$btnContact = this.$("#"+this.$inputContent.attr("data-contacto"));
                
                
             
