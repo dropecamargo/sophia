@@ -95,7 +95,10 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label class="control-label">Proveedor</label>
-                    <div>{{ $producto->tercero_nombre }}</div>
+                    <div>
+                        <a href="{{ route('terceros.show', ['terceros' =>  $producto->producto_proveedor ]) }}" title="Ver tercero">{{$producto->tercero_nit}}</a>
+                        {{ $producto->tercero_nombre }}
+                    </div>
                 </div>
             </div>
         </div>
