@@ -91,7 +91,7 @@
                         <select name="producto_modelo" id="producto_modelo" class="form-control select2-default">
                             <option value="" selected>Seleccione</option>
                             @foreach( App\Models\Inventario\Modelo::getModelos() as $key => $value)
-                                <option value="{{ $key }}" <%- producto_modelo == '{{ $value }}' ? 'selected': ''%> >{{ $value }}</option>
+                                <option value="{{ $key }}" <%- producto_modelo == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -123,7 +123,7 @@
                         <select name="producto_estado" id="producto_estado" class="form-control select2-default">
                             <option value="" selected>Seleccione</option>
                             @foreach( App\Models\Base\Estado::getEstados() as $key => $value)
-                                <option value="{{ $key }}" <%- producto_estado == '{{ $value }}' ? 'selected': ''%> >{{ $value }}</option>
+                                <option value="{{ $key }}" <%- producto_estado == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
                             @endforeach
                         </select>
                     </div>

@@ -38,7 +38,6 @@ class Producto extends Model
         if($this->exists){
             $rules['producto_placa'] .= ',producto_placa,' . $this->id;
             $rules['producto_serie'] .= ',producto_serie,' . $this->id;
-            $rules['producto_proveedor'] .= ',producto_proveedor,' . $this->id;
         }else{
             $rules['producto_placa'] .= '|max:20';
             $rules['producto_serie'] .= '|max:20';
@@ -55,7 +54,7 @@ class Producto extends Model
     public static function getProducto($id)
     {
         $query = Producto::query();
-        $query->select('producto.*', 'marca_modelo', 'modelo_nombre', 'tipo_nombre', 'estado_nombre',DB::raw("CONCAT(tercero_nombre1, ' ', tercero_nombre2, ' ', tercero_apellido1, ' ', tercero_apellido2) as tercero_nombre"));
+        $query->select('producto.*','tercero_nit', 'marca_modelo', 'modelo_nombre', 'tipo_nombre', 'estado_nombre',DB::raw("CONCAT(tercero_nombre1, ' ', tercero_nombre2, ' ', tercero_apellido1, ' ', tercero_apellido2) as tercero_nombre"));
         $query->join('marca', 'producto.producto_marca', '=', 'marca.id');
         $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
         $query->join('modelo', 'producto.producto_modelo', '=', 'modelo.id');
