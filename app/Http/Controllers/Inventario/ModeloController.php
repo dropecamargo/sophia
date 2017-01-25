@@ -60,6 +60,9 @@ class ModeloController extends Controller
 
                     // Commit Transaction
                     DB::commit();
+                    //Forget cache
+                    Cache::forget( Modelo::$key_cache );
+
                     return response()->json(['success' => true, 'id' => $modelo->id]);
                 }catch(\Exception $e){
                     DB::rollback();

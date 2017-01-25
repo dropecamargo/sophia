@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\BaseModel;
 
-use Validator;
+use Validator,Cache;
 
 class Modelo extends BaseModel
 {
@@ -18,6 +18,13 @@ class Modelo extends BaseModel
     protected $table = 'modelo';
 
     public $timestamps = false;
+
+    /**
+     * The key used by cache store.
+     *
+     * @var static string
+     */
+    public static $key_cache = '_modelos';
 
     
     /**
@@ -52,11 +59,17 @@ class Modelo extends BaseModel
 
     public static function getModelos()
     {
-        $query = Modelo::query();
-        $query->orderBy('modelo_nombre', 'asc');
-        $collection = $query->lists('modelo_nombre', 'modelo.id');
+        if ( Cache::has(self::$key_cache)) {
+            return Cache::get(self::$key_cache);
+        }
 
-        $collection->prepend('', '');
-        return $collection;
+        return Cache::rememberForever( self::$key_cache , function() {
+            $query = Modelo::query();
+            $query->orderBy('modelo_nombre', 'asc');
+            $collection = $query->lists('modelo_nombre', 'modelo.id');
+
+            $collection->prepend('', '');
+            return $collection;
+        });
     }
 }

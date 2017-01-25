@@ -32,6 +32,10 @@ class Producto extends Model
             'producto_codigo' => 'required|max:20',
             'producto_nombre' => 'required|max:100',
             'producto_parte' => 'required|max:20',
+            'producto_estado' => 'required',
+            'producto_marca' => 'required',
+            'producto_tipo' => 'required',
+            'producto_modelo' => 'required',
             'producto_vida_util' => 'required|numeric'
         ];
 

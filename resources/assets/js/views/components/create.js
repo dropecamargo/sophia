@@ -37,7 +37,6 @@ app || (app = {});
         * Display form modal resource
         */
 		addResource: function(e) {
-            console.log('add');
             // References
             this.resource = $(e.currentTarget).attr("data-resource");
             this.$resourceField = $("#"+$(e.currentTarget).attr("data-field"));
@@ -79,6 +78,13 @@ app || (app = {});
 
                         _this.model = new app.TerceroModel();
                         var template = _.template($('#add-tercero-tpl').html());
+                        _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
+                    },
+                    'producto' : function() {
+                        _this.$modalComponent.find('.inner-title-modal').html('Producto');
+
+                        _this.model = new app.ProductoModel();
+                        var template = _.template($('#add-producto-tpl').html());
                         _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
                     }
 	            };
@@ -179,6 +185,9 @@ app || (app = {});
                     },
                     'tercero' : function() {
                         _this.$resourceField.val(_this.model.get('tercero_nit')).trigger('change');
+                    },
+                    'producto' : function() {
+                        _this.$resourceField.val(_this.model.get('sirvea_codigo')).trigger('change');
                     }
                 };
 

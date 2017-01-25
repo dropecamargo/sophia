@@ -26,6 +26,8 @@ app || (app = {});
             'producto_modelo': '',
             'producto_estado': '',
             'producto_parte': '',
+            'tercero_nit': '',
+            'tercero_nombre':'',
             'producto_proveedor': '',
             'producto_vida_util': '',
             'producto_costo_promedio': '',

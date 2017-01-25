@@ -68,7 +68,7 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::group(['prefix' => 'productos'], function()
 	{
-		Route::resource('marcasp', 'Inventario\ProductoMarcaController', ['only' => ['index', 'store', 'destroy']]);
+		Route::resource('sirveas', 'Inventario\SirveaController', ['only' => ['index', 'store', 'destroy']]);
 	});
 
 	Route::resource('productos', 'Inventario\ProductoController', ['except' => ['destroy']]);

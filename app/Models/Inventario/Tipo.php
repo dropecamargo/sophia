@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\BaseModel;
 
-use Validator;
+use Validator,Cache;
 
 class Tipo extends BaseModel
 {
@@ -18,6 +18,13 @@ class Tipo extends BaseModel
     protected $table = 'tipo';
 
     public $timestamps = false;
+
+    /**
+     * The key used by cache store.
+     *
+     * @var static string
+     */
+    public static $key_cache = '_tipos';
 
     /**
      * The attributes that are mass assignable.
@@ -57,11 +64,17 @@ class Tipo extends BaseModel
 
     public static function getTipos()
     {
-        $query = Tipo::query();
-        $query->orderBy('tipo_nombre', 'asc');
-        $collection = $query->lists('tipo_nombre', 'tipo.id');
+        if ( Cache::has(self::$key_cache)) {
+            return Cache::get(self::$key_cache);
+        }
 
-        $collection->prepend('', '');
-        return $collection;
+        return Cache::rememberForever( self::$key_cache , function() {
+            $query = Tipo::query();
+            $query->orderBy('tipo_nombre', 'asc');
+            $collection = $query->lists('tipo_nombre', 'tipo.id');
+
+            $collection->prepend('', '');
+            return $collection;
+        });
     }
 }
