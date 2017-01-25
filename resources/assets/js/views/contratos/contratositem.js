@@ -16,13 +16,22 @@ app || (app = {});
         events: {
             'click .btn-edit-contrato': 'editContrato',
         },
+        parameters: {
+            wrapper: null,
+            edit: false,
+            dataFilter: {}
+        },
 
         /**
         * Constructor Method
         */
-        initialize: function(){
+        initialize: function(opts){
 
             //Init Attributes
+                 if( opts !== undefined && _.isObject(opts.parameters) )
+                this.parameters = $.extend({},this.parameters, opts.parameters);
+
+                this.parameters.wrapper
 
             // Events Listener
             this.listenTo( this.model, 'change', this.render );
@@ -34,18 +43,13 @@ app || (app = {});
         render: function(){
 
             var attributes = this.model.toJSON();
+            attributes.edit = this.parameters.edit;
+
             this.$el.html( this.template(attributes) );
 
             return this;
         },
 
-        editContacto: function() {
-            var view = new app.CreateContratoView({
-                model: this.model
-            });
-
-            view.render();
-        }
 
     });
 

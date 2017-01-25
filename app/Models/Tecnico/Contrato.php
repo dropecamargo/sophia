@@ -49,7 +49,8 @@ class Contrato extends BaseModel
     public static function getContrato($id)
     {
         $query = Contrato::query();
-        $query->select('contrato.*', 'tercero_nit', DB::raw("CONCAT(tercero_nombre1, ' ', tercero_nombre2, ' ', tercero_apellido1, ' ', tercero_apellido2) as tercero_nombre"));
+        $query->select('contrato.*','contratodano_tiempo', 'tercero_nit', DB::raw("CONCAT(tercero_nombre1, ' ', tercero_nombre2, ' ', tercero_apellido1, ' ', tercero_apellido2) as tercero_nombre"));
+        $query->join('contratodano', 'contratodano_tiempo', '=', 'contratodano.id');
         $query->join('tercero', 'contrato.contrato_tercero', '=', 'tercero.id');
         $query->where('contrato.id', $id);
         return $query->first();

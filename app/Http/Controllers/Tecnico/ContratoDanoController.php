@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Datatables;
 
+use App\Models\Tecnico\Contrato, App\Models\Tecnico\ContratoDano,App\Models\Tecnico\Dano;
+
 class ContratoDanoController extends Controller
 {
     /**
@@ -16,9 +18,21 @@ class ContratoDanoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->ajax())
+        {
+            $query = ContratoDano::query();
+            $query->where('contratodano_contrato', $request->contrato_id);
+            $query->select('contratodano.*', 'dano.*');
+            $query->join('dano', 'contratodano_dano', '=', 'dano.id');
+            $query->orderBy('contratodano.id', 'asc');
+            return response()->json( $query->get() );
+          
+            $query->orderBy('id', 'asc');
+            return response()->json( $query->get() );
+        }
+        abort(404);
     }
 
     /**
@@ -39,7 +53,38 @@ class ContratoDanoController extends Controller
      */
     public function store(Request $request)
     {
-        dd("hola");
+         if ($request->ajax()) {
+            $data = $request->all();
+            $contratodano = new ContratoDano;
+            if ($contratodano->isValid($data)) {
+
+                DB::beginTransaction();
+                try {
+                    // Validar daño
+                    $dano = Dano::find($request->contratodano_dano);
+                    if(!$dano instanceof Dano) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar maquina, por favor verifique la información o consulte al administrador.']);
+                    }
+
+                    // ContratoDano
+                    $contratodano->fill($data);
+                    /*$contratodano->contratodano_dano = $dano->id;
+                    $contratodano->contratodano_tiempo;*/ 
+                    $contratodano->save();
+
+                    // Commit Transaction
+                    DB::commit();
+                    return response()->json(['success' => true, 'id' => $contratodano->id, 'dano_id' => $dano->id, 'dano_nombre' => $dano->dano_nombre]);
+                }catch(\Exception $e){
+                    DB::rollback();
+                    Log::error($e->getMessage());
+                    return response()->json(['success' => false, 'errors' => trans('app.exception')]);
+                }
+            }
+            return response()->json(['success' => false, 'errors' => $contratodano->errors]);
+        }
+        abort(403);       
     }
 
     /**
@@ -84,6 +129,6 @@ class ContratoDanoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd('destroy');    
     }
 }

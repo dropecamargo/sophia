@@ -3,10 +3,11 @@
 namespace App\Models\Tecnico;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 use Validator;
 
-class ContratoDano extends Model
+class ContratoDano extends BaseModel
 {
     /**
      * The database table used by the model.
