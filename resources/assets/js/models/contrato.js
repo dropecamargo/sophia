@@ -17,10 +17,14 @@ app || (app = {});
         defaults: {
             'contrato_numero': '',
             'contrato_tercero': '',
+            'tercero_nit': '',
+            'tercero_nombre': '',
             'contrato_fecha': moment().format('YYYY-MM-DD'),
             'contrato_vencimiento': moment().format('YYYY-MM-DD'),
-            'contrato_activo': '',
+            'contrato_activo': true,
             'contrato_condiciones': ''
+            //'dano_nombre': '',
+            //'dano_activo': true
         }
     });
 

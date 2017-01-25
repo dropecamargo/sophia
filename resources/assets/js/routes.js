@@ -102,6 +102,7 @@ app || (app = {});
             'contratos/create(/)': 'getContratosCreate',
             'contratos/:contratos/edit(/)': 'getContratosEdit',
 
+            
             //Prioridad
             'prioridades(/)': 'getPrioridadesMain',
             'prioridades/create(/)': 'getPrioridadesCreate',

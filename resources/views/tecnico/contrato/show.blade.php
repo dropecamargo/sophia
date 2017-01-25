@@ -27,13 +27,18 @@
 
             <div class="row">
                 <div class="form-group col-md-3">
-                    <label class="control-label">Número De Contrato</label>
+                    <label class="control-label">Número</label>
                     <div>{{ $contrato->contrato_numero }}</div>
             	</div>
+            </div>
 
-                <div class="form-group col-md-3">
-                    <label class="control-label">Contrato Tercero</label>
-                    <div> {{ $contrato->contrato_tercero }}</div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="control-label">Tercero</label>
+                    <div>
+                        <a href="{{ route('terceros.show', ['terceros' =>  $contrato->contrato_tercero ]) }}" title="Ver tercero">{{ $contrato->tercero_nit }}</a>
+                        {{ $contrato->tercero_nombre }}
+                    </div>
                 </div>
             </div>
 

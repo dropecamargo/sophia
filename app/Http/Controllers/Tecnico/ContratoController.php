@@ -67,12 +67,12 @@ class ContratoController extends Controller
             if ($contrato->isValid($data)) {
                 DB::beginTransaction();
                 try {
-
                     $tercero = Tercero::where('tercero_nit', $request->contrato_tercero)->first();
                     if(!$tercero instanceof Tercero) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
                     }
+
                     // Contrato
                     $contrato->fill($data);
                     $contrato->fillBoolean($data);
@@ -101,9 +101,12 @@ class ContratoController extends Controller
      */
     public function show(Request $request, $id)
     {
+        $contrato = Contrato::getContrato($id);
+        if(!$contrato instanceof Contrato) {
+            abort(404);
+        }
 
-        $contrato = Contrato::findOrFail($id);
-        if($request->ajax()){
+        if($request->ajax()) {
             return response()->json($contrato);
         }
         return view('tecnico.contrato.show', ['contrato' => $contrato]);
@@ -117,7 +120,10 @@ class ContratoController extends Controller
      */
     public function edit($id)
     {
-        $contrato = Contrato::findOrFail($id);
+        $contrato = Contrato::getContrato($id);
+        if(!$contrato instanceof Contrato) {
+            abort(404);
+        }
         return view('tecnico.contrato.edit', ['contrato' => $contrato]);
     }
 
@@ -136,13 +142,20 @@ class ContratoController extends Controller
             if ($contrato->isValid($data)) {
                 DB::beginTransaction();
                 try {
+                    $tercero = Tercero::where('tercero_nit', $request->contrato_tercero)->first();
+                    if(!$tercero instanceof Tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
+                    }
+
                     // contratos
                     $contrato->fill($data);
                     $contrato->fillBoolean($data);
+                    $contrato->contrato_tercero = $tercero->id;
                     $contrato->save();
+
                     // Commit Transaction
-                    DB::commit();
-                    
+                    DB::commit();                    
                     return response()->json(['success' => true, 'id' => $contrato->id]);
                 }catch(\Exception $e){
                     DB::rollback();
