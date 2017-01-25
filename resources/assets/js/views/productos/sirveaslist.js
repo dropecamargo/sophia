@@ -81,7 +81,7 @@ app || (app = {});
 
             // Set Spinner
             window.Misc.setSpinner( this.parameters.wrapper );
-
+            
             // Prepare data
             data.sirvea_maquina = this.parameters.dataFilter.producto_id;
 

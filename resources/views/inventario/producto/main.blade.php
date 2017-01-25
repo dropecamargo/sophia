@@ -124,12 +124,12 @@
                                     <i class="fa fa-user"></i>
                                 </button>
                             </span>
-                            <input id="producto_proveedor" placeholder="Cliente" class="form-control tercero-koi-component" name="producto_proveedor" type="text" maxlength="15" data-wrapper="producto-create" data-name="contrato_terecero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit %>" required>
+                            <input id="producto_proveedor" placeholder="Cliente" class="form-control tercero-koi-component" name="producto_proveedor" type="text" maxlength="15" data-wrapper="producto-create" data-name="producto_tercero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit %>" required>
                         </div>
                     </div>
                     <br>
                     <div class="col-sm-5 col-xs-10">
-                        <input id="contrato_terecero_nombre" name="contrato_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly required>
+                        <input id="producto_tercero_nombre" name="producto_tercero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly required>
                     </div>
                     <div class="col-sm-1 col-xs-2">
                         <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="producto_proveedor" > <i class="fa fa-plus"></i></button>
@@ -137,7 +137,9 @@
                 </div>
             </form>
 
-            <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
+            
+
+    <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
         <div class="box box-danger" id="wrapper-producto-sirveas">
             <div class="box-body">
             <label class="control-label"><h4>Sirve a</h4></label>
@@ -150,7 +152,7 @@
                                         <i class="fa fa-barcode"></i>
                                     </button>
                                 </span>
-                                <input id="sirvea_codigo" placeholder="Producto" class="form-control producto-koi-component" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="sirvea_maquina" value="" required>
+                                <input id="sirvea_codigo" placeholder="Producto" class="form-control producto-koi-component" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="sirvea_maquina" required>
                             </div>
                         </div>
                         <div class="col-sm-6 col-xs-10">
@@ -198,7 +200,7 @@
             </a>
         </td>
         <% } %>
-        <td><%- producto_codigo %></td>
+        <td><%- sirvea_codigo %></td>
         <td><%- producto_nombre %></td>
     </script>
 @stop

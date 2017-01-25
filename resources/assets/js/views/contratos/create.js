@@ -14,7 +14,8 @@ app || (app = {});
         el: '#contratos-create',
         template: _.template( ($('#add-contrato-tpl').html() || '') ),
         events: {
-            'submit #form-contrato': 'onStore'
+            'submit #form-contrato': 'onStore',
+            'submit #form-danoc': 'onStoreDano',
         },
         parameters: {
         },
@@ -30,10 +31,49 @@ app || (app = {});
             // Attributes
             this.$wraperForm = this.$('#render-form-contrato');
 
+             if( this.model.id != undefined ) {
+
+                this.contratosList = new app.ContratosList();
+           }
+
             // Events
             this.listenTo( this.model, 'change', this.render );
             this.listenTo( this.model, 'sync', this.responseServer );
             this.listenTo( this.model, 'request', this.loadSpinner );
+        },
+
+          /*
+        * Render View Element
+        */
+        render: function(){
+            var attributes = this.model.toJSON();
+            this.$wraperForm.html( this.template(attributes) );
+
+            // Model exist
+            if( this.model.id != undefined ) {
+
+                // Reference views
+                this.referenceViews();
+            }
+            this.ready();
+        },
+
+        /**
+        * reference to views
+        */
+
+        referenceViews: function () {
+            
+             this.contratosListView = new app.ContratosListView( {
+                collection: this.contratosList,
+                parameters: {
+                    edit: true,
+                    wrapper: this.$('#wrapper-danos-contrato'),
+                    dataFilter: {
+                        'contrato_id': this.model.get('id')
+                    }
+               }
+            });
         },
 
         /**
@@ -47,6 +87,22 @@ app || (app = {});
                 var data = window.Misc.formToJson( e.target );
                 this.model.save( data, {patch: true, silent: true} );
             }
+        },
+
+        /**
+        * Event Create Tip
+        */
+
+       onStoreDano: function (e) {
+
+            if (!e.isDefaultPrevented()) {
+
+                e.preventDefault();
+
+                // Prepare global data
+                var data = window.Misc.formToJson( e.target );
+                this.contratosList.trigger( 'store', data );
+            }   
         },
 
         /*
@@ -75,6 +131,9 @@ app || (app = {});
             
             if( typeof window.initComponent.initDatePicker == 'function' )
                 window.initComponent.initDatePicker();
+
+            if( typeof window.initComponent.initSelect2 == 'function' )
+            window.initComponent.initSelect2();
         },
 
         /**
@@ -102,7 +161,7 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('contratos.show', { contratos: resp.id})) );
+                window.Misc.redirect( window.Misc.urlFull( Route.route('contratos.edit', { contratos: resp.id})) );
             }
         }
     });

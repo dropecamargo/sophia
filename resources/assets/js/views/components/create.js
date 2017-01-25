@@ -73,6 +73,14 @@ app || (app = {});
                         var template = _.template($('#add-estado-tpl').html());
                         _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
                     },
+                    'danoscontrato' : function() {
+                        _this.$modalComponent.find('.inner-title-modal').html('Dano');
+
+                        _this.model = new app.DanoModel();
+                        var template = _.template($('#add-dano-tpl').html());
+                        _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
+                    },
+                    
 	                'tercero' : function() {
                         _this.$modalComponent.find('.inner-title-modal').html('Tercero');
 
@@ -181,6 +189,10 @@ app || (app = {});
                     },
                     'estado' : function() {
                         _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('estado_nombre')}] }).trigger('change');
+                        _this.$resourceField.val(_this.model.get('id')).trigger('change');
+                    },
+                    'danoscontrato' : function() {
+                       // _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('estado_nombre')}] }).trigger('change');
                         _this.$resourceField.val(_this.model.get('id')).trigger('change');
                     },
                     'tercero' : function() {

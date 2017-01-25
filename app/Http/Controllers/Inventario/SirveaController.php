@@ -18,9 +18,18 @@ class SirveaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        //dd('index');
+        if ($request->ajax())
+        {
+            $query = Sirvea::query();
+            $query->where('sirvea_maquina', $request->producto_id);
+            $query->select('sirvea.*','producto_nombre');
+            $query->join('producto', 'sirvea_maquina', '=', 'producto.id');
+            return response()->json( $query->get() );
+        }
+        abort(404);
     }
 
     /**
@@ -43,7 +52,6 @@ class SirveaController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $sirvea = new Sirvea;
             if ($sirvea->isValid($data)) {
                 DB::beginTransaction();
@@ -55,14 +63,13 @@ class SirveaController extends Controller
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
                     }
 
-                    // Sirvea
                     $sirvea->fill($data);
                     $sirvea->sirvea_codigo = $producto->id;
                     $sirvea->save();
 
                     // Commit Transaction
                     DB::commit();
-                    return response()->json(['success' => true, 'id' => $sirvea->id]);
+                    return response()->json(['success' => true, 'id' => $sirvea->id, 'producto_nombre'=>$producto->producto_nombre]);
                 }catch(\Exception $e){
                     DB::rollback();
                     Log::error($e->getMessage());

@@ -1,29 +1,36 @@
 <?php
 
-namespace App\Models\Inventario;
+namespace App\Models\Tecnico;
 
 use Illuminate\Database\Eloquent\Model;
 
 use Validator;
 
-class Sirvea extends Model
+class ContratoDano extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'sirvea';
+    protected $table = 'contratodano';
 
     public $timestamps = false;
-    
-    protected $fillable = ['sirvea_maquina'];
+
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['contratodano_contrato','contratodano_dano','contratodano_tiempo'];
+
 
     public function isValid($data)
     {
         $rules = [
-            'sirvea_codigo' => 'required',
-            'sirvea_maquina' => 'required|integer'
+            'contratodano_contrato' => 'required|numeric',
+            'contratodano_dano' => 'required|numeric',
+            'contratodano_tiempo' => 'required|numeric'
         ];
 
         $validator = Validator::make($data, $rules);
@@ -33,4 +40,5 @@ class Sirvea extends Model
         $this->errors = $validator->errors();
         return false;
     }
+
 }

@@ -3,7 +3,7 @@
 namespace App\Models\Tecnico;
 
 use Illuminate\Database\Eloquent\Model;
-use Validator;
+use Validator ,Cache ,DB;
 use App\Models\BaseModel;
 
 class Dano extends BaseModel
@@ -16,6 +16,13 @@ class Dano extends BaseModel
     protected $table = 'dano';
 
     public $timestamps = false;
+
+    /**
+     * The key used by cache store.
+     *
+     * @var static string
+     */
+    public static $key_cache = '_danos';
 
      /**
      * The attributes that are mass assignable.
@@ -38,5 +45,21 @@ class Dano extends BaseModel
         }
         $this->errors = $validator->errors();
         return false;
+    }
+
+     public static function getDanos()
+    {
+        if (Cache::has( self::$key_cache )) {
+            return Cache::get( self::$key_cache );
+        }
+
+        return Cache::rememberForever( self::$key_cache , function() {
+            $query = Dano::query();
+            $query->orderBy('id', 'asc');
+            $collection = $query->lists('dano_nombre', 'id');
+
+            $collection->prepend('', '');
+            return $collection;
+        });
     }
 }

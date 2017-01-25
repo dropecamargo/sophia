@@ -154,6 +154,12 @@ app || (app = {});
                     return;
                 }
 
+                // ProductoView undelegateEvents
+                if ( this.createProductoView instanceof Backbone.View ){
+                    this.createProductoView.stopListening();
+                    this.createProductoView.undelegateEvents();
+                }
+
                 // Redirect to edit orden
                 Backbone.history.navigate(Route.route('productos.edit', { productos: resp.id}), { trigger:true });
             }
