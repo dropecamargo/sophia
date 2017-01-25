@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models\Base;
-use Validator;
+use Validator,Cache;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +15,13 @@ class Estado extends BaseModel
     protected $table = 'estado';
 
     public $timestamps = false;
+
+    /**
+     * The key used by cache store.
+     *
+     * @var static string
+     */
+    public static $key_cache = '_estados';
 
      /**
      * The attributes that are mass assignable.
@@ -41,11 +48,17 @@ class Estado extends BaseModel
 
     public static function getEstados()
     {
-        $query = Estado::query();
-        $query->orderBy('estado_nombre', 'asc');
-        $collection = $query->lists('estado_nombre', 'estado.id');
+        if ( Cache::has(self::$key_cache)) {
+            return Cache::get(self::$key_cache);
+        }
 
-        $collection->prepend('', '');
-        return $collection;
+        return Cache::rememberForever( self::$key_cache , function() {
+            $query = Estado::query();
+            $query->orderBy('estado_nombre', 'asc');
+            $collection = $query->lists('estado_nombre', 'estado.id');
+
+            $collection->prepend('', '');
+            return $collection;
+        });
     }
 }

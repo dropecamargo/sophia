@@ -60,6 +60,13 @@ class ContratoDanoController extends Controller
 
                 DB::beginTransaction();
                 try {
+                      // Validar producto
+                    $contrato = Contrato::find($request->contratodano_contrato);
+                    if(!$contrato instanceof Contrato) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar contrato, por favor verifique la información o consulte al administrador.']);
+                    }
+
                     // Validar daño
                     $dano = Dano::find($request->contratodano_dano);
                     if(!$dano instanceof Dano) {
@@ -67,10 +74,15 @@ class ContratoDanoController extends Controller
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar maquina, por favor verifique la información o consulte al administrador.']);
                     }
 
+                    // Validar unique
+                    $contratodanouq = ContratoDano::where('contratodano_contrato', $contrato->id)->where('contratodano_dano', $dano->id)->first();
+                    if($contratodanouq instanceof ContratoDano) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => "El daño {$dano->dano_nombre} ya se encuentra asociado a este contrato."]);
+                    }
+
                     // ContratoDano
-                    $contratodano->fill($data);
-                    /*$contratodano->contratodano_dano = $dano->id;
-                    $contratodano->contratodano_tiempo;*/ 
+                    $contratodano->fill($data); 
                     $contratodano->save();
 
                     // Commit Transaction

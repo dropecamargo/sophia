@@ -102,6 +102,7 @@ class ContratoController extends Controller
     public function show(Request $request, $id)
     {
         $contrato = Contrato::getContrato($id);
+        
         if(!$contrato instanceof Contrato) {
             abort(404);
         }

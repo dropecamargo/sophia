@@ -3,7 +3,7 @@
 namespace App\Models\Inventario;
 
 use Illuminate\Database\Eloquent\Model;
-use Validator;
+use Validator,Cache;
 use App\Models\BaseModel;
 
 class Marca extends BaseModel
@@ -16,6 +16,13 @@ class Marca extends BaseModel
     protected $table = 'marca';
 
     public $timestamps = false;
+
+    /**
+     * The key used by cache store.
+     *
+     * @var static string
+     */
+    public static $key_cache = '_marcas';
 
      /**
      * The attributes that are mass assignable.
@@ -42,11 +49,17 @@ class Marca extends BaseModel
 
     public static function getMarcas()
     {
-        $query = Marca::query();
-        $query->orderBy('marca_modelo', 'asc');
-        $collection = $query->lists('marca_modelo', 'marca.id');
+        if ( Cache::has(self::$key_cache)) {
+            return Cache::get(self::$key_cache);
+        }
 
-        $collection->prepend('', '');
-        return $collection;
+        return Cache::rememberForever( self::$key_cache , function() {
+            $query = Marca::query();
+            $query->orderBy('marca_modelo', 'asc');
+            $collection = $query->lists('marca_modelo', 'marca.id');
+
+            $collection->prepend('', '');
+            return $collection;
+        });
     }
 }

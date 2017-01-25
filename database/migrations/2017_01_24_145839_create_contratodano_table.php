@@ -16,8 +16,8 @@ class CreateContratodanoTable extends Migration
             $table->engine = "InnoDB";
 
             $table->increments('id');
-            $table->integer('contratodano_contrato')->unsigned();
-            $table->integer('contratodano_dano')->unsigned();
+            $table->integer('contratodano_contrato')->unsigned()->unique();
+            $table->integer('contratodano_dano')->unsigned()->unique();
             $table->integer('contratodano_tiempo')->unsigned();
 
             $table->foreign('contratodano_contrato')->references('id')->on('contrato')->onDelete('restrict');

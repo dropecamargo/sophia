@@ -16,6 +16,7 @@ app || (app = {});
         events: {
             'click .submit-producto': 'submitProducto',
             'submit #form-producto': 'onStore',
+            'submit #form-item-sirvea': 'onStoreItem',
         },
         parameters: {
         },
@@ -31,6 +32,11 @@ app || (app = {});
             // Attributes
             this.$wraperForm = this.$('#render-form-producto');
 
+             // Model exist
+            if( this.model.id != undefined ) {
+                this.sirveasList = new app.SirveasList();
+            }
+
             // Events
             this.listenTo( this.model, 'change', this.render );
             this.listenTo( this.model, 'sync', this.responseServer );
@@ -45,7 +51,32 @@ app || (app = {});
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
             this.$form = this.$('#form-producto');
+
+            // Model exist
+            if( this.model.id != undefined ) {
+
+                // Reference views
+                this.referenceViews();
+            }
+
             this.ready();
+        },
+
+        /**
+        * reference to views
+        */
+        referenceViews: function () {
+            //Sirvea list
+            this.sirveasListView = new app.SirveasListView( {
+                collection: this.sirveasList,
+                parameters: {
+                    edit: true,
+                    wrapper: this.$('#wrapper-producto-sirveas'),
+                    dataFilter: {
+                        'producto_id': this.model.get('id')
+                    }
+               }
+            });
         },
 
         /**
@@ -65,6 +96,21 @@ app || (app = {});
                 e.preventDefault();
                 var data = window.Misc.formToJson( e.target );
                 this.model.save( data, {patch: true, silent: true} );
+            }
+        },
+
+        /**
+        * Event add item detalle traslado
+        */
+        onStoreItem: function (e) {
+
+            if (!e.isDefaultPrevented()) {
+
+                e.preventDefault();
+
+                // Prepare global data
+                var data = window.Misc.formToJson( e.target );
+                this.sirveasList.trigger( 'store', data );
             }
         },
 
@@ -108,7 +154,14 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('productos.show', { productos: resp.id})) );
+                // ProductoView undelegateEvents
+                if ( this.createProductoView instanceof Backbone.View ){
+                    this.createProductoView.stopListening();
+                    this.createProductoView.undelegateEvents();
+                }
+
+                // Redirect to edit orden
+                Backbone.history.navigate(Route.route('productos.edit', { productos: resp.id}), { trigger:true });
             }
         }
     });

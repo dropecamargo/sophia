@@ -143,7 +143,7 @@ app || (app = {});
             this.componentSearchTerceroView = new app.ComponentSearchTerceroView();
             this.componentTerceroView = new app.ComponentTerceroView();
             this.componentCreateResourceView = new app.ComponentCreateResourceView();
-            
+            this.componentSearchProductoView = new app.ComponentSearchProductoView();
       	},
 
         /**
