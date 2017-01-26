@@ -102,5 +102,38 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_sirveas" data-toggle="tab">Sirve a</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        {{-- Content sirveas --}}
+                        <div class="tab-pane active" id="tab_sirveas">
+                            <div class="box box-danger" id="wrapper-producto-sirveas">
+                                <div class="box-body">
+                                    <!-- table table-bordered table-striped -->
+                                    <div class="box-body table-responsive no-padding">
+                                        <table id="browse-sirveas-producto-list" class="table table-hover table-bordered" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th width="1px">Serie</th>
+                                                    <th width="100px">Nombre</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{-- Render content areas --}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @stop

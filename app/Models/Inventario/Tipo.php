@@ -77,4 +77,20 @@ class Tipo extends BaseModel
             return $collection;
         });
     }
+
+    public static function getTipo()
+    {
+        if ( Cache::has(self::$key_cache)) {
+            return Cache::get(self::$key_cache);
+        }
+
+        return Cache::rememberForever( self::$key_cache , function() {
+            $query = Tipo::query();
+            $query->orderBy('tipo_codigo', 'asc');
+            $collection = $query->lists('tipo_codigo', 'tipo.id');
+
+            $collection->prepend('', '');
+            return $collection;
+        });
+    }
 }

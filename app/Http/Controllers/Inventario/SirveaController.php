@@ -25,8 +25,9 @@ class SirveaController extends Controller
         {
             $query = Sirvea::query();
             $query->where('sirvea_maquina', $request->producto_id);
-            $query->select('sirvea.*','producto_nombre');
-            $query->join('producto', 'sirvea_maquina', '=', 'producto.id');
+            $query->select('sirvea.*','p.producto_nombre as nombre','po.producto_serie as serie');
+            $query->join('producto as p', 'sirvea.sirvea_codigo', '=', 'p.id');
+            $query->join('producto as po', 'sirvea.sirvea_codigo', '=', 'po.id');
             return response()->json( $query->get() );
         }
         abort(404);
@@ -57,19 +58,33 @@ class SirveaController extends Controller
                 DB::beginTransaction();
                 try {
                     // Validar producto
-                    $producto = Producto::where('producto_codigo', $request->sirvea_codigo)->first();
+                    $producto = Producto::where('producto_serie', $request->sirvea_codigo)->first();
                     if(!$producto instanceof Producto) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar serie, por favor verifique la información o consulte al administrador.']);
                     }
 
-                    $sirvea->fill($data);
+                    // Validar producto
+                    $pp = Producto::where('id', $request->sirvea_maquina)->first();
+                    if(!$pp instanceof Producto) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar maquina, por favor verifique la información o consulte al administrador.']);
+                    }
+
+                    // Validar unique
+                    $sirveauq = Sirvea::where('sirvea_maquina', $request->sirvea_maquina)->where('sirvea_codigo', $producto->id)->first();
+                    if($sirveauq instanceof Sirvea) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => "La maquina {$producto->producto_nombre} ya se encuentra asociada a este producto."]);
+                    }
+
+                    $sirvea->sirvea_maquina = $pp->id;
                     $sirvea->sirvea_codigo = $producto->id;
                     $sirvea->save();
 
                     // Commit Transaction
                     DB::commit();
-                    return response()->json(['success' => true, 'id' => $sirvea->id, 'producto_nombre'=>$producto->producto_nombre]);
+                    return response()->json(['success' => true, 'id' => $sirvea->id, 'sirvea_maquina'=>$sirvea->sirvea_maquina]);
                 }catch(\Exception $e){
                     DB::rollback();
                     Log::error($e->getMessage());
@@ -121,8 +136,29 @@ class SirveaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            DB::beginTransaction();
+            try {
+
+                $sirvea = Sirvea::find($id);
+                if(!$sirvea instanceof Sirvea){
+                    return response()->json(['success' => false, 'errors' => 'No es posible recuperar sirve a, por favor verifique la información del asiento o consulte al administrador.']);
+                }
+
+                // Eliminar item sirvea
+                $sirvea->delete();
+
+                DB::commit();
+                return response()->json(['success' => true]);
+
+            }catch(\Exception $e){
+                DB::rollback();
+                Log::error(sprintf('%s -> %s: %s', 'SirveaController', 'destroy', $e->getMessage()));
+                return response()->json(['success' => false, 'errors' => trans('app.exception')]);
+            }
+        }
+        abort(403);
     }
 }

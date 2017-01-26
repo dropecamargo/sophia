@@ -16,8 +16,6 @@ class Sirvea extends Model
     protected $table = 'sirvea';
 
     public $timestamps = false;
-    
-    protected $fillable = ['sirvea_maquina'];
 
     public function isValid($data)
     {

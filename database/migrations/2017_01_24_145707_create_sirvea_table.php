@@ -21,6 +21,8 @@ class CreateSirveaTable extends Migration
 
             $table->foreign('sirvea_maquina')->references('id')->on('producto')->onDelete('restrict');
             $table->foreign('sirvea_codigo')->references('id')->on('producto')->onDelete('restrict');
+            $table->unique(['sirvea_codigo', 'sirvea_maquina']);
+
         });
     }
 

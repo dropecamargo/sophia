@@ -95,9 +95,9 @@
 	{!! Form::open(['id' => 'form-koi-search-producto-component', 'class' => 'form-horizontal', 'data-toggle' => 'validator', 'role' => 'form']) !!}
 		<div class="modal-body">
 			<div class="form-group">
-				<label for="koi_search_producto_codigo" class="col-md-1 control-label">Código</label>
+				<label for="koi_search_producto_serie" class="col-md-1 control-label">Serie</label>
 				<div class="col-md-2">
-					{!! Form::text('koi_search_producto_codigo', null, ['id' => 'koi_search_producto_codigo', 'class' => 'form-control input-sm']) !!}
+					{!! Form::text('koi_search_producto_codigo', null, ['id' => 'koi_search_producto_serie', 'class' => 'form-control input-sm']) !!}
 				</div>
 
 				<label for="koi_search_producto_nombre" class="col-md-1 control-label">Nombre</label>
@@ -120,7 +120,7 @@
 					<table id="koi-search-producto-component-table" class="table table-bordered table-striped" cellspacing="0" width="100%">
 		                <thead>
 				            <tr>
-				                <th>Código</th>
+				                <th>Serie</th>
 			                	<th>Nombre</th>
 				            </tr>
 				        </thead>

@@ -104,6 +104,7 @@
                     <br>
                         <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="estado" data-field="producto_estado"> <i class="fa fa-plus"></i></button>
                     </div>
+
                     <div class="form-group col-md-3">
                     <label for="producto_tipo" class="control-label">Tipo</label>
                         <select name="producto_tipo" id="producto_tipo" class="form-control select2-default" required> 
@@ -140,45 +141,55 @@
             
 
     <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
-        <div class="box box-danger" id="wrapper-producto-sirveas">
-            <div class="box-body">
-            <label class="control-label"><h4>Sirve a</h4></label>
-                <form method="POST" accept-charset="UTF-8" id="form-item-sirvea" data-toggle="validator">
-                    <div class="row">
-                        <div class="form-group col-sm-2 col-md-offset-1">
-                            <div class="input-group input-group-sm">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="sirvea_codigo">
-                                        <i class="fa fa-barcode"></i>
+
+<div class="form-group col-md-12">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab_areas" data-toggle="tab">Sirve a</a></li>
+        </ul>   
+        <div class="tab-content">
+            {{-- Content areas --}}
+            <div class="tab-pane active" id="tab_areas">    
+                <div class="box box-danger" id="wrapper-producto-sirveas">
+                    <div class="box-body">
+                        <form method="POST" accept-charset="UTF-8" id="form-item-sirvea" data-toggle="validator">
+                            <div class="row">
+                                <div class="form-group col-sm-2 col-md-offset-1">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="sirvea_codigo">
+                                                <i class="fa fa-barcode"></i>
+                                            </button>
+                                        </span>
+                                        <input id="sirvea_codigo" placeholder="Serie" class="form-control producto-koi-component" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="sirvea_maquina" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xs-10">
+                                    <input id="sirvea_maquina" name="sirvea_maquina" placeholder="Nombre producto" class="form-control input-sm" type="text" maxlength="15" readonly required>
+                                </div>
+                                <div class="form-group col-sm-1">
+                                    <button type="submit" class="btn btn-danger btn-sm btn-block">
+                                        <i class="fa fa-plus"></i>
                                     </button>
-                                </span>
-                                <input id="sirvea_codigo" placeholder="Producto" class="form-control producto-koi-component" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="sirvea_maquina" required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-xs-10">
-                            <input id="sirvea_maquina" name="sirvea_maquina" placeholder="Nombre producto" class="form-control input-sm" type="text" maxlength="15" readonly required>
-                        </div>
-                        <div class="form-group col-sm-1">
-                            <button type="submit" class="btn btn-danger btn-sm btn-block">
-                                <i class="fa fa-plus"></i>
-                            </button>
+                        </form>
+                        <!-- table table-bordered table-striped -->
+                        <div class="box-body table-responsive no-padding">
+                            <table id="browse-sirveas-producto-list" class="table table-hover table-bordered" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th width="5px"></th>
+                                        <th width="5px">Serie</th>
+                                        <th width="95px">Nombre</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- Render content sirveas --}}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </form>
-                <!-- table table-bordered table-striped -->
-                <div class="box-body table-responsive no-padding">
-                    <table id="browse-sirveas-producto-list" class="table table-hover table-bordered" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th width="5px"></th>
-                                <th width="5px">Codigo</th>
-                                <th width="95px">Nombre</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{-- Render content sirveas --}}
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
@@ -200,7 +211,7 @@
             </a>
         </td>
         <% } %>
-        <td><%- sirvea_codigo %></td>
-        <td><%- producto_nombre %></td>
+        <td><%- serie %></td>
+        <td><%- nombre %></td>
     </script>
 @stop

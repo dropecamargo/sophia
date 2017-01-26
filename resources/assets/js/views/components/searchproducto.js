@@ -38,7 +38,7 @@ app || (app = {});
             this.$modalComponent.find('.content-modal').html( this.template({ }) );
 
             // References
-            this.$searchCodigo = this.$('#koi_search_producto_codigo');
+            this.$searchSerie = this.$('#koi_search_producto_serie');
             this.$searchNombre = this.$('#koi_search_producto_nombre');
 
             this.$productosSearchTable = this.$modalComponent.find('#koi-search-producto-component-table');
@@ -54,12 +54,12 @@ app || (app = {});
                 ajax: {
                     url: window.Misc.urlFull( Route.route('productos.index') ),
                     data: function( data ) {
-                        data.producto_codigo = _this.$searchCodigo.val();
+                        data.producto_serie = _this.$searchSerie.val();
                         data.producto_nombre = _this.$searchNombre.val();
                     }
                 },
                 columns: [
-                    { data: 'producto_codigo', name: 'producto_codigo' },
+                    { data: 'producto_serie', name: 'producto_serie' },
                     { data: 'producto_nombre', name: 'producto_nombre' }
                 ],
                 columnDefs: [
@@ -84,7 +84,7 @@ app || (app = {});
 
 	        var data = this.productosSearchTable.row( $(e.currentTarget).parents('tr') ).data();
 
-			this.$inputContent.val( data.producto_codigo );
+			this.$inputContent.val( data.producto_serie );
 			this.$inputName.val( data.producto_nombre );
 
 			this.$modalComponent.modal('hide');
@@ -99,7 +99,7 @@ app || (app = {});
 		clear: function(e) {
 			e.preventDefault();
 
-            this.$searchCodigo.val('');
+            this.$searchSerie.val('');
             this.$searchNombre.val('');
 
             this.productosSearchTable.ajax.reload();
@@ -122,7 +122,7 @@ app || (app = {});
 	            $.ajax({
 	                url: window.Misc.urlFull(Route.route('productos.search')),
 	                type: 'GET',
-	                data: { producto_codigo: producto },
+	                data: { producto_serie: producto },
 	                beforeSend: function() {
 						_this.$inputName.val('');
 	                    window.Misc.setSpinner( _this.$wraperConten );
