@@ -3,6 +3,7 @@
 namespace App\Models\Tecnico;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 use Validator;
 
@@ -22,7 +23,7 @@ class ContratoDano extends Model
      *
      * @var array
      */
-    protected $fillable = ['contratodano_contrato','contratodano_dano','contratodano_tiempo'];
+    protected $fillable = ['contratodano_tiempo'];
 
 
     public function isValid($data)

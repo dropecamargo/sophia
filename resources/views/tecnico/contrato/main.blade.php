@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('title') Creacion Contrato @stop
+@section('title') Contrato @stop
 
 @section('content')
 <section class="content-header">
@@ -17,7 +17,7 @@
     @yield ('module')
 </section>
 
-    <script type="text/template" id="add-contrato-tpl">
+<script type="text/template" id="add-contrato-tpl">
 <div class="box-header with-border">
         <form method="POST" accept-charset="UTF-8" id="form-contrato" data-toggle="validator">
             <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
@@ -93,6 +93,7 @@
                 <div class="col-md-2 col-sm-6 col-xs-6">
                     <button type="submit" class="btn btn-primary btn-sm btn-block">{{ trans('app.save') }}</button>
                 </div>
+            </div>    
                 <br/>
             
         </form> 
@@ -110,11 +111,10 @@
                             <div class="box box-danger" id="wrapper-danos-contrato">
                                 <div class="box-body">
                                     <form method="POST" accept-charset="UTF-8" id="form-danoc" data-toggle="validator">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <div class="row">
-                                            <label for="danos_contrato" class="control-label col-sm-1 col-sm-offset-1 hidden-xs">Nombre</label>
+                                            <label for="contratodano_dano" class="control-label col-sm-1 hidden-xs">Nombre</label>
                                             <div class="form-group col-sm-6 col-xs-10">
-                                                <select name="danos_contrato" id="danos_contrato" class="form-control select2-default" required>
+                                                <select name="contratodano_dano" id="contratodano_dano" class="form-control select2-default" required>
                                                    @foreach( App\Models\Tecnico\Dano::getDanos() as $key => $value)
                                                        <option value="{{ $key }}">{{ $value }}</option>
                                                     @endforeach
@@ -122,11 +122,10 @@
                                             </div>
                                             <label for="contratodano_tiempo" class="control-label col-sm-1 col-sm-offset hidden-xs">Tiempo</label>
                                             <div class="form-group col-sm-1">
-                                                
-                                                <input type="number" name="contratodano_tiempo" value="contratodano_tiempo" class="form-control input-sm" min="1">
+                                            <input id="contratodano_tiempo" name="contratodano_tiempo" class="form-control input-sm" type="number" required="" min="1   ">
                                             </div>
                                             <div class="form-group col-sm-1 col-xs-2 text-right">
-                                                <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="danoscontrato" data-field="danoscontrato">
+                                                <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="dano" data-field="contratodano_dano">
                                                     <i class="fa fa-plus"></i>
                                                 </button>
                                             </div>
@@ -143,12 +142,14 @@
                                             <thead>
                                                 <tr>
                                                     <th width="5px"></th>
-                                                    <th width="5px">Código</th>
+                                                    
                                                     <th width="90px">Nombre</th>
+                                                    <th width="5px">Tiempo</th>
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- Render content maquinas --}}
+                                                {{-- Render content dano --}}
                                             </tbody>
                                         </table>
                                     </div>
@@ -163,5 +164,19 @@
         </div>
         <% } %>     
     </div>
-</script>                     
+
+</script>   
+
+<script type="text/template" id="contrato-item-list-tpl">
+        <% if(edit) { %>
+        <td class="text-center">
+            <a class="btn btn-default btn-xs item-contratodano-remove" data-resource="<%- id %>">
+                <span><i class="fa fa-times"></i></span>
+            </a>
+        </td>
+        <% } %>
+        <td><%- dano_nombre %></td>
+        <td><%- contratodano_tiempo %> hr(s)</td>
+        < 
+</script>                  
 @stop

@@ -79,8 +79,10 @@ Route::group(['middleware' => 'auth'], function()
 	|-------------------------
 	*/	
 
+
 	Route::group(['prefix'=>'contratos'],function()
 	{
+
 		Route::resource('danoc','Tecnico\ContratoDanoController',['only'=>['index', 'store', 'destroy']]);
 	});
 

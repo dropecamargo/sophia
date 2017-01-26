@@ -17,7 +17,9 @@ app || (app = {});
         defaults: {
             'contratodano_contrato': '',
             'contratodano_dano': '',
-            'contratodano_tiempo': ''
+            'contratodano_tiempo': '',
+            'dano_activo': ''   
+           
         }
     });
 

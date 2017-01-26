@@ -7,7 +7,7 @@
 //Global App Backbone
 app || (app = {});
 
-(function ($, window, document, undefined) {
+(function ($, window, document, undefined){
 
     app.CreateContratoView = Backbone.View.extend({
 
@@ -20,7 +20,7 @@ app || (app = {});
         parameters: {
         },
 
-        /**
+       /**
         * Constructor Method
         */
         initialize : function(opts) {
@@ -31,9 +31,10 @@ app || (app = {});
             // Attributes
             this.$wraperForm = this.$('#render-form-contrato');
 
-             if( this.model.id != undefined ) {
-
+            // Model exist
+            if( this.model.id != undefined ) {
                 this.contratosList = new app.ContratosList();
+             
            }
 
             // Events
@@ -42,12 +43,14 @@ app || (app = {});
             this.listenTo( this.model, 'request', this.loadSpinner );
         },
 
-          /*
+        /*
         * Render View Element
         */
-        render: function(){
+        render: function() {
+
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
+            this.$form = this.$('#form-contrato');
 
             // Model exist
             if( this.model.id != undefined ) {
@@ -55,16 +58,16 @@ app || (app = {});
                 // Reference views
                 this.referenceViews();
             }
+
             this.ready();
         },
 
         /**
         * reference to views
         */
-
         referenceViews: function () {
-            
-             this.contratosListView = new app.ContratosListView( {
+            // Contratos list
+            this.contratosListView = new app.ContratosListView( {
                 collection: this.contratosList,
                 parameters: {
                     edit: true,
@@ -74,6 +77,12 @@ app || (app = {});
                     }
                }
             });
+        },
+        /**
+        * Event submit contrato
+        *
+        submitContrato: function (e) {
+            this.$form.submit();
         },
 
         /**
@@ -87,13 +96,13 @@ app || (app = {});
                 var data = window.Misc.formToJson( e.target );
                 this.model.save( data, {patch: true, silent: true} );
             }
-        },
+        },      
+        
 
         /**
-        * Event Create Tip
+        * Event Create Dano
         */
-
-       onStoreDano: function (e) {
+        onStoreDano: function (e) {
 
             if (!e.isDefaultPrevented()) {
 
@@ -101,39 +110,29 @@ app || (app = {});
 
                 // Prepare global data
                 var data = window.Misc.formToJson( e.target );
+
                 this.contratosList.trigger( 'store', data );
-            }   
+            }
         },
 
-        /*
-        * Render View Element
-        */
-        render: function() {
-
-            var attributes = this.model.toJSON();
-            this.$wraperForm.html( this.template(attributes) );
-
-            this.$form = this.$('#form-contrato');
-           
-            this.ready();
-        },
+        
 
         /**
         * fires libraries js
         */
         ready: function () {
             // to fire plugins
-            if( typeof window.initComponent.initICheck == 'function' )
-                window.initComponent.initICheck();
-            
             if( typeof window.initComponent.initToUpper == 'function' )
                 window.initComponent.initToUpper();
-            
-            if( typeof window.initComponent.initDatePicker == 'function' )
-                window.initComponent.initDatePicker();
 
             if( typeof window.initComponent.initSelect2 == 'function' )
-            window.initComponent.initSelect2();
+                window.initComponent.initSelect2();
+
+            if( typeof window.initComponent.initICheck == 'function' )
+                window.initComponent.initICheck();
+
+            if( typeof window.initComponent.initValidator == 'function' )
+                window.initComponent.initValidator();
         },
 
         /**
@@ -161,7 +160,14 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('contratos.edit', { contratos: resp.id})) );
+                // ProductopView undelegateEvents
+                if ( this.createContratoView instanceof Backbone.View ){
+                    this.createContratoView.stopListening();
+                    this.createContratoView.undelegateEvents();
+                }
+
+                // Redirect to edit orden
+                Backbone.history.navigate(Route.route('contratos.edit', { contratos: resp.id}), { trigger:true });
             }
         }
     });

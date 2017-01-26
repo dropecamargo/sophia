@@ -159,13 +159,7 @@
 	<div class="row">
 		<div class="form-group col-md-1">
 			<label for="tipo_codigo" class="control-label">Tipo</label>
-
-			<select name="tipo_codigo" id="tipo_codigo" class="form-control select2-default" required>
-                <option value="" selected>Seleccione</option>
-                @foreach( App\Models\Inventario\Tipo::getTipo() as $key => $value)
-                    <option value="{{ $key }}" <%- tipo_codigo == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
-                @endforeach
-            </select>
+			<input type="text" id="tipo_codigo" name="tipo_codigo" value="<%- tipo_codigo %>" placeholder="Tipo" class="form-control input-sm input-toupper" maxlength="2" required>
 		</div>
 
 		<div class="form-group col-md-8">

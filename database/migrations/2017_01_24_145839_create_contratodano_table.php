@@ -22,6 +22,7 @@ class CreateContratodanoTable extends Migration
 
             $table->foreign('contratodano_contrato')->references('id')->on('contrato')->onDelete('restrict');
             $table->foreign('contratodano_dano')->references('id')->on('dano')->onDelete('restrict');
+            $table->unique(['contratodano_contrato', 'contratodano_dano']);
 
         });
     }
