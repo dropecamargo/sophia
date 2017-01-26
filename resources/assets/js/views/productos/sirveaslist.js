@@ -51,7 +51,7 @@ app || (app = {});
 
         /**
         * Render view contact by model
-        * @param Object productop4Model Model instance
+        * @param Object sirveaModel Model instance
         */
         addOne: function (sirveaModel) {
             var view = new app.SirveaItemView({

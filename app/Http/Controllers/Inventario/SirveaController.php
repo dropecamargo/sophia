@@ -84,7 +84,7 @@ class SirveaController extends Controller
 
                     // Commit Transaction
                     DB::commit();
-                    return response()->json(['success' => true, 'id' => $sirvea->id, 'sirvea_maquina'=>$sirvea->sirvea_maquina]);
+                    return response()->json(['success' => true, 'id' => $sirvea->id, 'sirvea_maquina'=>$sirvea->sirvea_maquina, 'serie'=>$producto->producto_serie , 'nombre'=>$producto->producto_nombre]);
                 }catch(\Exception $e){
                     DB::rollback();
                     Log::error($e->getMessage());

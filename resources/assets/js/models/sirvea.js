@@ -16,8 +16,8 @@ app || (app = {});
         },
         idAttribute: 'id',
         defaults: {
-        	'sirvea_maquina': '',
-            'sirvea_codigo': ''
+            'sirvea_codigo': '',
+            'sirvea_maquina': ''
         }
     });
 
