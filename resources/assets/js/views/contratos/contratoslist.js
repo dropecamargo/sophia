@@ -13,7 +13,7 @@ app || (app = {});
 
         el: '#browse-contratos-danos-list',
         events: {
-            'click .item-contrato-remove': 'removeOne'
+            'click .item-contratodano-remove': 'removeOne'
         },
         parameters: {
             wrapper:false,

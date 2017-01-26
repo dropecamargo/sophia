@@ -100,7 +100,8 @@ app || (app = {});
             //Contratos
             'contratos(/)': 'getContratosMain',
             'contratos/create(/)': 'getContratosCreate',
-            'contratos/:contratos/edit(/)': 'getContratosEdit',
+            'contratos/:contrato(/)': 'getContratoshow',
+            'contratos/:contrato/edit(/)': 'getContratosEdit',
 
             
             //Prioridad
@@ -699,13 +700,26 @@ app || (app = {});
         },
 
         /**
+        * show view show contratos
+        */
+        getContratoshow: function (contrato) {
+            this.contratoModel = new app.ContratoModel();
+            this.contratoModel.set({'id': contrato}, {silent: true});
+
+            if ( this.showContratoView instanceof Backbone.View ){
+                this.showContratoView.stopListening();
+                this.showContratoView.undelegateEvents();
+            }
+
+           this.showContratoView = new app.ShowContratoView({ model: this.contratoModel });
+        },
+
+        /**
         * show view create Contratos
         */
 
 
        getContratosCreate:function(){ 
-
-
             this.contratoModel = new app.ContratoModel();
 
             if ( this.createContratoView instanceof Backbone.View ){
@@ -714,13 +728,12 @@ app || (app = {});
             }
 
             this.createContratoView = new app.CreateContratoView({ model: this.contratoModel });
-
             this.createContratoView.render();
         },  
 
-         getContratosEdit: function (contratos) {
+         getContratosEdit: function (contrato) {
             this.contratoModel = new app.ContratoModel();
-            this.contratoModel.set({'id': contratos}, {'silent':true});
+            this.contratoModel.set({'id': contrato}, {'silent':true});
 
             if ( this.createContratoView instanceof Backbone.View ){
                 this.createContratoView.stopListening();

@@ -73,7 +73,7 @@ app || (app = {});
                         var template = _.template($('#add-estado-tpl').html());
                         _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
                     },
-                    'danoscontrato' : function() {
+                    'dano' : function() {
                         _this.$modalComponent.find('.inner-title-modal').html('Dano');
 
                         _this.model = new app.DanoModel();
@@ -191,8 +191,8 @@ app || (app = {});
                         _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('estado_nombre')}] }).trigger('change');
                         _this.$resourceField.val(_this.model.get('id')).trigger('change');
                     },
-                    'danoscontrato' : function() {
-                       // _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('estado_nombre')}] }).trigger('change');
+                    'dano' : function() {
+                       _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('dano_nombre')}] }).trigger('change');
                         _this.$resourceField.val(_this.model.get('id')).trigger('change');
                     },
                     'tercero' : function() {

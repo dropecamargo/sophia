@@ -7,7 +7,7 @@ use App\Models\BaseModel;
 
 use Validator;
 
-class ContratoDano extends BaseModel
+class ContratoDano extends Model
 {
     /**
      * The database table used by the model.
@@ -23,7 +23,7 @@ class ContratoDano extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['contratodano_contrato','contratodano_dano','contratodano_tiempo'];
+    protected $fillable = ['contratodano_tiempo'];
 
 
     public function isValid($data)

@@ -24,7 +24,7 @@ class ContratoDanoController extends Controller
         {
             $query = ContratoDano::query();
             $query->where('contratodano_contrato', $request->contrato_id);
-            $query->select('contratodano.*', 'dano.*');
+            $query->select('contratodano.*', 'dano.dano_nombre');
             $query->join('dano', 'contratodano_dano', '=', 'dano.id');
             $query->orderBy('contratodano.id', 'asc');
             return response()->json( $query->get() );
@@ -83,6 +83,8 @@ class ContratoDanoController extends Controller
 
                     // ContratoDano
                     $contratodano->fill($data); 
+                    $contratodano->contratodano_contrato= $contrato->id;
+                    $contratodano->contratodano_dano = $dano->id;
                     $contratodano->save();
 
                     // Commit Transaction
@@ -139,8 +141,31 @@ class ContratoDanoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        dd('destroy');    
+        //dd($id);
+      if ($request->ajax()) {
+            DB::beginTransaction();
+            try {
+
+                $contratodano = ContratoDano::find($id);
+                //dd($contratodano);
+                if(!$contratodano instanceof ContratoDano){
+                    return response()->json(['success' => false, 'errors' => 'No es posible recuperar daño, por favor verifique la información o consulte al administrador.']);
+                }
+
+                // Eliminar item contratoDano
+                $contratodano->delete();
+
+                DB::commit();
+                return response()->json(['success' => true]);
+
+            }catch(\Exception $e){
+                DB::rollback();
+                Log::error(sprintf('%s -> %s: %s', 'ContratoDanoController', 'destroy', $e->getMessage()));
+                return response()->json(['success' => false, 'errors' => trans('app.exception')]);
+            }
+        }
+        abort(403);   
     }
 }

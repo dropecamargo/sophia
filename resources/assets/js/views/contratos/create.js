@@ -110,6 +110,7 @@ app || (app = {});
 
                 // Prepare global data
                 var data = window.Misc.formToJson( e.target );
+
                 this.contratosList.trigger( 'store', data );
             }
         },

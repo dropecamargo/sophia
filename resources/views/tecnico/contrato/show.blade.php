@@ -66,6 +66,42 @@
                     </label>
                 </div>
             </div>
+            <br/><br/>
+            <div class="row">
+            <div class="form-group col-md-12">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                         <li class="active"><a href="#tab_danos" data-toggle="tab">Daños</a></li>            
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_danos">
+                            <div class="box box-danger" id="wrapper-danos-contrato">
+                                <div class="box-body">
+                                    <!-- table table-bordered table-striped -->
+                                    <div class="box-body table-responsive no-padding">
+                                        <table id="browse-contratos-danos-list" class="table table-hover table-bordered" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th width="90px">Nombre</th>
+                                                    <th width="5px">Tiempo</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{-- Render content dano --}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>      
         </div>
     </div>
+
 @stop
