@@ -60,7 +60,7 @@ class SucursalController extends Controller
                     // Commit Transaction
                     DB::commit();
                     // Forget cache
-                    //Cache::forget( Sucursal::$key_cache );
+                    Cache::forget( Sucursal::$key_cache );
 
                     return response()->json(['success' => true, 'id' => $sucursal->id]);
                 }catch(\Exception $e){
