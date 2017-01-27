@@ -77,9 +77,7 @@
                     </li>
                 </ul>
             </li>
-        </ul>
-
-        <ul class="treeview-menu">
+        
            {{-- Referencias Inventario --}}
             <li class="{{ in_array(Request::segment(1), ['modelos','marcas','tipos','contadores','estados']) ? 'active' : '' }}">
                 <a href="#">
@@ -124,9 +122,7 @@
                     </li>
                 </ul>
             </li>
-        </ul>
-
-        <ul class="treeview-menu">
+      
             {{-- Referencias Tecnico --}}
             <li class="{{ in_array(Request::segment(1), ['tiposorden','solicitantes','danos','prioridades']) ? 'active' : '' }}">
                 <a href="#">
@@ -149,4 +145,9 @@
             </li>
         </ul>
     </li>
+    
 </ul>
+
+        
+    
+

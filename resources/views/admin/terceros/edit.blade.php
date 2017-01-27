@@ -21,7 +21,7 @@
 			</div>
 
 			<div class="box-body" id="render-form-tercero">
-				{{-- Render form empresa --}}
+				{{-- Render form tercero --}}
 			</div>
 			
 		{!! Form::close() !!}

@@ -130,7 +130,7 @@
                                                 </button>
                                             </div>
                                             <div class="form-group col-sm-1">
-                                                <button type="submit" class="btn btn-success btn-sm btn-block">
+                                                <button type="submit" class="btn btn-danger btn-sm btn-block">
                                                     <i class="fa fa-plus"></i>
                                                 </button>
                                             </div>

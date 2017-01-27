@@ -580,13 +580,14 @@
 									</div>
 								</div>
 							</div>
+
 					</div>
 					<% } %>
-
+					</div>
 				</div>
 			</div>
     	</div>
-	</div>
+    
 </script>
 
 <script type="text/template" id="contact-item-list-tpl">
