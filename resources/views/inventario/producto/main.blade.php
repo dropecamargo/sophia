@@ -138,6 +138,16 @@
                 </div>
             </form>
 
+            <div class="box-header with-border">
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-4 col-sm-6 col-xs-6">
+                        <a href="{{ route('productos.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-6">
+                        <button type="button" class="btn btn-primary btn-sm btn-block submit-producto">{{ trans('app.save') }}</button>
+                    </div>
+                </div>
+            </div>
                         <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
                             <div class="form-group col-md-12">
                                 <div class="nav-tabs-custom">

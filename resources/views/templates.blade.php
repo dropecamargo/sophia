@@ -251,10 +251,6 @@
     </div>
 </script>
 
-
-
-
-
 <script type="text/template" id="add-tercero-tpl">
 	<div class="row">
 		<div class="form-group col-md-3">
