@@ -22,7 +22,27 @@ class ProductoController extends Controller
     {
         if ($request->ajax()) {
             $query = Producto::query();
-            return Datatables::of($query)->make(true);
+            $query->select('id','producto_codigo','producto_serie' ,'producto_nombre');
+
+            // Persistent data filter
+            if($request->has('persistent') && $request->persistent) {
+                session(['search_producto_serie' => $request->has('producto_serie') ? $request->producto_serie : '']);
+                session(['search_producto_nombre' => $request->has('producto_nombre') ? $request->producto_nombre : '']);
+            }
+
+            return Datatables::of($query)
+                ->filter(function($query) use($request) {
+                    // serie
+                    if($request->has('producto_serie')) {
+                        $query->whereRaw("producto_serie LIKE '%{$request->producto_serie}%'");
+                    }
+
+                    // Nombre
+                    if($request->has('producto_nombre')) {
+                        $query->whereRaw("producto_nombre LIKE '%{$request->producto_nombre}%'");
+                    }
+                })
+                ->make(true);
         }
         return view('inventario.producto.index');
     }
