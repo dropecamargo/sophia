@@ -155,7 +155,7 @@
                                         <li class="active"><a href="#tab_areas" data-toggle="tab">Sirve a</a></li>
                                     </ul>   
                                     <div class="tab-content">
-                                        {{-- Content areas --}}
+                                        {{-- Content Sirvea --}}
                                         <div class="tab-pane active" id="tab_areas">    
                                             <div class="box box-danger" id="wrapper-producto-sirveas">
                                                 <div class="box-body">

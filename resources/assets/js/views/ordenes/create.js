@@ -58,6 +58,7 @@ app || (app = {});
 
                 e.preventDefault();
                 var data = window.Misc.formToJson( e.target );
+                //console.log(data);
                 this.model.save( data, {patch: true, silent: true} );
             }
         },      
