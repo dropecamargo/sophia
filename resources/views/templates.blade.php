@@ -253,7 +253,8 @@
 
 <script type="text/template" id="add-tercero-tpl">
 	<div class="row">
-		<div class="form-group col-md-3">
+	<h2>Hola mundo</h2>
+		{{--<div class="form-group col-md-3">
 			<label for="tercero_nit" class="control-label">Documento</label>
 			<div class="row">
 				<div class="col-md-9">
@@ -565,8 +566,6 @@
 								                	<th>Dirección</th>
 								                	<th>Teléfono</th>
 								                	<th>Celular</th>
-								                	
-
 								            	</tr>
 							           		</thead>
 							         		<tbody>
@@ -576,14 +575,12 @@
 									</div>
 								</div>
 							</div>
-
-					</div>
+						</div>
 					<% } %>
 					</div>
 				</div>
 			</div>
-    	</div>
-    
+    	</div>--}}
 </script>
 
 <script type="text/template" id="contact-item-list-tpl">
