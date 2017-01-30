@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use DB, Log, Datatables;
+use DB, Log, Datatables,Cache;
 
 use App\Models\Tecnico\Solicitante;
 
@@ -59,6 +59,8 @@ class SolicitanteController extends Controller
 
                     // Commit Transaction
                     DB::commit();
+                    //Forget Cache
+                    Cache::forget( Solicitante::$key_cache );
                     return response()->json(['success' => true, 'id' => $solicitante->id]);
                 }catch(\Exception $e){
                     DB::rollback();

@@ -105,21 +105,25 @@
     </li>
 
     {{-- Tecnico --}}
-    <li class="treeview {{ in_array(Request::segment(1), ['contratos','tiposorden','solicitantes','danos','prioridades']) ? 'active' : '' }}">
+    <li class="treeview {{ in_array(Request::segment(1), ['contratos','ordenes','tiposorden','solicitantes','danos','prioridades']) ? 'active' : '' }}">
         <a href="#">
             <i class="fa fa-cogs"></i> <span>Tecnico</span><i class="fa fa-angle-left pull-right"></i>
         </a>
 
         <ul class="treeview-menu">
             {{-- Modulos Tecnico --}}
-            <li class="{{ in_array(Request::segment(1), ['contratos']) ? 'active' : '' }}">
+            <li class="{{ in_array(Request::segment(1), ['contratos','ordenes']) ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-wpforms"></i> Modulos <i class="fa fa-angle-left pull-right"></i>
                 </a>
                     <ul class="treeview-menu">
                         <li class="{{ Request::segment(1) == 'contratos' ? 'active' : '' }}">
                             <a href="{{ route('contratos.index') }}"><i class="fa fa-briefcase"></i> Contratos</a>
-                    </li>
+                        </li>
+
+                        <li class="{{ Request::segment(1) == 'ordenes' ? 'active' : '' }}">
+                        <a href="{{ route('ordenes.index') }}"><i class="fa fa-building-o"></i> Ordenes</a>
+                        </li>
                 </ul>
             </li>
       

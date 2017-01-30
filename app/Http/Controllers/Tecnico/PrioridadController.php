@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use DB, Log, Datatables;
+use DB, Log, Datatables,Cache;
 
 use App\Models\Tecnico\Prioridad;
 
@@ -59,6 +59,8 @@ class PrioridadController extends Controller
 
                     // Commit Transaction
                     DB::commit();
+                    //Forget Cache
+                    Cache::forget( Prioridad::$key_cache );
                     return response()->json(['success' => true, 'id' => $prioridad->id]);
                 }catch(\Exception $e){
                     DB::rollback();
