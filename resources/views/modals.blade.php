@@ -97,12 +97,12 @@
 			<div class="form-group">
 				<label for="koi_search_producto_serie" class="col-md-1 control-label">Serie</label>
 				<div class="col-md-2">
-					{!! Form::text('koi_search_producto_serie', null, ['id' => 'koi_search_producto_serie', 'class' => 'form-control input-sm']) !!}
+					{!! Form::text('koi_search_producto_serie', null, ['id' => 'koi_search_producto_serie', 'class' => 'form-control input-sm', 'placeholder' => 'Serie']) !!}
 				</div>
 
 				<label for="koi_search_producto_nombre" class="col-md-1 control-label">Nombre</label>
 				<div class="col-md-8">
-					{!! Form::text('koi_search_producto_nombre', null, ['id' => 'koi_search_producto_nombre', 'class' => 'form-control input-sm input-toupper']) !!}
+					{!! Form::text('koi_search_producto_nombre', null, ['id' => 'koi_search_producto_nombre', 'class' => 'form-control input-sm input-toupper', 'placeholder' => 'Nombre']) !!}
 				</div>
 			</div>
 

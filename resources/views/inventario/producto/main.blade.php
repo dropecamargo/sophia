@@ -152,11 +152,11 @@
                             <div class="form-group col-md-12">
                                 <div class="nav-tabs-custom">
                                     <ul class="nav nav-tabs">
-                                        <li class="active"><a href="#tab_areas" data-toggle="tab">Sirve a</a></li>
+                                        <li class="active"><a href="#tab_sirveas" data-toggle="tab">Sirve a</a></li>
                                     </ul>   
                                     <div class="tab-content">
-                                        {{-- Content areas --}}
-                                        <div class="tab-pane active" id="tab_areas">    
+                                        {{-- Content sirveas --}}
+                                        <div class="tab-pane active" id="tab_sirveas">    
                                             <div class="box box-danger" id="wrapper-producto-sirveas">
                                                 <div class="box-body">
                                                     <form method="POST" accept-charset="UTF-8" id="form-item-sirvea" data-toggle="validator">
@@ -171,7 +171,7 @@
                                                                     <input id="sirvea_codigo" placeholder="Serie" class="form-control producto-koi-component" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="sirvea_maquina" required>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-6 col-xs-10">
+                                                            <div class="col-sm-7 col-xs-10">
                                                                 <input id="sirvea_maquina" name="sirvea_maquina" placeholder="Nombre producto" class="form-control input-sm" type="text" maxlength="15" readonly required>
                                                             </div>
                                                             <div class="form-group col-sm-1">
