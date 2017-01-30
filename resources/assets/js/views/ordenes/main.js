@@ -25,10 +25,10 @@ app || (app = {});
 
             // References
             this.$ordenesSearchTable = this.$('#orden-search-table');
-            this.$searchordenpOrden = this.$('#searchordenp_ordenp_numero');
-            this.$searchordenpTercero = this.$('#searchordenp_tercero');
-            this.$searchordenpTerceroName = this.$('#searchordenp_tercero_nombre');
-            this.$searchordenpEstado = this.$('#searchordenp_ordenp_estado');
+            this.$searchordenOrden = this.$('#searchorden_orden_id');
+            this.$searchordenTercero = this.$('#searchorden_tercero');
+            this.$searchordenTerceroName = this.$('#searchorden_tercero_nombre');
+            this.$searchordenEstado = this.$('#searchorden_orden_estado');
 
             this.ordenesSearchTable = this.$ordenesSearchTable.DataTable({
                 dom: "<'row'<'col-sm-12'tr>>" +
@@ -40,10 +40,10 @@ app || (app = {});
                     url: window.Misc.urlFull( Route.route('ordenes.index') ),
                     data: function( data ) {
                         data.persistent = true;
-                        data.id = _this.$searchordenpOrden.val();
-                        data.tercero_nit = _this.$searchordenpTercero.val();
-                        data.tercero_nombre = _this.$searchordenpTerceroName.val();
-                        data.orden_abierta = _this.$searchordenpEstado.val();
+                        data.id = _this.$searchordenOrden.val();
+                        data.tercero_nit = _this.$searchordenTercero.val();
+                        data.tercero_nombre = _this.$searchordenTerceroName.val();
+                        data.orden_abierta = _this.$searchordenEstado.val();
                     }
                 },
                 columns: [
@@ -85,10 +85,10 @@ app || (app = {});
         clear: function(e) {
             e.preventDefault();
 
-            this.$searchordenpOrden.val('');
-            this.$searchordenpTercero.val('');
-            this.$searchordenpTerceroName.val('');
-            this.$searchordenpEstado.val('');
+            this.$searchordenOrden.val('');
+            this.$searchordenTercero.val('');
+            this.$searchordenTerceroName.val('');
+            this.$searchordenEstado.val('');
 
             this.ordenesSearchTable.ajax.reload();
         },

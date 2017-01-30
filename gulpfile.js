@@ -74,6 +74,4 @@ elixir(function(mix) {
     mix.copy(paths.adminlte + 'bootstrap/fonts/', 'public/fonts');
     mix.copy(paths.adminlte + 'plugins/iCheck/minimal/red**.png', 'public/css');
     mix.copy(paths.libs + 'font-awesome/fonts/', 'public/fonts');
-
 });
-

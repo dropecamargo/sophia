@@ -22,7 +22,8 @@
 
 			<div class="box-body" id="render-form-tercero">
 				{{-- Render form tercero --}}
-			</div>		
+			</div>
+			
 		{!! Form::close() !!}
 	</div>
 @stop

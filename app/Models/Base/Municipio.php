@@ -17,13 +17,21 @@ class Municipio extends Model
 
     public $timestamps = false;
 
+    /**
+     * The key used by cache store.
+     *
+     * @var static string
+     */
+    public static $key_cache = '_municipio';
+
+
     public static function getMunicipios()
     {
-        /*if (Cache::has('_municipios')) {
-            return Cache::get('_municipios');    
-        }*/
+        if (Cache::has( self::$key_cache )) {
+            return Cache::get( self::$key_cache );    
+        }
 
-        //return Cache::rememberForever('_municipios', function() {
+        return Cache::rememberForever( self::$key_cache, function() {
             $query = Municipio::query();
             $query->select('municipio.id', DB::raw("CONCAT(municipio_nombre, ' - ', departamento_nombre) as municipio_nombre"));
             $query->join('departamento', 'municipio.departamento_codigo', '=', 'departamento.departamento_codigo');
@@ -32,6 +40,6 @@ class Municipio extends Model
             
             $collection->prepend('', '');
             return $collection;
-        //});
+        });
     }
 }

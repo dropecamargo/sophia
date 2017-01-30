@@ -41,10 +41,10 @@ class OrdenController extends Controller
 
                // Persistent data filter
             if($request->has('persistent') && $request->persistent) {
-                session(['searchordenp_ordenp_numero' => $request->has('id') ? $request->id : '']);
-                session(['searchordenp_tercero' => $request->has('tercero_nit') ? $request->tercero_nit : '']);
-                session(['searchordenp_tercero_nombre' => $request->has('tercero_nombre') ? $request->tercero_nombre : '']);
-                session(['searchordenp_ordenp_estado' => $request->has('orden_abierta') ? $request->orden_abierta : '']);
+                session(['searchorden_orden_id' => $request->has('id') ? $request->id : '']);
+                session(['searchorden_tercero' => $request->has('tercero_nit') ? $request->tercero_nit : '']);
+                session(['searchorden_tercero_nombre' => $request->has('tercero_nombre') ? $request->tercero_nombre : '']);
+                session(['searchorden_orden_estado' => $request->has('orden_abierta') ? $request->orden_abierta : '']);
             }
 
 

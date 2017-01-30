@@ -565,8 +565,6 @@
 								                	<th>Dirección</th>
 								                	<th>Teléfono</th>
 								                	<th>Celular</th>
-								                	
-
 								            	</tr>
 							           		</thead>
 							         		<tbody>
@@ -576,14 +574,12 @@
 									</div>
 								</div>
 							</div>
-
-					</div>
+						</div>
 					<% } %>
 					</div>
 				</div>
 			</div>
     	</div>
-    
 </script>
 
 <script type="text/template" id="contact-item-list-tpl">

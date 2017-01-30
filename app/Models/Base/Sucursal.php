@@ -17,6 +17,12 @@ class Sucursal extends Model
 
     public $timestamps = false;
 
+    /**
+     * The key used by cache store.
+     *
+     * @var static string
+     */
+    public static $key_cache = '_sucursal';
   
     /**
      * The attributes that are mass assignable.
