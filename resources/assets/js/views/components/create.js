@@ -74,10 +74,25 @@ app || (app = {});
                         _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
                     },
                     'dano' : function() {
-                        _this.$modalComponent.find('.inner-title-modal').html('Dano');
+                        _this.$modalComponent.find('.inner-title-modal').html('Daño');
 
                         _this.model = new app.DanoModel();
                         var template = _.template($('#add-dano-tpl').html());
+                        _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
+                    },
+
+                    'prioridad' : function() {
+                        _this.$modalComponent.find('.inner-title-modal').html('Prioridad');
+
+                        _this.model = new app.PrioridadModel();
+                        var template = _.template($('#add-prioridad-tpl').html());
+                        _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
+                    },
+                    'solicitante' : function() {
+                        _this.$modalComponent.find('.inner-title-modal').html('Solicitante');
+
+                        _this.model = new app.SolicitanteModel();
+                        var template = _.template($('#add-solicitante-tpl').html());
                         _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
                     },
                     
@@ -193,6 +208,14 @@ app || (app = {});
                     },
                     'dano' : function() {
                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('dano_nombre')}] }).trigger('change');
+                        _this.$resourceField.val(_this.model.get('id')).trigger('change');
+                    },
+                    'prioridad' : function() {
+                       _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('prioridad_nombre')}] }).trigger('change');
+                        _this.$resourceField.val(_this.model.get('id')).trigger('change');
+                    },
+                     'solicitante' : function() {
+                       _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('solicitante_nombre')}] }).trigger('change');
                         _this.$resourceField.val(_this.model.get('id')).trigger('change');
                     },
                     'tercero' : function() {

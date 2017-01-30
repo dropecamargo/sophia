@@ -79,17 +79,16 @@ Route::group(['middleware' => 'auth'], function()
 	|-------------------------
 	*/	
 
-
 	Route::group(['prefix'=>'contratos'],function()
 	{
-
 		Route::resource('danoc','Tecnico\ContratoDanoController',['only'=>['index', 'store', 'destroy']]);
 	});
 
+	Route::resource('contratos', 'Tecnico\ContratoController', ['except' => ['destroy']]);
+	Route::resource('ordenes', 'Tecnico\OrdenController', ['except' => ['destroy']]);
 	Route::resource('tiposorden', 'Tecnico\TipoOrdenController', ['except' => ['destroy']]);
 	Route::resource('solicitantes', 'Tecnico\SolicitanteController', ['except' => ['destroy']]);
 	Route::resource('danos', 'Tecnico\DanoController', ['except' => ['destroy']]);
-	Route::resource('contratos', 'Tecnico\ContratoController', ['except' => ['destroy']]);
 	Route::resource('prioridades', 'Tecnico\PrioridadController', ['except' => ['destroy']]);
 });
 

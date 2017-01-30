@@ -29,6 +29,16 @@
 	</div>
 </div>
 
+<!-- Modal search producto -->
+<div class="modal fade" id="modal-search-producto-component" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="content-modal"></div>
+		</div>
+	</div>
+</div>
+
+<!-- Tpls modals-->
 <script type="text/template" id="koi-search-tercero-component-tpl">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -78,15 +88,6 @@
 	{!! Form::close() !!}
 </script>
 
-<!-- Modal search producto -->
-<div class="modal fade" id="modal-search-producto-component" data-backdrop="static" data-keyboard="false" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="content-modal"></div>
-		</div>
-	</div>
-</div>
-
 <script type="text/template" id="koi-search-producto-component-tpl">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -130,3 +131,4 @@
 		</div>
 	{!! Form::close() !!}
 </script>
+

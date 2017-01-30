@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use DB, Log, Datatables;
+use DB, Log, Cache,Datatables;
 
 use App\Models\Tecnico\TipoOrden;
 
@@ -59,6 +59,8 @@ class TipoOrdenController extends Controller
 
                     // Commit Transaction
                     DB::commit();
+                    //Forget Cache
+                    Cache::forget( TipoOrden::$key_cache );
                     return response()->json(['success' => true, 'id' => $tipoorden->id]);
                 }catch(\Exception $e){
                     DB::rollback();

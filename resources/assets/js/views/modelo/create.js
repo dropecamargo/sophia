@@ -37,7 +37,7 @@ app || (app = {});
         },
 
         /**
-        * Event Create Folder
+        * Event Create Modelo
         */
         onStore: function (e) {
 

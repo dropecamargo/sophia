@@ -1,5 +1,5 @@
 /**
-* Class CreateContratoView  of Backbone Router
+* Class CreateOrdenView  of Backbone Router
 * @author KOI || @dropecamargo
 * @link http://koi-ti.com
 */
@@ -9,13 +9,13 @@ app || (app = {});
 
 (function ($, window, document, undefined){
 
-    app.CreateContratoView = Backbone.View.extend({
+    app.CreateOrdenView = Backbone.View.extend({
 
-        el: '#contratos-create',
-        template: _.template( ($('#add-contrato-tpl').html() || '') ),
+        el: '#ordenes-create',
+        template: _.template( ($('#add-orden-tpl').html() || '') ),
         events: {
-            'submit #form-contrato': 'onStore',
-            'submit #form-danoc': 'onStoreDano',
+            'submit #form-orden': 'onStore',
+            
         },
         parameters: {
         },
@@ -29,13 +29,7 @@ app || (app = {});
                 this.parameters = $.extend({}, this.parameters, opts.parameters);
 
             // Attributes
-            this.$wraperForm = this.$('#render-form-contrato');
-
-            // Model exist
-            if( this.model.id != undefined ) {
-                this.contratosList = new app.ContratosList();
-             
-           }
+            this.$wraperForm = this.$('#render-form-orden');
 
             // Events
             this.listenTo( this.model, 'change', this.render );
@@ -50,37 +44,13 @@ app || (app = {});
 
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
-            this.$form = this.$('#form-contrato');
-
-            // Model exist
-            if( this.model.id != undefined ) {
-
-                // Reference views
-                this.referenceViews();
-            }
 
             this.ready();
-        },
-
-        /**
-        * reference to views
-        */
-        referenceViews: function () {
-            // Contratos list
-            this.contratosListView = new app.ContratosListView( {
-                collection: this.contratosList,
-                parameters: {
-                    edit: true,
-                    wrapper: this.$('#wrapper-danos-contrato'),
-                    dataFilter: {
-                        'contrato_id': this.model.get('id')
-                    }
-               }
-            });
+           
         },
         
         /**
-        * Event Create Folder
+        * Event Create Orden
         */
         onStore: function (e) {
 
@@ -91,25 +61,7 @@ app || (app = {});
                 this.model.save( data, {patch: true, silent: true} );
             }
         },      
-        
 
-        /**
-        * Event Create Dano
-        */
-        onStoreDano: function (e) {
-
-            if (!e.isDefaultPrevented()) {
-
-                e.preventDefault();
-
-                // Prepare global data
-                var data = window.Misc.formToJson( e.target );
-
-                this.contratosList.trigger( 'store', data );
-            }
-        },
-
-        
 
         /**
         * fires libraries js
@@ -154,14 +106,10 @@ app || (app = {});
                     return;
                 }
 
-                // ProductopView undelegateEvents
-                if ( this.createContratoView instanceof Backbone.View ){
-                    this.createContratoView.stopListening();
-                    this.createContratoView.undelegateEvents();
-                }
-
                 // Redirect to edit orden
-                Backbone.history.navigate(Route.route('contratos.edit', { contratos: resp.id}), { trigger:true });
+                //Backbone.history.navigate(Route.route('ordenes.edit', { ordenes: resp.id}), { trigger:true });
+
+                window.Misc.redirect( window.Misc.urlFull( Route.route('ordenes.show', { ordenes: resp.id})) );
             }
         }
     });
