@@ -20,7 +20,6 @@ class SirveaController extends Controller
      */
     public function index(Request $request)
     {
-        //dd('index');
         if ($request->ajax())
         {
             $query = Sirvea::query();

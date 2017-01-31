@@ -17,6 +17,7 @@ app || (app = {});
             'click .submit-producto': 'submitProducto',
             'submit #form-producto': 'onStore',
             'submit #form-item-sirvea': 'onStoreItem',
+            'submit #form-item-productocontador': 'onStorePcontador'
         },
         parameters: {
         },
@@ -35,6 +36,7 @@ app || (app = {});
              // Model exist
             if( this.model.id != undefined ) {
                 this.sirveasList = new app.SirveasList();
+                this.productoscontadorList = new app.ProductosContadorList();
             }
 
             // Events
@@ -77,6 +79,18 @@ app || (app = {});
                     }
                }
             });
+
+            //ProductoContador list
+            this.productoscontadorListView = new app.ProductosContadorListView( {
+                collection: this.productoscontadorList,
+                parameters: {
+                    edit: true,
+                    wrapper: this.$('#wrapper-producto-productoscontador'),
+                    dataFilter: {
+                        'producto_id': this.model.get('id')
+                    }
+               }
+            });
         },
 
         /**
@@ -111,6 +125,21 @@ app || (app = {});
                 // Prepare global data
                 var data = window.Misc.formToJson( e.target );
                 this.sirveasList.trigger( 'store', data );
+            }
+        },
+
+        /**
+        * Event add productoitem detalle traslado
+        */
+        onStorePcontador: function (e) {
+
+            if (!e.isDefaultPrevented()) {
+
+                e.preventDefault();
+
+                // Prepare global data
+                var data = window.Misc.formToJson( e.target );
+                this.productoscontadorList.trigger( 'store', data );
             }
         },
 

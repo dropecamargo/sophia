@@ -33,17 +33,16 @@ class CreateProductoTable extends Migration
             $table->double('producto_costo_promedio');
             $table->double('producto_ultimo_costo');
 
-            $table->integer('producto_contador1')->unsigned();
-            $table->integer('producto_contador2')->unsigned();
-            $table->integer('producto_contador3')->unsigned();
-            $table->integer('producto_contador4')->unsigned();
-            $table->integer('producto_contador5')->unsigned();
+            $table->integer('producto_tercero')->unsigned()->nullable();
+            $table->integer('producto_contrato')->unsigned()->nullable();
 
             $table->foreign('producto_tipo')->references('id')->on('tipo')->onDelete('restrict');
             $table->foreign('producto_marca')->references('id')->on('marca')->onDelete('restrict');
             $table->foreign('producto_modelo')->references('id')->on('modelo')->onDelete('restrict');
             $table->foreign('producto_estado')->references('id')->on('estado')->onDelete('restrict');
             $table->foreign('producto_proveedor')->references('id')->on('tercero')->onDelete('restrict');
+            $table->foreign('producto_tercero')->references('id')->on('tercero')->onDelete('restrict');
+            $table->foreign('producto_contrato')->references('id')->on('contrato')->onDelete('restrict');
         });
     }
 

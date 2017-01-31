@@ -12,7 +12,16 @@ class CreateProductocontadorTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('productocontador', function(Blueprint $table){
+            $table->engine = "InnoDB";
+
+            $table->increments('id');
+            $table->integer('productocontador_producto')->unsigned()->nullable();
+            $table->integer('productocontador_contador')->unsigned()->nullable();
+
+            $table->foreign('productocontador_producto')->references('id')->on('producto')->onDelete('restrict');
+            $table->foreign('productocontador_contador')->references('id')->on('contador')->onDelete('restrict');
+        });
     }
 
     /**
@@ -22,6 +31,6 @@ class CreateProductocontadorTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('productocontador');
     }
 }
