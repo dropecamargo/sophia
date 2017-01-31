@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Datatables;
 
-use App\Models\Tecnico\Orden;
+use App\Models\Tecnico\Orden ,App\Models\Inventario\Producto, App\Models\Base\Tercero ;
 
 class OrdenController extends Controller
 {
@@ -97,7 +97,42 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         if ($request->ajax()) {
+            $data = $request->all();
+
+            $orden = new Orden;
+
+            if ($orden->isValid($data)) {
+
+
+                DB::beginTransaction();
+                try {
+                    $tercero = Tercero::where('tercero_nit', $request->orden_tercero)->first();
+                    $producto = Producto::where('producto_serie', $request->sirvea_codigo)->first();
+                    if(!$producto instanceof Producto) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                    }
+
+                    // orden
+                    $orden->fill($data);
+                    $orden->fillBoolean($data);
+                    $orden->orden_placa = $producto->id;
+                    $orden->orden_tercero= $tercero->id;
+                    $orden->save();
+
+                    // Commit Transaction
+                    DB::commit();
+                    return response()->json(['success' => true, 'id' => $orden->id]);
+                }catch(\Exception $e){
+                    DB::rollback();
+                    Log::error($e->getMessage());
+                    return response()->json(['success' => false, 'errors' => trans('app.exception')]);
+                }
+            }
+            return response()->json(['success' => false, 'errors' => $orden->errors]);
+        }
+        abort(403);
     }
 
     /**
@@ -124,11 +159,11 @@ class OrdenController extends Controller
      */
     public function edit($id)
     {
-        /*$orden = Orden::getOrden($id);
+        $orden = Orden::getOrden($id);
         if(!$orden instanceof Orden) {
             abort(404);
-        }*/
-        return view('tecnico.orden.edit', ['orden' => 1]);    
+        }
+        return view('tecnico.orden.edit', ['orden' => $orden]);    
     }
 
 

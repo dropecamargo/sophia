@@ -34,18 +34,18 @@
 
             <div class="row">
                 <label for="orden_tercero" class="col-sm-1 control-label">Cliente</label>
-                <div class="form-group col-sm-2">
+                <div class="form-group col-sm-3">
                     <div class="input-group input-group-sm">
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-flat btn-koi-search-tercero-component-table" data-field="orden_tercero">
                                 <i class="fa fa-user"></i>
                             </button>
                         </span>
-                        <input id="orden_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="orden_tercero" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="orden_terecero_nombre" data-contacto="btn-add-contact" value="" required>
+                        <input id="orden_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="orden_tercero" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="orden_terecero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nombre%>" required>
                     </div>
                 </div>
                 <div class="col-sm-5 col-xs-10">
-                    <input id="orden_terecero_nombre" name="orden_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="" readonly required>
+                    <input id="orden_terecero_nombre" name="orden_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nit %>" readonly required>
                 </div>
                 <div class="col-sm-1 col-xs-2">
                     <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="orden_tercero">
@@ -63,6 +63,23 @@
             </div>
             
             {{--producto--}}
+
+            <div class="row">
+                <label for="orden_fecha" class="col-sm-1 control-label">Producto</label>
+                <div class="form-group col-sm-3">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="sirvea_codigo">
+                                <i class="fa fa-barcode"></i>
+                            </button>
+                        </span>
+                        <input id="sirvea_codigo" placeholder="Serie" class="form-control producto-koi-component" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="sirvea_maquina" value="<%- producto_serie %>" required>
+                    </div>
+                </div>
+                <div class="col-sm-5 col-xs-10">
+                    <input id="sirvea_maquina" name="sirvea_maquina" placeholder="Nombre producto" class="form-control input-sm" type="text" value="<%- producto_nombre %>"readonly required>
+                </div>
+            </div>
 
             {{--selects--}}
 
@@ -142,9 +159,9 @@
          
             
             <div class="row">
-                <label for="orden_problema" class="col-sm-1 control-label">Persona</label>
+                <label for="orden_persona" class="col-sm-1 control-label">Persona</label>
                 <div class="form-group col-md-7">
-                    <input id="orden_problema" type="text" name="orden_problema" class="form-control" placeholder="Persona">
+                    <input id="orden_persona" type="text" name="orden_persona" class="form-control" placeholder="Persona" value="<%- orden_persona %>">
                 </div>
             </div> 
 

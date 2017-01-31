@@ -17,13 +17,12 @@ app || (app = {});
         defaults: {
 
             'orden_fecha': moment().format('YYYY-MM-DD'),
-            //'orden_numero': '',
-            //'orden_ano':'',
+            
             'orden_tercero': '',
             'orden_tipoorden':'',
             'orden_solicitante':'',
             'orden_placa':'',
-            'tercero_nombre':'',
+            // 'tercero_nombre':'',
             //contadores
             'orden_persona':'',
             'orden_dano':'',

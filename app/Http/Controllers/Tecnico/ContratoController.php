@@ -36,7 +36,29 @@ class ContratoController extends Controller
                 )
             );
             $query->join('tercero', 'contrato_tercero', '=', 'tercero.id');
-            return Datatables::of($query)->make(true);
+
+                // Persistent data filter
+            if($request->has('persistent') && $request->persistent) {
+                session(['searchcontrato_contrato_numero' => $request->has('contrato_numero') ? $request->contrato_numero : '']);
+                session(['searchcontrato_tercero' => $request->has('tercero_nit') ? $request->tercero_nit : '']);
+                session(['searchcontrato_tercero_nombre' => $request->has('tercero_nombre') ? $request->tercero_nombre : '']);
+            }
+
+           return Datatables::of($query)
+
+                ->filter(function($query) use($request) {
+
+                    //id Contrato
+                    if($request->has('contrato_numero')){
+                        $query->where('contrato.contrato_numero',$request->contrato_numero);
+                    }
+                    // Tercero nit
+                    if($request->has('tercero_nit')) {
+                        $query->where('tercero_nit', $request->tercero_nit);
+                    }
+
+                })
+            ->make(true);
         }
         return view('tecnico.contrato.index');
     }
