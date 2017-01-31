@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Models\Inventario\Sirvea;
+use App\Models\Inventario\ProductoContador;
 use App\Models\Inventario\Producto;
-use DB, Log, Datatables;
+use App\Models\Inventario\Contador;
+use DB, Log, Datatables,Cache;
 
-class SirveaController extends Controller
+class ProductoContadorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,11 +23,11 @@ class SirveaController extends Controller
     {
         if ($request->ajax())
         {
-            $query = Sirvea::query();
-            $query->where('sirvea_maquina', $request->producto_id);
-            $query->select('sirvea.*','p.producto_nombre as nombre','po.producto_serie as serie');
-            $query->join('producto as p', 'sirvea.sirvea_codigo', '=', 'p.id');
-            $query->join('producto as po', 'sirvea.sirvea_codigo', '=', 'po.id');
+            $query = ProductoContador::query();
+            $query->select('productocontador.*','p.producto_nombre as p_nombre','c.contador_nombre as c_nombre');
+            $query->where('productocontador_producto', $request->producto_id);
+            $query->join('contador as c', 'productocontador.productocontador_contador', '=', 'c.id');
+            $query->join('producto as p', 'productocontador.productocontador_producto', '=', 'p.id'); 
             return response()->json( $query->get() );
         }
         abort(404);
@@ -52,45 +53,49 @@ class SirveaController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-            $sirvea = new Sirvea;
-            if ($sirvea->isValid($data)) {
+            $pcontador = new ProductoContador;
+            if ($pcontador->isValid($data)) {
                 DB::beginTransaction();
                 try {
                     // Validar producto
-                    $producto = Producto::where('producto_serie', $request->sirvea_codigo)->first();
-                    if(!$producto instanceof Producto) {
+                    $contador = Contador::where('id', $request->productocontador_contador)->first();
+                    if(!$contador instanceof Contador) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar serie, por favor verifique la información o consulte al administrador.']);
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar contador, por favor verifique la información o consulte al administrador.']);
                     }
 
                     // Validar producto
-                    $pp = Producto::where('id', $request->sirvea_maquina)->first();
+                    $pp = Producto::where('id', $request->productocontador_producto)->first();
                     if(!$pp instanceof Producto) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar maquina, por favor verifique la información o consulte al administrador.']);
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
                     }
 
                     // Validar unique
-                    $sirveauq = Sirvea::where('sirvea_maquina', $request->sirvea_maquina)->where('sirvea_codigo', $producto->id)->first();
-                    if($sirveauq instanceof Sirvea) {
+                    $pcontadoruq = ProductoContador::where('productocontador_contador', $request->productocontador_contador)->where('productocontador_producto', $pp->id)->first();
+                    if($pcontadoruq instanceof ProductoContador) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => "La maquina {$producto->producto_nombre} ya se encuentra asociada a este producto."]);
+                        return response()->json(['success' => false, 'errors' => "La maquina {$contador->contador_nombre} ya se encuentra asociada a este producto."]);
                     }
 
-                    $sirvea->sirvea_maquina = $pp->id;
-                    $sirvea->sirvea_codigo = $producto->id;
-                    $sirvea->save();
+                    $pcontador->productocontador_producto = $pp->id;
+                    $pcontador->productocontador_contador = $contador->id;
+                    $pcontador->save();
 
                     // Commit Transaction
                     DB::commit();
-                    return response()->json(['success' => true, 'id' => $sirvea->id, 'sirvea_maquina'=>$sirvea->sirvea_maquina, 'serie'=>$producto->producto_serie , 'nombre'=>$producto->producto_nombre]);
+
+                    //olvidar cache
+                    Cache::forget( ProductoContador::$key_cache );
+                    
+                    return response()->json(['success' => true, 'id' => $pcontador->id, 'productocontador_producto'=>$pcontador->productocontador_producto, 'c_nombre'=>$contador->contador_nombre , 'p_nombre'=>$pp->producto_nombre]);
                 }catch(\Exception $e){
                     DB::rollback();
                     Log::error($e->getMessage());
                     return response()->json(['success' => false, 'errors' => trans('app.exception')]);
                 }
             }
-            return response()->json(['success' => false, 'errors' => $sirvea->errors]);
+            return response()->json(['success' => false, 'errors' => $pcontador->errors]);
         }
         abort(403);
     }
@@ -141,20 +146,20 @@ class SirveaController extends Controller
             DB::beginTransaction();
             try {
 
-                $sirvea = Sirvea::find($id);
-                if(!$sirvea instanceof Sirvea){
-                    return response()->json(['success' => false, 'errors' => 'No es posible recuperar sirve a, por favor verifique la información del asiento o consulte al administrador.']);
+                $pcontador = ProductoContador::find($id);
+                if(!$pcontador instanceof ProductoContador){
+                    return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto contador, por favor verifique la información del asiento o consulte al administrador.']);
                 }
 
-                // Eliminar item sirvea
-                $sirvea->delete();
+                // Eliminar item pcontador
+                $pcontador->delete();
 
                 DB::commit();
                 return response()->json(['success' => true]);
 
             }catch(\Exception $e){
                 DB::rollback();
-                Log::error(sprintf('%s -> %s: %s', 'SirveaController', 'destroy', $e->getMessage()));
+                Log::error(sprintf('%s -> %s: %s', 'ProductoContadorController', 'destroy', $e->getMessage()));
                 return response()->json(['success' => false, 'errors' => trans('app.exception')]);
             }
         }

@@ -149,14 +149,17 @@
                 </div>
             </div>
                         <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
+                        <div class="row">
                             <div class="form-group col-md-12">
                                 <div class="nav-tabs-custom">
                                     <ul class="nav nav-tabs">
-                                        <li class="active"><a href="#tab_areas" data-toggle="tab">Sirve a</a></li>
-                                    </ul>   
+                                        <li class="active"><a href="#tab_sirveas" data-toggle="tab">Sirve a</a></li>
+                                        <li><a href="#tab_productoscontador" data-toggle="tab">Contador</a></li>
+                                    </ul>  
+
                                     <div class="tab-content">
-                                        {{-- Content Sirvea --}}
-                                        <div class="tab-pane active" id="tab_areas">    
+                                        {{-- Content sirveas --}}
+                                        <div class="tab-pane active" id="tab_sirveas">    
                                             <div class="box box-danger" id="wrapper-producto-sirveas">
                                                 <div class="box-body">
                                                     <form method="POST" accept-charset="UTF-8" id="form-item-sirvea" data-toggle="validator">
@@ -171,7 +174,7 @@
                                                                     <input id="sirvea_codigo" placeholder="Serie" class="form-control producto-koi-component" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="sirvea_maquina" required>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-6 col-xs-10">
+                                                            <div class="col-sm-7 col-xs-10">
                                                                 <input id="sirvea_maquina" name="sirvea_maquina" placeholder="Nombre producto" class="form-control input-sm" type="text" maxlength="15" readonly required>
                                                             </div>
                                                             <div class="form-group col-sm-1">
@@ -199,6 +202,51 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        {{-- Content productoscontador --}}
+                                        <div class="tab-pane" id="tab_productoscontador">    
+                                            <div class="box box-danger" id="wrapper-producto-productoscontador">
+                                                <div class="box-body">
+                                                    <form method="POST" accept-charset="UTF-8" id="form-item-productocontador" data-toggle="validator">
+                                                        <div class="row">
+                                                            <label for="productocontador_contador" class="control-label col-sm-1 col-sm-offset-1 hidden-xs">Contador</label>
+                                                            <div class="form-group col-sm-7 col-xs-10">
+                                                                <select name="productocontador_contador" id="productocontador_contador" class="form-control select2-default" required>
+                                                                    @foreach( App\Models\Inventario\ProductoContador::getContadores() as $key => $value)
+                                                                        <option value="{{ $key }}" <%- contador_nombre == '{{ $value }}' ? 'selected': ''%> >{{ $value }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-sm-1 col-xs-2 text-right">
+                                                                <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="pcontador" data-field="productocontador_contador">
+                                                                    <i class="fa fa-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="form-group col-sm-1">
+                                                                <button type="submit" class="btn btn-danger btn-sm btn-block">
+                                                                    <i class="fa fa-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <!-- table table-bordered table-striped -->
+                                                    <div class="box-body table-responsive no-padding">
+                                                        <table id="browse-productoscontador-producto-list" class="table table-hover table-bordered" cellspacing="0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th width="5px"></th>
+                                                                    <th width="5px">Producto</th>
+                                                                    <th width="95px">Contador</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {{-- Render content productoscontador --}}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -219,5 +267,17 @@
         <% } %>
         <td><%- serie %></td>
         <td><%- nombre %></td>
+    </script>
+
+    <script type="text/template" id="add-productocontador-item-tpl">
+        <% if(edit) { %>
+        <td class="text-center">
+            <a class="btn btn-default btn-xs item-productocontador-remove" data-resource="<%- id %>">
+                <span><i class="fa fa-times"></i></span>
+            </a>
+        </td>
+        <% } %>
+        <td><%- p_nombre %></td>
+        <td><%- c_nombre %></td>
     </script>
 @stop

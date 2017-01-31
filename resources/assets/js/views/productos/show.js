@@ -21,6 +21,7 @@ app || (app = {});
             if( this.model.id != undefined ) {
 
                 this.sirveasList = new app.SirveasList();
+                this.productoscontadorList = new app.ProductosContadorList();
 
                 // Reference views
                 this.referenceViews();
@@ -31,12 +32,24 @@ app || (app = {});
         * reference to views
         */
         referenceViews: function () {
-       		// Tips list
+       		// Sirveas list
             this.sirveasListView = new app.SirveasListView( {
                 collection: this.sirveasList,
                 parameters: {
                     edit: false,
                     wrapper: this.$('#wrapper-producto-sirveas'),
+                    dataFilter: {
+                        'producto_id': this.model.get('id')
+                    }
+               }
+            });
+
+            // ProductosContador list
+            this.productoscontadorListView = new app.ProductosContadorListView( {
+                collection: this.productoscontadorList,
+                parameters: {
+                    edit: false,
+                    wrapper: this.$('#wrapper-producto-productoscontador'),
                     dataFilter: {
                         'producto_id': this.model.get('id')
                     }

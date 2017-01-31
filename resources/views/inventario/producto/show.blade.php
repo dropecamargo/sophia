@@ -107,6 +107,7 @@
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#tab_sirveas" data-toggle="tab">Sirve a</a></li>
+                        <li><a href="#tab_productoscontador" data-toggle="tab">Contador</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -125,6 +126,28 @@
                                             </thead>
                                             <tbody>
                                                 {{-- Render content areas --}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Content productoscontador --}}
+                        <div class="tab-pane" id="tab_productoscontador">
+                            <div class="box box-danger" id="wrapper-producto-productoscontador">
+                                <div class="box-body">
+                                    <!-- table table-bordered table-striped -->
+                                    <div class="box-body table-responsive no-padding">
+                                        <table id="browse-productoscontador-producto-list" class="table table-hover table-bordered" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th width="1px">Producto</th>
+                                                    <th width="100px">Contador</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{-- Render content productoscontador --}}
                                             </tbody>
                                         </table>
                                     </div>

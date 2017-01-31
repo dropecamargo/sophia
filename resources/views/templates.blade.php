@@ -179,7 +179,7 @@
 	<div class="row">
 		<div class="form-group col-md-8">
 			<label for="contador_nombre" class="control-label">Nombre</label>
-			<input type="text" id="contador_nombre" name="contador_nombre" value="<%- contador_nombre %>" placeholder="Contador" class="form-control input-sm input-toupper" maxlength="10" required>
+			<input type="text" id="contador_nombre" name="contador_nombre" value="<%- contador_nombre %>" placeholder="Contador" class="form-control input-sm input-toupper" maxlength="100" required>
 		</div>
 
 		<div class="form-group col-md-2 col-xs-8 col-sm-3">

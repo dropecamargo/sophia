@@ -41,11 +41,11 @@
                                 <i class="fa fa-user"></i>
                             </button>
                         </span>
-                        <input id="orden_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="orden_tercero" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="orden_terecero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nombre%>" required>
+                        <input id="orden_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="orden_tercero" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="orden_terecero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit%>" required>
                     </div>
                 </div>
                 <div class="col-sm-5 col-xs-10">
-                    <input id="orden_terecero_nombre" name="orden_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nit %>" readonly required>
+                    <input id="orden_terecero_nombre" name="orden_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly required>
                 </div>
                 <div class="col-sm-1 col-xs-2">
                     <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="orden_tercero">
@@ -182,11 +182,11 @@
                                 <i class="fa fa-user"></i>
                             </button>
                         </span>
-                        <input id="orden_tecnico" placeholder="Tecnico" class="form-control tercero-koi-component" name="orden_tecnico" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="orden_tecnico_nombre" data-contacto="btn-add-contact" value="<%- tercero_nombre %>" required>
+                        <input id="orden_tecnico" placeholder="Tecnico" class="form-control tercero-koi-component" name="orden_tecnico" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="orden_tecnico_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit %>" required>
                     </div>
                 </div>
                 <div class="col-sm-5 col-xs-10">
-                    <input id="orden_tecnico_nombre" name="orden_tecnico_nombre" placeholder="Nombre Tecnico" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nit %>" readonly required>
+                    <input id="orden_tecnico_nombre" name="orden_tecnico_nombre" placeholder="Nombre Tecnico" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly required>
                 </div>
                 {{--<div class="col-sm-1 col-xs-2">
                     <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="orden_tecnico">

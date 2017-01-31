@@ -116,6 +116,13 @@ app || (app = {});
                         _this.model = new app.ProductoModel();
                         var template = _.template($('#add-producto-tpl').html());
                         _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
+                    },
+                    'pcontador' : function() {
+                        _this.$modalComponent.find('.inner-title-modal').html('Producto Contador');
+
+                        _this.model = new app.ContadorModel();
+                        var template = _.template($('#add-contador-tpl').html());
+                        _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
                     }
 	            };
 
@@ -234,6 +241,10 @@ app || (app = {});
                     },
                     'producto' : function() {
                         _this.$resourceField.val(_this.model.get('sirvea_codigo')).trigger('change');
+                    },
+                    'pcontador' : function() {
+                       _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('contador_nombre')}] }).trigger('change');
+                        _this.$resourceField.val(_this.model.get('id')).trigger('change');
                     }
                 };
 

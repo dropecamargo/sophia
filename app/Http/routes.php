@@ -69,6 +69,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::group(['prefix' => 'productos'], function()
 	{
 		Route::resource('sirveas', 'Inventario\SirveaController', ['only' => ['index', 'store', 'destroy']]);
+		Route::resource('productoscontador', 'Inventario\ProductoContadorController', ['only' => ['index', 'store', 'destroy']]);
 	});
 
 	Route::resource('productos', 'Inventario\ProductoController', ['except' => ['destroy']]);
