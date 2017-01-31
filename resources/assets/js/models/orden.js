@@ -26,7 +26,7 @@ app || (app = {});
             'tercero_nit':'',
             'producto_serie':'',
             'producto_nombre':'',
-            'orden_fh_servicio':moment().format('YYYY-MM-DD   H:m:s'),
+            'orden_fh_servicio':moment().format('YYYY-MM-DD'),
             'orden_persona':'',
             'orden_dano':'',
             'orden_prioridad':'',

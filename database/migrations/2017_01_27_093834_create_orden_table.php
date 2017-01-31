@@ -31,7 +31,7 @@ class CreateOrdenTable extends Migration
             $table->integer('orden_dano')->unsigned();
             $table->integer('orden_prioridad')->unsigned();
             $table->text('orden_problema');
-            $table->boolean('orden_abierta');
+            $table->boolean('orden_abierta')->default(true);
 
             $table->foreign('orden_placa')->references('id')->on('producto')->onDelete('restrict');
             $table->foreign('orden_tipoorden')->references('id')->on('tipoorden')->onDelete('restrict');

@@ -33,6 +33,10 @@
             <% } %>
 
             <div class="row">
+                <label for="orden_fecha" class="col-sm-1 control-label">Fecha</label>
+                <div class="form-group col-md-2 ">
+                    <input type="text" id="orden_fecha" name="orden_fecha" class="form-control input-sm datepicker" value="<%- orden_fecha %>" required>
+                </div> 
                 <label for="orden_tercero" class="col-sm-1 control-label">Cliente</label>
                 <div class="form-group col-sm-3">
                     <div class="input-group input-group-sm">
@@ -44,24 +48,18 @@
                         <input id="orden_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="orden_tercero" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="orden_terecero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit%>" required>
                     </div>
                 </div>
-                <div class="col-sm-5 col-xs-10">
+                <div class="col-sm-4 col-xs-10">
                     <input id="orden_terecero_nombre" name="orden_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly required>
                 </div>
-                <div class="col-sm-1 col-xs-2">
+                <div class="col-sm-1">
                     <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="orden_tercero">
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
-            </div>
-       
 
-            <div class="row">
-                <label for="orden_fecha" class="col-sm-1 control-label">Fecha</label>
-                <div class="form-group col-md-3">
-                    <input type="text" id="orden_fecha" name="orden_fecha" class="form-control input-sm datepicker" value="<%- orden_fecha %>" required>
-                </div>  
+                 
             </div>
-            
+
             {{--producto--}}
 
             <div class="row">
@@ -160,17 +158,18 @@
             
             <div class="row">
                 <label for="orden_persona" class="col-sm-1 control-label">Persona</label>
-                <div class="form-group col-md-7">
+                <div class="form-group col-md-8">
                     <input id="orden_persona" type="text" name="orden_persona" class="form-control" placeholder="Persona" value="<%- orden_persona %>">
                 </div>
-            </div> 
 
+            </div>
             <div class="row">
                 <label for="orden_problema" class="col-sm-1 control-label">Problema</label>
-                <div class="form-group col-md-7">
+                <div class="form-group col-md-8">
                     <textarea id="orden_problema" name="orden_problema" class="form-control" rows="2" placeholder="Problema ..."><%- orden_problema %></textarea>
                 </div>
             </div>
+
 
             {{--tecnico--}}
             <div class="row">
@@ -199,16 +198,22 @@
                 <label for="orden_fh_servicio" class="col-sm-1 control-label">F. Servicio</label>
                 <div class="form-group col-md-3">
                     <input type="text" id="orden_fh_servicio" name="orden_fh_servicio" class="form-control input-sm datepicker" value="<%- orden_fh_servicio %>" required>
-                </div>  
+                </div> 
+
+                <label for="orden_hora_entrega" class="col-sm-1 control-label">H. Servicio</label>
+                <div class="form-group col-md-2">
+
+                <div class="bootstrap-timepicker">
+                    <div class="input-group">
+                        <input type="text" id="orden_hora_entrega" name="orden_hora_entrega" placeholder="Fecha entrega" class="form-control input-sm timepicker" value="" required>
+                        <div class="input-group-addon">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                    </div>
+                </div>
+
+                </div> 
             </div>
-                 
-            
-            <div class="row">
-                <br><label class="checkbox-inline control-label col-sm-1" for="orden_abierta" >
-                 <input type="checkbox" id="orden_abierta" name="orden_abierta" value="orden_abierta" <%- orden_abierta ? 'checked': ''%>> <b>Activa</b>
-                </label>
-            </div>
-      
 
             <div class="row">
                 <div class="col-md-2 col-md-offset-4 col-sm-6 col-xs-6">

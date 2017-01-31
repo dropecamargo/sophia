@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Validator, DB;
 use App\Models\BaseModel;
 
-class Orden extends BaseModel
+class Orden extends Model
 {
 	  /**
      * The database table used by the model.
@@ -23,7 +23,7 @@ class Orden extends BaseModel
      * @var array
      */
     protected $fillable =['orden_fecha','orden_tipoorden','orden_solicitante','orden_fh_servicio','orden_persona','orden_dano','orden_prioridad','orden_problema'];
-    protected $boolean = ['orden_abierta'];
+    //protected $boolean = ['orden_abierta'];
 
     public function isValid($data)
     {
@@ -37,7 +37,7 @@ class Orden extends BaseModel
         	'orden_dano'=>'required',
         	'orden_prioridad'=>'required',
         	'orden_problema'=>'required|max:100',
-        	'orden_abierta'=>'required'
+        	//'orden_abierta'=>'required'
 
         ];
 

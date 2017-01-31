@@ -44,7 +44,6 @@ class OrdenController extends Controller
                 session(['searchorden_orden_id' => $request->has('id') ? $request->id : '']);
                 session(['searchorden_tercero' => $request->has('tercero_nit') ? $request->tercero_nit : '']);
                 session(['searchorden_tercero_nombre' => $request->has('tercero_nombre') ? $request->tercero_nombre : '']);
-                session(['searchorden_orden_estado' => $request->has('orden_abierta') ? $request->orden_abierta : '']);
             }
 
 
@@ -117,7 +116,7 @@ class OrdenController extends Controller
 
                     // orden
                     $orden->fill($data);
-                    $orden->fillBoolean($data);
+                    //$orden->fillBoolean($data);
                     $orden->orden_placa = $producto->id;
                     $orden->orden_tercero = $tercero->id;
                     $orden->orden_tecnico = $tecnico->id;
@@ -180,6 +179,40 @@ class OrdenController extends Controller
      */
     public function update(Request $request, $id)
     {
+         if ($request->ajax()) {
+            $data = $request->all();
+            $orden = Orden::findOrFail($id);
+            if ($orden->isValid($data)) {
+                DB::beginTransaction();
+                try {
+                    $tercero = Tercero::where('tercero_nit', $request->orden_tercero)->first();
+                    $producto = Producto::where('producto_serie', $request->sirvea_codigo)->first();
+                    $tecnico = Tercero::where('tercero_nit', $request->orden_tecnico)->first();
+                    if(!$producto instanceof Producto && !$tercero instanceof Tercero && !$tecnico instanceof Tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                    }
+
+                    // ordenes
+                    $orden->orden_placa = $producto->id;
+                    $orden->orden_tercero = $tercero->id;
+                    $orden->orden_tecnico = $tecnico->id;
+                    $orden->orden_usuario_elaboro = Auth::user()->id;
+                    $orden->orden_fecha_elaboro =  date('Y-m-d H:m:s');
+                    $orden->save();
+
+                    // Commit Transaction
+                    DB::commit();                    
+                    return response()->json(['success' => true, 'id' => $orden->id]);
+                }catch(\Exception $e){
+                    DB::rollback();
+                    Log::error($e->getMessage());
+                    return response()->json(['success' => false, 'errors' => trans('app.exception')]);
+                }
+            }
+            return response()->json(['success' => false, 'errors' => $orden->errors]);
+        }
+        abort(403);
            
     }
 
