@@ -85,11 +85,15 @@ Route::group(['middleware' => 'auth'], function()
 		Route::resource('danoc','Tecnico\ContratoDanoController',['only'=>['index', 'store', 'destroy']]);
 	});
 
+	//modulos
 	Route::resource('contratos', 'Tecnico\ContratoController', ['except' => ['destroy']]);
 	Route::resource('ordenes', 'Tecnico\OrdenController', ['except' => ['destroy']]);
+	//referencias
 	Route::resource('tiposorden', 'Tecnico\TipoOrdenController', ['except' => ['destroy']]);
 	Route::resource('solicitantes', 'Tecnico\SolicitanteController', ['except' => ['destroy']]);
 	Route::resource('danos', 'Tecnico\DanoController', ['except' => ['destroy']]);
 	Route::resource('prioridades', 'Tecnico\PrioridadController', ['except' => ['destroy']]);
+	Route::resource('zonas', 'Tecnico\ZonaController', ['except' => ['destroy']]);
+	Route::resource('asignacion1s', 'Tecnico\Asignacion1Controller', ['except' => ['destroy']]);
 });
 

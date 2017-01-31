@@ -251,6 +251,21 @@
     </div>
 </script>
 
+<script type="text/template" id="add-zona-tpl">
+	<div class="row">
+		<div class="form-group col-md-8">
+			<label for="zona_nombre" class="control-label">Nombre</label>
+			<input type="text" id="zona_nombre" name="zona_nombre" value="<%- zona_nombre %>" placeholder="Zona" class="form-control input-sm input-toupper" maxlength="10" required>
+		</div>
+
+		<div class="form-group col-md-2 col-xs-8 col-sm-3">
+			<br><label class="checkbox-inline" for="zona_activo">
+				<input type="checkbox" id="zona_activo" name="zona_activo" value="zona_activo" <%- zona_activo ? 'checked': ''%>> Activo
+			</label>
+		</div>
+    </div>
+</script>
+
 <script type="text/template" id="add-tercero-tpl">
 	<div class="row">
 		<div class="form-group col-md-3">

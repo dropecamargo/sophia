@@ -105,14 +105,14 @@
     </li>
 
     {{-- Tecnico --}}
-    <li class="treeview {{ in_array(Request::segment(1), ['contratos','ordenes','tiposorden','solicitantes','danos','prioridades']) ? 'active' : '' }}">
+    <li class="treeview {{ in_array(Request::segment(1), ['contratos','ordenes','tiposorden','solicitantes','danos','prioridades','zonas','asignacion1s']) ? 'active' : '' }}">
         <a href="#">
             <i class="fa fa-cogs"></i> <span>Tecnico</span><i class="fa fa-angle-left pull-right"></i>
         </a>
 
         <ul class="treeview-menu">
             {{-- Modulos Tecnico --}}
-            <li class="{{ in_array(Request::segment(1), ['contratos','ordenes']) ? 'active' : '' }}">
+            <li class="{{ in_array(Request::segment(1), ['contratos','ordenes','asignacion1s']) ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-wpforms"></i> Modulos <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -124,11 +124,15 @@
                         <li class="{{ Request::segment(1) == 'ordenes' ? 'active' : '' }}">
                         <a href="{{ route('ordenes.index') }}"><i class="fa fa-building-o"></i> Ordenes</a>
                         </li>
+
+                        <li class="{{ Request::segment(1) == 'asignacion1s' ? 'active' : '' }}">
+                        <a href="{{ route('asignacion1s.index') }}"><i class="fa fa-cube"></i> Asignacion</a>
+                        </li>
                 </ul>
             </li>
       
             {{-- Referencias Tecnico --}}
-            <li class="{{ in_array(Request::segment(1), ['tiposorden','solicitantes','danos','prioridades']) ? 'active' : '' }}">
+            <li class="{{ in_array(Request::segment(1), ['tiposorden','solicitantes','danos','prioridades','zonas']) ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-circle-o"></i> Referencias <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -144,6 +148,9 @@
                     </li>
                     <li class="{{ Request::segment(1) == 'prioridades' ? 'active' : '' }}">
                         <a href="{{ route('prioridades.index') }}"><i class="fa fa-circle-o"></i> Prioridades</a>
+                    </li>
+                    <li class="{{ Request::segment(1) == 'zonas' ? 'active' : '' }}">
+                        <a href="{{ route('zonas.index') }}"><i class="fa fa-circle-o"></i> Zonas</a>
                     </li>
                 </ul>
             </li>

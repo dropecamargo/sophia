@@ -115,6 +115,16 @@ app || (app = {});
             'prioridades(/)': 'getPrioridadesMain',
             'prioridades/create(/)': 'getPrioridadesCreate',
             'prioridades/:prioridades/edit(/)': 'getPrioridadesEdit',
+
+            //Zona
+            'zonas(/)': 'getZonasMain',
+            'zonas/create(/)': 'getZonasCreate',
+            'zonas/:zonas/edit(/)': 'getZonasEdit',
+
+            //Asignacion #1
+            'asignacion1s(/)': 'getAsignacion1sMain',
+            'asignacion1s/create(/)': 'getAsignacion1sCreate',
+            'asignacion1s/:asignacion1s/edit(/)': 'getAsignacion1sEdit',
         },
 
         /**
@@ -822,6 +832,78 @@ app || (app = {});
 
             this.createOrdenView = new app.CreateOrdenView({ model: this.ordenModel });
             this.ordenModel.fetch();
+        },
+
+        // Zonas
+        getZonasMain: function () {
+
+            if ( this.mainZonaView instanceof Backbone.View ){
+                this.mainZonaView.stopListening();
+                this.mainZonaView.undelegateEvents();
+            }
+
+            this.mainZonaView = new app.MainZonasView( );
+        },
+
+        getZonasCreate: function () {
+            this.zonaModel = new app.ZonaModel();
+
+            if ( this.createZonaView instanceof Backbone.View ){
+                this.createZonaView.stopListening();
+                this.createZonaView.undelegateEvents();
+            }
+
+            this.createZonaView = new app.CreateZonaView({ model: this.zonaModel });
+            this.createZonaView.render();
+        },
+
+        getZonasEdit: function (zonas) {
+            this.zonaModel = new app.ZonaModel();
+            this.zonaModel.set({'id': zonas}, {'silent':true});
+
+            if ( this.createZonaView instanceof Backbone.View ){
+                this.createZonaView.stopListening();
+                this.createZonaView.undelegateEvents();
+            }
+
+            this.createZonaView = new app.CreateZonaView({ model: this.zonaModel });
+            this.zonaModel.fetch();
+        },
+
+        // Asignacion #1
+        getAsignacion1sMain: function () {
+
+            if ( this.mainAsignacion1View instanceof Backbone.View ){
+                this.mainAsignacion1View.stopListening();
+                this.mainAsignacion1View.undelegateEvents();
+            }
+
+            this.mainAsignacion1View = new app.MainAsignacion1sView( );
+        },
+
+        getAsignacion1sCreate: function () {
+            this.asignacion1Model = new app.Asignacion1Model();
+
+            if ( this.createAsignacion1View instanceof Backbone.View ){
+                this.createAsignacion1View.stopListening();
+                this.createAsignacion1View.undelegateEvents();
+            }
+
+            this.createAsignacion1View = new app.CreateAsignacion1View({ model: this.asignacion1Model });
+            this.createAsignacion1View.render();
+        },
+
+        getAsignacion1sEdit: function (asignacion1s) {
+            this.asignacion1Model = new app.Asignacion1Model();
+            this.asignacion1Model.set({'id': asignacion1s}, {'silent':true});
+
+            if ( this.createAsignacion1View instanceof Backbone.View ){
+                this.createAsignacion1View.stopListening();
+                this.createAsignacion1View.undelegateEvents();
+            }
+
+            this.createAsignacion1View = new app.CreateAsignacion1View({ model: this.asignacion1Model });
+            this.asignacion1Model.fetch();
         },
        
     }) );
