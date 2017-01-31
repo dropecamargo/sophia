@@ -59,6 +59,13 @@ app || (app = {});
                         var template = _.template($('#add-tipo-tpl').html());
                         _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
                     },
+                    'tipoorden' : function() {
+                        _this.$modalComponent.find('.inner-title-modal').html('Tipo Orden');
+
+                        _this.model = new app.TipoOrdenModel();
+                        var template = _.template($('#add-tipoorden-tpl').html());
+                        _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
+                    },
                     'modelo' : function() {
                         _this.$modalComponent.find('.inner-title-modal').html('Modelo');
 
@@ -196,6 +203,10 @@ app || (app = {});
                     },
                     'tipo' : function() {
                         _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('tipo_nombre')}] }).trigger('change');
+                        _this.$resourceField.val(_this.model.get('id')).trigger('change');
+                    },
+                    'tipoorden' : function() {
+                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('tipoorden_nombre')}] }).trigger('change');
                         _this.$resourceField.val(_this.model.get('id')).trigger('change');
                     },
                     'modelo' : function() {

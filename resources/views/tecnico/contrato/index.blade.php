@@ -49,8 +49,8 @@
                 <table id="contrato-search-table" class="table table-bordered table-striped" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Código</th>
-                            <th>Número de contrato</th>
+                         
+                            <th>Número </th>
                             <th>Tercero</th>
                             <th>F. Inicio</th>
                             <th>F. Vencimiento</th>

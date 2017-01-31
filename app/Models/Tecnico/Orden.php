@@ -22,7 +22,7 @@ class Orden extends BaseModel
      * The attributes that are mass assignable.
      * @var array
      */
-    protected $fillable =['orden_fecha','orden_tipoorden','orden_solicitante','orden_contador1','orden_contador2','orden_contador3','orden_contador4','orden_contador5','orden_persona','orden_dano','orden_prioridad','orden_problema'];
+    protected $fillable =['orden_fecha','orden_tipoorden','orden_solicitante','orden_fh_servicio','orden_persona','orden_dano','orden_prioridad','orden_problema'];
     protected $boolean = ['orden_abierta'];
 
     public function isValid($data)

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use DB, Log, Datatables;
+use DB, Log, Datatables, Auth;
 
 use App\Models\Tecnico\Orden ,App\Models\Inventario\Producto, App\Models\Base\Tercero ;
 
@@ -109,7 +109,8 @@ class OrdenController extends Controller
                 try {
                     $tercero = Tercero::where('tercero_nit', $request->orden_tercero)->first();
                     $producto = Producto::where('producto_serie', $request->sirvea_codigo)->first();
-                    if(!$producto instanceof Producto) {
+                    $tecnico = Tercero::where('tercero_nit', $request->orden_tecnico)->first();
+                    if(!$producto instanceof Producto && !$tercero instanceof Tercero && !$tecnico instanceof Tercero) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
                     }
@@ -118,7 +119,10 @@ class OrdenController extends Controller
                     $orden->fill($data);
                     $orden->fillBoolean($data);
                     $orden->orden_placa = $producto->id;
-                    $orden->orden_tercero= $tercero->id;
+                    $orden->orden_tercero = $tercero->id;
+                    $orden->orden_tecnico = $tecnico->id;
+                    $orden->orden_usuario_elaboro = Auth::user()->id;
+                    $orden->orden_fecha_elaboro = date('Y-m-d H:m:s');
                     $orden->save();
 
                     // Commit Transaction

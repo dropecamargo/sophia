@@ -171,7 +171,36 @@
                     <textarea id="orden_problema" name="orden_problema" class="form-control" rows="2" placeholder="Problema ..."><%- orden_problema %></textarea>
                 </div>
             </div>
-         
+
+            {{--tecnico--}}
+            <div class="row">
+                <label for="orden_tecnico" class="col-sm-1 control-label">Tecnico</label>
+                <div class="form-group col-sm-3">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-flat btn-koi-search-tercero-component-table" data-field="orden_tecnico">
+                                <i class="fa fa-user"></i>
+                            </button>
+                        </span>
+                        <input id="orden_tecnico" placeholder="Tecnico" class="form-control tercero-koi-component" name="orden_tecnico" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="orden_tecnico_nombre" data-contacto="btn-add-contact" value="<%- tercero_nombre %>" required>
+                    </div>
+                </div>
+                <div class="col-sm-5 col-xs-10">
+                    <input id="orden_tecnico_nombre" name="orden_tecnico_nombre" placeholder="Nombre Tecnico" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nit %>" readonly required>
+                </div>
+                {{--<div class="col-sm-1 col-xs-2">
+                    <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="orden_tecnico">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>--}}
+            </div>
+
+             <div class="row">
+                <label for="orden_fh_servicio" class="col-sm-1 control-label">F. Servicio</label>
+                <div class="form-group col-md-3">
+                    <input type="text" id="orden_fh_servicio" name="orden_fh_servicio" class="form-control input-sm datepicker" value="<%- orden_fh_servicio %>" required>
+                </div>  
+            </div>
                  
             
             <div class="row">
