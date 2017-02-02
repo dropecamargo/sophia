@@ -116,7 +116,7 @@ class OrdenController extends Controller
 
                     // orden
                     $orden->fill($data);
-                    //$orden->fillBoolean($data);
+                    $orden->orden_fh_servicio = "$request->orden_fecha_servicio $request->orden_hora_servicio";
                     $orden->orden_placa = $producto->id;
                     $orden->orden_tercero = $tercero->id;
                     $orden->orden_tecnico = $tecnico->id;
@@ -194,6 +194,7 @@ class OrdenController extends Controller
                     }
 
                     // ordenes
+                     $orden->orden_fh_servicio = "$request->orden_fecha_servicio $request->orden_hora_servicio";
                     $orden->orden_placa = $producto->id;
                     $orden->orden_tercero = $tercero->id;
                     $orden->orden_tecnico = $tecnico->id;

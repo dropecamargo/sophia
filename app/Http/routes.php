@@ -85,6 +85,11 @@ Route::group(['middleware' => 'auth'], function()
 		Route::resource('danoc','Tecnico\ContratoDanoController',['only'=>['index', 'store', 'destroy']]);
 	});
 
+	Route::group(['prefix'=>'ordenes'],function()
+	{
+		Route::resource('visitas','Tecnico\VisitaController',['only'=>['index', 'store', 'destroy']]);
+	});
+
 	Route::resource('contratos', 'Tecnico\ContratoController', ['except' => ['destroy']]);
 	Route::resource('ordenes', 'Tecnico\OrdenController', ['except' => ['destroy']]);
 	Route::resource('tiposorden', 'Tecnico\TipoOrdenController', ['except' => ['destroy']]);

@@ -17,7 +17,6 @@ app || (app = {});
         defaults: {
 
             'orden_fecha': moment().format('YYYY-MM-DD'),
-            
             'orden_tercero': '',
             'orden_tipoorden':'',
             'orden_solicitante':'',
@@ -26,12 +25,13 @@ app || (app = {});
             'tercero_nit':'',
             'producto_serie':'',
             'producto_nombre':'',
-            'orden_fh_servicio':moment().format('YYYY-MM-DD'),
             'orden_persona':'',
             'orden_dano':'',
             'orden_prioridad':'',
             'orden_problema': '',
-            'orden_abierta': true
+            'orden_abierta': true,
+            'orden_fecha_servicio':moment().format('YYYY-MM-DD'),
+            'orden_hora_servicio':moment().format('HH:mm')
         
         }
     });

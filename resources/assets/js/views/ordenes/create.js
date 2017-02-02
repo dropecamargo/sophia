@@ -15,7 +15,7 @@ app || (app = {});
         template: _.template( ($('#add-orden-tpl').html() || '') ),
         events: {
             'submit #form-orden': 'onStore',
-            
+            'submit #form-visitas': 'onStoreVisita',
         },
         parameters: {
         },
@@ -31,6 +31,11 @@ app || (app = {});
             // Attributes
             this.$wraperForm = this.$('#render-form-orden');
 
+            //Model Exists
+            if( this.model.id != undefined ) {
+                
+                this.visita = new app.VisitaCollection();
+            }
             // Events
             this.listenTo( this.model, 'change', this.render );
             this.listenTo( this.model, 'sync', this.responseServer );
@@ -44,9 +49,30 @@ app || (app = {});
 
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
+            
+             // Model exist
+            if( this.model.id != undefined ) {
+
+                // Reference views
+                this.referenceViews();
+            }
 
             this.ready();
-           
+        },
+
+        referenceViews:function(){
+
+            this.visitasView = new app.VisitasView( {
+                collection: this.visita,
+                parameters: {
+                    edit: true,
+                    wrapper: this.$el,
+                    dataFilter: {
+                        'orden_id': this.model.get('id'),
+                        'orden_tecnico': this.model.get('orden_tecnico')
+                    }
+               }
+            });
         },
         
         /**
@@ -55,13 +81,25 @@ app || (app = {});
         onStore: function (e) {
 
             if (!e.isDefaultPrevented()) {
-
+                
                 e.preventDefault();
                 var data = window.Misc.formToJson( e.target );
-                //console.log(data);
                 this.model.save( data, {patch: true, silent: true} );
             }
-        },      
+        },  
+
+          /**
+        * Event Create visita
+        */
+        onStoreVisita: function (e) {
+            if (!e.isDefaultPrevented()) {
+                e.preventDefault();
+                var data = window.Misc.formToJson( e.target );
+                console.log(data);
+                //data.visita_orden = this.model.get('id');
+                this.visita.trigger( 'store', data );
+            }
+        },    
 
 
         /**

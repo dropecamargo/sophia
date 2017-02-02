@@ -159,13 +159,13 @@ app || (app = {});
                     return;
                 }
 
-                // ProductopView undelegateEvents
+                // ContratoView undelegateEvents
                 if ( this.createContratoView instanceof Backbone.View ){
                     this.createContratoView.stopListening();
                     this.createContratoView.undelegateEvents();
                 }
 
-                // Redirect to edit orden
+                // Redirect to edit contrato
                 Backbone.history.navigate(Route.route('contratos.edit', { contratos: resp.id}), { trigger:true });
             }
         }

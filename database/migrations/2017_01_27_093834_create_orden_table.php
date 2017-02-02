@@ -16,7 +16,7 @@ class CreateOrdenTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('id');
-            $table->dateTime('orden_fecha');
+            $table->date('orden_fecha');
             $table->integer('orden_tercero')->unsigned();
             $table->integer('orden_placa')->unsigned(); 
             $table->integer('orden_tipoorden')->unsigned();
