@@ -162,6 +162,7 @@ app || (app = {});
             this.componentTerceroView = new app.ComponentTerceroView();
             this.componentCreateResourceView = new app.ComponentCreateResourceView();
             this.componentSearchProductoView = new app.ComponentSearchProductoView();
+            this.componentSearchContactoView = new app.ComponentSearchContactoView();
       	},
 
         /**

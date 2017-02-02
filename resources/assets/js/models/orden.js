@@ -22,8 +22,11 @@ app || (app = {});
             'orden_tipoorden':'',
             'orden_solicitante':'',
             'orden_placa':'',
-            // 'tercero_nombre':'',
-            //contadores
+            'tercero_nombre':'',
+            'tercero_nit':'',
+            'producto_serie':'',
+            'producto_nombre':'',
+            'orden_fh_servicio':moment().format('YYYY-MM-DD   H:m:s'),
             'orden_persona':'',
             'orden_dano':'',
             'orden_prioridad':'',

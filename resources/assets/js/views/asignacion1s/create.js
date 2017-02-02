@@ -14,6 +14,7 @@ app || (app = {});
         el: '#asignacion1-create',
         template: _.template( ($('#add-asignacion1-tpl').html() || '') ),
         events: {
+            'click .submit-asignacion1': 'submitAsignacion1',
             'submit #form-asignacion1': 'onStore'
         },
         parameters: {
@@ -40,7 +41,6 @@ app || (app = {});
         * Event Create Folder
         */
         onStore: function (e) {
-
             if (!e.isDefaultPrevented()) {
 
                 e.preventDefault();
@@ -57,7 +57,17 @@ app || (app = {});
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
 
+            // References
+            this.$form = this.$('#form-asignacion1');
+
             this.ready();
+        },
+
+        /**
+        * Event submit asignacion1
+        */
+        submitAsignacion1: function (e) {
+            this.$form.submit();
         },
 
         /**

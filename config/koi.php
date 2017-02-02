@@ -164,10 +164,11 @@ return [
         ]
     ],
 
-    'produccion' => [
-        'formaspago' => [
-            'CO' => 'Contado',
-            'CT' => 'Crédito'
+    'asignacion' => [
+        'tipos' => [
+            'E' => 'Envio',
+            'R' => 'Retiro'
         ]
     ]
+
 ];

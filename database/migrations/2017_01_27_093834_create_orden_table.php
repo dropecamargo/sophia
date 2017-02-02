@@ -21,13 +21,12 @@ class CreateOrdenTable extends Migration
             $table->integer('orden_placa')->unsigned(); 
             $table->integer('orden_tipoorden')->unsigned();
             $table->integer('orden_solicitante')->unsigned();
-            //contadores deben ser foraneos  
-            $table->integer('orden_contador_general')->unsigned();
-            $table->integer('orden_contador1')->unsigned();
-            $table->integer('orden_contador2')->unsigned();
-            $table->integer('orden_contador3')->unsigned();
-            $table->integer('orden_contador4')->unsigned();
-            $table->integer('orden_contador5')->unsigned();
+           
+            $table->integer('orden_tecnico')->unsigned();
+            $table->dateTime('orden_fh_servicio');
+            $table->datetime('orden_fecha_elaboro');
+            $table->integer('orden_usuario_elaboro')->unsigned();
+
             $table->string('orden_persona',100);
             $table->integer('orden_dano')->unsigned();
             $table->integer('orden_prioridad')->unsigned();
@@ -38,6 +37,9 @@ class CreateOrdenTable extends Migration
             $table->foreign('orden_tipoorden')->references('id')->on('tipoorden')->onDelete('restrict');
             $table->foreign('orden_solicitante')->references('id')->on('solicitante')->onDelete('restrict');
             $table->foreign('orden_tercero')->references('id')->on('tercero')->onDelete('restrict');
+            $table->foreign('orden_tecnico')->references('id')->on('tercero')->onDelete('restrict');
+            $table->foreign('orden_usuario_elaboro')->references('id')->on('tercero')->onDelete('restrict');
+
             $table->foreign('orden_dano')->references('id')->on('dano')->onDelete('restrict');
             $table->foreign('orden_prioridad')->references('id')->on('prioridad')->onDelete('restrict');
 

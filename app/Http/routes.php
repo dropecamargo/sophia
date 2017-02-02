@@ -94,6 +94,10 @@ Route::group(['middleware' => 'auth'], function()
 	Route::resource('danos', 'Tecnico\DanoController', ['except' => ['destroy']]);
 	Route::resource('prioridades', 'Tecnico\PrioridadController', ['except' => ['destroy']]);
 	Route::resource('zonas', 'Tecnico\ZonaController', ['except' => ['destroy']]);
+
+	Route::group(['prefix'=>'asignacion1s'], function(){
+		Route::resource('asignacion2','Tecnico\Asignacion2Controller', ['only'=>['index','store','destroy']]);
+	});
 	Route::resource('asignacion1s', 'Tecnico\Asignacion1Controller', ['except' => ['destroy']]);
 });
 

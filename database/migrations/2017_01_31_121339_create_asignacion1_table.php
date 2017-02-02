@@ -16,7 +16,7 @@ class CreateAsignacion1Table extends Migration
             $table->engine = "InnoDB";
 
             $table->increments('id');
-            $table->dateTime('asignacion1_fecha');
+            $table->date('asignacion1_fecha');
             $table->dateTime('asignacion1_fh_elaboro');
            
             $table->string('asignacion1_tipo', 1);    
@@ -38,6 +38,7 @@ class CreateAsignacion1Table extends Migration
             $table->foreign('asignacion1_zona')->references('id')->on('zona')->onDelete('restrict');
             $table->foreign('asignacion1_tecnico')->references('id')->on('tercero')->onDelete('restrict');
             $table->foreign('asignacion1_contacto')->references('id')->on('tcontacto')->onDelete('restrict');
+        });
     }
 
     /**
@@ -47,6 +48,6 @@ class CreateAsignacion1Table extends Migration
      */
     public function down()
     {
-        Schema::dropIfExisits('asignacion1');
+        Schema::dropIfExists('asignacion1');
     }
 }
