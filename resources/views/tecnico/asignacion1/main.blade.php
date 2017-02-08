@@ -21,7 +21,7 @@
         <div class="box-header with-border">
             <div class="row">
                 <div class="col-md-2 col-sm-6 col-xs-6 text-left">
-                    <a href="{{ route('asignacion1s.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
+                    <a href="{{ route('asignaciones.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
                 </div>
                 <div class="col-md-2 col-md-offset-8 col-sm-6 col-xs-6 text-right">
                     <button type="button" class="btn btn-primary btn-sm btn-block submit-asignacion1">{{ trans('app.save') }}</button>
@@ -147,11 +147,26 @@
                                         <i class="fa fa-user"></i>
                                     </button>
                                 </span>
-                                <input id="asignacion1_tecnico" placeholder="Tecnico" class="form-control tercero-koi-component" name="asignacion1_tecnico" type="text" maxlength="15" data-wrapper="asignacion1s-create" data-name="asignacion1_tecnico_nombre" data-contacto="btn-add-contact" value="<%- tecnico_nit %>" required>
+                                <input id="asignacion1_tecnico" placeholder="Tecnico" class="form-control tercero-koi-component" name="asignacion1_tecnico" type="text" maxlength="15" data-wrapper="asignacion1s-create" data-name="asignacion1_tecnico_nombre" value="<%- tecnico_nit %>" required>
                             </div>
                         </div>
                         <div class="col-sm-5 col-xs-10">
                             <input id="asignacion1_tecnico_nombre" name="asignacion1_tecnico_nombre" placeholder="Nombre tecnico" class="form-control input-sm" type="text" maxlength="15" value="<%- tecnico_nombre %>" readonly required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label for="asignacion1_contrato" class="col-sm-1 control-label">Contrato</label>
+                        <div class="form-group col-sm-2 col-xs-10">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-flat btn-koi-search-contrato-component-table" data-field="asignacion1_contrato" data-name="nombre_contrato" data-tercero="btn-add-contact">
+                                        <i class="fa fa-briefcase"></i>
+                                    </button>
+                                </span>
+                                <input id="asignacion1_contrato" name="asignacion1_contrato" type="hidden" value="<%- asignacion1_contrato %>">
+                                <input id="nombre_contrato" placeholder="Contrato" class="form-control" name="nombre_contrato" type="text" readonly>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -160,29 +175,28 @@
             <div class="box box-danger">
                 <form method="POST" accept-charset="UTF-8" id="form-asignacion2" data-toggle="validator">
                     <div class="box-body">
-                        <div class="form-group col-sm-2 col-md-offset-1">
-                            <div class="input-group input-group-sm">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="asignacion2_producto">
-                                        <i class="fa fa-barcode"></i>
-                                    </button>
-                                </span>
-                                <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre" required>
+                        <div class="row">
+                            <div class="form-group col-sm-2 col-md-offset-2">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="asignacion2_producto">
+                                            <i class="fa fa-barcode"></i>
+                                        </button>
+                                    </span>
+                                    <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre" data-render="wrapper-render-type" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-5 col-xs-10">
+                                <input id="producto_nombre" name="producto_nombre" placeholder="Nombre producto" class="form-control input-sm" type="text" readonly required>
+                            </div>
+                            
+                            <div class="form-group col-sm-1">
+                                <button type="submit" class="btn btn-danger btn-sm btn-block">
+                                    <i class="fa fa-plus"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="col-sm-3 col-xs-10">
-                            <input id="producto_nombre" name="producto_nombre" placeholder="Nombre producto" class="form-control input-sm" type="text" readonly required>
-                        </div>
-                        
-                            <div class="col-sm-3 col-xs-10">
-                                <input id="asignacion2_deproducto" name="asignacion2_deproducto" placeholder="De producto" class="form-control input-sm" type="text" readonly required>
-                            </div>
-                       
-                        <div class="form-group col-sm-1">
-                            <button type="submit" class="btn btn-danger btn-sm btn-block">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
+                        <div id="wrapper-render-type"></div>
                     </div>
                 </form>
 
@@ -192,6 +206,7 @@
                         <tr>
                             <th></th>
                             <th>Producto</th>
+                            <th>Tipo</th>
                             <th>De</th>
                         </tr>
                         <tfoot>
@@ -206,14 +221,15 @@
     </script>
 
     <script type="text/template" id="add-asignacion2-item-tpl">
-        <% if(edit) { %>
+            <% if(edit) { %>
             <td class="text-center">
                 <a class="btn btn-default btn-xs item-asignacion2-remove" data-resource="<%- id %>">
                     <span><i class="fa fa-times"></i></span>
                 </a>
             </td>
-        <% } %>
-        <td><%- asignacion2_producto %></td>
-        <td><%- asignacion2_deproducto %></td>
+            <% } %>
+        <td><%- producto_nombre %></td>
+        <td><%- nombre %></td>
+        <td><%- producto_nombre_search %></td>
     </script>
 @stop

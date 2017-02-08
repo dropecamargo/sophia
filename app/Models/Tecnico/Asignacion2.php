@@ -3,7 +3,8 @@
 namespace App\Models\Tecnico;
 
 use Illuminate\Database\Eloquent\Model;
-use Validator;
+use Validator,DB;
+use App\Models\Inventario\Producto;
 
 class Asignacion2 extends Model
 {
@@ -19,10 +20,14 @@ class Asignacion2 extends Model
     public function isValid($data)
     {
         $rules = [
-            'asignacion2_asignacion1' => 'required',
             'asignacion2_producto' => 'required',
-            'asignacion2_deproducto' => 'required'
         ];
+
+        $producto = Producto::where('producto_serie', $data['producto_tipo_search'])->first();
+
+        if($producto){
+            $rules = ['producto_tipo_search' => 'required'];
+        }
 
         $validator = Validator::make($data, $rules);
         if ($validator->passes()) {

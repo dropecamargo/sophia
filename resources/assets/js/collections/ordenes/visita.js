@@ -1,5 +1,5 @@
 /**
-* Class Asignacion2sList of Backbone Collection
+* Class visita of Backbone Collection
 * @author KOI || @dropecamargo
 * @link http://koi-ti.com
 */
@@ -9,12 +9,12 @@ app || (app = {});
 
 (function (window, document, undefined) {
 
-    app.Asignacion2sList = Backbone.Collection.extend({
+    app.VisitaCollection = Backbone.Collection.extend({
 
         url: function() {
-            return window.Misc.urlFull( Route.route('asignaciones.detalle.index') );
+            return window.Misc.urlFull( Route.route('ordenes.visitas.index') );
         },
-        model: app.Asignacion2Model,
+        model: app.VisitaModel,
 
         /**
         * Constructor Method
@@ -23,3 +23,4 @@ app || (app = {});
         }
    });
 })(this, this.document);
+

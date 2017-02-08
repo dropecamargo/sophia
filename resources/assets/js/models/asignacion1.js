@@ -12,7 +12,7 @@ app || (app = {});
     app.Asignacion1Model = Backbone.Model.extend({
 
         urlRoot: function () {
-            return window.Misc.urlFull( Route.route('asignacion1s.index') );
+            return window.Misc.urlFull( Route.route('asignaciones.index') );
         },
         idAttribute: 'id',
         defaults: {
@@ -32,7 +32,8 @@ app || (app = {});
             'contacto_nombre': '',
             'tcontacto_telefono': '',
             'asignacion1_tecnico': '',
-            'asignacion1_contacto': ''
+            'asignacion1_contacto': '',
+            'asignacion2_deproducto': ''
         }
     });
 

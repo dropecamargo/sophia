@@ -22,7 +22,8 @@ class ProductoController extends Controller
     {
         if ($request->ajax()) {
             $query = Producto::query();
-            $query->select('id','producto_codigo','producto_serie' ,'producto_nombre');
+            $query->select('producto.id','producto_serie' ,'producto_nombre', 'tipo_codigo', 'tipo_nombre');
+            $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
 
             // Persistent data filter
             if($request->has('persistent') && $request->persistent) {
@@ -174,5 +175,24 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Search producto.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        if($request->has('producto_serie')) {
+            $producto = Producto::select('producto.id', 'producto_nombre', 'tipo_codigo')
+                ->join('tipo', 'producto_tipo', '=', 'tipo.id')
+                ->where('producto_serie', $request->producto_serie)->first();
+            
+            if($producto instanceof Producto) {
+                return response()->json(['success' => true, 'id' => $producto->id, 'producto_nombre' => $producto->producto_nombre, 'tipo_codigo' => $producto->tipo_codigo]);
+            }
+        }
+        return response()->json(['success' => false]);
     }
 }

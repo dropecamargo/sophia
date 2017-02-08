@@ -12,10 +12,12 @@ app || (app = {});
     app.Asignacion2Model = Backbone.Model.extend({
 
         urlRoot: function () {
-            return window.Misc.urlFull( Route.route('asignacion2s.index') );
+            return window.Misc.urlFull( Route.route('asignaciones.detalle.index') );
         },
         idAttribute: 'id',
         defaults: {
+        	'producto_nombre_search': '',
+        	'producto_tipo_search': ''
         }
     });
 

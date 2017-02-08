@@ -40,7 +40,7 @@ app || (app = {});
                 serverSide: true,
                 language: window.Misc.dataTableES(),
                 ajax: {
-                    url: window.Misc.urlFull( Route.route('asignacion1s.index') ),
+                    url: window.Misc.urlFull( Route.route('asignaciones.index') ),
                     data: function( data ) {
                         data.persistent = true;
                         data.tercero_nit = _this.$searchasignacion1Tercero.val();
@@ -61,7 +61,7 @@ app || (app = {});
                         text: '<i class="fa fa-plus"></i> Nueva Asignacion',
                         className: 'btn-sm',
                         action: function ( e, dt, node, config ) {
-                            window.Misc.redirect( window.Misc.urlFull( Route.route('asignacion1s.create') ) )
+                            window.Misc.redirect( window.Misc.urlFull( Route.route('asignaciones.create') ) )
                         }
                     }
                 ],
@@ -70,7 +70,7 @@ app || (app = {});
                         targets: 0,
                         width: '10%',
                         render: function ( data, type, full, row ) {
-                            return '<a href="'+ window.Misc.urlFull( Route.route('asignacion1s.show', {asignacion1s: full.id }) )  +'">' + data + '</a>';
+                            return '<a href="'+ window.Misc.urlFull( Route.route('asignaciones.show', {asignaciones: full.id }) )  +'">' + data + '</a>';
                         }
                     },
                     {

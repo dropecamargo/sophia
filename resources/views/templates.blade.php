@@ -31,7 +31,7 @@
 			<label for="tcontacto_municipio" class="control-label">Municipio</label>
 			<select name="tcontacto_municipio" id="tcontacto_municipio" class="form-control select2-default" required>
 				@foreach( App\Models\Base\Municipio::getMunicipios() as $key => $value)
-					<option value="{{ $key }}" <%- tcontacto_municipio == '{{ $key }}' ? 'selected': ''%> >{{ $key }}</option>
+					<option value="{{ $key }}" <%- tcontacto_municipio == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
 				@endforeach
 			</select>
 		</div>
@@ -272,7 +272,7 @@
 			<label for="tercero_nit" class="control-label">Documento</label>
 			<div class="row">
 				<div class="col-md-9">
-					<input id="tercero_nit" value="<%- tercero_nit %>" placeholder="Nit" class="form-control input-sm change-nit-koi-component" name="tercero_nit" type="text" required data-field="tercero_digito">
+					<input id="tercero_nit" value="<%- tercero_nit %>" placeholder="Nit" class="form-control input-sm change-nit-koi-component" name="tercero_nit" type="text" required data-field="tercero_digito" maxlength="11">
 				</div>
 				<div class="col-md-3">
 					<input id="tercero_digito" value="<%- tercero_digito %>" class="form-control input-sm" name="tercero_digito" type="text" readonly required>

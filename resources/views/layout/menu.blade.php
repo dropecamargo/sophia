@@ -105,14 +105,14 @@
     </li>
 
     {{-- Tecnico --}}
-    <li class="treeview {{ in_array(Request::segment(1), ['contratos','ordenes','tiposorden','solicitantes','danos','prioridades','zonas','asignacion1s']) ? 'active' : '' }}">
+    <li class="treeview {{ in_array(Request::segment(1), ['contratos','ordenes','tiposorden','solicitantes','danos','prioridades','zonas','asignaciones']) ? 'active' : '' }}">
         <a href="#">
             <i class="fa fa-cogs"></i> <span>Tecnico</span><i class="fa fa-angle-left pull-right"></i>
         </a>
 
         <ul class="treeview-menu">
             {{-- Modulos Tecnico --}}
-            <li class="{{ in_array(Request::segment(1), ['contratos','ordenes','asignacion1s']) ? 'active' : '' }}">
+            <li class="{{ in_array(Request::segment(1), ['contratos','ordenes','asignaciones']) ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-wpforms"></i> Modulos <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -125,8 +125,8 @@
                         <a href="{{ route('ordenes.index') }}"><i class="fa fa-building-o"></i> Ordenes</a>
                         </li>
 
-                        <li class="{{ Request::segment(1) == 'asignacion1s' ? 'active' : '' }}">
-                        <a href="{{ route('asignacion1s.index') }}"><i class="fa fa-cube"></i> Asignacion</a>
+                        <li class="{{ Request::segment(1) == 'asignaciones' ? 'active' : '' }}">
+                        <a href="{{ route('asignaciones.index') }}"><i class="fa fa-cube"></i> Asignacion</a>
                         </li>
                 </ul>
             </li>

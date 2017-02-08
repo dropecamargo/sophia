@@ -122,9 +122,9 @@ app || (app = {});
             'zonas/:zonas/edit(/)': 'getZonasEdit',
 
             //Asignacion #1
-            'asignacion1s(/)': 'getAsignacion1sMain',
-            'asignacion1s/create(/)': 'getAsignacion1sCreate',
-            'asignacion1s/:asignacion1s/edit(/)': 'getAsignacion1sEdit',
+            'asignaciones(/)': 'getAsignacionesMain',
+            'asignaciones/create(/)': 'getAsignacionesCreate',
+            'asignaciones/:asignacion(/)': 'getAsignacionesShow',
         },
 
         /**
@@ -163,6 +163,7 @@ app || (app = {});
             this.componentCreateResourceView = new app.ComponentCreateResourceView();
             this.componentSearchProductoView = new app.ComponentSearchProductoView();
             this.componentSearchContactoView = new app.ComponentSearchContactoView();
+            this.componentSearchContratoView = new app.ComponentSearchContratoView();
       	},
 
         /**
@@ -872,7 +873,7 @@ app || (app = {});
         },
 
         // Asignacion #1
-        getAsignacion1sMain: function () {
+        getAsignacionesMain: function () {
 
             if ( this.mainAsignacion1View instanceof Backbone.View ){
                 this.mainAsignacion1View.stopListening();
@@ -882,7 +883,7 @@ app || (app = {});
             this.mainAsignacion1View = new app.MainAsignacion1sView( );
         },
 
-        getAsignacion1sCreate: function () {
+        getAsignacionesCreate: function () {
             this.asignacion1Model = new app.Asignacion1Model();
 
             if ( this.createAsignacion1View instanceof Backbone.View ){
@@ -894,17 +895,16 @@ app || (app = {});
             this.createAsignacion1View.render();
         },
 
-        getAsignacion1sEdit: function (asignacion1s) {
+        getAsignacionesShow: function (asignacion) {
             this.asignacion1Model = new app.Asignacion1Model();
-            this.asignacion1Model.set({'id': asignacion1s}, {'silent':true});
+            this.asignacion1Model.set({'id': asignacion}, {'silent':true});
 
-            if ( this.createAsignacion1View instanceof Backbone.View ){
-                this.createAsignacion1View.stopListening();
-                this.createAsignacion1View.undelegateEvents();
+            if ( this.showAsignacion1View instanceof Backbone.View ){
+                this.showAsignacion1View.stopListening();
+                this.showAsignacion1View.undelegateEvents();
             }
 
-            this.createAsignacion1View = new app.CreateAsignacion1View({ model: this.asignacion1Model });
-            this.asignacion1Model.fetch();
+            this.showAsignacion1View = new app.ShowAsignacion1View({ model: this.asignacion1Model });
         },
        
     }) );

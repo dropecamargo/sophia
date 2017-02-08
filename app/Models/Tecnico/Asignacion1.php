@@ -37,6 +37,13 @@ class Asignacion1 extends Model
 
         $validator = Validator::make($data, $rules);
         if ($validator->passes()) {
+            // Validar Carrito
+            $asignacion2 = isset($data['asignacion2']) ? $data['asignacion2'] : null;
+            if(!isset($asignacion2) || $asignacion2 == null || !is_array($asignacion2) || count($asignacion2) == 0) {
+                $this->errors = 'Por favor ingrese toda la informacion para la asignacion.';
+                return false;
+            }
+
             return true;
         }
         $this->errors = $validator->errors();

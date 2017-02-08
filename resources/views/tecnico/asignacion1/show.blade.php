@@ -1,19 +1,16 @@
 @extends('tecnico.asignacion1.main')
 
 @section('breadcrumb')
-    <li><a href="{{ route('asignacion1s.index')}}">Asignacion</a></li>
+    <li><a href="{{ route('asignaciones.index')}}">Asignacion</a></li>
     <li class="active">{{ $asignacion1->id }}</li>
 @stop
 
 @section('module')
-	<div class="box box-danger">
+	<div class="box box-danger" id="asignacion-show">
         <div class="box-header with-border">
             <div class="row">
                 <div class="col-md-2 col-sm-6 col-xs-6 text-left">
-                    <a href=" {{ route('asignacion1s.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.comeback') }}</a>
-                </div>
-                <div class="col-md-2 col-md-offset-8 col-sm-6 col-xs-6 text-right">
-                    <a href=" {{ route('asignacion1s.edit', ['asignacion1s' => $asignacion1->id])}}" class="btn btn-primary btn-sm btn-block"> {{trans('app.edit')}}</a>
+                    <a href=" {{ route('asignaciones.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.comeback') }}</a>
                 </div>
             </div>
         </div>
@@ -78,6 +75,16 @@
                     Nombre: {{ $asignacion1->tecnico_nombre }}</div>
                 </div>
         	</div>
+
+            <div class="box-body table-responsive">
+                <table id="browse-asignacion2-list" class="table table-hover table-bordered" cellspacing="0" width="100%">
+                    <tr>
+                        <th>Producto</th>
+                        <th>Tipo</th>
+                        <th>De</th>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 @stop

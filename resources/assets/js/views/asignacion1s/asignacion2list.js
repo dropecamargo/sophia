@@ -11,9 +11,9 @@ app || (app = {});
 
     app.Asignacion2sListView = Backbone.View.extend({
 
-        el: '#browse-asginacion2-list',
+        el: '#browse-asignacion2-list',
         events: {
-            'click .item-asginacion2-remove': 'removeOne'
+            'click .item-asignacion2-remove': 'removeOne'
         },
         parameters: {
             wrapper: null,
@@ -75,7 +75,7 @@ app || (app = {});
         */
         storeOne: function (form) {
             var _this = this,
-                data = window.Misc.formToJson( form );
+            data = window.Misc.formToJson( form );
 
             // Set Spinner
             window.Misc.setSpinner( this.parameters.wrapper );

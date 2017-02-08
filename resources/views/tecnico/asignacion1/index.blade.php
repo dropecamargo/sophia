@@ -62,7 +62,7 @@
                         <button type="button" class="btn btn-primary btn-block btn-sm btn-search">Buscar</button>
                     </div>
                     <div class="col-md-2 col-xs-4">
-                        <a href="{{ route('asignacion1s.create') }}" class="btn btn-default btn-block btn-sm">
+                        <a href="{{ route('asignaciones.create') }}" class="btn btn-default btn-block btn-sm">
                             <i class="fa fa-building-o"></i> Nueva asignacion
                         </a>
                     </div>

@@ -126,7 +126,7 @@ app || (app = {});
 
 		search: function(e) {
 			e.preventDefault();
-
+            
 		    this.contactoSearchTable.ajax.reload();
 		},
 

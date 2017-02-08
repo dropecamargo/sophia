@@ -3,42 +3,37 @@
 namespace App\Models\Tecnico;
 
 use Illuminate\Database\Eloquent\Model;
+use Validator, Cache,DB;
 
-use Validator, DB;
-use App\Models\BaseModel;
-
-class Orden extends Model
+class Visita extends Model
 {
-	  /**
+    /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'orden';
+    protected $table = 'visita';
 
     public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
+     *
      * @var array
      */
-    protected $fillable =['orden_fecha','orden_tipoorden','orden_solicitante','orden_persona','orden_dano','orden_prioridad','orden_problema'];
+    protected $fillable = ['visita_orden', 'visita_tecnico','visita_tiempo_transporte','visita_viaticos'];
 
     public function isValid($data)
     {
-        $rules = [  
-
-        	'orden_fecha'=>'required|date_format:Y-m-d',
-        	'orden_tipoorden'=>'required',
-        	'orden_solicitante'=>'required',
-        	'orden_tercero'=>'required',
-        	'orden_dano'=>'required',
-        	'orden_prioridad'=>'required',
-        	'orden_problema'=>'required|max:100',
-            'orden_fecha_servicio' => 'required|date_format:Y-m-d',
-            'orden_hora_servicio' => 'required|date_format:H:m'
-
-
+        $rules = [
+            'visita_fecha_llegada' => 'required|date_format:Y-m-d',
+            'visita_hora_llegada' => 'required|date_format:H:s',
+            'visita_fecha_inicio' => 'required|date_format:Y-m-d',
+            'visita_hora_inicio' => 'required|date_format:H:s',
+            'visita_fecha_fin' => 'required|date_format:Y-m-d',
+            'visita_hora_fin' => 'required|date_format:H:s',
+            'visita_tiempo_transporte' => 'required',
+            'visita_viaticos' => 'required'
         ];
 
         $validator = Validator::make($data, $rules);
@@ -50,7 +45,7 @@ class Orden extends Model
     }
 
 
-   public static function getOrden($id)
+    public static function getVisita($id)
     {
         $query = Orden::query();
         $query->select('orden.*',DB::raw("TIME(orden_fh_servicio) as orden_hora_servicio"),DB::raw("DATE(orden_fh_servicio) as orden_fecha_servicio"), 'tercero_nit','producto_nombre','producto_serie','dano_nombre','tipoorden_nombre','prioridad_nombre','solicitante_nombre', DB::raw("CONCAT(tercero_nombre1, ' ', tercero_nombre2, ' ', tercero_apellido1, ' ', tercero_apellido2) as tercero_nombre"));
@@ -64,5 +59,4 @@ class Orden extends Model
         $query->where('orden.id', $id);
         return $query->first();
     }
-}    
-
+}

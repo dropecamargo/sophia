@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 use DB, Log, Cache,Datatables, Auth;
 
 use App\Models\Tecnico\Asignacion1;
+use App\Models\Tecnico\Asignacion2;
+use App\Models\Tecnico\Contrato;
+use App\Models\Inventario\Producto;
 use App\Models\Base\Tercero;
 use App\Models\Base\Contacto;
 
@@ -84,6 +87,7 @@ class Asignacion1Controller extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
+
             $asignacion1 = new Asignacion1;
             if ($asignacion1->isValid($data)) {
                 DB::beginTransaction();
@@ -91,6 +95,7 @@ class Asignacion1Controller extends Controller
                     $tercero = Tercero::where('tercero_nit', $request->asignacion1_tercero)->first();
                     $contacto = Contacto::find($request->asignacion1_contacto);
                     $tecnico = Tercero::where('tercero_nit', $request->asignacion1_tecnico)->first();
+                    $contrato = Contrato::find($request->asignacion1_contrato);
                     
                     if(!$contacto instanceof Contacto && !$tercero instanceof Tercero && !$tecnico instanceof Tercero) {
                         DB::rollback();
@@ -99,12 +104,39 @@ class Asignacion1Controller extends Controller
 
                     // asignacion1
                     $asignacion1->fill($data);
+                    if($data['nombre_contrato']){
+                        $asignacion1->asignacion1_contrato = $contrato->id;
+                    }
                     $asignacion1->asignacion1_tercero = $tercero->id;
                     $asignacion1->asignacion1_contacto = $contacto->id;
                     $asignacion1->asignacion1_tecnico = $tecnico->id;
                     $asignacion1->asignacion1_usuario_elaboro = Auth::user()->id;
                     $asignacion1->asignacion1_fh_elaboro = date('Y-m-d H:m:s');
                     $asignacion1->save();
+
+                    // Asignacion2
+                    $asignacion2 = isset($data['asignacion2']) ? $data['asignacion2'] : null;
+                    foreach ($asignacion2 as $item)
+                    {
+                        // Recuperar producto
+                        $producto = Producto::where('producto_serie', $item['asignacion2_producto'])->first();
+                        $deproducto = Producto::where('producto_serie', $item['producto_tipo_search'])->first();
+                        
+                        if(!$producto instanceof Producto) {
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
+                        }
+
+                            $asignacion2 = new Asignacion2;
+                            $asignacion2->asignacion2_asignacion1 = $asignacion1->id;
+                            $asignacion2->asignacion2_producto = $producto->id;
+                            if($item['producto_tipo_search']){
+                                $asignacion2->asignacion2_deproducto = $deproducto->id;
+                            }
+                            $asignacion2->save();
+                    }
+
+
                     // Commit Transaction
                     DB::commit();
                     return response()->json(['success' => true, 'id' => $asignacion1->id]);
@@ -127,14 +159,16 @@ class Asignacion1Controller extends Controller
      */
     public function show(Request $request, $id)
     {
-        $asignacion1 = Asignacion1::getAsignacion($id);
-        if($asignacion1 instanceof Asignacion1){
-            if ($request->ajax()) {
-                return response()->json($asignacion1);
-            }
-            return view('tecnico.asignacion1.show', ['asignacion1' => $asignacion1]);
+        $asignacion = Asignacion1::getAsignacion($id);
+        if(!$asignacion instanceof Asignacion1){
+            abort(404);
         }
-        abort(404);
+
+        if ($request->ajax()) {
+            return response()->json($asignacion);
+        }
+
+        return view('tecnico.asignacion1.show', ['asignacion1' => $asignacion]);
     }
 
     /**
@@ -145,8 +179,7 @@ class Asignacion1Controller extends Controller
      */
     public function edit($id)
     {
-        $asignacion1 = Asignacion1::findOrFail($id);
-        return view('tecnico.asignacion1.edit', ['asignacion1' => $asignacion1]);
+        //
     }
 
     /**
