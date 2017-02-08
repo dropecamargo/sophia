@@ -22,7 +22,8 @@ app || (app = {});
    			'visita_fecha_inicio': moment().format('YYYY-MM-DD'),
    			'visita_fecha_fin': moment().format('YYYY-MM-DD'),
    			'visita_tiempo_transporte': '',
-   			'visita_viaticos': ''
+   			'visita_viaticos': '',
+        'tercero_nombre': ''
         }
     });
 

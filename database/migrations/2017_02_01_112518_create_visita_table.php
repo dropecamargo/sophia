@@ -18,6 +18,7 @@ class CreateVisitaTable extends Migration
 
             $table->integer('visita_orden')->unsigned();
             $table->integer('visita_tecnico')->unsigned();
+            $table->integer('visita_numero')->unsigned();
             $table->dateTime('visita_fh_llegada');
             $table->dateTime('visita_fh_inicio');
             $table->dateTime('visita_fh_finaliza');

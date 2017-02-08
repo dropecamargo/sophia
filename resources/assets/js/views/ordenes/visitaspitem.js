@@ -1,5 +1,5 @@
 /**
-* Class VisitaItemView  of Backbone Router
+* Class VisitapItemView  of Backbone Router
 * @author KOI || @dropecamargo
 * @link http://koi-ti.com
 */
@@ -9,10 +9,10 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.VisitasItemView = Backbone.View.extend({
+    app.VisitaspItemView = Backbone.View.extend({
 
         tagName: 'tr',
-        template: _.template( ($('#visita-item-list-tpl').html() || '') ),
+        template: _.template( ($('#visitap-item-list-tpl').html() || '') ),
         events: {
            
         },
@@ -44,9 +44,7 @@ app || (app = {});
 
             var attributes = this.model.toJSON();
             attributes.edit = this.parameters.edit;
-
             this.$el.html( this.template(attributes) );
-
             return this;
         },
 

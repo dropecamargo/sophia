@@ -9,11 +9,11 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.VisitasView = Backbone.View.extend({
+    app.VisitaspView = Backbone.View.extend({
 
-        el: '#browse-visitas-list',
+        el: '#browse-orden-visitasp-list',
         events: {
-               'click .item-visita-remove': 'removeOne'
+               'click .item-visitap-remove': 'removeOne'
         },
         parameters: {
             wrapper:false,
@@ -30,8 +30,6 @@ app || (app = {});
             if( opts !== undefined && _.isObject(opts.parameters) )
                 this.parameters = $.extend({},this.parameters, opts.parameters);
 
-            this.parameters.wrapper
-
             // Events Listeners
             this.listenTo( this.collection, 'add', this.addOne );
             this.listenTo( this.collection, 'reset', this.addAll );
@@ -40,6 +38,7 @@ app || (app = {});
             this.listenTo( this.collection, 'sync', this.responseServer);
 
            this.collection.fetch({ data: {orden_id: this.parameters.dataFilter.orden_id}, reset: true });
+           
         },
 
         /*
@@ -53,15 +52,16 @@ app || (app = {});
         * Render view contact by model
         * @param Object contactModel Model instance
         */
-        addOne: function (visitaModel) {
+        addOne: function (visitapModel) {
             
-            var view = new app.VisitasItemView({
-                model: visitaModel,
+            var view = new app.VisitaspItemView({
+                model: visitapModel,
                 parameters: {
                     edit: this.parameters.edit
                 }
             });
-            visitaModel.view = view;
+            visitapModel.view = view;
+            
             this.$el.prepend( view.render().el );
         },
 
@@ -74,18 +74,17 @@ app || (app = {});
         },
 
         storeOne: function (data) {
-            var _this = this
+            var _this = this;
 
             // Set Spinner
             window.Misc.setSpinner( this.parameters.wrapper );
 
             // Prepare data
-            data.visita_orden = this.parameters.dataFilter.orden_id;
-            data.visita_tecnico = this.parameters.dataFilter.orden_tecnico;
+            data.visitap_orden = this.parameters.dataFilter.orden_id;
 
             // Add model in collection
-            var visitaModel = new app.VisitaModel();
-            visitaModel.save(data, {
+            var visitapModel = new app.VisitapModel();
+            visitapModel.save(data, {
                 success : function(model, resp) {
                     if(!_.isUndefined(resp.success)) {
                         window.Misc.removeSpinner( _this.parameters.wrapper );
@@ -146,14 +145,14 @@ app || (app = {});
         * Load spinner on the request
         */
         loadSpinner: function ( target, xhr, opts ) {
-            window.Misc.setSpinner( this.el );
+            window.Misc.setSpinner( this.parameters.wrapper );
         },
 
         /**
         * response of the server
         */
         responseServer: function ( target, resp, opts ) {
-            window.Misc.removeSpinner( this.el );
+            window.Misc.removeSpinner( this.parameters.wrapper );
         }
    });
 

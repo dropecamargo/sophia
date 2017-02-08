@@ -212,7 +212,7 @@
                                                             <label for="productocontador_contador" class="control-label col-sm-1 col-sm-offset-1 hidden-xs">Contador</label>
                                                             <div class="form-group col-sm-7 col-xs-10">
                                                                 <select name="productocontador_contador" id="productocontador_contador" class="form-control select2-default" required>
-                                                                    @foreach( App\Models\Inventario\ProductoContador::getContadores() as $key => $value)
+                                                                    @foreach( App\Models\Inventario\Contador::getContadores() as $key => $value)
                                                                         <option value="{{ $key }}" <%- contador_nombre == '{{ $value }}' ? 'selected': ''%> >{{ $value }}</option>
                                                                     @endforeach
                                                                 </select>
@@ -277,7 +277,7 @@
             </a>
         </td>
         <% } %>
-        <td><%- p_nombre %></td>
-        <td><%- c_nombre %></td>
+        <td><%- producto_nombre %></td>
+        <td><%- contador_nombre %></td>
     </script>
 @stop

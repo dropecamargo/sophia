@@ -3,7 +3,7 @@
 namespace App\Models\Inventario;
 
 use Illuminate\Database\Eloquent\Model;
-use Validator,DB;
+use Validator,DB,Cache;
 
 class Producto extends Model
 {
@@ -15,6 +15,14 @@ class Producto extends Model
     protected $table = 'producto';
 
     public $timestamps = false;
+
+
+      /**
+     * The key used by cache store.
+     *
+     * @var static string
+     */
+    public static $key_cache = '_pruduct';
 
      /**
      * The attributes that are mass assignable.
@@ -66,5 +74,22 @@ class Producto extends Model
         $query->join('tercero', 'producto.producto_proveedor', '=', 'tercero.id');
         $query->where('producto.id', $id);
         return $query->first();
+    }
+
+    //EQ && RP
+    public static function getProducts()
+    {
+        if (Cache::has( self::$key_cache )) {
+            return Cache::get( self::$key_cache );
+        }
+
+        return Cache::rememberForever( self::$key_cache , function() {
+            $query = Producto::query();
+            $query->orderBy('producto_nombre', 'asc');
+            $collection = $query->lists('producto_nombre', 'producto_placa');
+
+            $collection->prepend('', '');
+            return $collection;
+        });
     }
 }

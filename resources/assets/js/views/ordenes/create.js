@@ -14,8 +14,10 @@ app || (app = {});
         el: '#ordenes-create',
         template: _.template( ($('#add-orden-tpl').html() || '') ),
         events: {
+            'click .submit-orden': 'submitOrden',
             'submit #form-orden': 'onStore',
             'submit #form-visitas': 'onStoreVisita',
+            'submit #form-visitasp': 'onStoreVisitap',
         },
         parameters: {
         },
@@ -35,6 +37,8 @@ app || (app = {});
             if( this.model.id != undefined ) {
                 
                 this.visita = new app.VisitaCollection();
+                this.visitap = new app.VisitapCollection();
+                this.contadoresp = new app.ContadorespCollection();
             }
             // Events
             this.listenTo( this.model, 'change', this.render );
@@ -48,7 +52,9 @@ app || (app = {});
         render: function() {
 
             var attributes = this.model.toJSON();
+             
             this.$wraperForm.html( this.template(attributes) );
+            this.$form = this.$('#form-orden');
             
              // Model exist
             if( this.model.id != undefined ) {
@@ -68,13 +74,41 @@ app || (app = {});
                     edit: true,
                     wrapper: this.$el,
                     dataFilter: {
-                        'orden_id': this.model.get('id'),
-                        'orden_tecnico': this.model.get('orden_tecnico')
+                        'orden_id': this.model.get('id')
+                    }
+               }
+            });
+
+            this.visitaspView = new app.VisitaspView( {
+                collection: this.visitap,
+                parameters: {
+                    edit: true,
+                    wrapper: this.$('#wrapper-visitasp'),
+                    dataFilter: {
+                        'orden_id': this.model.get('id')
+                    }
+               }
+            });
+
+            this.contadorespView = new app.ContadorespView( {
+                collection: this.contadoresp,
+                parameters: {
+                    edit: true,
+                    wrapper: this.$('#wrapper-contadoresp'),
+                    dataFilter: {
+                        'producto_id': this.model.get('id_p')
                     }
                }
             });
         },
         
+        /**
+        *Event Click to Button
+        */
+        submitOrden:function(e){
+
+            this.$form.submit();
+        },
         /**
         * Event Create Orden
         */
@@ -88,18 +122,31 @@ app || (app = {});
             }
         },  
 
-          /**
+        /**
         * Event Create visita
         */
         onStoreVisita: function (e) {
             if (!e.isDefaultPrevented()) {
                 e.preventDefault();
+
                 var data = window.Misc.formToJson( e.target );
-                console.log(data);
-                //data.visita_orden = this.model.get('id');
+                data.visita_orden = this.model.get('id');
                 this.visita.trigger( 'store', data );
             }
-        },    
+        },  
+
+        /**
+        * Event Create visitap
+        */
+
+        onStoreVisitap: function (e) {
+            if (!e.isDefaultPrevented()) {
+                e.preventDefault();
+
+                var data = window.Misc.formToJson( e.target );
+                this.visitap.trigger( 'store', data );
+            }
+        },      
 
 
         /**

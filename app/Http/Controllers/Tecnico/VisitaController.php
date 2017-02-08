@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Cache,Auth;
 use App\Models\Tecnico\Visita;
+use App\Models\Base\Tercero;
 
 class VisitaController extends Controller
 {
@@ -24,11 +25,26 @@ class VisitaController extends Controller
         {
             $query = Visita::query();
             $query->where('visita_orden', $request->orden_id);
-           // dd($query->get());
-            $query->select('visita.*', 'orden.id');
+           
+            $query->select('visita.*',   
+                DB::raw("
+                    CONCAT(
+                        (CASE WHEN tercero_persona = 'N'
+                            THEN CONCAT(tercero_nombre1,' ',tercero_nombre2,' ',tercero_apellido1,' ',tercero_apellido2,
+                                (CASE WHEN (tercero_razonsocial IS NOT NULL AND tercero_razonsocial != '') THEN CONCAT(' - ', tercero_razonsocial) ELSE '' END)
+                            )
+                            ELSE tercero_razonsocial
+                        END)
+                    
+                    ) AS tercero_nombre"
+                ));
             $query->join('orden', 'visita_orden', '=', 'orden.id');
-            $query->orderBy('orden.id', 'asc'); 
+            $query->join('tercero', 'visita_tecnico', '=', 'tercero.id');
+            //$query->orderBy('orden.id', 'asc'); 
                    
+            return response()->json( $query->get() );
+
+             $query->orderBy('id', 'asc');
             return response()->json( $query->get() );
           
            
@@ -57,16 +73,23 @@ class VisitaController extends Controller
         
        if ($request->ajax()) {
             $data = $request->all();
-            //dd($data);
+           // dd($data);
             $visita = new Visita;
 
             if ($visita->isValid($data)) {
 
                 DB::beginTransaction();
                 try {
-
+                      // Validar Tercero
+                     $tercero = Tercero::where('tercero_nit', $request->visita_tercero)->first();
+                    if(!$tercero instanceof Tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar Tecnico, por favor verifique la información o consulte al administrador.']);
+                    }
                     // visita
                     $visita->fill($data);
+                    $terceroName= $tercero->tercero_nombre1." ".$tercero->tercero_nombre2." ".$tercero->tercero_apellido1." ".$tercero->tercero_apellido2;
+                    $visita->visita_tecnico = $tercero->id;
                     $visita->visita_fh_llegada = "$request->visita_fecha_llegada $request->visita_hora_llegada";
                     $visita->visita_fh_inicio = "$request->visita_fecha_inicio $request->visita_hora_inicio";
                     $visita->visita_fh_finaliza = "$request->visita_fecha_fin $request->visita_hora_fin";
@@ -77,7 +100,7 @@ class VisitaController extends Controller
 
                     // Commit Transaction
                     DB::commit();
-                    return response()->json(['success' => true, 'id' => $visita->id, 'visita_fh_llegada'=>$visita->visita_fh_llegada,'visita_fh_inicio'=>$visita->visita_fh_inicio]);
+                    return response()->json(['success' => true, 'id' => $visita->id, 'visita_fh_llegada'=>$visita->visita_fh_llegada,'visita_fh_inicio'=>$visita->visita_fh_inicio, 'tercero_nombre'=>$terceroName]);
                 }catch(\Exception $e){
                     DB::rollback();
                     Log::error($e->getMessage());

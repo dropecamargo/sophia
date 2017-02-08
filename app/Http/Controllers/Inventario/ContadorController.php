@@ -119,7 +119,8 @@ class ContadorController extends Controller
                     $contador->save();
                     // Commit Transaction
                     DB::commit();
-                    
+                     //olvidar cache
+                    Cache::forget( Contador::$key_cache );
                     return response()->json(['success' => true, 'id' => $contador->id]);
                 }catch(\Exception $e){
                     DB::rollback();

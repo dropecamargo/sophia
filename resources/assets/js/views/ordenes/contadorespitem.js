@@ -1,5 +1,5 @@
 /**
-* Class VisitaItemView  of Backbone Router
+* Class ContadoresItem  of Backbone Router
 * @author KOI || @dropecamargo
 * @link http://koi-ti.com
 */
@@ -9,32 +9,26 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.VisitasItemView = Backbone.View.extend({
+    app.ContadoresItemView = Backbone.View.extend({
 
         tagName: 'tr',
-        template: _.template( ($('#visita-item-list-tpl').html() || '') ),
-        events: {
-           
-        },
+        template: _.template( ($('#contadoresp-item-list-tpl').html() || '') ),
         parameters: {
-            wrapper: null,
-            edit: false,
-            dataFilter: {}
+            edit: false
+            
         },
 
         /**
         * Constructor Method
         */
         initialize: function(opts){
-
-            //Init Attributes
-                 if( opts !== undefined && _.isObject(opts.parameters) )
+           //Init Attributes
+            if( opts !== undefined && _.isObject(opts.parameters) )
                 this.parameters = $.extend({},this.parameters, opts.parameters);
-
-                this.parameters.wrapper
-
+           
             // Events Listener
             this.listenTo( this.model, 'change', this.render );
+          
         },
 
         /*
@@ -43,10 +37,10 @@ app || (app = {});
         render: function(){
 
             var attributes = this.model.toJSON();
+          
             attributes.edit = this.parameters.edit;
-
             this.$el.html( this.template(attributes) );
-
+            console.log(   this.template(attributes) );
             return this;
         },
 

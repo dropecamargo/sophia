@@ -166,6 +166,7 @@ class OrdenController extends Controller
         if(!$orden instanceof Orden) {
             abort(404);
         }
+        //dd($orden);
         return view('tecnico.orden.edit', ['orden' => $orden]);    
     }
 
