@@ -19,6 +19,7 @@
 
 
 <script type="text/template" id="add-orden-tpl">
+
     <div class="row">
         <div class="form-group col-md-12">
             <div class="nav-tabs-custom tab-danger tab-whithout-box-shadow">
@@ -210,15 +211,16 @@
                                             </div> 
                                         </div>
                                         <br/>
-                                        <div class="row">
-                                            <div class="col-md-2 col-md-offset-4 col-sm-6 col-xs-6">
-                                                <a href="{{ route('ordenes.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6 col-xs-6">
-                                                <button type="submit" class="btn btn-primary btn-sm btn-block">{{ trans('app.save') }}</button>
-                                            </div>
-                                        </div>                                          
-                                    </form> 
+                                                                                
+                                    </form>
+                                    <div class="row">
+                                        <div class="col-md-2 col-md-offset-4 col-sm-6 col-xs-6">
+                                            <a href="{{ route('ordenes.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
+                                        </div>
+                                        <div class="col-md-2 col-sm-6 col-xs-6">
+                                            <button type="button" class="btn btn-primary btn-sm btn-block submit-orden">{{ trans('app.save') }}</button>
+                                        </div>
+                                    </div> 
                                 </div>
                             </div>
                         </div>
@@ -226,98 +228,223 @@
                     {{-- Content visitas --}}
                     <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
                         <div class="tab-pane" id="tab_visitas">
-                            <div class="box box-whithout-border">
+                            <div class="box box-whithout-border" id="wrapper-visitas">
                                 <div class="box-body">
                                     <form method="POST" accept-charset="UTF-8" id="form-visitas" data-toggle="validator">
-                                            <div class="row">
-                                                <label for="visita_fecha_llegada" class="col-sm-1 control-label">F. visita</label>
-                                                    <div class="form-group col-md-2">
-                                                           <input type="text" id="visita_fecha_llegada" name="visita_fecha_llegada" class="form-control input-sm datepicker" value="" required>
-                                                    </div> 
-                                                <label for="visita_hora_llegada" class="col-sm-1 control-label">H. visita</label>
-                                                <div class="col-md-2">
-                                                    <div class="bootstrap-timepicker">
-                                                         <div class="input-group">
-                                                            <input type="text" id="visita_hora_llegada" name="visita_hora_llegada" class="form-control input-sm timepicker" value="" required>
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-clock-o"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                           
-                                                <label for="visita_fecha_inicio" class="col-sm-1 control-label">F. inicio</label>
-                                                    <div class="form-group col-md-2">
-                                                        <input type="text" id="visita_fecha_inicio" name="visita_fecha_inicio" class="form-control input-sm datepicker"value="" required>
-                                                    </div> 
-                                                <label for="visita_hora_inicio" class="col-sm-1 control-label">H. inicio</label>
-                                                <div class="col-md-2">
-                                                    <div class="bootstrap-timepicker">
-                                                         <div class="input-group">
-                                                            <input type="text" id="visita_hora_inicio" name="visita_hora_inicio" class="form-control input-sm timepicker" value="" required>
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-clock-o"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                        <div class="row col-md-offset-2">
+                                            <label for="visita_tercero" class="col-sm-1 control-label">Tecnico</label>
+                                            <div class="form-group col-sm-3 ">
+                                                <div class="input-group input-group-sm">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-default btn-flat btn-koi-search-tercero-component-table" data-field="visita_tercero">
+                                                            <i class="fa fa-user"></i>
+                                                        </button>
+                                                    </span>
+                                                    <input id="visita_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="visita_tercero" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="visita_terecero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit%>" required>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <label for="visita_fecha_fin" class="col-sm-1 control-label">F. finalización</label>
-                                                    <div class="form-group col-md-2">
-                                                        <input type="text" id="visita_fecha_fin" name="visita_fecha_fin" class="form-control input-sm datepicker" value="" required>
-                                                    </div> 
-                                                <label for="visita_hora_fin" class="col-sm-1 control-label">H. finalización</label>
-                                                <div class="col-md-2">
-                                                    <div class="bootstrap-timepicker">
-                                                         <div class="input-group">
-                                                            <input type="text" id="visita_hora_fin" name="visita_hora_fin" class="form-control input-sm timepicker" value="" required>
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-clock-o"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            
-                                            
-                                                <label class="col-sm-1 control-label" for="visita_tiempo_transporte">T. Transporte</label>
-                                                <div class="form-group col-md-2">                                                
-                                                <input type="number" min="0" class="form-control input-sm" id="visita_tiempo_transporte" name="visita_tiempo_transporte" value="" required="">
-                                                </div>
-
-                                                <label class="col-sm-1 control-label" for="visita_viaticos">Viaticos</label>
+                                            <div class="col-sm-4 col-xs-10">
+                                                <input id="visita_terecero_nombre" name="visita_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label for="visita_fecha_llegada" class="col-sm-1 control-label">F. visita</label>
                                                 <div class="form-group col-md-2">
-                                                <input type="text" name="visita_viaticos" id="visita_viaticos" value="" required="">
+                                                       <input type="text" id="visita_fecha_llegada" name="visita_fecha_llegada" class="form-control input-sm datepicker" value="" required>
+                                                </div> 
+                                            <label for="visita_hora_llegada" class="col-sm-1 control-label">H. visita</label>
+                                            <div class="col-md-2">
+                                                <div class="bootstrap-timepicker">
+                                                     <div class="input-group">
+                                                        <input type="text" id="visita_hora_llegada" name="visita_hora_llegada" class="form-control input-sm timepicker" value="" required>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-clock-o"></i>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class=" col-sm-2 col-md-offset-5">
-                                                <button type="submit" class="btn btn-primary btn-sm btn-block">{{ trans('app.add') }}</button>
+                                       
+                                            <label for="visita_fecha_inicio" class="col-sm-1 control-label">F. inicio</label>
+                                                <div class="form-group col-md-2">
+                                                    <input type="text" id="visita_fecha_inicio" name="visita_fecha_inicio" class="form-control input-sm datepicker"value="" required>
+                                                </div> 
+                                            <label for="visita_hora_inicio" class="col-sm-1 control-label">H. inicio</label>
+                                            <div class="col-md-2">
+                                                <div class="bootstrap-timepicker">
+                                                     <div class="input-group">
+                                                        <input type="text" id="visita_hora_inicio" name="visita_hora_inicio" class="form-control input-sm timepicker" value="" required>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-clock-o"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
+                                            <label for="visita_fecha_fin" class="col-sm-1 control-label">F. finalización</label>
+                                                <div class="form-group col-md-2">
+                                                    <input type="text" id="visita_fecha_fin" name="visita_fecha_fin" class="form-control input-sm datepicker" value="" required>
+                                                </div> 
+                                            <label for="visita_hora_fin" class="col-sm-1 control-label">H. finalización</label>
+                                            <div class="col-md-2">
+                                                <div class="bootstrap-timepicker">
+                                                     <div class="input-group">
+                                                        <input type="text" id="visita_hora_fin" name="visita_hora_fin" class="form-control input-sm timepicker" value="" required>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-clock-o"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                    </form>
-                                     <div class="box-body table-responsive no-padding">
+                                        
+                                        
+                                            <label class="col-sm-1 control-label" for="visita_tiempo_transporte">T. Transporte</label>
+                                            <div class="form-group col-md-2">                                                
+                                            <input type="number" min="0" class="form-control input-sm" id="visita_tiempo_transporte" name="visita_tiempo_transporte" value="" required="">
+                                            </div>
+
+                                            <label class="col-sm-1 control-label" for="visita_viaticos">Viaticos</label>
+                                            <div class="form-group col-md-2">
+                                            <input type="text" class="form-control input-sm" name="visita_viaticos" id="visita_viaticos" value="" required="" data-currency>
+                                            </div>
+                                        </div>
+                                        </form>
+<div class="row">
+<div class="form-group col-md-12">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+             <li class="active"><a href="#tab_contadoresv" data-toggle="tab">Contadores</a></li>
+            <li><a href="#tab_repuestos" data-toggle="tab">Repuestos</a></li>
+            <li><a href="#tab_imagenes" data-toggle="tab">Imágenes</a></li>       
+        </ul>  
+
+        <div class="tab-content">
+            {{-- Content Contadores --}}
+            <div class="tab-pane active" id="tab_contadoresv">    
+                <div class="box box-danger" id="wrapper-contadoresp">
+                    <div class="box-body">
+                        <form method="POST" accept-charset="UTF-8" id="form-contadoresp" data-toggle="validator">
+                           <table id="browse-orden-contadoresp-list" class="table table-hover table-bordered" cellspacing="0">
+                             
+                                <thead>
+                                    <tr>                                                         
+                                        <th width="5px">Nombre</th>
+                                        <th width="30px">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- Render content contadores-item --}}
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {{-- Content Repuestos --}}
+            <div class="tab-pane" id="tab_repuestos">    
+                <div class="box box-danger" id="wrapper-visitasp">
+                    <div class="box-body">
+                        <form method="POST" accept-charset="UTF-8" id="form-visitasp" data-toggle="validator">
+                            <div class="row">
+                                <label for="visitasp" class="control-label col-sm-1 ">Producto</label>
+                                 
+                                <div class="form-group col-sm-3">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="visitasp_codigo">
+                                                <i class="fa fa-barcode"></i>
+                                            </button>
+                                        </span>
+                                        <input id="visitasp_codigo" placeholder="Serie" class="form-control producto-koi-component" name="visitasp_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="visitap_nombre" value="" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5 col-xs-10">
+                                    <input id="visitap_nombre" name="visitap_nombre" placeholder="Nombre producto" class="form-control input-sm" type="text" value=""readonly required>
+                                </div>
+
+                                <label for="visitasp_cant" class="control-label col-sm-1">Cantidad</label>
+                                <div class="form-group col-sm-1">
+                                    <input type="number" name="visitap_cantidad" id="visitap_valor" value="" min="1" placeholder="1" class="form-control input-sm">
+                                </div>
+
+                                <div class="form-group col-sm-1 ">
+                                    <button type="submit" class="btn btn-success btn-sm btn-block">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- table table-bordered table-striped -->
+                        <div class="box-body table-responsive no-padding">
+                            <table id="browse-orden-visitasp-list" class="table table-hover table-bordered" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th width="5%"></th>
+                                        <th width="10%">Código</th>
+                                        <th width="40%">Nombre</th>
+                                        <th width="10%">Cantidad</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- Render content visitasp --}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             {{-- Content Images --}}
+             <div class="tab-pane" id="tab_imagenes">    
+                <div class="box box-danger" id="wrapper-imagenes">
+                    <div class="box-body">
+                        <div class="row">
+                            <label for="imagen_visita" class="control-label col-sm-1">Archivo</label>
+                                                                                  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-2 col-md-offset-5">
+                                            <button type="button" class="btn btn-primary btn-sm btn-block submit-visitas">{{ trans('app.add') }}</button>
+                                            <br/>   
+                                            </div>
+                                        </div>
+                                    
+                                    <div class="box box-danger">
+                                     <div class=" box-body  table-responsive no-padding">
                                         <table id="browse-visitas-list" class="table table-hover table-bordered" cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th width="5px"></th>
                                                     
                                                     <th width="5px">id</th>
-                                                    <th width="45px">Fecha Llegada</th>                                                    
-                                                    <th width="45px">Fecha Inicio</th>                                                    
+                                                    <th width="30px">F. Llegada</th>                                                    
+                                                    <th width="30px">F. Inicio</th>                                                    
+                                                    <th width="30px">N. Tecnico</th>                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- Render content visita --}}
+                                                {{-- Render content visita-item --}}
                                             </tbody>
                                         </table>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
+                            
+                   
                         </div>
                     <% } %>
                 </div>
             </div>
+            
         </div>
     </div>
 </script>
@@ -330,10 +457,40 @@
             </a>
         </td>
         
-        <td><%-  id %></td>
+        <td><%- id %></td>
         <td><%-  visita_fh_llegada %></td>
         <td><%-  visita_fh_inicio %></td>
+        <td><%-  tercero_nombre %></td>
+
         
-</script> 
+</script>
+<script type="text/template" id="visitap-item-list-tpl">
+       
+        <td class="text-center">
+            <a class="btn btn-default btn-xs item-visitap-remove" data-resource="<%- id %>">
+                <span><i class="fa fa-times"></i></span>
+            </a>
+        </td>
+    
+        <td><%- visitasp_codigo %> </td>
+        <td><%- visitap_nombre %></td>
+        <td><%- visitap_cantidad %></td>
+        
+
+        
+</script>
+
+<script type="text/template" id="contadoresp-item-list-tpl">
+
+       
+       <td><%- contador_nombre %></td>
+       <td>
+       <div class="input-group col-sm-1">
+       
+            <input type="number" class="form-control input-sm" name="contadoresp_valor" id= "contadoresp_valor" min="0" value="">
+
+       </div>
+       </td>
+</script>
 
 @stop

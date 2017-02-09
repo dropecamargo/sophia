@@ -108,6 +108,7 @@ app || (app = {});
             'ordenes(/)': 'getOrdenesMain',
             'ordenes/create(/)': 'getOrdenesCreate',
             //'ordenes/:orden(/)': 'getOrdenesShow',
+            'ordenes/visitasp/create(/)(?*queryString)': 'getOrdenesVisitaspCreate',
             'ordenes/:orden/edit(/)': 'getOrdenesEdit',
  
             
@@ -818,6 +819,31 @@ app || (app = {});
             }
 
             this.showOrdenesView = new app.ShowOrdenesView({ model: this.ordenModel });
+        },
+
+        /**
+        * show view create visitasp en ordenes ion
+        
+        getOrdenesVisitaspCreate: function (queryString) {
+            var queries = this.parseQueryString(queryString);
+          
+           this.visitapModel = new app.VisitapModel();
+
+            if ( this.createVisitasp2View instanceof Backbone.View ){
+                this.createVisitaspView.stopListening();
+                this.createVisitaspView.undelegateEvents();
+            }
+ 
+            this.createVisitaspView = new app.VisitaspView({
+                model: this.visitapModel,
+                parameters: {
+                    data : {
+                        visitap_orden: queries.orden,
+                        visitap: queries.producto
+                    }
+                }
+            });
+            this.createVisitaspView.render();
         },
 
         /**

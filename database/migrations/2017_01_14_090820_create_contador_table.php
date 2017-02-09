@@ -17,7 +17,7 @@ class CreateContadorTable extends Migration
 
             $table->increments('id');
             $table->string('contador_nombre', 100);
-            $table->boolean('contador_activo')->default(false);
+            $table->boolean('contador_activo')->default(true);
         });
     }
 

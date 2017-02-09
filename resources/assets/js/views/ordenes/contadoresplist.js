@@ -1,5 +1,5 @@
 /**
-* Class SirveasListView  of Backbone Router
+* Class ContadorespView  of Backbone Router
 * @author KOI || @dropecamargo
 * @link http://koi-ti.com
 */
@@ -9,15 +9,15 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.SirveasListView = Backbone.View.extend({
+    app.ContadorespView = Backbone.View.extend({
 
-        el: '#browse-sirveas-producto-list',
+       el: '#browse-orden-contadoresp-list',
         events: {
-            'click .item-sirvea-remove': 'removeOne'
+               'click .item-contadoresp-remove': 'removeOne'
         },
         parameters: {
-        	wrapper: false,
-            edit: false,
+            wrapper:false,
+            edit:false,
             dataFilter: {}
         },
 
@@ -25,21 +25,21 @@ app || (app = {});
         * Constructor Method
         */
         initialize : function(opts){
-
+            
             // extends parameters
             if( opts !== undefined && _.isObject(opts.parameters) )
                 this.parameters = $.extend({},this.parameters, opts.parameters);
-
-            this.parameters.wrapper;
-
+            
+         
             // Events Listeners
             this.listenTo( this.collection, 'add', this.addOne );
             this.listenTo( this.collection, 'reset', this.addAll );
-            this.listenTo( this.collection, 'request', this.loadSpinner);
             this.listenTo( this.collection, 'store', this.storeOne );
+            this.listenTo( this.collection, 'request', this.loadSpinner);
             this.listenTo( this.collection, 'sync', this.responseServer);
 
             this.collection.fetch({ data: {producto_id: this.parameters.dataFilter.producto_id}, reset: true });
+
         },
 
         /*
@@ -51,47 +51,41 @@ app || (app = {});
 
         /**
         * Render view contact by model
-        * @param Object sirveaModel Model instance
+        * @param Object contadorespModel Model instance
         */
-        addOne: function (sirveaModel) {
-            var view = new app.SirveaItemView({
-                model: sirveaModel,
+        addOne: function (contadorespModel) {
+            var view = new app.ContadoresItemView({
+                model: contadorespModel,
                 parameters: {
                     edit: this.parameters.edit
                 }
             });
-            sirveaModel.view = view;
-            
-           this.$el.prepend( view.render().el );
-
-        
-            
-
+            contadorespModel.view = view;
+         
+            this.$el.prepend( view.render().el );
+         
         },
 
         /**
         * Render all view Marketplace of the collection
         */
         addAll: function () {
-            this.collection.forEach( this.addOne, this );
+            
+             this.collection.forEach( this.addOne, this );
         },
 
-        /**
-        * storescuenta
-        * @param form element
-        */
         storeOne: function (data) {
-            var _this = this
+           var _this = this;
 
             // Set Spinner
             window.Misc.setSpinner( this.parameters.wrapper );
-            
+
             // Prepare data
-            data.sirvea_maquina = this.parameters.dataFilter.producto_id;
+            data.producto_id = this.parameters.dataFilter.producto_id;
 
             // Add model in collection
-            var sirveaModel = new app.SirveaModel();
-            sirveaModel.save(data, {
+            var contadorespModel = new app.ContadorespModel();
+            contadorespModel.save(data, {
                 success : function(model, resp) {
                     if(!_.isUndefined(resp.success)) {
                         window.Misc.removeSpinner( _this.parameters.wrapper );
@@ -108,7 +102,7 @@ app || (app = {});
                         }
 
                         // Add model in collection
-                        _this.collection.add(model);
+                        //_this.collection.add(model);
                     }
                 },
                 error : function(model, error) {
@@ -116,13 +110,15 @@ app || (app = {});
                     alertify.error(error.statusText)
                 }
             });
+          
         },
 
-                /**
+
+        /**
         * Event remove item
         */
         removeOne: function (e) {
-            e.preventDefault();
+          e.preventDefault();
 
             var resource = $(e.currentTarget).attr("data-resource"),
                 model = this.collection.get(resource),

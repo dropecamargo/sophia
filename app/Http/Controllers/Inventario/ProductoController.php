@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use DB, Log, Datatables;
-use App\Models\Inventario\Producto;
+use DB, Log, Datatables, Cache;
+use App\Models\Inventario\Producto, App\Models\Inventario\Contador, App\Models\Inventario\ProductoContador, App\Models\Inventario\Tipo;
 use App\Models\Base\Tercero;
 
 class ProductoController extends Controller
@@ -78,13 +78,36 @@ class ProductoController extends Controller
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
                     }
 
-                    // grupo
+                    $tipo = Tipo::find($request->producto_tipo);
+                    if(!$tipo instanceof Tipo) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);
+                    }
+
+                    // producto
                     $producto->fill($data); 
                     $producto->producto_proveedor = $tercero->id;
                     $producto->save();
+
+                    if(in_array($tipo->tipo_codigo, ['EQ'])) {
+
+                        $contador = Contador::find(Contador::$ctr_machines);
+                        if(!$contador instanceof Contador) {
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar contador para el eqipo, por favor verifique la información o consulte al administrador.']);
+                        }
+
+                        $pcontador = new ProductoContador;
+                        $pcontador->productocontador_producto = $producto->id;
+                        $pcontador->productocontador_contador = $contador->id;
+                        $pcontador->save();
+                    }
                     
                     // Commit Transaction
                     DB::commit();
+
+                    //forget cache
+                    Cache::forget( Producto::$key_cache );
 
                     return response()->json(['success' => true, 'id' => $producto->id]);
                 }catch(\Exception $e){

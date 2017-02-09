@@ -23,6 +23,7 @@ app || (app = {});
             'orden_placa':'',
             'tercero_nombre':'',
             'tercero_nit':'',
+            'producto_id': '',
             'producto_serie':'',
             'producto_nombre':'',
             'orden_persona':'',
@@ -32,7 +33,7 @@ app || (app = {});
             'orden_abierta': true,
             'orden_fecha_servicio':moment().format('YYYY-MM-DD'),
             'orden_hora_servicio':moment().format('HH:mm')
-        
+            
         }
     });
 

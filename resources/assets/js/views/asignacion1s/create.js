@@ -87,7 +87,7 @@ app || (app = {});
 
                 e.preventDefault();
                 var data = window.Misc.formToJson( e.target );
-                data.asignacion2 = this.asignacion2sList.toJSON()
+                data.asignacion2 = this.asignacion2sList.toJSON();
 
                 this.model.save( data, {patch: true, silent: true} );
             }

@@ -23,12 +23,8 @@ class ProductoContadorController extends Controller
     {
         if ($request->ajax())
         {
-            $query = ProductoContador::query();
-            $query->select('productocontador.*','p.producto_nombre as p_nombre','c.contador_nombre as c_nombre');
-            $query->where('productocontador_producto', $request->producto_id);
-            $query->join('contador as c', 'productocontador.productocontador_contador', '=', 'c.id');
-            $query->join('producto as p', 'productocontador.productocontador_producto', '=', 'p.id'); 
-            return response()->json( $query->get() );
+         $productoContador = ProductoContador::getProductoContador($request->producto_id);
+         return response()->json($productoContador);
         }
         abort(404);
     }
@@ -84,11 +80,8 @@ class ProductoContadorController extends Controller
 
                     // Commit Transaction
                     DB::commit();
-
-                    //olvidar cache
-                    Cache::forget( ProductoContador::$key_cache );
-                    
-                    return response()->json(['success' => true, 'id' => $pcontador->id, 'productocontador_producto'=>$pcontador->productocontador_producto, 'c_nombre'=>$contador->contador_nombre , 'p_nombre'=>$pp->producto_nombre]);
+                   
+                    return response()->json(['success' => true, 'id' => $pcontador->id, 'productocontador_producto'=>$pcontador->productocontador_producto, 'contador_nombre'=>$contador->contador_nombre , 'producto_nombre'=>$pp->producto_nombre]);
                 }catch(\Exception $e){
                     DB::rollback();
                     Log::error($e->getMessage());
