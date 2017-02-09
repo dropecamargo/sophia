@@ -16,7 +16,8 @@ app || (app = {});
         events: {
             'click .submit-orden': 'submitOrden',
             'submit #form-orden': 'onStore',
-            'click .submit-visitas': 'onStoreVisita',
+            'click .submit-visitas': 'submitVisita',
+            
             'submit #form-visitas': 'onStoreVisita',
             'submit #form-visitasp': 'onStoreVisitap',
             
@@ -36,7 +37,8 @@ app || (app = {});
             this.$wraperForm = this.$('#render-form-orden');
 
             //Model Exists
-            if( this.model.id != undefined ) {          
+            if( this.model.id != undefined ) {
+                
                 this.visita = new app.VisitaCollection();
                 this.visitap = new app.VisitapCollection();
                 this.contadoresp = new app.ContadorespCollection();
@@ -126,6 +128,7 @@ app || (app = {});
 
         submitVisita:function(e){
             this.$formvisitasp.submit();
+            
         },
         /**
         * Event Create visita
@@ -136,7 +139,6 @@ app || (app = {});
 
                 e.preventDefault();
                 var data = window.Misc.formToJson( e.target );
-                console.log(data);
                 data.visita_orden = this.model.get('id');
                 data.visitap = this.visitap.toJSON();
                 data.contadoresp = this.contadoresp.toJSON();
@@ -157,11 +159,16 @@ app || (app = {});
 
                 this.visitap.trigger( 'store', data );
             }
+        }, 
+
+       /* submitContadoresp:function(){
+
+            this.$formcontadoresp.submit();
         },
 
         /**
         * Event Create visitap
-        */
+        z
         onStoreContadoresp: function (e) {
             if (!e.isDefaultPrevented()) {
                 e.preventDefault();
