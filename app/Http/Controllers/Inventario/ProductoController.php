@@ -82,7 +82,7 @@ class ProductoController extends Controller
                     $producto->fill($data); 
                     $producto->producto_proveedor = $tercero->id;
                     $producto->save();
-
+                    
                     // Commit Transaction
                     DB::commit();
 
