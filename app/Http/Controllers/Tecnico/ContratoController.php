@@ -47,10 +47,13 @@ class ContratoController extends Controller
            return Datatables::of($query)
 
                 ->filter(function($query) use($request) {
+                    if($request->has('contrato_tercero')) {
+                        $query->where('contrato_tercero', $request->contrato_tercero);
+                    }   
 
                     //id Contrato
                     if($request->has('contrato_numero')){
-                        $query->where('contrato.contrato_numero',$request->contrato_numero);
+                        $query->whereRaw("contrato_numero LIKE '%{$request->contrato_numero}%'");
                     }
                     // Tercero nit
                     if($request->has('tercero_nit')) {

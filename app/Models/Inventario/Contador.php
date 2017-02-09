@@ -39,6 +39,7 @@ class Contador extends BaseModel
      *
      * @var static integer
      */
+    
     public static $ctr_machines = 1;
     
     public function isValid($data)

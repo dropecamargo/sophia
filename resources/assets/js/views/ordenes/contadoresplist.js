@@ -54,7 +54,6 @@ app || (app = {});
         * @param Object contadorespModel Model instance
         */
         addOne: function (contadorespModel) {
-     
             var view = new app.ContadoresItemView({
                 model: contadorespModel,
                 parameters: {
@@ -103,7 +102,7 @@ app || (app = {});
                         }
 
                         // Add model in collection
-                        _this.collection.add(model);
+                        //_this.collection.add(model);
                     }
                 },
                 error : function(model, error) {

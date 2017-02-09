@@ -21,8 +21,9 @@ class VisitapController extends Controller
     {
         if ($request->ajax()) {
             $query = VisitaP::query();
+
             $query->where('visitap_orden',$request->orden_id);
-            $query->select('visitap.*','producto.producto_serie', 'producto.producto_nombre');
+            $query->select('visitap.*','producto.producto_serie as visitasp_codigo', 'producto.producto_nombre as visitap_nombre');
             $query->join('producto','visitap_producto', '=','producto.id');
             return response()->json($query->get());
         }
@@ -49,9 +50,7 @@ class VisitapController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-            
             $visitap = new Visitap;
-           
             if ($visitap->isValid($data)) {
 
                 DB::beginTransaction();
@@ -63,16 +62,9 @@ class VisitapController extends Controller
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
                     }
 
-                    // visitap
-                    $visitap->fill($data); 
-                    $visitap->visitap_numero= 1;
-                    $visitap->visitap_producto = $producto->id;
-                    $visitap->visitap_orden = $request->visitap_orden;
-                    $visitap->save();
-
                     // Commit Transaction
                     DB::commit();
-                    return response()->json(['success' => true, 'producto_serie' => $producto->producto_serie, 'producto_nombre'=> $producto->producto_nombre, 'visitap_cantidad'=> $visitap->visitap_cantidad, 'id'=> $visitap->id]);
+                    return response()->json(['success' => true, 'id' => uniqid()]);
                 }catch(\Exception $e){
                     DB::rollback();
                     Log::error($e->getMessage());

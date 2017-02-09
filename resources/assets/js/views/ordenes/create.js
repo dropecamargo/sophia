@@ -16,8 +16,10 @@ app || (app = {});
         events: {
             'click .submit-orden': 'submitOrden',
             'submit #form-orden': 'onStore',
+            'click .submit-visitas': 'onStoreVisita',
             'submit #form-visitas': 'onStoreVisita',
             'submit #form-visitasp': 'onStoreVisitap',
+            
         },
         parameters: {
         },
@@ -34,8 +36,7 @@ app || (app = {});
             this.$wraperForm = this.$('#render-form-orden');
 
             //Model Exists
-            if( this.model.id != undefined ) {
-                
+            if( this.model.id != undefined ) {          
                 this.visita = new app.VisitaCollection();
                 this.visitap = new app.VisitapCollection();
                 this.contadoresp = new app.ContadorespCollection();
@@ -55,6 +56,8 @@ app || (app = {});
              
             this.$wraperForm.html( this.template(attributes) );
             this.$form = this.$('#form-orden');
+            this.$formvisitasp = this.$('#form-visitas');
+            this.$formcontadoresp = this.$('#form-contadoresp');
             
              // Model exist
             if( this.model.id != undefined ) {
@@ -72,7 +75,7 @@ app || (app = {});
                 collection: this.visita,
                 parameters: {
                     edit: true,
-                    wrapper: this.$el,
+                    wrapper: this.$('#wrapper-visitas'),
                     dataFilter: {
                         'orden_id': this.model.get('id')
                     }
@@ -106,7 +109,6 @@ app || (app = {});
         *Event Click to Button
         */
         submitOrden:function(e){
-
             this.$form.submit();
         },
         /**
@@ -122,15 +124,23 @@ app || (app = {});
             }
         },  
 
+        submitVisita:function(e){
+            this.$formvisitasp.submit();
+        },
         /**
         * Event Create visita
         */
         onStoreVisita: function (e) {
+           
             if (!e.isDefaultPrevented()) {
-                e.preventDefault();
 
+                e.preventDefault();
                 var data = window.Misc.formToJson( e.target );
+                console.log(data);
                 data.visita_orden = this.model.get('id');
+                data.visitap = this.visitap.toJSON();
+                data.contadoresp = this.contadoresp.toJSON();
+               
                 this.visita.trigger( 'store', data );
             }
         },  
@@ -144,7 +154,21 @@ app || (app = {});
                 e.preventDefault();
 
                 var data = window.Misc.formToJson( e.target );
+
                 this.visitap.trigger( 'store', data );
+            }
+        },
+
+        /**
+        * Event Create visitap
+        */
+        onStoreContadoresp: function (e) {
+            if (!e.isDefaultPrevented()) {
+                e.preventDefault();
+
+                var data = window.Misc.formToJson( e.target );
+                
+                this.contadoresp.trigger( 'store', data );
             }
         },      
 

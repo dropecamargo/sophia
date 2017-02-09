@@ -41,9 +41,26 @@ class TerceroTableSeeder extends Seeder
             // 'tercero_actividad'   => 204,
             'tercero_activo'   => true,
             'tercero_interno'   => true,
-            'tercero_email'    => str_random(10).'dropecamargo@gmail.com',
+            'tercero_email'    => str_random(10).'@gmail.com',
             'username'    => 'koi',
             'password' => bcrypt('admin')
+        ]);
+
+        Tercero::create([
+            'tercero_nit'   => 1016089425,
+            'tercero_tipo'   => 'CC',
+            'tercero_regimen'   => 1,
+            'tercero_persona'   => 'N',
+            'tercero_nombre1'   => 'Cristian',
+            'tercero_nombre2'   => 'Camilo',
+            'tercero_apellido1'   => 'Machado',
+            'tercero_apellido2'   => 'Bautista',
+            // 'tercero_actividad'   => 204,
+            'tercero_activo'   => true,
+            'tercero_interno'   => true,
+            'tercero_email'    => str_random(10).'@gmail.com',
+            'username'    => 'jaja',
+            'password' => bcrypt('jaja')
         ]);
     }
  }

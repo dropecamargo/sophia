@@ -38,6 +38,13 @@ class Visita extends Model
 
         $validator = Validator::make($data, $rules);
         if ($validator->passes()) {
+            // Validar Carrito
+            $detalle = isset($data['detalle']) ? $data['detalle'] : null;
+            if(!isset($detalle) || $detalle == null || !is_array($detalle) || count($detalle) == 0) {
+                $this->errors = 'Por favor ingrese detalles de la visita';
+                return false;
+            }
+
             return true;
         }
         $this->errors = $validator->errors();

@@ -42,6 +42,18 @@ app || (app = {});
             this.$resourceField = $("#"+$(e.currentTarget).attr("data-field"));
             this.parameters = {};
 
+            if(this.resource == 'contacto') {
+                this.$inputPhone = this.$("#"+$(e.currentTarget).attr("data-phone"));
+                this.$inputAddress = this.$("#"+$(e.currentTarget).attr("data-address"));
+                this.$inputCity = this.$("#"+$(e.currentTarget).attr("data-city"));
+                this.$inputEmail = this.$("#"+$(e.currentTarget).attr("data-email"));
+                this.parameters.tcontacto_tercero = $(e.currentTarget).attr("data-tercero");
+                if( _.isUndefined(this.parameters.tcontacto_tercero) || _.isNull(this.parameters.tcontacto_tercero) || this.parameters.tcontacto_tercero == '') {
+                    alertify.error('Por favor ingrese cliente antes agregar contacto.');
+                    return;
+                }
+            }
+
             // stuffToDo resource
             var _this = this,
 	            stuffToDo = {
@@ -123,7 +135,15 @@ app || (app = {});
                         _this.model = new app.ContadorModel();
                         var template = _.template($('#add-contador-tpl').html());
                         _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
-                    }
+                    },
+                    'contacto' : function() {
+                        _this.$resourceName = $("#"+$(e.currentTarget).attr("data-name"));
+                        _this.$modalComponent.find('.inner-title-modal').html('Contacto');
+
+                        _this.model = new app.ContactoModel();
+                        var template = _.template($('#add-contacto-tpl').html());
+                        _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
+                    },
 	            };
 
             if (stuffToDo[this.resource]) {
@@ -245,7 +265,27 @@ app || (app = {});
                     'pcontador' : function() {
                        _this.$resourceField.select2({ data: [{id: _this.model.get('id'), text: _this.model.get('contador_nombre')}] }).trigger('change');
                         _this.$resourceField.val(_this.model.get('id')).trigger('change');
-                    }
+                    },
+                    'contacto' : function() {
+                        _this.$resourceField.val(_this.model.get('id'));
+                        _this.$resourceName.val(_this.model.get('tcontacto_nombre'));
+
+                        if(_this.$inputPhone.length) {
+                            _this.$inputPhone.val( _this.model.get('tcontacto_telefono') );
+                        }
+
+                        if(_this.$inputAddress.length) {
+                            _this.$inputAddress.val( _this.model.get('tcontacto_direccion') );
+                        }
+
+                        if(_this.$inputEmail.length) {
+                            _this.$inputEmail.val( _this.model.get('tcontacto_email') );
+                        }
+
+                        if(_this.$inputCity.length) {
+                            _this.$inputCity.val( _this.model.get('tcontacto_municipio') ).trigger('change');
+                        }
+                    },
                 };
 
             if (stuffToDo[this.resource]) {

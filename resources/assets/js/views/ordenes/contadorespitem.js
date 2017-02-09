@@ -40,7 +40,6 @@ app || (app = {});
           
             attributes.edit = this.parameters.edit;
             this.$el.html( this.template(attributes) );
-            console.log(   this.template(attributes) );
             return this;
         },
 

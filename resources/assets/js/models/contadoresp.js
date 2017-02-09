@@ -14,13 +14,8 @@ app || (app = {});
             return window.Misc.urlFull (Route.route('ordenes.contadoresp.index') );
         },
         idAttribute: 'id',
-
-        defaults: {
-	   	'contadoresp_documento': '',
-        'contadoresp_genero': '',     
-        'contadoresp_producto_contador': '', 
-       	'contadoresp_valor': '',
-        'contador_nombre': ''
+        defaults: {  
+       		'contadoresp_valor': ''
         }
     });
 

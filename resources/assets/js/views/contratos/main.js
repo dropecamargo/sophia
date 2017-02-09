@@ -45,13 +45,12 @@ app || (app = {});
                     }
                 },
                 columns: [
-                    //{ data: 'id' , name: 'id'},
+                    //{ data: 'id', name: 'id' },
                     { data: 'contrato_numero', name: 'contrato_numero' },
                     { data: 'tercero_nombre', name: 'contrato_tercero' },
                     { data: 'contrato_fecha', name: 'contrato_fecha' },
                     { data: 'contrato_vencimiento', name: 'contrato_vencimiento' },
-                    { data: 'contrato_activo', name: 'contrato_activo' },
-                    
+                    { data: 'contrato_activo', name: 'contrato_activo' }
                 ],
                 columnDefs: [
                     {
@@ -59,7 +58,6 @@ app || (app = {});
                         width: '10%',
                         searchable: false,
                         render: function ( data, type, full, row ) {
-                            
                             return '<a href="'+ window.Misc.urlFull( Route.route('contratos.show', {contratos: full.id }) )  +'">' + data + '</a>';
                         }
                     },
@@ -70,8 +68,7 @@ app || (app = {});
                             return data ? 'Si' : 'No';
                         },
                     }
-                ],
-               
+                ]
             });
         },
 
@@ -88,7 +85,6 @@ app || (app = {});
             this.$searchcontratoTercero.val('');
             this.$searchcontratoTerceroName.val('');
            
-
             this.contratosSearchTable.ajax.reload();
         },
     });

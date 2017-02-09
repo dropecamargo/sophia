@@ -31,7 +31,7 @@
 			<label for="tcontacto_municipio" class="control-label">Municipio</label>
 			<select name="tcontacto_municipio" id="tcontacto_municipio" class="form-control select2-default" required>
 				@foreach( App\Models\Base\Municipio::getMunicipios() as $key => $value)
-					<option value="{{ $key }}" <%- tcontacto_municipio == '{{ $key }}' ? 'selected': ''%> >{{ $key }}</option>
+					<option value="{{ $key }}" <%- tcontacto_municipio == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
 				@endforeach
 			</select>
 		</div>
@@ -251,13 +251,28 @@
     </div>
 </script>
 
+<script type="text/template" id="add-zona-tpl">
+	<div class="row">
+		<div class="form-group col-md-8">
+			<label for="zona_nombre" class="control-label">Nombre</label>
+			<input type="text" id="zona_nombre" name="zona_nombre" value="<%- zona_nombre %>" placeholder="Zona" class="form-control input-sm input-toupper" maxlength="10" required>
+		</div>
+
+		<div class="form-group col-md-2 col-xs-8 col-sm-3">
+			<br><label class="checkbox-inline" for="zona_activo">
+				<input type="checkbox" id="zona_activo" name="zona_activo" value="zona_activo" <%- zona_activo ? 'checked': ''%>> Activo
+			</label>
+		</div>
+    </div>
+</script>
+
 <script type="text/template" id="add-tercero-tpl">
 	<div class="row">
 		<div class="form-group col-md-3">
 			<label for="tercero_nit" class="control-label">Documento</label>
 			<div class="row">
 				<div class="col-md-9">
-					<input id="tercero_nit" value="<%- tercero_nit %>" placeholder="Nit" class="form-control input-sm change-nit-koi-component" name="tercero_nit" type="text" required data-field="tercero_digito">
+					<input id="tercero_nit" value="<%- tercero_nit %>" placeholder="Nit" class="form-control input-sm change-nit-koi-component" name="tercero_nit" type="text" required data-field="tercero_digito" maxlength="11">
 				</div>
 				<div class="col-md-3">
 					<input id="tercero_digito" value="<%- tercero_digito %>" class="form-control input-sm" name="tercero_digito" type="text" readonly required>

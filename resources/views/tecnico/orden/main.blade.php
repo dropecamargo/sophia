@@ -212,7 +212,15 @@
                                         </div>
                                         <br/>
                                                                                 
-                                    </form> 
+                                    </form>
+                                    <div class="row">
+                                        <div class="col-md-2 col-md-offset-4 col-sm-6 col-xs-6">
+                                            <a href="{{ route('ordenes.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
+                                        </div>
+                                        <div class="col-md-2 col-sm-6 col-xs-6">
+                                            <button type="button" class="btn btn-primary btn-sm btn-block submit-orden">{{ trans('app.save') }}</button>
+                                        </div>
+                                    </div> 
                                 </div>
                             </div>
                         </div>
@@ -220,7 +228,7 @@
                     {{-- Content visitas --}}
                     <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
                         <div class="tab-pane" id="tab_visitas">
-                            <div class="box box-whithout-border">
+                            <div class="box box-whithout-border" id="wrapper-visitas">
                                 <div class="box-body">
                                     <form method="POST" accept-charset="UTF-8" id="form-visitas" data-toggle="validator">
                                         <div class="row col-md-offset-2">
@@ -300,6 +308,7 @@
                                             <input type="text" class="form-control input-sm" name="visita_viaticos" id="visita_viaticos" value="" required="" data-currency>
                                             </div>
                                         </div>
+                                        </form>
 <div class="row">
 <div class="form-group col-md-12">
     <div class="nav-tabs-custom">
@@ -320,7 +329,7 @@
                                 <thead>
                                     <tr>                                                         
                                         <th width="5px">Nombre</th>
-                                        <th width="30px">Cantidad</th>
+                                        <th width="30px">Valor</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -355,7 +364,7 @@
 
                                 <label for="visitasp_cant" class="control-label col-sm-1">Cantidad</label>
                                 <div class="form-group col-sm-1">
-                                    <input type="number" name="visitap_cantidad" id="visitap_cantidad" value="" min="1" placeholder="1" class="form-control input-sm">
+                                    <input type="number" name="visitap_cantidad" id="visitap_valor" value="" min="1" placeholder="1" class="form-control input-sm">
                                 </div>
 
                                 <div class="form-group col-sm-1 ">
@@ -403,12 +412,13 @@
 
                                         <div class="row">
                                             <div class=" col-sm-2 col-md-offset-5">
-                                            <button type="submit" class="btn btn-primary btn-sm btn-block">{{ trans('app.add') }}</button>
+                                            <button type="button" class="btn btn-primary btn-sm btn-block submit-visitas">{{ trans('app.add') }}</button>
+                                            <br/>   
                                             </div>
                                         </div>
-                                    </form>
-
-                                     <div class="box-body table-responsive no-padding">
+                                    
+                                    <div class="box box-danger">
+                                     <div class=" box-body  table-responsive no-padding">
                                         <table id="browse-visitas-list" class="table table-hover table-bordered" cellspacing="0">
                                             <thead>
                                                 <tr>
@@ -425,6 +435,7 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -433,14 +444,7 @@
                     <% } %>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-2 col-md-offset-4 col-sm-6 col-xs-6">
-                    <a href="{{ route('ordenes.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
-                </div>
-                <div class="col-md-2 col-sm-6 col-xs-6">
-                    <button type="button" class="btn btn-primary btn-sm btn-block submit-orden">{{ trans('app.save') }}</button>
-                </div>
-            </div>
+            
         </div>
     </div>
 </script>
@@ -468,8 +472,8 @@
             </a>
         </td>
     
-        <td><%- producto_serie %> </td>
-        <td><%- producto_nombre %></td>
+        <td><%- visitasp_codigo %> </td>
+        <td><%- visitap_nombre %></td>
         <td><%- visitap_cantidad %></td>
         
 
@@ -480,7 +484,13 @@
 
        
        <td><%- contador_nombre %></td>
-       <td><input type="number" name="contadoresp_valor" id= "contadoresp_valor" class="input-sm" min="0" value="<%- contadoresp_valor %>"></td>
+       <td>
+       <div class="input-group col-sm-1">
+       
+            <input type="number" class="form-control input-sm" name="contadoresp_valor" id= "contadoresp_valor" min="0" value="">
+
+       </div>
+       </td>
 </script>
 
 @stop

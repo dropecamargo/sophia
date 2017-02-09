@@ -68,6 +68,8 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::group(['prefix' => 'productos'], function()
 	{
+		Route::get('search', ['as' => 'productos.search', 'uses' => 'Inventario\ProductoController@search']);
+
 		Route::resource('sirveas', 'Inventario\SirveaController', ['only' => ['index', 'store', 'destroy']]);
 		Route::resource('productoscontador', 'Inventario\ProductoContadorController', ['only' => ['index', 'store', 'destroy']]);
 	});
@@ -85,6 +87,8 @@ Route::group(['middleware' => 'auth'], function()
 		Route::resource('danoc','Tecnico\ContratoDanoController',['only'=>['index', 'store', 'destroy']]);
 	});
 
+
+	//modulos
 	Route::group(['prefix'=>'ordenes'],function()
 	{
 		Route::resource('visitas','Tecnico\VisitaController',['only'=>['index', 'store', 'destroy']]);
@@ -94,9 +98,18 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::resource('contratos', 'Tecnico\ContratoController', ['except' => ['destroy']]);
 	Route::resource('ordenes', 'Tecnico\OrdenController', ['except' => ['destroy']]);
+	//referencias
 	Route::resource('tiposorden', 'Tecnico\TipoOrdenController', ['except' => ['destroy']]);
 	Route::resource('solicitantes', 'Tecnico\SolicitanteController', ['except' => ['destroy']]);
 	Route::resource('danos', 'Tecnico\DanoController', ['except' => ['destroy']]);
 	Route::resource('prioridades', 'Tecnico\PrioridadController', ['except' => ['destroy']]);
+	Route::resource('zonas', 'Tecnico\ZonaController', ['except' => ['destroy']]);
+
+	Route::group(['prefix'=>'asignaciones'], function()
+	{
+		Route::resource('detalle','Tecnico\Asignacion2Controller', ['only'=>['index','store']]);
+		Route::resource('contratos','Tecnico\ContratoController', ['only'=>['index']]);
+	});
+	Route::resource('asignaciones', 'Tecnico\Asignacion1Controller', ['except' => ['edit','destroy']]);
 });
 

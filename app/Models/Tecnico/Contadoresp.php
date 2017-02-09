@@ -3,7 +3,7 @@
 namespace App\Models\Tecnico;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Inventario\ProductoContador;
 use Validator, Cache,DB;
 
 class Contadoresp extends Model
@@ -27,7 +27,7 @@ class Contadoresp extends Model
      public function isValid($data)
     {
         $rules = [
-       
+            
         ];
 
         $validator = Validator::make($data, $rules);
@@ -36,5 +36,7 @@ class Contadoresp extends Model
         }
         $this->errors = $validator->errors();
         return false;
-    }	
+    }
+
+  	
 }

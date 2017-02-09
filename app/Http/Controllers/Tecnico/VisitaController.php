@@ -73,7 +73,6 @@ class VisitaController extends Controller
         
        if ($request->ajax()) {
             $data = $request->all();
-           // dd($data);
             $visita = new Visita;
 
             if ($visita->isValid($data)) {
