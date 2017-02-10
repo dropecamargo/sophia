@@ -17,8 +17,8 @@ app || (app = {});
             'click .submit-orden': 'submitOrden',
             'submit #form-orden': 'onStore',
             'click .submit-visitas': 'submitVisita',
-            
             'submit #form-visitas': 'onStoreVisita',
+            'submit #form-contadoresp': 'onStoreContadoresp',
             'submit #form-visitasp': 'onStoreVisitap',
             
         },
@@ -41,7 +41,7 @@ app || (app = {});
                 
                 this.visita = new app.VisitaCollection();
                 this.visitap = new app.VisitapCollection();
-                this.contadoresp = new app.ContadorespCollection();
+                this.contadoresp = new app.ContadorespCollection(); 
             }
             // Events
             this.listenTo( this.model, 'change', this.render );
@@ -61,7 +61,7 @@ app || (app = {});
             this.$formvisitasp = this.$('#form-visitas');
             this.$formcontadoresp = this.$('#form-contadoresp');
             
-             // Model exist
+            // Model exist
             if( this.model.id != undefined ) {
 
                 // Reference views
@@ -134,15 +134,18 @@ app || (app = {});
         * Event Create visita
         */
         onStoreVisita: function (e) {
-           
             if (!e.isDefaultPrevented()) {
-
                 e.preventDefault();
+
                 var data = window.Misc.formToJson( e.target );
                 data.visita_orden = this.model.get('id');
+                
+                // Contadores
+                data = $.extend({}, data, window.Misc.formToJson( this.$formcontadoresp ));
+
+                // Repuestos
                 data.visitap = this.visitap.toJSON();
-                data.contadoresp = this.contadoresp.toJSON();
-               
+                
                 this.visita.trigger( 'store', data );
             }
         },  
@@ -159,26 +162,7 @@ app || (app = {});
 
                 this.visitap.trigger( 'store', data );
             }
-        }, 
-
-       /* submitContadoresp:function(){
-
-            this.$formcontadoresp.submit();
-        },
-
-        /**
-        * Event Create visitap
-        z
-        onStoreContadoresp: function (e) {
-            if (!e.isDefaultPrevented()) {
-                e.preventDefault();
-
-                var data = window.Misc.formToJson( e.target );
-                
-                this.contadoresp.trigger( 'store', data );
-            }
-        },      
-
+        },   
 
         /**
         * fires libraries js
@@ -202,6 +186,9 @@ app || (app = {});
             
             if( typeof window.initComponent.initTimePicker == 'function' )
                 window.initComponent.initTimePicker();
+
+            if( typeof window.initComponent.initInputMask == 'function' )
+                window.initComponent.initInputMask();
         },
 
         /**
@@ -217,6 +204,7 @@ app || (app = {});
         responseServer: function ( model, resp, opts ) {
             window.Misc.removeSpinner( this.el );
 
+            
             if(!_.isUndefined(resp.success)) {
                 // response success or error
                 var text = resp.success ? '' : resp.errors;
@@ -230,9 +218,7 @@ app || (app = {});
                 }
 
                 // Redirect to edit orden
-                //Backbone.history.navigate(Route.route('ordenes.edit', { ordenes: resp.id}), { trigger:true });
-
-                window.Misc.redirect( window.Misc.urlFull( Route.route('ordenes.show', { ordenes: resp.id})) );
+                Backbone.history.navigate(Route.route('ordenes.edit', { ordenes: resp.id}), { trigger:true });
             }
         }
     });

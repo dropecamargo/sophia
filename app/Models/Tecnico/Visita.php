@@ -17,6 +17,13 @@ class Visita extends Model
     public $timestamps = false;
 
     /**
+     * The document reference id.
+     *
+     * @var string
+     */
+    public $document = 'VI';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -32,19 +39,11 @@ class Visita extends Model
             'visita_hora_inicio' => 'required|date_format:H:s',
             'visita_fecha_fin' => 'required|date_format:Y-m-d',
             'visita_hora_fin' => 'required|date_format:H:s',
-            'visita_tiempo_transporte' => 'required',
-            'visita_viaticos' => 'required'
+            'visita_tiempo_transporte' => 'integer'
         ];
 
         $validator = Validator::make($data, $rules);
         if ($validator->passes()) {
-            // Validar Carrito
-            $detalle = isset($data['visitap']) ? $data['visitap'] : null;
-            if(!isset($detalle) || $detalle == null || !is_array($detalle) || count($detalle) == 0) {
-                $this->errors = 'Por favor ingrese detalles de la visita';
-                return false;
-            }
-
             return true;
         }
         $this->errors = $validator->errors();

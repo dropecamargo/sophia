@@ -13,13 +13,28 @@
     </ol>
 </section>
 
-<section class="content">
+<section class="content" id="orden-content-section">
     @yield ('module')
+    <!-- Modal info -->
+        <div class="modal fade" id="modal-visita-show-info-component" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4>Detalle visita</h4>
+                    </div>
+                    <div class="modal-body box box-danger" id="modal-visita-wrapper-show-info">
+                        <div class="content-modal"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </section>
 
-
 <script type="text/template" id="add-orden-tpl">
-
     <div class="row">
         <div class="form-group col-md-12">
             <div class="nav-tabs-custom tab-danger tab-whithout-box-shadow">
@@ -297,122 +312,121 @@
                                                 </div>
                                             </div>
                                         
-                                        
                                             <label class="col-sm-1 control-label" for="visita_tiempo_transporte">T. Transporte</label>
                                             <div class="form-group col-md-2">                                                
-                                            <input type="number" min="0" class="form-control input-sm" id="visita_tiempo_transporte" name="visita_tiempo_transporte" value="" required="">
+                                                <input type="number" min="0" class="form-control input-sm" id="visita_tiempo_transporte" name="visita_tiempo_transporte" value="" required="">
                                             </div>
 
                                             <label class="col-sm-1 control-label" for="visita_viaticos">Viaticos</label>
                                             <div class="form-group col-md-2">
-                                            <input type="text" class="form-control input-sm" name="visita_viaticos" id="visita_viaticos" value="" required="" data-currency>
+                                                <input type="text" class="form-control input-sm" name="visita_viaticos" id="visita_viaticos" data-currency>
                                             </div>
                                         </div>
-                                        </form>
-<div class="row">
-<div class="form-group col-md-12">
-    <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-             <li class="active"><a href="#tab_contadoresv" data-toggle="tab">Contadores</a></li>
-            <li><a href="#tab_repuestos" data-toggle="tab">Repuestos</a></li>
-            <li><a href="#tab_imagenes" data-toggle="tab">Imágenes</a></li>       
-        </ul>  
+                                    </form>
+                                    
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <div class="nav-tabs-custom">
+                                                <ul class="nav nav-tabs">
+                                                     <li class="active"><a href="#tab_contadoresv" data-toggle="tab">Contadores</a></li>
+                                                    <li><a href="#tab_repuestos" data-toggle="tab">Repuestos</a></li>
+                                                    <li><a href="#tab_imagenes" data-toggle="tab">Imágenes</a></li>       
+                                                </ul>  
 
-        <div class="tab-content">
-            {{-- Content Contadores --}}
-            <div class="tab-pane active" id="tab_contadoresv">    
-                <div class="box box-danger" id="wrapper-contadoresp">
-                    <div class="box-body">
-                        <form method="POST" accept-charset="UTF-8" id="form-contadoresp" data-toggle="validator">
-                           <table id="browse-orden-contadoresp-list" class="table table-hover table-bordered" cellspacing="0">
-                             
-                                <thead>
-                                    <tr>                                                         
-                                        <th width="5px">Nombre</th>
-                                        <th width="30px">Valor</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{-- Render content contadores-item --}}
-                                </tbody>
-                            </table>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            {{-- Content Repuestos --}}
-            <div class="tab-pane" id="tab_repuestos">    
-                <div class="box box-danger" id="wrapper-visitasp">
-                    <div class="box-body">
-                        <form method="POST" accept-charset="UTF-8" id="form-visitasp" data-toggle="validator">
-                            <div class="row">
-                                <label for="visitasp" class="control-label col-sm-1 ">Producto</label>
-                                 
-                                <div class="form-group col-sm-3">
-                                    <div class="input-group input-group-sm">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="visitasp_codigo">
-                                                <i class="fa fa-barcode"></i>
-                                            </button>
-                                        </span>
-                                        <input id="visitasp_codigo" placeholder="Serie" class="form-control producto-koi-component" name="visitasp_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="visitap_nombre" value="" required>
-                                    </div>
-                                </div>
-                                <div class="col-sm-5 col-xs-10">
-                                    <input id="visitap_nombre" name="visitap_nombre" placeholder="Nombre producto" class="form-control input-sm" type="text" value=""readonly required>
-                                </div>
+                                                <div class="tab-content">
+                                                    {{-- Content Contadores --}}
+                                                    <div class="tab-pane active" id="tab_contadoresv">    
+                                                        <div class="row">
+                                                            <div class="col-md-offset-3 col-md-6">
+                                                                <form method="POST" accept-charset="UTF-8" id="form-contadoresp" data-toggle="validator">
+                                                                   <table id="browse-orden-contadoresp-list" class="table table-hover table-bordered" cellspacing="0">
+                                                                        <thead>
+                                                                            <tr>                                                         
+                                                                                <th width="70%">Nombre</th>
+                                                                                <th width="30%">Valor</th>                                                    
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            {{-- Render content contadores-item --}}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </form> 
+                                                            </div>
+                                                        </div> 
+                                                    </div>
 
-                                <label for="visitasp_cant" class="control-label col-sm-1">Cantidad</label>
-                                <div class="form-group col-sm-1">
-                                    <input type="number" name="visitap_cantidad" id="visitap_valor" value="" min="1" placeholder="1" class="form-control input-sm">
-                                </div>
+                                                    {{-- Content Repuestos --}}
+                                                    <div class="tab-pane" id="tab_repuestos">    
+                                                        <div class="row" id="wrapper-visitasp">
+                                                            <form method="POST" accept-charset="UTF-8" id="form-visitasp" data-toggle="validator">
+                                                                <div class="row">
+                                                                    <label for="visitasp" class="control-label col-sm-1 ">Producto</label>
+                                                                     
+                                                                    <div class="form-group col-sm-3">
+                                                                        <div class="input-group input-group-sm">
+                                                                            <span class="input-group-btn">
+                                                                                <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="visitasp_codigo">
+                                                                                    <i class="fa fa-barcode"></i>
+                                                                                </button>
+                                                                            </span>
+                                                                            <input id="visitasp_codigo" placeholder="Serie" class="form-control producto-koi-component" name="visitasp_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="visitap_nombre" value="" required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-5 col-xs-10">
+                                                                        <input id="visitap_nombre" name="visitap_nombre" placeholder="Nombre producto" class="form-control input-sm" type="text" value=""readonly required>
+                                                                    </div>
 
-                                <div class="form-group col-sm-1 ">
-                                    <button type="submit" class="btn btn-success btn-sm btn-block">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                        <!-- table table-bordered table-striped -->
-                        <div class="box-body table-responsive no-padding">
-                            <table id="browse-orden-visitasp-list" class="table table-hover table-bordered" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th width="5%"></th>
-                                        <th width="10%">Código</th>
-                                        <th width="40%">Nombre</th>
-                                        <th width="10%">Cantidad</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{-- Render content visitasp --}}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-             {{-- Content Images --}}
-             <div class="tab-pane" id="tab_imagenes">    
-                <div class="box box-danger" id="wrapper-imagenes">
-                    <div class="box-body">
-                        <div class="row">
-                            <label for="imagen_visita" class="control-label col-sm-1">Archivo</label>
-                                                                                  
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
+                                                                    <label for="visitasp_cant" class="control-label col-sm-1">Cantidad</label>
+                                                                    <div class="form-group col-sm-1">
+                                                                        <input type="number" name="visitap_cantidad" id="visitap_valor" value="" min="1" class="form-control input-sm">
+                                                                    </div>
+
+                                                                    <div class="form-group col-sm-1 ">
+                                                                        <button type="submit" class="btn btn-success btn-sm btn-block">
+                                                                            <i class="fa fa-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <!-- table table-bordered table-striped -->
+                                                            <div class="box-body table-responsive no-padding">
+                                                                <table id="browse-orden-visitasp-list" class="table table-hover table-bordered" cellspacing="0">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th width="5%"></th>
+                                                                            <th width="10%">Código</th>
+                                                                            <th width="40%">Nombre</th>
+                                                                            <th width="10%">Cantidad</th>
+                                                                            
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {{-- Render content visitasp --}}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                     {{-- Content Images --}}
+                                                     <div class="tab-pane" id="tab_imagenes">    
+                                                        <div class="box box-danger" id="wrapper-imagenes">
+                                                            <div class="box-body">
+                                                                <div class="row">
+                                                                    <label for="imagen_visita" class="control-label col-sm-1">Archivo</label>
+                                                                                                                          
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
 
                                         <div class="row">
                                             <div class=" col-sm-2 col-md-offset-5">
-                                            <button type="button" class="btn btn-primary btn-sm btn-block submit-visitas">{{ trans('app.add') }}</button>
+                                                <button type="button" class="btn btn-primary btn-sm btn-block submit-visitas">{{ trans('app.add') }}</button>
                                             <br/>   
                                             </div>
                                         </div>
@@ -422,12 +436,13 @@
                                         <table id="browse-visitas-list" class="table table-hover table-bordered" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th width="5px"></th>
+                                                    <th width="5%"></th>
                                                     
-                                                    <th width="5px">id</th>
-                                                    <th width="30px">F. Llegada</th>                                                    
-                                                    <th width="30px">F. Inicio</th>                                                    
-                                                    <th width="30px">N. Tecnico</th>                                                    
+                                                    <th width="10%">N. Visita</th>
+                                                    <th width="25%">F. Llegada</th>                                                    
+                                                    <th width="25%">F. Inicio</th>                                                    
+                                                    <th width="30%">N. Tecnico</th>                                                    
+                                                    <th width="5%"></th>                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -449,48 +464,49 @@
     </div>
 </script>
 
-<script type="text/template" id="visita-item-list-tpl">
-       
-        <td class="text-center">
-            <a class="btn btn-default btn-xs item-visita-remove" data-resource="<%- id %>">
-                <span><i class="fa fa-times"></i></span>
-            </a>
-        </td>
-        
-        <td><%- id %></td>
-        <td><%-  visita_fh_llegada %></td>
-        <td><%-  visita_fh_inicio %></td>
-        <td><%-  tercero_nombre %></td>
-
-        
-</script>
-<script type="text/template" id="visitap-item-list-tpl">
-       
-        <td class="text-center">
-            <a class="btn btn-default btn-xs item-visitap-remove" data-resource="<%- id %>">
-                <span><i class="fa fa-times"></i></span>
-            </a>
-        </td>
+<script type="text/template" id="visita-item-list-tpl">       
+    <td class="text-center">
+        <a class="btn btn-default btn-xs item-visita-remove" data-resource="<%- id %>">
+            <span><i class="fa fa-times"></i></span>
+        </a>
+    </td>
     
-        <td><%- visitasp_codigo %> </td>
-        <td><%- visitap_nombre %></td>
-        <td><%- visitap_cantidad %></td>
-        
+    <td><%-  visita_numero %></td>
+    <td><%-  visita_fh_llegada %></td>
+    <td><%-  visita_fh_inicio %></td>
+    <td><%-  tercero_nombre %></td>
+    <td class="text-center">
+        <a class="btn btn-default btn-xs " data-resource="<%- id %>">
+            <span><i class="fa fa-info-circle "></i></span>
+        </a>
+    </td>
+</script>
 
-        
+<script type="text/template" id="visitap-item-list-tpl">       
+    <td class="text-center">
+        <a class="btn btn-default btn-xs item-visitap-remove" data-resource="<%- id %>">
+            <span><i class="fa fa-times"></i></span>
+        </a>
+    </td>
+
+    <td><%- visitasp_codigo %> </td>
+    <td><%- visitap_nombre %></td>
+    <td><%- visitap_cantidad %></td>
 </script>
 
 <script type="text/template" id="contadoresp-item-list-tpl">
+    <td><%- contador_nombre %></td>      
+    <td>
+        <input type="number" class="form-control input-sm" name="contadoresp_valor_<%- id %>" id= "contadoresp_valor_<%- id %>" min="0" required>
+    </td> 
+</script>
 
-       
-       <td><%- contador_nombre %></td>
-       <td>
-       <div class="input-group col-sm-1">
-       
-            <input type="number" class="form-control input-sm" name="contadoresp_valor" id= "contadoresp_valor" min="0" value="">
-
-       </div>
-       </td>
+<script type="text/template" id="show-info-visita-tpl">
+       <h1><%- visita_numero %></h1>
+       <h1><%- visita_fh_llegada %></h1>
+       <h1><%- visitap_nombre %></h1>
+       <h1><%- visita_numero %></h1>
+       <h1><%- visita_numero %></h1>
 </script>
 
 @stop

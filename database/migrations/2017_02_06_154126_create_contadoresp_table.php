@@ -16,9 +16,8 @@ class CreateContadorespTable extends Migration
             $table->engine = "InnoDB";
 
             $table->increments('id');
-            
             $table->string('contadoresp_documento',2);
-            $table->integer('contadoresp_genero');   
+            $table->integer('contadoresp_documento_numero');   
             $table->dateTime('contadoresp_fh');   
             $table->integer('contadoresp_producto_contador')->unsigned();   
             $table->integer('contadoresp_valor');  

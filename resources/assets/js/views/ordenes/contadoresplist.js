@@ -62,7 +62,7 @@ app || (app = {});
             });
             contadorespModel.view = view;
          
-            this.$el.prepend( view.render().el );
+            this.$el.append( view.render().el );
          
         },
 

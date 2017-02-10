@@ -36,9 +36,6 @@ app || (app = {});
             this.listenTo( this.collection, 'store', this.storeOne );
             this.listenTo( this.collection, 'request', this.loadSpinner);
             this.listenTo( this.collection, 'sync', this.responseServer);
-
-           this.collection.fetch({ data: {orden_id: this.parameters.dataFilter.orden_id}, reset: true });
-           
         },
 
         /*

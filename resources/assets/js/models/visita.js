@@ -16,14 +16,14 @@ app || (app = {});
         idAttribute: 'id',
 
         defaults: {
-   			'visita_orden': '',
-   			'visita_tecnico': '',
-   			'visita_fh_llegada': moment().format('YYYY-MM-DD'),
-   			'visita_fecha_inicio': moment().format('YYYY-MM-DD'),
-   			'visita_fecha_fin': moment().format('YYYY-MM-DD'),
-   			'visita_tiempo_transporte': '',
-   			'visita_viaticos': '',
-        'tercero_nombre': ''
+            'visita_orden': '',
+            'visita_tecnico': '',
+            'visita_fecha_llegada': moment().format('YYYY-MM-DD'),
+            'visita_fecha_inicio': moment().format('YYYY-MM-DD'),
+            'visita_fecha_fin': moment().format('YYYY-MM-DD'),
+            'visita_tiempo_transporte': '',
+            'visita_viaticos': '',
+            'tercero_nombre': ''
         }
     });
 

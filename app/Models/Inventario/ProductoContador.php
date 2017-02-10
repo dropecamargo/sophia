@@ -34,13 +34,21 @@ class ProductoContador extends Model
     }
 
   
-    public static function getProductoContador($id){
+    public static function getProductoContador($id)
+    {
+        $query = ProductoContador::query();
+        $query->select('productocontador.*','producto.producto_nombre','contador.contador_nombre');
+        $query->where('productocontador_producto', $id);
+        $query->join('contador', 'productocontador.productocontador_contador', '=', 'contador.id');
+        $query->join('producto', 'productocontador.productocontador_producto', '=', 'producto.id'); 
+        return  $query->get();
+    }
 
-           $query = ProductoContador::query();
-            $query->select('productocontador.*','producto.producto_nombre','contador.contador_nombre');
-            $query->where('productocontador_producto', $id);
-            $query->join('contador', 'productocontador.productocontador_contador', '=', 'contador.id');
-            $query->join('producto', 'productocontador.productocontador_producto', '=', 'producto.id'); 
-            return  $query->get();
+    /**
+     * Get the contador record associated with the producto contador.
+     */
+    public function contador()
+    {
+        return $this->hasOne('App\Models\Inventario\Contador', 'id' , 'productocontador_contador');
     }
 }

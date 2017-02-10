@@ -20,6 +20,7 @@ class VisitapController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+            dd($request->orden_id);
             $query = VisitaP::query();
 
             $query->where('visitap_orden',$request->orden_id);

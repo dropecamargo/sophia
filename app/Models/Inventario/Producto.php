@@ -3,6 +3,7 @@
 namespace App\Models\Inventario;
 
 use Illuminate\Database\Eloquent\Model;
+
 use Validator,DB,Cache;
 
 class Producto extends Model
@@ -91,5 +92,13 @@ class Producto extends Model
             $collection->prepend('', '');
             return $collection;
         });
+    }
+
+     /**
+     * Get the contadores for the product.
+     */
+    public function contadores()
+    {
+        return $this->hasMany('App\Models\Inventario\ProductoContador', 'productocontador_producto', 'id');
     }
 }
