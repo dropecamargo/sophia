@@ -13,7 +13,6 @@ use App\Models\Tecnico\Asignacion1;
 use App\Models\Tecnico\Asignacion2;
 use App\Models\Tecnico\Contrato;
 use App\Models\Inventario\Producto;
-use App\Models\Inventario\Tipo;
 use App\Models\Base\Tercero;
 use App\Models\Base\Contacto;
 

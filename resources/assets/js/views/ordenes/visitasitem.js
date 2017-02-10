@@ -15,7 +15,7 @@ app || (app = {});
         template: _.template( ($('#visita-item-list-tpl').html() || '') ),
         templateInfo: _.template( ($('#show-info-visita-tpl').html() || '') ),
         events: {
-           'click .show-detalle-visita': 'showInfoVisita'
+           'click .item-visita-show-info': 'showInfoVisita'
         },
         parameters: {
             wrapper: null,
@@ -30,19 +30,17 @@ app || (app = {});
 
             //Init Attributes
             if( opts !== undefined && _.isObject(opts.parameters) )
-            this.parameters = $.extend({},this.parameters, opts.parameters);
+                this.parameters = $.extend({},this.parameters, opts.parameters);
 
-            this.parameters.wrapper
+            //this.parameters.wrapper
 
             this.$modalInfo = $('#modal-visita-show-info-component');
+            
             this.visita = new app.VisitaCollection();
             this.visitap = new app.VisitapCollection();
 
             // Events Listener
             this.listenTo( this.model, 'change', this.render );
-
-
-
         },
 
         /*

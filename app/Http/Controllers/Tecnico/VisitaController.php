@@ -129,10 +129,15 @@ class VisitaController extends Controller
                     foreach ($visitasp as $item)
                     {
                         // Recuperar producto
-                        $producto = Producto::where('producto_serie', $item['visitasp_codigo'])->first();
+                        $producto = Producto::where('producto_serie', $item['visitasp_codigo'])->join('tipo', 'producto.producto_tipo', '=', 'tipo.id')->first();
                         if(!$producto instanceof Producto) {
                             DB::rollback();
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
+                        }
+
+                        if(!in_array($producto->tipo_codigo, ['RP', 'CO', 'IN'])){
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);  
                         }
 
                         $visitap = new Visitap;
