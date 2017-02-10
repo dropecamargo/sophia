@@ -13,6 +13,7 @@ use App\Models\Tecnico\Asignacion1;
 use App\Models\Tecnico\Asignacion2;
 use App\Models\Tecnico\Contrato;
 use App\Models\Inventario\Producto;
+use App\Models\Inventario\Tipo;
 use App\Models\Base\Tercero;
 use App\Models\Base\Contacto;
 
@@ -93,20 +94,43 @@ class Asignacion1Controller extends Controller
                 DB::beginTransaction();
                 try {
                     $tercero = Tercero::where('tercero_nit', $request->asignacion1_tercero)->first();
-                    $contacto = Contacto::find($request->asignacion1_contacto);
                     $tecnico = Tercero::where('tercero_nit', $request->asignacion1_tecnico)->first();
                     $contrato = Contrato::find($request->asignacion1_contrato);
+                    $contacto = Contacto::find($request->asignacion1_contacto);
                     
-                    if(!$contacto instanceof Contacto && !$tercero instanceof Tercero && !$tecnico instanceof Tercero) {
+
+                    if(!$tercero instanceof Tercero && !$tecnico instanceof Tercero) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
                     }
 
+                    // Validar contacto
+                    $contacto = Contacto::find($request->asignacion1_contacto);
+                    if(!$contacto instanceof Contacto) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar contacto, por favor verifique la información o consulte al administrador.']);
+                    }
+                    // Validar tercero contacto
+                    if($contacto->tcontacto_tercero != $tercero->id) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'El contacto seleccionado no corresponde al tercero, por favor seleccione de nuevo el contacto o consulte al administrador.']);
+                    }
+
+                    // Validar contrato
+                    $contrato = Contrato::find($request->asignacion1_contrato);
+                    if(!$contrato instanceof Contrato) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar contrato, por favor verifique la información o consulte al administrador.']);
+                    }
+                    // Validar tercero contrato
+                    if($contrato->contrato_tercero != $tercero->id) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'El contrato seleccionado no corresponde al tercero, por favor seleccione de nuevo el contrato o consulte al administrador.']);
+                    }
+
                     // asignacion1
                     $asignacion1->fill($data);
-                    if($data['nombre_contrato']){
-                        $asignacion1->asignacion1_contrato = $contrato->id;
-                    }
+                    $asignacion1->asignacion1_contrato = $contrato->id;
                     $asignacion1->asignacion1_tercero = $tercero->id;
                     $asignacion1->asignacion1_contacto = $contacto->id;
                     $asignacion1->asignacion1_tecnico = $tecnico->id;
@@ -119,23 +143,51 @@ class Asignacion1Controller extends Controller
                     foreach ($asignacion2 as $item)
                     {
                         // Recuperar producto
-                        $producto = Producto::where('producto_serie', $item['asignacion2_producto'])->first();
-                        $deproducto = Producto::where('producto_serie', $item['producto_tipo_search'])->first();
-                        
+                        $producto = Producto::where('producto_serie', $item['asignacion2_producto'])->join('tipo', 'producto.producto_tipo', '=', 'tipo.id')->first();
                         if(!$producto instanceof Producto) {
                             DB::rollback();
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
                         }
 
-                            $asignacion2 = new Asignacion2;
-                            $asignacion2->asignacion2_asignacion1 = $asignacion1->id;
-                            $asignacion2->asignacion2_producto = $producto->id;
-                            if($item['producto_tipo_search']){
-                                $asignacion2->asignacion2_deproducto = $deproducto->id;
-                            }
-                            $asignacion2->save();
-                    }
+                        if(!in_array($producto->tipo_codigo, ['AC', 'EQ'])){
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);  
+                        }
 
+                        $asignacion2 = new Asignacion2;
+                        $asignacion2->asignacion2_asignacion1 = $asignacion1->id;
+                        $asignacion2->asignacion2_producto = $producto->id;
+                        if(isset($item['producto_tipo_search']) && $item['producto_tipo_search'] != '') {
+                            $deproducto = Producto::where('producto_serie', $item['producto_tipo_search'])->join('tipo', 'producto.producto_tipo', '=', 'tipo.id')->first();
+
+                            if(!in_array($deproducto->tipo_codigo, ['EQ'])){
+                                DB::rollback();
+                                return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);  
+                            }
+
+                            if(!$deproducto instanceof Producto) {
+                                DB::rollback();
+                                return response()->json(['success' => false, 'errors' => 'No es posible recuperar equipo del accesorio, por favor verifique la información o consulte al administrador.']);
+                            }
+                            $asignacion2->asignacion2_deproducto = $deproducto->id;
+                        }
+
+                        $asignacion2->save();  
+                        
+                        if($request->asignacion1_tipo == 'E'){
+                            $producto->producto_tercero = $tercero->id;
+                            $producto->producto_contrato = $contrato->id;
+                            $producto->save();
+                        }elseif($request->asignacion1_tipo == 'R'){
+                            $producto->producto_tercero = null;
+                            $producto->producto_contrato = null;
+                            $producto->save();
+                        }else{
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'El tipo no es correcto, por favor verifique la información o consulte al administrador.']);                                
+                        } 
+
+                    }
 
                     // Commit Transaction
                     DB::commit();

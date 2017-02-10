@@ -8,7 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use DB, Log, Cache,Auth;
-use App\Models\Tecnico\Visita;
+use App\Models\Tecnico\Visita, App\Models\Tecnico\Visitap;
+use App\Models\Inventario\Producto;
 use App\Models\Base\Tercero;
 
 class VisitaController extends Controller
@@ -74,7 +75,7 @@ class VisitaController extends Controller
        if ($request->ajax()) {
             $data = $request->all();
             $visita = new Visita;
-
+          
             if ($visita->isValid($data)) {
 
                 DB::beginTransaction();
@@ -95,6 +96,26 @@ class VisitaController extends Controller
                     
                     $visita->visita_usuario_elaboro = Auth::user()->id;
                     $visita->visita_fh_elaboro = date('Y-m-d H:m:s');
+
+                    // visitap
+                    $visitap = isset($data['visitap']) ? $data['visitap'] : null;
+                    foreach ($visitap as $item)
+                    {
+                        // Recuperar producto
+                       
+                        $producto = Producto::where('producto_serie', $item['visitasp_codigo'])->first();
+                        if(!$producto instanceof Producto) {
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
+                        }
+
+                        $visitap_db = new Visitap;
+                        $visitap_db->visitap_orden = $item['visitap_orden'];
+                        $visitap_db->visitap_cantidad = $item['visitap_cantidad'];
+                        $visitap_db->visitap_producto = $producto->id;
+                                                
+                        $visitap_db->save();
+                    }
                     $visita->save();
 
                     // Commit Transaction

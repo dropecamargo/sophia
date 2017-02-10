@@ -17,7 +17,7 @@ class CreateVisitapTable extends Migration
             $table->increments('id');
 
             $table->integer('visitap_orden')->unsigned();
-            $table->integer('visitap_numero')->unsigned();
+            $table->integer('visitap_numero')->unsigned()->nullable();
             $table->integer('visitap_producto')->unsigned();
             $table->integer('visitap_cantidad')->unsigned();
             $table->integer('visitap_autorizado')->unsigned();

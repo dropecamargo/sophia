@@ -308,7 +308,7 @@
                                             <input type="text" class="form-control input-sm" name="visita_viaticos" id="visita_viaticos" value="" required="" data-currency>
                                             </div>
                                         </div>
-                                        </form>
+                                    </form>
 <div class="row">
 <div class="form-group col-md-12">
     <div class="nav-tabs-custom">

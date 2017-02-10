@@ -45,6 +45,9 @@ app || (app = {});
 			this.$inputContent = this.$("#"+$(e.currentTarget).attr("data-field"));
 			this.$inputName = this.$("#"+this.$inputContent.attr("data-name"));
 			this.$wraperType = this.$("#"+this.$inputContent.attr("data-render"));
+			
+			// Filters
+			this.tipo_codigo = this.$inputContent.attr("data-tipo");
 
 			this.productosSearchTable = this.$productosSearchTable.DataTable({
 				dom: "<'row'<'col-sm-12'tr>>" +
@@ -57,6 +60,7 @@ app || (app = {});
                     data: function( data ) {
                         data.producto_serie = _this.$searchSerie.val();
                         data.producto_nombre = _this.$searchNombre.val();
+                        data.tipo_codigo = _this.tipo_codigo;
                     }
                 },
                 columns: [

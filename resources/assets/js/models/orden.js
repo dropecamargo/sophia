@@ -32,8 +32,7 @@ app || (app = {});
             'orden_problema': '',
             'orden_abierta': true,
             'orden_fecha_servicio':moment().format('YYYY-MM-DD'),
-            'orden_hora_servicio':moment().format('HH:mm')
-            
+            'orden_hora_servicio':moment().format('HH:mm')          
         }
     });
 
