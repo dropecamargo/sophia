@@ -42,6 +42,11 @@ class ProductoController extends Controller
                     if($request->has('producto_nombre')) {
                         $query->whereRaw("producto_nombre LIKE '%{$request->producto_nombre}%'");
                     }
+
+                    // Filter default search
+                    if($request->has('tipo_codigo')) {
+                        $query->whereIn('tipo_codigo', explode(',', $request->tipo_codigo));
+                    }
                 })
                 ->make(true);
         }
@@ -102,7 +107,7 @@ class ProductoController extends Controller
                         $pcontador->productocontador_contador = $contador->id;
                         $pcontador->save();
                     }
-
+                    
                     // Commit Transaction
                     DB::commit();
 

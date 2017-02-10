@@ -41,7 +41,7 @@
         	<div class="row">
         		<div class="form-group col-md-3">
                     <label class="control-label">Tipo</label>
-                    <div>{{ $asignacion1->asignacion1_tipo }}</div>
+                    <div>{{ $asignacion1->asignacion1_tipo == 'E' ? 'Envio' : 'Retiro' }}</div>
                 </div>
                 <div class="form-group col-md-3">
                     <label class="control-label">Municipio</label>

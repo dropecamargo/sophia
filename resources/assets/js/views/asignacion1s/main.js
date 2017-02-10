@@ -33,8 +33,7 @@ app || (app = {});
 
 
             this.asignacion1sSearchTable = this.$asignacion1sSearchTable.DataTable({
-                dom: "<'row'<'col-sm-4'><'col-sm-4 text-center'l><'col-sm-4'>>" +
-                    "<'row'<'col-sm-12'tr>>" +
+                dom: "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 processing: true,
                 serverSide: true,

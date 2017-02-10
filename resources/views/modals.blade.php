@@ -203,7 +203,7 @@
                         <i class="fa fa-barcode"></i>
                     </button>
                 </span>
-                <input id="producto_tipo_search" placeholder="Serie" class="form-control producto-koi-component" name="producto_tipo_search" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre_search" required>
+                <input id="producto_tipo_search" placeholder="Serie" class="form-control producto-koi-component" name="producto_tipo_search" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre_search" data-tipo="EQ" required>
             </div>
         </div>
         <div class="col-sm-5 col-xs-10">

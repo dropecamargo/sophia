@@ -323,6 +323,7 @@
                                             </div>
                                         </div>
                                     </form>
+<<<<<<< HEAD
                                     
                                     <div class="row">
                                         <div class="form-group col-md-12">
@@ -354,6 +355,65 @@
                                                             </div>
                                                         </div> 
                                                     </div>
+=======
+<div class="row">
+<div class="form-group col-md-12">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+             <li class="active"><a href="#tab_contadoresv" data-toggle="tab">Contadores</a></li>
+            <li><a href="#tab_repuestos" data-toggle="tab">Repuestos</a></li>
+            <li><a href="#tab_imagenes" data-toggle="tab">Imágenes</a></li>       
+        </ul>  
+
+        <div class="tab-content">
+            {{-- Content Contadores --}}
+            <div class="tab-pane active" id="tab_contadoresv">    
+                <div class="box box-danger" id="wrapper-contadoresp">
+                    <div class="box-body">
+                        <form method="POST" accept-charset="UTF-8" id="form-contadoresp" data-toggle="validator">
+                           <table id="browse-orden-contadoresp-list" class="table table-hover table-bordered" cellspacing="0">
+                             
+                                <thead>
+                                    <tr>                                                         
+                                        <th width="5px">Nombre</th>
+                                        <th width="30px">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- Render content contadores-item --}}
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {{-- Content Repuestos --}}
+            <div class="tab-pane" id="tab_repuestos">    
+                <div class="box box-danger" id="wrapper-visitasp">
+                    <div class="box-body">
+                        <form method="POST" accept-charset="UTF-8" id="form-visitasp" data-toggle="validator">
+                            <div class="row">
+                                <label for="visitasp" class="control-label col-sm-1 ">Producto</label>
+                                 
+                                <div class="form-group col-sm-3">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="visitasp_codigo">
+                                                <i class="fa fa-barcode"></i>
+                                            </button>
+                                        </span>
+                                        <input id="visitasp_codigo" placeholder="Serie" class="form-control producto-koi-component" name="visitasp_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="visitap_nombre" value="" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5 col-xs-10">
+                                    <input id="visitap_nombre" name="visitap_nombre" placeholder="Nombre producto" class="form-control input-sm" type="text" value=""readonly required>
+                                </div>
+
+                                <label for="visitasp_cant" class="control-label col-sm-1">Cantidad</label>
+                                <div class="form-group col-sm-1">
+                                    <input type="number" name="visitap_cantidad" id="visitap_valor" value="" min="1" placeholder="1" class="form-control input-sm">
+                                </div>
+>>>>>>> 3bdbba0288ede13e61b8adef31c6f2c9311e1588
 
                                                     {{-- Content Repuestos --}}
                                                     <div class="tab-pane" id="tab_repuestos">    
