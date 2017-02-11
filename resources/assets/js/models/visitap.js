@@ -14,12 +14,11 @@ app || (app = {});
             return window.Misc.urlFull (Route.route('ordenes.visitasp.index') );
         },
         idAttribute: 'id',
-
         defaults: {
-   			'visitap_orden': '',
-        'visitap_cantidad': '',
-   			'visitap_nombre': '',
-   			'visitasp_codigo': ''
+ 			'visitap_orden': '',
+            'visitap_cantidad': '',
+ 			'visitap_nombre': '',
+ 			'visitasp_codigo': ''
         }
     });
 

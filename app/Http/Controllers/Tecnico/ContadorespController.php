@@ -20,6 +20,17 @@ class ContadorespController extends Controller
     public function index(Request $request)
     {   
         if ($request->ajax()) {
+
+            if($request->contadoresp){
+                $query = Contadoresp::query();
+                $query->select('contadoresp.id','contador.contador_nombre');
+                $query->join('productocontador', 'contadoresp.contadoresp_producto_contador', '=', 'productocontador.id');
+                $query->join('contador', 'productocontador.productocontador_contador', '=', 'contador.id');
+                $query->where('contadoresp_documento_numero', $request->contadoresp);
+                $query->orderBy('contadoresp.id', 'asc');
+                return  $query->get();
+            }
+
             $query = ProductoContador::query();
             $query->select('productocontador.id', 'contador.contador_nombre');
             $query->join('contador', 'productocontador.productocontador_contador', '=', 'contador.id');
@@ -27,9 +38,7 @@ class ContadorespController extends Controller
             $query->orderBy('productocontador.id', 'asc');
             return  $query->get();
         }
-        abort(404);
-
-        
+        abort(404);     
     }
 
     /**

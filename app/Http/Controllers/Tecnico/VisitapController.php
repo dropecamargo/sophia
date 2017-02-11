@@ -19,11 +19,9 @@ class VisitapController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            dd($request->orden_id);
+        if ($request->ajax()) {          
             $query = VisitaP::query();
-
-            $query->where('visitap_orden',$request->orden_id);
+            $query->where('visitap_numero',$request->visitap);
             $query->select('visitap.*','producto.producto_serie as visitasp_codigo', 'producto.producto_nombre as visitap_nombre');
             $query->join('producto','visitap_producto', '=','producto.id');
             return response()->json($query->get());

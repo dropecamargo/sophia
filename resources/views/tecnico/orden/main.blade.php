@@ -432,7 +432,7 @@
                                     </div>
                                     
                                     <div class="box box-danger">
-                                     <div class=" box-body  table-responsive no-padding">
+                                     <div class=" box-body table-responsive no-padding">
                                         <table id="browse-visitas-list" class="table table-hover table-bordered" cellspacing="0">
                                             <thead>
                                                 <tr>
@@ -472,19 +472,23 @@
     <td><%-  visita_fh_llegada %></td>
     <td><%-  visita_fh_inicio %></td>
     <td><%-  tercero_nombre %></td>
+    
     <td class="text-center">
         <a class="btn btn-default btn-xs item-visita-show-info" data-resource="<%- id %>">
             <span><i class="fa fa-info-circle "></i></span>
         </a>
     </td>
+
 </script>
 
 <script type="text/template" id="visitap-item-list-tpl">       
-    <td class="text-center">
-        <a class="btn btn-default btn-xs item-visitap-remove" data-resource="<%- id %>">
-            <span><i class="fa fa-times"></i></span>
-        </a>
-    </td>
+    <% if(edit) { %>
+        <td class="text-center">
+            <a class="btn btn-default btn-xs item-visitap-remove" data-resource="<%- id %>">
+                <span><i class="fa fa-times"></i></span>
+            </a>
+        </td>
+    <% } %>
 
     <td><%- visitasp_codigo %> </td>
     <td><%- visitap_nombre %></td>
@@ -501,31 +505,65 @@
 <script type="text/template" id="show-info-visita-tpl">
        <div class="row">
             <div class="form-group col-md-6">
-                <label class="control-label">Fecha de llegada: </label>
-                <%- visita_fh_llegada %>
+                <label class="control-label">Fecha y hora llegada</label>
+                <div><%- visita_fh_llegada %></div>
             </div>
 
             <div class="form-group col-md-6">
-                <label class="control-label">Nombre: </label>
-                <%- visitap_nombre %>
-            </div>       
+                <label class="control-label">Fecha y hora salida</label>
+                <div><%- visita_fh_finaliza %></div>
+            </div>      
         </div>
 
         <div class="row">
-            <div class="col-md-12 col-xs-11">
+            <div class="form-group col-md-6">
+                <label class="control-label">Tiempo de Transporte</label>
+                <div><%- visita_tiempo_transporte == 1 ? visita_tiempo_transporte + ' Hora' : visita_tiempo_transporte + ' Horas' %></div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="control-label">Viaticos</label>
+                <div><%- '$ ' + visita_viaticos.toLocaleString() %></div>
+            </div> 
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="control-label">Tecnico</label>
+                <div><%- tercero_nombre %></div>
+            </div> 
+        </div>
+
+        <div class="box box-danger">
+            <h5><b>Repuestos</b></h5>
+            <div class="box-body table-responsive no-padding">
+                <table id="browse-orden-visitasp-show-list" class="table table-hover table-bordered" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th width="10%">Código</th>
+                            <th width="40%">Nombre</th>
+                            <th width="10%">Cantidad</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <div class="box box-danger">
+            <h5><b>Contadores</b></h5>
+            <div class="col-md-offset-3 col-md-6">
                 <div class="box-body table-responsive no-padding">
-                    <table id="browse-orden-visitasp-list" class="table table-hover table-bordered" cellspacing="0">
+                    <table id="browse-orden-contadoresp-show-list" class="table table-hover table-bordered" cellspacing="0">
                         <thead>
                             <tr>
-                                <th width="10%">Código</th>
-                                <th width="40%">Nombre</th>
-                                <th width="10%">Cantidad</th>
+                                <th>Nombre</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
             </div>
         </div>
+        
 </script>
 
 @stop

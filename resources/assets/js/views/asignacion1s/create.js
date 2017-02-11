@@ -15,6 +15,7 @@ app || (app = {});
         template: _.template( ($('#add-asignacion1-tpl').html() || '') ),
         events: {
             'click .submit-asignacion1': 'submitAsignacion1',
+            'click .btn-koi-search-tercero-component-table': 'limpiar',
             'submit #form-asignacion1': 'onStore',
             'submit #form-asignacion2': 'onStoreA2'
         },
@@ -52,6 +53,10 @@ app || (app = {});
             this.$form = this.$('#form-asignacion1');
             this.$formItem = this.$('#form-asignacion2');
 
+            this.$inputContacto = $('#tcontacto_nombre');
+            this.$inputTcontacto = $('#tcontacto_telefono');
+            this.$inputContrato = $('#nombre_contrato');
+
             // Reference views
             this.referenceViews();
         },
@@ -76,6 +81,12 @@ app || (app = {});
         */
         submitAsignacion1: function (e) {
             this.$form.submit();
+        },
+
+        limpiar: function(){
+            this.$inputContrato.val('');
+            this.$inputTcontacto.val('');
+            this.$inputContacto.val('');
         },
 
         /**
