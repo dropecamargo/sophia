@@ -215,7 +215,7 @@ class OrdenController extends Controller
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
                     } 
-                    if(!$producto instanceof Tipo ) {
+                    if(!$tipo instanceof Tipo ) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);
                     }

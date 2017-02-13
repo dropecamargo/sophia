@@ -18,6 +18,7 @@ app || (app = {});
         defaults: {
             'visita_orden': '',
             'visita_tecnico': '',
+            'visita_numero': '',
             'visita_fecha_llegada': moment().format('YYYY-MM-DD'),
             'visita_fecha_inicio': moment().format('YYYY-MM-DD'),
             'visita_fecha_fin': moment().format('YYYY-MM-DD'),
