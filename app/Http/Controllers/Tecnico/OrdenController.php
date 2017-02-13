@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Datatables, Auth;
 
-use App\Models\Tecnico\Orden ,App\Models\Inventario\Producto, App\Models\Base\Tercero ;
+use App\Models\Tecnico\Orden ,App\Models\Inventario\Producto, App\Models\Inventario\Tipo,App\Models\Base\Tercero ;
 
 class OrdenController extends Controller
 {
@@ -21,6 +21,7 @@ class OrdenController extends Controller
     public function index(Request $request)
     {
          if($request->ajax()){
+
             $query = Orden::query();
 
             $query->select('orden.*',
@@ -98,7 +99,7 @@ class OrdenController extends Controller
     {
          if ($request->ajax()) {
             $data = $request->all();
-
+        
             $orden = new Orden;
 
             if ($orden->isValid($data)) {
@@ -109,10 +110,28 @@ class OrdenController extends Controller
                     $tercero = Tercero::where('tercero_nit', $request->orden_tercero)->first();
                     $producto = Producto::where('producto_serie', $request->sirvea_codigo)->first();
                     $tecnico = Tercero::where('tercero_nit', $request->orden_tecnico)->first();
-                    if(!$producto instanceof Producto && !$tercero instanceof Tercero && !$tecnico instanceof Tercero) {
+                    $tipo= Tipo::where('id', $producto->producto_tipo)->first();
+
+                    if(!$producto instanceof Producto && $producto->producto_tipo == 1 ) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
                     }
+
+                    if(!in_array($tipo->tipo_codigo, ['EQ'])){
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);  
+                    }
+                    
+                    if(!$tecnico instanceof Tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                    }
+
+                    if(!$tercero instanceof Tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                    }
+                    
 
                     // orden
                     $orden->fill($data);
@@ -147,7 +166,7 @@ class OrdenController extends Controller
     public function show(Request $request, $id)
     {
           $orden = Orden::getOrden($id);
-          //dd($orden);
+     
         if($request->ajax()){
             return response()->json($orden);
         }
@@ -166,7 +185,7 @@ class OrdenController extends Controller
         if(!$orden instanceof Orden) {
             abort(404);
         }
-        //dd($orden);
+
         return view('tecnico.orden.edit', ['orden' => $orden]);    
     }
 
@@ -182,20 +201,43 @@ class OrdenController extends Controller
     {
          if ($request->ajax()) {
             $data = $request->all();
+
             $orden = Orden::findOrFail($id);
             if ($orden->isValid($data)) {
                 DB::beginTransaction();
                 try {
                     $tercero = Tercero::where('tercero_nit', $request->orden_tercero)->first();
                     $producto = Producto::where('producto_serie', $request->sirvea_codigo)->first();
+                    $tipo= Tipo::where('id', $producto->producto_tipo)->first();
                     $tecnico = Tercero::where('tercero_nit', $request->orden_tecnico)->first();
-                    if(!$producto instanceof Producto && !$tercero instanceof Tercero && !$tecnico instanceof Tercero) {
+                   
+                    if(!$producto instanceof Producto ) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
+                    } 
+                    if(!$producto instanceof Tipo ) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);
                     }
 
+                    if(!in_array($tipo->tipo_codigo, ['EQ'])){
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);  
+                    }
+
+                    if(!$tecnico instanceof Tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar tecnico, por favor verifique la información o consulte al administrador.']);
+                    }
+
+                    if(!$tercero instanceof Tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar tercero, por favor verifique la información o consulte al administrador.']);
+                    }
+
+
                     // ordenes
-                     $orden->orden_fh_servicio = "$request->orden_fecha_servicio $request->orden_hora_servicio";
+                    $orden->orden_fh_servicio = "$request->orden_fecha_servicio $request->orden_hora_servicio";
                     $orden->orden_placa = $producto->id;
                     $orden->orden_tercero = $tercero->id;
                     $orden->orden_tecnico = $tecnico->id;

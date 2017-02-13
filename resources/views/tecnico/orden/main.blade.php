@@ -24,7 +24,9 @@
                         <h4>Detalle visita</h4>
                     </div>
                     <div class="modal-body box box-danger" id="modal-visita-wrapper-show-info">
-                        <div class="content-modal"></div>
+                        <div class="content-modal">
+                            
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cerrar</button>
@@ -64,7 +66,7 @@
                                                             <i class="fa fa-user"></i>
                                                         </button>
                                                     </span>
-                                                    <input id="orden_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="orden_tercero" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="orden_terecero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit%>" required>
+                                                    <input id="orden_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="orden_tercero" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="orden_terecero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit %>" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4 col-xs-10">
@@ -83,11 +85,11 @@
                                             <div class="form-group col-sm-3">
                                                 <div class="input-group input-group-sm">
                                                     <span class="input-group-btn">
-                                                        <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="sirvea_codigo">
+                                                        <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="sirvea_codigo" >
                                                             <i class="fa fa-barcode"></i>
                                                         </button>
                                                     </span>
-                                                    <input id="sirvea_codigo" placeholder="Serie" class="form-control producto-koi-component" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="sirvea_maquina" value="<%- producto_serie %>" required>
+                                                    <input id="sirvea_codigo" placeholder="Serie" class="form-control producto-koi-component" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="sirvea_maquina" value="<%- producto_serie %>" data-tipo="EQ" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-5 col-xs-10">
@@ -192,11 +194,11 @@
                                                             <i class="fa fa-user"></i>
                                                         </button>
                                                     </span>
-                                                    <input id="orden_tecnico" placeholder="Tecnico" class="form-control tercero-koi-component" name="orden_tecnico" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="orden_tecnico_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit %>" required>
+                                                    <input id="orden_tecnico" placeholder="Tecnico" class="form-control tercero-koi-component" name="orden_tecnico" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="orden_tecnico_nombre" data-contacto="btn-add-contact" value="<%- tecnico_nit %>" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-5 col-xs-10">
-                                                <input id="orden_tecnico_nombre" name="orden_tecnico_nombre" placeholder="Nombre Tecnico" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly required>
+                                                <input id="orden_tecnico_nombre" name="orden_tecnico_nombre" placeholder="Nombre Tecnico" class="form-control input-sm" type="text" maxlength="15" value="<%- tecnico_nombre %>" readonly required>
                                             </div>
                                             {{--<div class="col-sm-1 col-xs-2">
                                                 <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="orden_tecnico">
@@ -255,11 +257,11 @@
                                                             <i class="fa fa-user"></i>
                                                         </button>
                                                     </span>
-                                                    <input id="visita_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="visita_tercero" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="visita_terecero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit%>" required>
+                                                    <input id="visita_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="visita_tercero" type="text" maxlength="15" data-wrapper="ordenes-create" data-name="visita_terecero_nombre" data-contacto="btn-add-contact" value="<%- tecnico_nit%>" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4 col-xs-10">
-                                                <input id="visita_terecero_nombre" name="visita_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly required>
+                                                <input id="visita_terecero_nombre" name="visita_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tecnico_nombre %>" readonly required>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -497,45 +499,53 @@
 
 <script type="text/template" id="contadoresp-item-list-tpl">
     <td><%- contador_nombre %></td>      
-    <td>
-        <input type="number" class="form-control input-sm" name="contadoresp_valor_<%- id %>" id= "contadoresp_valor_<%- id %>" min="0" required>
-    </td> 
+   
+        <% if(!edit) { %>
+            <td> <%- contadoresp_valor %></td>
+        
+        <% }else{ %>
+            <td><input type="number" class="form-control input-sm" name="contadoresp_valor_<%- id %>" id= "contadoresp_valor_<%- id %>" min="0" required>
+            </td>
+        <% } %>
+     
 </script>
 
 <script type="text/template" id="show-info-visita-tpl">
-       <div class="row">
-            <div class="form-group col-md-6">
-                <label class="control-label">Fecha y hora llegada</label>
-                <div><%- visita_fh_llegada %></div>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label class="control-label">Fecha y hora salida</label>
-                <div><%- visita_fh_finaliza %></div>
-            </div>      
+    
+   <div class="row">
+        <div class="form-group col-md-6">
+            <label class="control-label">Fecha y hora llegada</label>
+            <div><%- visita_fh_llegada %></div>
         </div>
 
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label class="control-label">Tiempo de Transporte</label>
-                <div><%- visita_tiempo_transporte == 1 ? visita_tiempo_transporte + ' Hora' : visita_tiempo_transporte + ' Horas' %></div>
-            </div>
+        <div class="form-group col-md-6">
+            <label class="control-label">Fecha y hora salida</label>
+            <div><%- visita_fh_finaliza %></div>
+        </div>      
+    </div>
 
-            <div class="form-group col-md-6">
-                <label class="control-label">Viaticos</label>
-                <div><%- '$ ' + visita_viaticos.toLocaleString() %></div>
-            </div> 
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label class="control-label">Tiempo de Transporte</label>
+            <div><%- visita_tiempo_transporte == 1 ? visita_tiempo_transporte + ' Hora' : visita_tiempo_transporte + ' Horas' %></div>
         </div>
 
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label class="control-label">Tecnico</label>
-                <div><%- tercero_nombre %></div>
-            </div> 
-        </div>
+        <div class="form-group col-md-6">
+            <label class="control-label">Viaticos</label>
+            <div><%- '$ ' + visita_viaticos.toLocaleString() %></div>
+        </div> 
+    </div>
 
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label class="control-label">Tecnico</label>
+            <div><%- tercero_nombre %></div>
+        </div> 
+    </div>
+
+    <div class="row">
         <div class="box box-danger">
-            <h5><b>Repuestos</b></h5>
+            <div class="form-group col-sm-4"><h5"><b>Repuestos</b></h5></div>
             <div class="box-body table-responsive no-padding">
                 <table id="browse-orden-visitasp-show-list" class="table table-hover table-bordered" cellspacing="0">
                     <thead>
@@ -548,22 +558,26 @@
                 </table>
             </div>
         </div>
+    </div>
 
+    <div class="row">
         <div class="box box-danger">
-            <h5><b>Contadores</b></h5>
+            <div class="form-group col-sm-4"><h5><b>Contadores</b></h5></div>
             <div class="col-md-offset-3 col-md-6">
                 <div class="box-body table-responsive no-padding">
                     <table id="browse-orden-contadoresp-show-list" class="table table-hover table-bordered" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
+                                <th>Valor</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
             </div>
         </div>
-        
+    </div>
+       
 </script>
 
 @stop

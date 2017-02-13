@@ -41,6 +41,7 @@ class ProductoContador extends Model
         $query->where('productocontador_producto', $id);
         $query->join('contador', 'productocontador.productocontador_contador', '=', 'contador.id');
         $query->join('producto', 'productocontador.productocontador_producto', '=', 'producto.id'); 
+        $query->orderBy('productocontador.id', 'asc');
         return  $query->get();
     }
 
