@@ -545,24 +545,27 @@
 
     <div class="row">
         <div class="box box-danger">
-            <div class="form-group col-sm-4"><h5"><b>Repuestos</b></h5></div>
-            <div class="box-body table-responsive no-padding">
-                <table id="browse-orden-visitasp-show-list" class="table table-hover table-bordered" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th width="10%">Código</th>
-                            <th width="40%">Nombre</th>
-                            <th width="10%">Cantidad</th>
-                        </tr>
-                    </thead>
-                </table>
+           <h5><b>Repuestos</b></h5>
+            <div class="col-md-offset-1 col-md-10">
+                <div class="box-body table-responsive no-padding">
+
+                    <table id="browse-orden-visitasp-show-list" class="table table-hover table-bordered" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th width="10%">Código</th>
+                                <th width="50%">Nombre</th>
+                                <th width="10%">Cantidad</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-
+    <br/>
     <div class="row">
         <div class="box box-danger">
-            <div class="form-group col-sm-4"><h5><b>Contadores</b></h5></div>
+           <h5><b>Contadores</b></h5>
             <div class="col-md-offset-3 col-md-6">
                 <div class="box-body table-responsive no-padding">
                     <table id="browse-orden-contadoresp-show-list" class="table table-hover table-bordered" cellspacing="0">

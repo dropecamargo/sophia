@@ -49,6 +49,7 @@ class VisitapController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
+            //dd($data);
             $visitap = new Visitap;
             if ($visitap->isValid($data)) {
 

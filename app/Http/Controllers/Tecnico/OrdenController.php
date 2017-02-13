@@ -110,16 +110,24 @@ class OrdenController extends Controller
                     $tercero = Tercero::where('tercero_nit', $request->orden_tercero)->first();
                     $producto = Producto::where('producto_serie', $request->sirvea_codigo)->first();
                     $tecnico = Tercero::where('tercero_nit', $request->orden_tecnico)->first();
-                    $tipo= Tipo::where('id', $producto->producto_tipo)->first();
+                   
 
-                    if(!$producto instanceof Producto && $producto->producto_tipo == 1 ) {
+                    if(!$producto instanceof Producto) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
                     }
 
+                    $tipo= Tipo::where('id', $producto->producto_tipo)->first();
+
+                    if (!$tipo instanceof Tipo) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);
+                    }
+
+                    
                     if(!in_array($tipo->tipo_codigo, ['EQ'])){
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);  
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);  
                     }
                     
                     if(!$tecnico instanceof Tercero) {
@@ -208,13 +216,14 @@ class OrdenController extends Controller
                 try {
                     $tercero = Tercero::where('tercero_nit', $request->orden_tercero)->first();
                     $producto = Producto::where('producto_serie', $request->sirvea_codigo)->first();
-                    $tipo= Tipo::where('id', $producto->producto_tipo)->first();
                     $tecnico = Tercero::where('tercero_nit', $request->orden_tecnico)->first();
                    
                     if(!$producto instanceof Producto ) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
                     } 
+
+                    $tipo= Tipo::where('id', $producto->producto_tipo)->first();
                     if(!$tipo instanceof Tipo ) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);
