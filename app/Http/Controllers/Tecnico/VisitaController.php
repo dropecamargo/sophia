@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Cache,Auth;
 use App\Models\Tecnico\Visita, App\Models\Tecnico\Visitap, App\Models\Tecnico\Contadoresp, App\Models\Tecnico\Orden;
-use App\Models\Inventario\Producto;
+use App\Models\Inventario\Producto, App\Models\Inventario\Tipo;
 use App\Models\Base\Tercero;
 
 class VisitaController extends Controller
@@ -129,13 +129,21 @@ class VisitaController extends Controller
                     foreach ($visitasp as $item)
                     {
                         // Recuperar producto
-                        $producto = Producto::where('producto_serie', $item['visitasp_codigo'])->join('tipo', 'producto.producto_tipo', '=', 'tipo.id')->first();
-                        if(!$producto instanceof Producto) {
+                        $productov = Producto::where('producto_serie', $item['visitasp_codigo'])->first();
+                        if (!$productov instanceof Producto) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
+                        }
+
+                        $tipo = Tipo::find($productov->producto_tipo);
+                       
+                        if (!$tipo instanceof Tipo) {
                             DB::rollback();
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
                         }
+                      
 
-                        if(!in_array($producto->tipo_codigo, ['RP', 'CO', 'IN'])){
+                        if(!in_array($tipo->tipo_codigo, ['RP', 'CO', 'IN'])){
                             DB::rollback();
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);  
                         }
@@ -144,13 +152,13 @@ class VisitaController extends Controller
                         $visitap->visitap_orden = $orden->id;
                         $visitap->visitap_numero = $visita->id;
                         $visitap->visitap_cantidad = $item['visitap_cantidad'];
-                        $visitap->visitap_producto = $producto->id;
+                        $visitap->visitap_producto = $productov->id;
                         $visitap->save();
                     }
 
                     // Commit Transaction
                     DB::commit();
-                    return response()->json(['success' => true, 'id' => $visita->id, 'visita_fh_llegada' => $visita->visita_fh_llegada, 'visita_fh_inicio' => $visita->visita_fh_inicio, 'tercero_nombre' => $tercero->getName()]);
+                    return response()->json(['success' => true, 'id' => $visita->id, 'visita_fh_llegada' => $visita->visita_fh_llegada, 'visita_fh_inicio' => $visita->visita_fh_inicio, 'tercero_nombre' => $tercero->getName(), 'visita_numero'=> $visita->visita_numero]);
                 }catch(\Exception $e){
                     DB::rollback();
                     Log::error($e->getMessage());

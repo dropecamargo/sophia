@@ -23,7 +23,7 @@ class ContadorespController extends Controller
 
             if($request->contadoresp){
                 $query = Contadoresp::query();
-                $query->select('contadoresp.id','contador.contador_nombre');
+                $query->select('contadoresp.id','contador.contador_nombre','contadoresp_valor');
                 $query->join('productocontador', 'contadoresp.contadoresp_producto_contador', '=', 'productocontador.id');
                 $query->join('contador', 'productocontador.productocontador_contador', '=', 'contador.id');
                 $query->where('contadoresp_documento_numero', $request->contadoresp);
@@ -31,12 +31,8 @@ class ContadorespController extends Controller
                 return  $query->get();
             }
 
-            $query = ProductoContador::query();
-            $query->select('productocontador.id', 'contador.contador_nombre');
-            $query->join('contador', 'productocontador.productocontador_contador', '=', 'contador.id');
-            $query->where('productocontador_producto', $request->producto_id);
-            $query->orderBy('productocontador.id', 'asc');
-            return  $query->get();
+            $query = ProductoContador::getProductoContador($request->producto_id);
+            return  $query;
         }
         abort(404);     
     }

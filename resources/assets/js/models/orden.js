@@ -23,6 +23,8 @@ app || (app = {});
             'orden_placa':'',
             'tercero_nombre':'',
             'tercero_nit':'',
+            'tecnico_nombre':'',
+            'tecnico_nit':'',
             'producto_id': '',
             'producto_serie':'',
             'producto_nombre':'',
