@@ -107,13 +107,21 @@
             <div class="form-group col-md-12">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab_sirveas" data-toggle="tab">Sirve a</a></li>
-                        <li><a href="#tab_productoscontador" data-toggle="tab">Contador</a></li>
+                        @if( $producto->producto_tipo == 1 )
+                            <li class="active"><a href="#tab_productoscontador" data-toggle="tab">Contador</a></li>
+                        @else
+                            <li class="active"><a href="#tab_sirveas" data-toggle="tab">Sirve a</a></li>
+                            <li><a href="#tab_productoscontador" data-toggle="tab">Contador</a></li>
+                        @endif
                     </ul>
 
                     <div class="tab-content">
                         {{-- Content sirveas --}}
-                        <div class="tab-pane active" id="tab_sirveas">
+                        @if( $producto->producto_tipo != 1)
+                            <div class="tab-pane active" id="tab_sirveas">
+                        @else
+                            <div class="tab-pane" id="tab_sirveas">
+                        @endif
                             <div class="box box-danger" id="wrapper-producto-sirveas">
                                 <div class="box-body">
                                     <!-- table table-bordered table-striped -->
@@ -135,7 +143,11 @@
                         </div>
 
                         {{-- Content productoscontador --}}
-                        <div class="tab-pane" id="tab_productoscontador">
+                        @if( $producto->producto_tipo == 1 )
+                            <div class="tab-pane active" id="tab_productoscontador">  
+                        @else
+                            <div class="tab-pane" id="tab_productoscontador">
+                        @endif 
                             <div class="box box-danger" id="wrapper-producto-productoscontador">
                                 <div class="box-body">
                                     <!-- table table-bordered table-striped -->
@@ -143,7 +155,6 @@
                                         <table id="browse-productoscontador-producto-list" class="table table-hover table-bordered" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th width="1px">Producto</th>
                                                     <th width="100px">Contador</th>
                                                 </tr>
                                             </thead>

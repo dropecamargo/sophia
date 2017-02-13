@@ -21,7 +21,6 @@ class Sirvea extends Model
     {
         $rules = [
             'sirvea_codigo' => 'required',
-            'sirvea_maquina' => 'required|integer'
         ];
 
         $validator = Validator::make($data, $rules);

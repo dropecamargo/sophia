@@ -13,6 +13,7 @@ use App\Models\Tecnico\Asignacion1;
 use App\Models\Tecnico\Asignacion2;
 use App\Models\Tecnico\Contrato;
 use App\Models\Inventario\Producto;
+use App\Models\Inventario\Tipo;
 use App\Models\Base\Tercero;
 use App\Models\Base\Contacto;
 
@@ -97,8 +98,12 @@ class Asignacion1Controller extends Controller
                     $contrato = Contrato::find($request->asignacion1_contrato);
                     $contacto = Contacto::find($request->asignacion1_contacto);
                     
+                    if(!$tercero instanceof Tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                    }
 
-                    if(!$tercero instanceof Tercero && !$tecnico instanceof Tercero) {
+                    if(!$tecnico instanceof Tercero) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
                     }
@@ -142,13 +147,19 @@ class Asignacion1Controller extends Controller
                     foreach ($asignacion2 as $item)
                     {
                         // Recuperar producto
-                        $producto = Producto::where('producto_serie', $item['asignacion2_producto'])->join('tipo', 'producto.producto_tipo', '=', 'tipo.id')->first();
+                        $producto = Producto::where('producto_serie', $item['asignacion2_producto'])->first();
                         if(!$producto instanceof Producto) {
                             DB::rollback();
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
                         }
 
-                        if(!in_array($producto->tipo_codigo, ['AC', 'EQ'])){
+                        $tipo = Tipo::find($producto->producto_tipo);
+                        if(!$tipo instanceof Tipo){
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);
+                        }
+
+                        if(!in_array($tipo->tipo_codigo, ['AC', 'EQ'])){
                             DB::rollback();
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);  
                         }
@@ -157,17 +168,23 @@ class Asignacion1Controller extends Controller
                         $asignacion2->asignacion2_asignacion1 = $asignacion1->id;
                         $asignacion2->asignacion2_producto = $producto->id;
                         if(isset($item['producto_tipo_search']) && $item['producto_tipo_search'] != '') {
-                            $deproducto = Producto::where('producto_serie', $item['producto_tipo_search'])->join('tipo', 'producto.producto_tipo', '=', 'tipo.id')->first();
-
-                            if(!in_array($deproducto->tipo_codigo, ['EQ'])){
-                                DB::rollback();
-                                return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);  
-                            }
-
+                            $deproducto = Producto::where('producto_serie', $item['producto_tipo_search'])->first();
                             if(!$deproducto instanceof Producto) {
                                 DB::rollback();
                                 return response()->json(['success' => false, 'errors' => 'No es posible recuperar equipo del accesorio, por favor verifique la información o consulte al administrador.']);
                             }
+
+                            $detipo = Tipo::find($deproducto->producto_tipo);
+                            if(!$detipo instanceof Tipo){
+                                DB::rollback();
+                                return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);
+                            }
+
+                            if(!in_array($detipo->tipo_codigo, ['EQ'])){
+                                DB::rollback();
+                                return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);  
+                            }
+                            
                             $asignacion2->asignacion2_deproducto = $deproducto->id;
                         }
 
@@ -242,37 +259,7 @@ class Asignacion1Controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->ajax()) {
-            $data = $request->all();
-            $asignacion1 = Asignacion1::findOrFail($id);
-                DB::beginTransaction();
-                try {
-                    $tercero = Tercero::where('tercero_nit', $request->asignacion1_tercero)->first();
-                    $contacto = Contacto::find($request->asignacion1_contacto);
-                    $tecnico = Tercero::where('tercero_nit', $request->asignacion1_tecnico)->first();
-                    
-                    if(!$contacto instanceof Contacto && !$tercero instanceof Tercero && !$tecnico instanceof Tercero) {
-                        DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
-                    }
-
-                    // asignacion1
-                    $asignacion1->fill($data);
-                    $asignacion1->asignacion1_tercero = $tercero->id;
-                    $asignacion1->asignacion1_contacto = $contacto->id;
-                    $asignacion1->asignacion1_tecnico = $tecnico->id;
-                    $asignacion1->save();
-                    // Commit Transaction
-                    DB::commit();
-
-                    return response()->json(['success' => true, 'id' => $asignacion1->id]);
-                }catch(\Exception $e){
-                    DB::rollback();
-                    Log::error($e->getMessage());
-                    return response()->json(['success' => false, 'errors' => trans('app.exception')]);
-                }
-            }
-            return response()->json(['success' => false, 'errors' => $asignacion1->errors]);
+        //
     }
 
     /**

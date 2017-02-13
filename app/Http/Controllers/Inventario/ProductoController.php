@@ -95,7 +95,6 @@ class ProductoController extends Controller
                     $producto->save();
 
                     if(in_array($tipo->tipo_codigo, ['EQ'])) {
-
                         $contador = Contador::find(Contador::$ctr_machines);
                         if(!$contador instanceof Contador) {
                             DB::rollback();
