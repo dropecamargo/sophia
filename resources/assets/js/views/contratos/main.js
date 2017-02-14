@@ -45,7 +45,7 @@ app || (app = {});
                     }
                 },
                 columns: [
-                    { data: 'id' , name: 'id'},
+                    //{ data: 'id' , name: 'id'},
                     { data: 'contrato_numero', name: 'contrato_numero' },
                     { data: 'tercero_nombre', name: 'contrato_tercero' },
                     { data: 'contrato_fecha', name: 'contrato_fecha' },
@@ -55,8 +55,8 @@ app || (app = {});
                 ],
                 columnDefs: [
                     {
-                        targets: 1,
-                        width: '20%',
+                        targets: 0,
+                        width: '10%',
                         searchable: false,
                         render: function ( data, type, full, row ) {
                             
@@ -64,7 +64,7 @@ app || (app = {});
                         }
                     },
                     {
-                        targets: 5,
+                        targets: 4,
                         width: '10%',
                         render: function ( data, type, full, row ) {
                             return data ? 'Si' : 'No';

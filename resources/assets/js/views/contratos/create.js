@@ -129,6 +129,9 @@ app || (app = {});
 
             if( typeof window.initComponent.initValidator == 'function' )
                 window.initComponent.initValidator();
+
+            if( typeof window.initComponent.initDatePicker == 'function' )
+                window.initComponent.initDatePicker();
         },
 
         /**
