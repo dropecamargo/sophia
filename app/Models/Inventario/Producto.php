@@ -49,16 +49,7 @@ class Producto extends Model
            
         ];
 
-        if ($data['producto_tipo'] == 2 || $data['producto_tipo'] == 3 || $data['producto_tipo'] == 4) {
-
-            $rules['producto_vida_util'] .= '|required' ;
-        } 
-        if ($data['producto_tipo'] == 2 || $data['producto_tipo'] == 4) {
-
-            $rules['producto_parte'] .= '|required' ;
-        } 
-       
-        
+ 
         if($this->exists){
             $rules['producto_placa'] .= ',producto_placa,' . $this->id;
             $rules['producto_serie'] .= ',producto_serie,' . $this->id;
@@ -111,5 +102,13 @@ class Producto extends Model
     public function contadores()
     {
         return $this->hasMany('App\Models\Inventario\ProductoContador', 'productocontador_producto', 'id');
+    }
+
+    /**
+    *
+    */
+
+    public function validarProducto(){
+      return "OK";
     }
 }

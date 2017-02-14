@@ -27,7 +27,6 @@ app || (app = {});
            
             // Events Listener
             this.listenTo( this.model, 'change', this.render );
-            console.log(this.model);
         },
 
         /*
@@ -38,7 +37,6 @@ app || (app = {});
             var attributes = this.model.toJSON();
             attributes.edit = this.parameters.edit;
             this.$el.html( this.template(attributes) );
-            console.log(this.$el );
             return this;
         }
     });

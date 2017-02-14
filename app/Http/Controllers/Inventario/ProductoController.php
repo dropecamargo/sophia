@@ -77,7 +77,7 @@ class ProductoController extends Controller
             if ($producto->isValid($data)) {
                 DB::beginTransaction();
                 try {
-                    if(isset($data['producto_proveedor']) && $data['producto_proveedor'] != ''){
+                    if($request->has('producto_proveedor')){
                         $tercero = Tercero::where('tercero_nit', $request->producto_proveedor)->first();
                         if(!$tercero instanceof Tercero) {
                             DB::rollback();
@@ -92,11 +92,16 @@ class ProductoController extends Controller
                     }
 
                     // producto
+                    $result = $producto->validarProducto();
+
+                    if($result == 'OK') {
+                       DB::rollback();
+                       return response()->json(['success' => false, 'errors' => $result]);
+                    }
                     $producto->fill($data); 
                     $producto->save();
 
                     if(in_array($tipo->tipo_codigo, ['EQ'])) {
-
                         $contador = Contador::find(Contador::$ctr_machines);
                         if(!$contador instanceof Contador) {
                             DB::rollback();
@@ -171,16 +176,18 @@ class ProductoController extends Controller
             if ($producto->isValid($data)) {
                 DB::beginTransaction();
                 try {
-                    // Validar tercero
-                    $tercero = Tercero::where('tercero_nit', $request->producto_proveedor)->first();
-                    if(!$tercero instanceof Tercero) {
-                        DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
+                   if($request->has('producto_proveedor')){
+                        $tercero = Tercero::where('tercero_nit', $request->producto_proveedor)->first();
+                        if(!$tercero instanceof Tercero) {
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
+                        }
+                        $producto->producto_proveedor = $tercero->id;
                     }
 
                     // producto
                     $producto->fill($data);
-                    $producto->producto_proveedor = $tercero->id;
+                   
                     $producto->save();
 
                     // Commit Transaction

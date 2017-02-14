@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Inventario\Sirvea;
 use App\Models\Inventario\Producto;
+use App\Models\Inventario\Tipo;
 use DB, Log, Datatables;
 
 class SirveaController extends Controller
@@ -58,16 +59,28 @@ class SirveaController extends Controller
                 try {
                     // Validar producto
                     $producto = Producto::where('producto_serie', $request->sirvea_codigo)->first();
+                    
                     if(!$producto instanceof Producto) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar serie, por favor verifique la información o consulte al administrador.']);
                     }
 
-                    // Validar producto
-                    $pp = Producto::where('id', $request->sirvea_maquina)->first();
-                    if(!$pp instanceof Producto) {
+                    $tipo = Tipo::find($producto->producto_tipo);
+                    if(!$tipo instanceof Tipo){
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar Tipo, por favor verifique la información o consulte al administrador.']);
+                    }
+
+                    $producto_maquina = Producto::find($request->sirvea_maquina);
+                    if(!$producto_maquina instanceof Producto){
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar maquina, por favor verifique la información o consulte al administrador.']);
+                    }
+
+                    $mTipo = Tipo::find($producto_maquina->producto_tipo);
+                    if(!$mTipo instanceof Tipo){
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar Tipo, por favor verifique la información o consulte al administrador.']);
                     }
 
                     // Validar unique
@@ -77,7 +90,7 @@ class SirveaController extends Controller
                         return response()->json(['success' => false, 'errors' => "La maquina {$producto->producto_nombre} ya se encuentra asociada a este producto."]);
                     }
 
-                    $sirvea->sirvea_maquina = $pp->id;
+                    $sirvea->sirvea_maquina = $producto_maquina->id;
                     $sirvea->sirvea_codigo = $producto->id;
                     $sirvea->save();
 

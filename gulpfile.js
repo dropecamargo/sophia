@@ -25,7 +25,8 @@ elixir(function(mix) {
 		paths.adminlte + 'plugins/datepicker/datepicker3.css',
         paths.adminlte + 'plugins/timepicker/bootstrap-timepicker.min.css',
 		paths.adminlte + 'dist/css/AdminLTE.min.css',
-		paths.libs + 'font-awesome/css/font-awesome.min.css',
+        paths.libs + 'jquery-ui/themes/base/all.css',
+        paths.libs + 'font-awesome/css/font-awesome.min.css',   
 		paths.libs + 'datatables.net-bs/css/dataTables.bootstrap.css',
 		paths.libs + 'datatables.net-buttons-bs/css/buttons.bootstrap.min.css',
 	], 'public/css/vendor.min.css');
@@ -37,7 +38,11 @@ elixir(function(mix) {
 
 elixir(function(mix) {
     mix.scripts([
+       
     	paths.adminlte + 'plugins/jQuery/jquery-2.2.3.min.js',
+        paths.libs + 'jquery-ui/ui/core.js',
+        paths.libs + 'jquery-ui/ui/widget.js',
+        paths.libs + 'jquery-ui/ui/spinner.js',
         paths.adminlte + 'bootstrap/js/bootstrap.min.js',
         paths.adminlte + 'dist/js/app.min.js',
         paths.adminlte + 'plugins/slimScroll/jquery.slimscroll.min.js',
@@ -76,4 +81,5 @@ elixir(function(mix) {
     mix.copy(paths.adminlte + 'bootstrap/fonts/', 'public/fonts');
     mix.copy(paths.adminlte + 'plugins/iCheck/minimal/red**.png', 'public/css');
     mix.copy(paths.libs + 'font-awesome/fonts/', 'public/fonts');
+    mix.copy(paths.libs + 'jquery-ui/themes/base/images/', 'public/css/images/');
 });
