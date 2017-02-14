@@ -97,7 +97,7 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('actividades.show', { actividades: resp.id})) );
+                window.Misc.redirect( window.Misc.urlFull( Route.route('actividades.index')) );
             }
         }
     });

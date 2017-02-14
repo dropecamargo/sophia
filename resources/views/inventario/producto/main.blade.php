@@ -49,11 +49,11 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="producto_parte" class="control-label">Parte</label>
-                        <input type="text" id="producto_parte" name="producto_parte" value="<%- producto_parte %>" placeholder="Parte" class="form-control input-sm input-toupper" maxlength="20" required>   
+                        <input type="text" id="producto_parte" name="producto_parte" value="<%- producto_parte %>" placeholder="Parte" class="form-control input-sm input-toupper" maxlength="20" >   
                     </div>
                     <div class="form-group col-md-3">
                         <label for="producto_vida_util" class="control-label">Vida util</label>
-                        <input type="number" id="producto_vida_util" name="producto_vida_util" value="<%- producto_vida_util %>" placeholder="Vida util" class="form-control input-sm input-toupper" maxlength="20" required min="0">         
+                        <input type="number" id="producto_vida_util" name="producto_vida_util" value="<%- producto_vida_util %>" placeholder="Vida util" class="form-control input-sm input-toupper" maxlength="20" min="0">         
                     </div>
                 </div>
 
@@ -125,12 +125,12 @@
                                     <i class="fa fa-user"></i>
                                 </button>
                             </span>
-                            <input id="producto_proveedor" placeholder="Cliente" class="form-control tercero-koi-component" name="producto_proveedor" type="text" maxlength="15" data-wrapper="producto-create" data-name="producto_tercero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit %>" required>
+                            <input id="producto_proveedor" placeholder="Cliente" class="form-control tercero-koi-component" name="producto_proveedor" type="text" maxlength="15" data-wrapper="producto-create" data-name="producto_tercero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit %>">
                         </div>
                     </div>
                     <br>
                     <div class="col-sm-5 col-xs-10">
-                        <input id="producto_tercero_nombre" name="producto_tercero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly required>
+                        <input id="producto_tercero_nombre" name="producto_tercero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly>
                     </div>
                     <div class="col-sm-1 col-xs-2">
                         <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="producto_proveedor" > <i class="fa fa-plus"></i></button>

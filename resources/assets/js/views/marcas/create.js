@@ -97,7 +97,7 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('marcas.show', { marcas: resp.id})) );
+                window.Misc.redirect( window.Misc.urlFull( Route.route('marcas.index')) );
             }
         }
     });

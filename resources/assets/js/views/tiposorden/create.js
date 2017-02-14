@@ -97,7 +97,7 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('tiposorden.show', { tiposorden: resp.id})) );
+                window.Misc.redirect( window.Misc.urlFull( Route.route('tiposorden.index')) );
             }
         }
     });

@@ -97,7 +97,7 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('danos.show', { danos: resp.id})) );
+                window.Misc.redirect( window.Misc.urlFull( Route.route('danos.index')) );
             }
         }
     });

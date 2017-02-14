@@ -77,12 +77,14 @@ class ProductoController extends Controller
             if ($producto->isValid($data)) {
                 DB::beginTransaction();
                 try {
-                    $tercero = Tercero::where('tercero_nit', $request->producto_proveedor)->first();
-                    if(!$tercero instanceof Tercero) {
-                        DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
+                    if(isset($data['producto_proveedor']) && $data['producto_proveedor'] != ''){
+                        $tercero = Tercero::where('tercero_nit', $request->producto_proveedor)->first();
+                        if(!$tercero instanceof Tercero) {
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
+                        }
+                        $producto->producto_proveedor = $tercero->id;
                     }
-
                     $tipo = Tipo::find($request->producto_tipo);
                     if(!$tipo instanceof Tipo) {
                         DB::rollback();
@@ -91,7 +93,6 @@ class ProductoController extends Controller
 
                     // producto
                     $producto->fill($data); 
-                    $producto->producto_proveedor = $tercero->id;
                     $producto->save();
 
                     if(in_array($tipo->tipo_codigo, ['EQ'])) {
@@ -167,6 +168,7 @@ class ProductoController extends Controller
         if ($request->ajax()) {
             $data = $request->all();
             $producto = Producto::findOrFail($id);
+            if ($producto->isValid($data)) {
                 DB::beginTransaction();
                 try {
                     // Validar tercero
@@ -189,8 +191,9 @@ class ProductoController extends Controller
                     Log::error($e->getMessage());
                     return response()->json(['success' => false, 'errors' => trans('app.exception')]);
                 }
-            }
-            return response()->json(['success' => false, 'errors' => $producto->errors]);
+          }
+        }
+        return response()->json(['success' => false, 'errors' => $producto->errors]);
         
     }
 

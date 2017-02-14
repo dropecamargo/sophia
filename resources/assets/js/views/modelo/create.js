@@ -98,7 +98,7 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('modelos.show', { modelos: resp.id})) );
+                window.Misc.redirect( window.Misc.urlFull( Route.route('modelos.index')) );
             }
         }
     });

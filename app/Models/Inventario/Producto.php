@@ -30,7 +30,7 @@ class Producto extends Model
      *
      * @var array
      */
-    protected $fillable = ['producto_placa','producto_serie','producto_referencia','producto_codigo','producto_nombre','producto_parte','producto_vida_util','producto_marca','producto_modelo','producto_estado','producto_tipo','producto_proveedor'];
+    protected $fillable = ['producto_placa','producto_serie','producto_referencia','producto_codigo','producto_nombre','producto_parte','producto_vida_util','producto_marca','producto_modelo','producto_estado','producto_tipo'];
 
     public function isValid($data)
     {
@@ -40,14 +40,25 @@ class Producto extends Model
             'producto_referencia' => 'required|max:20',
             'producto_codigo' => 'required|max:20',
             'producto_nombre' => 'required|max:100',
-            'producto_parte' => 'required|max:20',
+            'producto_parte' => 'max:20',
             'producto_estado' => 'required',
             'producto_marca' => 'required',
             'producto_tipo' => 'required',
             'producto_modelo' => 'required',
-            'producto_vida_util' => 'required|numeric'
+            'producto_vida_util'=> 'numeric'
+           
         ];
 
+        if ($data['producto_tipo'] == 2 || $data['producto_tipo'] == 3 || $data['producto_tipo'] == 4) {
+
+            $rules['producto_vida_util'] .= '|required' ;
+        } 
+        if ($data['producto_tipo'] == 2 || $data['producto_tipo'] == 4) {
+
+            $rules['producto_parte'] .= '|required' ;
+        } 
+       
+        
         if($this->exists){
             $rules['producto_placa'] .= ',producto_placa,' . $this->id;
             $rules['producto_serie'] .= ',producto_serie,' . $this->id;
@@ -72,7 +83,7 @@ class Producto extends Model
         $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
         $query->join('modelo', 'producto.producto_modelo', '=', 'modelo.id');
         $query->join('estado', 'producto.producto_estado', '=', 'estado.id');
-        $query->join('tercero', 'producto.producto_proveedor', '=', 'tercero.id');
+        $query->Leftjoin('tercero', 'producto.producto_proveedor', '=', 'tercero.id');
         $query->where('producto.id', $id);
         return $query->first();
     }
