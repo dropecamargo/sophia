@@ -16,7 +16,7 @@ app || (app = {});
             'click .item-sirvea-remove': 'removeOne'
         },
         parameters: {
-        	wrapper: null,
+        	wrapper: false,
             edit: false,
             dataFilter: {}
         },
@@ -30,7 +30,7 @@ app || (app = {});
             if( opts !== undefined && _.isObject(opts.parameters) )
                 this.parameters = $.extend({},this.parameters, opts.parameters);
 
-            this.parameters.wrapper
+            this.parameters.wrapper;
 
             // Events Listeners
             this.listenTo( this.collection, 'add', this.addOne );
@@ -61,7 +61,11 @@ app || (app = {});
                 }
             });
             sirveaModel.view = view;
-            this.$el.prepend( view.render().el );
+            
+           this.$el.prepend( view.render().el );
+
+        
+            
 
         },
 

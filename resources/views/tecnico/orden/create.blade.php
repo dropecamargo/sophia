@@ -6,8 +6,8 @@
 @stop
 
 @section('module')
-	<div class="box box-danger" id="ordenes-create">
-		<div class="box-body" id="render-form-orden">
+	<div class="box box-whithout-border" id="ordenes-create">
+		<div id="render-form-orden">
 			{{-- Render form orden --}}
 		</div>	
 	</div>

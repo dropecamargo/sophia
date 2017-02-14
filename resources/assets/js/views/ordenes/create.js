@@ -14,7 +14,12 @@ app || (app = {});
         el: '#ordenes-create',
         template: _.template( ($('#add-orden-tpl').html() || '') ),
         events: {
+            'click .submit-orden': 'submitOrden',
             'submit #form-orden': 'onStore',
+            'click .submit-visitas': 'submitVisita',
+            'submit #form-visitas': 'onStoreVisita',
+            'submit #form-contadoresp': 'onStoreContadoresp',
+            'submit #form-visitasp': 'onStoreVisitap',
             
         },
         parameters: {
@@ -31,6 +36,13 @@ app || (app = {});
             // Attributes
             this.$wraperForm = this.$('#render-form-orden');
 
+            //Model Exists
+            if( this.model.id != undefined ) {
+                
+                this.visita = new app.VisitaCollection();
+                this.visitap = new app.VisitapCollection();
+                this.contadoresp = new app.ContadorespCollection(); 
+            }
             // Events
             this.listenTo( this.model, 'change', this.render );
             this.listenTo( this.model, 'sync', this.responseServer );
@@ -43,26 +55,114 @@ app || (app = {});
         render: function() {
 
             var attributes = this.model.toJSON();
+             
             this.$wraperForm.html( this.template(attributes) );
+            this.$form = this.$('#form-orden');
+            this.$formvisitasp = this.$('#form-visitas');
+            this.$formcontadoresp = this.$('#form-contadoresp');
+            
+            // Model exist
+            if( this.model.id != undefined ) {
+
+                // Reference views
+                this.referenceViews();
+            }
 
             this.ready();
-           
+        },
+
+        referenceViews:function(){
+
+            this.visitasView = new app.VisitasView( {
+                collection: this.visita,
+                parameters: {
+                    edit: true,
+                    wrapper: this.$('#wrapper-visitas'),
+                    dataFilter: {
+                        'orden_id': this.model.get('id')
+                    }
+               }
+            });
+
+            this.visitaspView = new app.VisitaspView( {
+                collection: this.visitap,
+                parameters: {
+                    edit: true,
+                    wrapper: this.$('#wrapper-visitasp'),
+                    dataFilter: {
+                        'orden_id': this.model.get('id')
+                    }
+               }
+            });
+
+            this.contadorespView = new app.ContadorespView( {
+                collection: this.contadoresp,
+                parameters: {
+                    edit: true,
+                    wrapper: this.$('#wrapper-contadoresp'),
+                    dataFilter: {
+                        'producto_id': this.model.get('id_p')
+                    }
+               }
+            });
         },
         
+        /**
+        *Event Click to Button
+        */
+        submitOrden:function(e){
+            this.$form.submit();
+        },
         /**
         * Event Create Orden
         */
         onStore: function (e) {
 
             if (!e.isDefaultPrevented()) {
-
+                
                 e.preventDefault();
                 var data = window.Misc.formToJson( e.target );
-                //console.log(data);
                 this.model.save( data, {patch: true, silent: true} );
             }
-        },      
+        },  
 
+        submitVisita:function(e){
+            this.$formvisitasp.submit();
+            
+        },
+        /**
+        * Event Create visita
+        */
+        onStoreVisita: function (e) {
+            if (!e.isDefaultPrevented()) {
+                e.preventDefault();
+
+                var data = window.Misc.formToJson( e.target );
+                data.visita_orden = this.model.get('id');
+                
+                // Contadores
+                data = $.extend({}, data, window.Misc.formToJson( this.$formcontadoresp ));
+
+                // Repuestos
+                data.visitap = this.visitap.toJSON();
+                
+                this.visita.trigger( 'store', data );
+            }
+        },  
+
+        /**
+        * Event Create visitap
+        */
+
+        onStoreVisitap: function (e) {
+            if (!e.isDefaultPrevented()) {
+                e.preventDefault();
+
+                var data = window.Misc.formToJson( e.target );
+
+                this.visitap.trigger( 'store', data );
+            }
+        },   
 
         /**
         * fires libraries js
@@ -83,6 +183,12 @@ app || (app = {});
             
             if( typeof window.initComponent.initDatePicker == 'function' )
                 window.initComponent.initDatePicker();
+            
+            if( typeof window.initComponent.initTimePicker == 'function' )
+                window.initComponent.initTimePicker();
+
+            if( typeof window.initComponent.initInputMask == 'function' )
+                window.initComponent.initInputMask();
         },
 
         /**
@@ -98,6 +204,7 @@ app || (app = {});
         responseServer: function ( model, resp, opts ) {
             window.Misc.removeSpinner( this.el );
 
+            
             if(!_.isUndefined(resp.success)) {
                 // response success or error
                 var text = resp.success ? '' : resp.errors;
@@ -111,9 +218,7 @@ app || (app = {});
                 }
 
                 // Redirect to edit orden
-                //Backbone.history.navigate(Route.route('ordenes.edit', { ordenes: resp.id}), { trigger:true });
-
-                window.Misc.redirect( window.Misc.urlFull( Route.route('ordenes.show', { ordenes: resp.id})) );
+                Backbone.history.navigate(Route.route('ordenes.edit', { ordenes: resp.id}), { trigger:true });
             }
         }
     });

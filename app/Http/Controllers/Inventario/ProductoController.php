@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use DB, Log, Datatables;
-use App\Models\Inventario\Producto;
+use DB, Log, Datatables, Cache;
+use App\Models\Inventario\Producto, App\Models\Inventario\Contador, App\Models\Inventario\ProductoContador, App\Models\Inventario\Tipo;
 use App\Models\Base\Tercero;
 
 class ProductoController extends Controller
@@ -22,7 +22,8 @@ class ProductoController extends Controller
     {
         if ($request->ajax()) {
             $query = Producto::query();
-            $query->select('id','producto_codigo','producto_serie' ,'producto_nombre');
+            $query->select('producto.id','producto_serie' ,'producto_nombre', 'tipo_codigo', 'tipo_nombre');
+            $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
 
             // Persistent data filter
             if($request->has('persistent') && $request->persistent) {
@@ -40,6 +41,11 @@ class ProductoController extends Controller
                     // Nombre
                     if($request->has('producto_nombre')) {
                         $query->whereRaw("producto_nombre LIKE '%{$request->producto_nombre}%'");
+                    }
+
+                    // Filter default search
+                    if($request->has('tipo_codigo')) {
+                        $query->whereIn('tipo_codigo', explode(',', $request->tipo_codigo));
                     }
                 })
                 ->make(true);
@@ -71,19 +77,48 @@ class ProductoController extends Controller
             if ($producto->isValid($data)) {
                 DB::beginTransaction();
                 try {
-                    $tercero = Tercero::where('tercero_nit', $request->producto_proveedor)->first();
-                    if(!$tercero instanceof Tercero) {
+                    if($request->has('producto_proveedor')){
+                        $tercero = Tercero::where('tercero_nit', $request->producto_proveedor)->first();
+                        if(!$tercero instanceof Tercero) {
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
+                        }
+                        $producto->producto_proveedor = $tercero->id;
+                    }
+                    $tipo = Tipo::find($request->producto_tipo);
+                    if(!$tipo instanceof Tipo) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);
                     }
 
-                    // grupo
+                    // producto
+                    $result = $producto->validarProducto();
+
+                    if($result == 'OK') {
+                       DB::rollback();
+                       return response()->json(['success' => false, 'errors' => $result]);
+                    }
                     $producto->fill($data); 
-                    $producto->producto_proveedor = $tercero->id;
                     $producto->save();
 
+                    if(in_array($tipo->tipo_codigo, ['EQ'])) {
+                        $contador = Contador::find(Contador::$ctr_machines);
+                        if(!$contador instanceof Contador) {
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar contador para el eqipo, por favor verifique la información o consulte al administrador.']);
+                        }
+
+                        $pcontador = new ProductoContador;
+                        $pcontador->productocontador_producto = $producto->id;
+                        $pcontador->productocontador_contador = $contador->id;
+                        $pcontador->save();
+                    }
+                    
                     // Commit Transaction
                     DB::commit();
+
+                    //forget cache
+                    Cache::forget( Producto::$key_cache );
 
                     return response()->json(['success' => true, 'id' => $producto->id]);
                 }catch(\Exception $e){
@@ -138,18 +173,21 @@ class ProductoController extends Controller
         if ($request->ajax()) {
             $data = $request->all();
             $producto = Producto::findOrFail($id);
+            if ($producto->isValid($data)) {
                 DB::beginTransaction();
                 try {
-                    // Validar tercero
-                    $tercero = Tercero::where('tercero_nit', $request->producto_proveedor)->first();
-                    if(!$tercero instanceof Tercero) {
-                        DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
+                   if($request->has('producto_proveedor')){
+                        $tercero = Tercero::where('tercero_nit', $request->producto_proveedor)->first();
+                        if(!$tercero instanceof Tercero) {
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
+                        }
+                        $producto->producto_proveedor = $tercero->id;
                     }
 
                     // producto
                     $producto->fill($data);
-                    $producto->producto_proveedor = $tercero->id;
+                   
                     $producto->save();
 
                     // Commit Transaction
@@ -160,8 +198,9 @@ class ProductoController extends Controller
                     Log::error($e->getMessage());
                     return response()->json(['success' => false, 'errors' => trans('app.exception')]);
                 }
-            }
-            return response()->json(['success' => false, 'errors' => $producto->errors]);
+          }
+        }
+        return response()->json(['success' => false, 'errors' => $producto->errors]);
         
     }
 
@@ -174,5 +213,24 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Search producto.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        if($request->has('producto_serie')) {
+            $producto = Producto::select('producto.id', 'producto_nombre', 'tipo_codigo')
+                ->join('tipo', 'producto_tipo', '=', 'tipo.id')
+                ->where('producto_serie', $request->producto_serie)->first();
+            
+            if($producto instanceof Producto) {
+                return response()->json(['success' => true, 'id' => $producto->id, 'producto_nombre' => $producto->producto_nombre, 'tipo_codigo' => $producto->tipo_codigo]);
+            }
+        }
+        return response()->json(['success' => false]);
     }
 }

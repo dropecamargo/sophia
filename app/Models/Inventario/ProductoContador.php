@@ -4,7 +4,7 @@ namespace App\Models\Inventario;
 
 use Illuminate\Database\Eloquent\Model;
 
-use Validator,Cache;
+use Validator,Cache,DB;
 
 class ProductoContador extends Model
 {
@@ -17,13 +17,7 @@ class ProductoContador extends Model
 
     public $timestamps = false;
 
-    /**
-     * The key used by cache store.
-     *
-     * @var static string
-     */
-    public static $key_cache = '_productoscontador';
-
+    
     public function isValid($data)
     {
         $rules = [
@@ -39,19 +33,23 @@ class ProductoContador extends Model
         return false;
     }
 
-    public static function getContadores()
+  
+    public static function getProductoContador($id)
     {
-        if ( Cache::has(self::$key_cache)) {
-            return Cache::get(self::$key_cache);
-        }
+        $query = ProductoContador::query();
+        $query->select('productocontador.*','producto.producto_nombre','contador.contador_nombre');
+        $query->where('productocontador_producto', $id);
+        $query->join('contador', 'productocontador.productocontador_contador', '=', 'contador.id');
+        $query->join('producto', 'productocontador.productocontador_producto', '=', 'producto.id'); 
+        $query->orderBy('productocontador.id', 'asc');
+        return  $query->get();
+    }
 
-        return Cache::rememberForever( self::$key_cache , function() {
-            $query = Contador::query();
-            $query->orderBy('contador_nombre', 'asc');
-            $collection = $query->lists('contador_nombre', 'contador.id');
-
-            $collection->prepend('', '');
-            return $collection;
-        });
+    /**
+     * Get the contador record associated with the producto contador.
+     */
+    public function contador()
+    {
+        return $this->hasOne('App\Models\Inventario\Contador', 'id' , 'productocontador_contador');
     }
 }

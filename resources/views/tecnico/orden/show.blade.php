@@ -28,8 +28,9 @@
                 <div class="form-group col-md-12">
                     <label class="control-label">Tercero</label>
                     <div>
-                        <a href="{{ route('terceros.show', ['terceros' =>  $orden->orden_tercero ]) }}" title="Ver tercero">{{$orden->tercero_nit}}</a>
-                        {{ $orden->tercero_nombre }}
+                        Documento: <a href="{{ route('terceros.show', ['terceros' =>  $orden->orden_tercero ]) }}" title="Ver tercero">{{$orden->tercero_nit}}</a>
+                        <br>
+                        Nombre: {{ $orden->tercero_nombre }}
                     </div>
                 </div>
             </div>
@@ -39,11 +40,9 @@
             		<label class="control-label">Fecha</label>
             		<div>{{ $orden->orden_fecha }}</div>
             	</div>
-            </div>
 
-            <div class="row">
             	<div class="form-group col-md-3">
-            		<label class="control-label">dano</label>
+            		<label class="control-label">Daño</label>
             		<div>{{ $orden->dano_nombre }}</div>
             	</div>
             </div>
@@ -53,9 +52,7 @@
             		<label class="control-label">Tipo</label>
             		<div>{{ $orden->tipoorden_nombre }}</div>
             	</div>
-            </div>
 
-             <div class="row">
             	<div class="form-group col-md-3">
             		<label class="control-label">Prioridad</label>
             		<div>{{ $orden->prioridad_nombre }}</div>
@@ -80,8 +77,7 @@
                         <input type="checkbox" id="orden_abierta" name="orden_abierta" value="orden_abierta" disabled {{ $orden->orden_abierta ? 'checked': '' }}> Activo
                     </label>
                 </div>
-            </div>
-            <br/><br/>	     
+            </div>     
         </div>
     </div>
 @stop

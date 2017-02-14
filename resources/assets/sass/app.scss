@@ -62,7 +62,7 @@ label {
 }
 
 // Icheck
-.icheckbox_minimal-red.checked.disabled {
+.icheckbox_minimal-green.checked.disabled {
     background-position: -40px 0;
 }
 
@@ -130,4 +130,8 @@ label {
 .tab-whithout-box-shadow {
 	box-shadow: none;
 	margin-bottom: 0px;
+}
+
+.white-space-normal {
+	white-space: normal;
 }

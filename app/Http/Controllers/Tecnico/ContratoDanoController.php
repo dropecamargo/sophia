@@ -60,7 +60,7 @@ class ContratoDanoController extends Controller
 
                 DB::beginTransaction();
                 try {
-                      // Validar producto
+                      // Validar contrato
                     $contrato = Contrato::find($request->contratodano_contrato);
                     if(!$contrato instanceof Contrato) {
                         DB::rollback();

@@ -44,6 +44,10 @@ app || (app = {});
             this.$productosSearchTable = this.$modalComponent.find('#koi-search-producto-component-table');
 			this.$inputContent = this.$("#"+$(e.currentTarget).attr("data-field"));
 			this.$inputName = this.$("#"+this.$inputContent.attr("data-name"));
+			this.$wraperType = this.$("#"+this.$inputContent.attr("data-render"));
+			
+			// Filters
+			this.tipo_codigo = this.$inputContent.attr("data-tipo");
 
 			this.productosSearchTable = this.$productosSearchTable.DataTable({
 				dom: "<'row'<'col-sm-12'tr>>" +
@@ -56,11 +60,14 @@ app || (app = {});
                     data: function( data ) {
                         data.producto_serie = _this.$searchSerie.val();
                         data.producto_nombre = _this.$searchNombre.val();
+                        data.tipo_codigo = _this.tipo_codigo;
                     }
                 },
                 columns: [
                     { data: 'producto_serie', name: 'producto_serie' },
-                    { data: 'producto_nombre', name: 'producto_nombre' }
+                    { data: 'producto_nombre', name: 'producto_nombre' },
+                    { data: 'tipo_nombre', name: 'producto_tipo' },
+                    { data: 'tipo_codigo', name: 'tipo_codigo' }
                 ],
                 columnDefs: [
 					{
@@ -70,6 +77,10 @@ app || (app = {});
 						render: function ( data, type, full, row ) {
 							return '<a href="#" class="a-koi-search-producto-component-table">' + data + '</a>';
 						}
+					},
+					{
+						targets: 3,
+						visible: false						
 					}
                 ]
 			});
@@ -86,6 +97,10 @@ app || (app = {});
 
 			this.$inputContent.val( data.producto_serie );
 			this.$inputName.val( data.producto_nombre );
+
+		 	if(this.$wraperType.length) {
+                this.renderType(data.tipo_codigo);
+            }
 
 			this.$modalComponent.modal('hide');
 		},
@@ -111,6 +126,7 @@ app || (app = {});
 			this.$inputContent = $(e.currentTarget);
 			this.$inputName = this.$("#"+$(e.currentTarget).attr("data-name"));
 			this.$wraperConten = this.$("#"+$(e.currentTarget).attr("data-wrapper"));
+			this.$wraperType = this.$("#"+this.$inputContent.attr("data-render"));
 
 			var producto = this.$inputContent.val();
 
@@ -130,9 +146,14 @@ app || (app = {});
 	            })
 	            .done(function(resp) {
 	                window.Misc.removeSpinner( _this.$wraperConten );
+	                
 	                if(resp.success) {
 	                    if(!_.isUndefined(resp.producto_nombre) && !_.isNull(resp.producto_nombre)){
 							_this.$inputName.val(resp.producto_nombre);
+	                    }
+
+	                    if(_this.$wraperType.length) {
+    		            	_this.renderType(resp.tipo_codigo);
 	                    }
 	                }
 	            })
@@ -142,6 +163,21 @@ app || (app = {});
 	            });
 	     	}
 		},
+
+
+        /**
+        * Render form type
+        */
+        renderType: function (type) {
+        	this.$wraperType.empty();
+
+        	var data = { };
+        	if( type == 'AC') {
+	        	data.producto_tipo = type;
+	        	var template = _.template($('#koi-search-producto-type-component-tpl').html());
+	           	this.$wraperType.html( template( data ) );
+        	}
+        },
 
         /**
         * fires libraries js

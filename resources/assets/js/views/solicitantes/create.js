@@ -97,7 +97,7 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('solicitantes.show', { solicitantes: resp.id})) );
+                window.Misc.redirect( window.Misc.urlFull( Route.route('solicitantes.index')) );
             }
         }
     });

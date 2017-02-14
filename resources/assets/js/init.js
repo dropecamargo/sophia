@@ -37,8 +37,10 @@ var app = app || {};
             this.initAlertify();
             this.initSelect2();
             this.initToUpper();
+            this.initSpinner();
             this.initInputMask();
             this.initDatePicker();
+            this.initTimePicker();
         },
 
         /**
@@ -83,6 +85,26 @@ var app = app || {};
         },
 
         /**
+        * Init initSpinner
+        */
+        initSpinner: function () {
+            $('.spinner-percentage').spinner({
+                step: 0.1,
+                start: 0,
+                min: 0,
+                max: 100,
+                numberFormat: "n",
+                stop: function( event, ui ) {
+                    if(!_.isNull(this.value) && !_.isUndefined(this.value) && !_.isEmpty(this.value)) {
+                        if(!$.isNumeric( this.value ) || this.value > 100 || this.value < 0){
+                            $(this).spinner( 'value', 0 );
+                        }
+                    }
+               }
+            });
+        },
+
+        /**
         * Init inputMask
         */
         initInputMask: function () {
@@ -118,6 +140,17 @@ var app = app || {};
                 autoclose: true,
                 language: 'es',
                 format: 'yyyy-mm-dd'
+            });
+        },
+
+        /**
+        * Init Timepicker
+        */
+        initTimePicker: function () {
+
+            $(".timepicker").timepicker({
+                showInputs: false,
+                showMeridian: false
             });
         }
     };

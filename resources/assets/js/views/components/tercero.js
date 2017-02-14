@@ -28,7 +28,7 @@ app || (app = {});
         nitChanged: function(e) {
             var _this = this;
 
-            // Reference to fields
+           // Reference to fields
             this.$dv = $("#"+$(e.currentTarget).attr("data-field"));
         	this.$wraperContent = this.$('#tercero-create');
             if(!this.$wraperContent.length) {

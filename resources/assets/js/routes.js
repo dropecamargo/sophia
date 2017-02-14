@@ -108,6 +108,7 @@ app || (app = {});
             'ordenes(/)': 'getOrdenesMain',
             'ordenes/create(/)': 'getOrdenesCreate',
             //'ordenes/:orden(/)': 'getOrdenesShow',
+            'ordenes/visitasp/create(/)(?*queryString)': 'getOrdenesVisitaspCreate',
             'ordenes/:orden/edit(/)': 'getOrdenesEdit',
  
             
@@ -115,6 +116,16 @@ app || (app = {});
             'prioridades(/)': 'getPrioridadesMain',
             'prioridades/create(/)': 'getPrioridadesCreate',
             'prioridades/:prioridades/edit(/)': 'getPrioridadesEdit',
+
+            //Zona
+            'zonas(/)': 'getZonasMain',
+            'zonas/create(/)': 'getZonasCreate',
+            'zonas/:zonas/edit(/)': 'getZonasEdit',
+
+            //Asignacion #1
+            'asignaciones(/)': 'getAsignacionesMain',
+            'asignaciones/create(/)': 'getAsignacionesCreate',
+            'asignaciones/:asignacion(/)': 'getAsignacionesShow',
         },
 
         /**
@@ -152,6 +163,8 @@ app || (app = {});
             this.componentTerceroView = new app.ComponentTerceroView();
             this.componentCreateResourceView = new app.ComponentCreateResourceView();
             this.componentSearchProductoView = new app.ComponentSearchProductoView();
+            this.componentSearchContactoView = new app.ComponentSearchContactoView();
+            this.componentSearchContratoView = new app.ComponentSearchContratoView();
       	},
 
         /**
@@ -809,6 +822,31 @@ app || (app = {});
         },
 
         /**
+        * show view create visitasp en ordenes ion
+        
+        getOrdenesVisitaspCreate: function (queryString) {
+            var queries = this.parseQueryString(queryString);
+          
+           this.visitapModel = new app.VisitapModel();
+
+            if ( this.createVisitasp2View instanceof Backbone.View ){
+                this.createVisitaspView.stopListening();
+                this.createVisitaspView.undelegateEvents();
+            }
+ 
+            this.createVisitaspView = new app.VisitaspView({
+                model: this.visitapModel,
+                parameters: {
+                    data : {
+                        visitap_orden: queries.orden,
+                        visitap: queries.producto
+                    }
+                }
+            });
+            this.createVisitaspView.render();
+        },
+
+        /**
         * show view edit ordenes
         */
         getOrdenesEdit: function (orden) {
@@ -822,6 +860,77 @@ app || (app = {});
 
             this.createOrdenView = new app.CreateOrdenView({ model: this.ordenModel });
             this.ordenModel.fetch();
+        },
+
+        // Zonas
+        getZonasMain: function () {
+
+            if ( this.mainZonaView instanceof Backbone.View ){
+                this.mainZonaView.stopListening();
+                this.mainZonaView.undelegateEvents();
+            }
+
+            this.mainZonaView = new app.MainZonasView( );
+        },
+
+        getZonasCreate: function () {
+            this.zonaModel = new app.ZonaModel();
+
+            if ( this.createZonaView instanceof Backbone.View ){
+                this.createZonaView.stopListening();
+                this.createZonaView.undelegateEvents();
+            }
+
+            this.createZonaView = new app.CreateZonaView({ model: this.zonaModel });
+            this.createZonaView.render();
+        },
+
+        getZonasEdit: function (zonas) {
+            this.zonaModel = new app.ZonaModel();
+            this.zonaModel.set({'id': zonas}, {'silent':true});
+
+            if ( this.createZonaView instanceof Backbone.View ){
+                this.createZonaView.stopListening();
+                this.createZonaView.undelegateEvents();
+            }
+
+            this.createZonaView = new app.CreateZonaView({ model: this.zonaModel });
+            this.zonaModel.fetch();
+        },
+
+        // Asignacion #1
+        getAsignacionesMain: function () {
+
+            if ( this.mainAsignacion1View instanceof Backbone.View ){
+                this.mainAsignacion1View.stopListening();
+                this.mainAsignacion1View.undelegateEvents();
+            }
+
+            this.mainAsignacion1View = new app.MainAsignacion1sView( );
+        },
+
+        getAsignacionesCreate: function () {
+            this.asignacion1Model = new app.Asignacion1Model();
+
+            if ( this.createAsignacion1View instanceof Backbone.View ){
+                this.createAsignacion1View.stopListening();
+                this.createAsignacion1View.undelegateEvents();
+            }
+
+            this.createAsignacion1View = new app.CreateAsignacion1View({ model: this.asignacion1Model });
+            this.createAsignacion1View.render();
+        },
+
+        getAsignacionesShow: function (asignacion) {
+            this.asignacion1Model = new app.Asignacion1Model();
+            this.asignacion1Model.set({'id': asignacion}, {'silent':true});
+
+            if ( this.showAsignacion1View instanceof Backbone.View ){
+                this.showAsignacion1View.stopListening();
+                this.showAsignacion1View.undelegateEvents();
+            }
+
+            this.showAsignacion1View = new app.ShowAsignacion1View({ model: this.asignacion1Model });
         },
        
     }) );

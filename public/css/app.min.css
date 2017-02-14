@@ -46,7 +46,7 @@ label {
 .dropdown-submenu:hover > a:after {
   border-left-color: #fff; }
 
-.icheckbox_minimal-red.checked.disabled {
+.icheckbox_minimal-green.checked.disabled {
   background-position: -40px 0; }
 
 .list-unstyled {
@@ -98,5 +98,8 @@ label {
 .tab-whithout-box-shadow {
   box-shadow: none;
   margin-bottom: 0px; }
+
+.white-space-normal {
+  white-space: normal; }
 
 /*# sourceMappingURL=app.min.css.map */
