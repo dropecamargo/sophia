@@ -91,15 +91,16 @@ class ProductoController extends Controller
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);
                     }
 
-                    // producto
-                    $result = $producto->validarProducto();
-
-                    if($result == 'OK') {
-                       DB::rollback();
-                       return response()->json(['success' => false, 'errors' => $result]);
-                    }
                     $producto->fill($data); 
                     $producto->save();
+                    $result = $producto->validarProducto(); 
+
+                    // producto
+                    /*if($result == 'EQ') {
+
+                       DB::rollback();
+                       return response()->json(['success' => false, 'errors' => $result]);
+                    }*/
 
                     if(in_array($tipo->tipo_codigo, ['EQ'])) {
                         $contador = Contador::find(Contador::$ctr_machines);

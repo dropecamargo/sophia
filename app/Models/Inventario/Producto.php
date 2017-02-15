@@ -109,6 +109,21 @@ class Producto extends Model
     */
 
     public function validarProducto(){
-      return "OK";
+      
+        $tipo = $this->tipo->tipo_codigo;
+        if(in_array($tipo, ['CO', 'RP'])) {
+            #code ..
+        }
+
+        // return $tipo;
+ 
+    }
+
+     /**
+     * Get tipoProducto
+     */
+    public function tipo()
+    {
+        return $this->hasOne('App\Models\Inventario\Tipo', 'id' , 'producto_tipo');
     }
 }
