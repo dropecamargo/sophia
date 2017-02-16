@@ -31,6 +31,7 @@ app || (app = {});
             'producto_proveedor': '',
             'producto_vida_util': '',
             'contador_nombre': '',
+            'tipo_codigo': '',
             'producto_costo_promedio': '',
             'producto_ultimo_costo': ''
         }

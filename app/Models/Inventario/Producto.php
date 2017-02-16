@@ -30,7 +30,7 @@ class Producto extends Model
     *
     * @var array
     */
-    protected $fillable = ['producto_placa','producto_serie','producto_referencia','producto_codigo','producto_nombre','producto_parte','producto_vida_util','producto_marca','producto_modelo','producto_estado','producto_tipo'];
+    protected $fillable = ['producto_placa','producto_serie','producto_marca','producto_modelo','producto_referencia','producto_codigo','producto_nombre','producto_parte','producto_vida_util','producto_estado','producto_tipo'];
 
     public function isValid($data)
     {
@@ -67,11 +67,11 @@ class Producto extends Model
     public static function getProducto($id)
     {
         $query = Producto::query();
-        $query->select('producto.*','tercero_nit', 'marca_modelo', 'modelo_nombre', 'tipo_nombre', 'estado_nombre',DB::raw("CONCAT(tercero_nombre1, ' ', tercero_nombre2, ' ', tercero_apellido1, ' ', tercero_apellido2) as tercero_nombre"));
-        $query->join('marca', 'producto.producto_marca', '=', 'marca.id');
+        $query->select('producto.*','tercero_nit', 'marca_modelo', 'modelo_nombre', 'tipo_nombre','tipo_codigo', 'estado_nombre',DB::raw("CONCAT(tercero_nombre1, ' ', tercero_nombre2, ' ', tercero_apellido1, ' ', tercero_apellido2) as tercero_nombre"));
+        $query->Leftjoin('marca', 'producto.producto_marca', '=', 'marca.id');
         $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
-        $query->join('modelo', 'producto.producto_modelo', '=', 'modelo.id');
-        $query->join('estado', 'producto.producto_estado', '=', 'estado.id');
+        $query->Leftjoin('modelo', 'producto.producto_modelo', '=', 'modelo.id');
+        $query->Leftjoin('estado', 'producto.producto_estado', '=', 'estado.id');
         $query->Leftjoin('tercero', 'producto.producto_proveedor', '=', 'tercero.id');
         $query->where('producto.id', $id);
         return $query->first();
@@ -108,6 +108,7 @@ class Producto extends Model
                 return trans('validation.required_if', ['attribute' => 'Vida util', 'other' => 'Tipo',  'value' => 'Repuesto, Consumible o Insumo']);
             }
         }
+
         return 'OK';
     }
 

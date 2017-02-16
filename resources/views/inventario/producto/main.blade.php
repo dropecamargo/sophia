@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="form-group col-md-3">
                     <label for="producto_placa" class="control-label">Placa</label>
-                    <input type="text" id="producto_placa" name="producto_placa" value="<%- producto_placa %>" placeholder="Placa" class="form-control input-sm input-toupper" maxlength="20">
+                    <input type="number" id="producto_placa" min="1" max="99999999" name="producto_placa" value="<%- producto_placa %>" placeholder="Placa" class="form-control input-sm input-toupper" >
                 </div>
                 <div class="form-group col-md-3">
                     <label for="producto_serie" class="control-label">Serie</label>
@@ -61,7 +61,7 @@
             <div class="row">
                 <div class="form-group col-md-3">
                 <label for="producto_marca" class="control-label">Marca</label>
-                    <select name="producto_marca" id="producto_marca" class="form-control select2-default" required>
+                    <select name="producto_marca" id="producto_marca" class="form-control select2-default" required="">
                         <option value="" selected>Seleccione</option>
                         @foreach( App\Models\Inventario\Marca::getMarcas() as $key => $value)
                             <option value="{{ $key }}" <%- producto_marca == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
@@ -78,7 +78,7 @@
                 
                 <div class="form-group col-md-3">
                 <label for="producto_modelo" class="control-label">Modelo</label>
-                    <select name="producto_modelo" id="producto_modelo" class="form-control select2-default" required>
+                    <select name="producto_modelo" id="producto_modelo" class="form-control select2-default" required="">
                         <option value="" selected>Seleccione</option>
                         @foreach( App\Models\Inventario\Modelo::getModelos() as $key => $value)
                             <option value="{{ $key }}" <%- producto_modelo == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
@@ -159,21 +159,25 @@
                 <div class="form-group col-md-12">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <% if( producto_tipo == 1 ) { %>
-                                <li class="active"><a href="#tab_productoscontador" data-toggle="tab">Contador</a></li>
-                            <% }else{ %>
+                            <% if(tipo_codigo != 'EQ'){ %>
+
                                 <li class="active"><a href="#tab_sirveas" data-toggle="tab">Sirve a</a></li>
-                              
+                            
+                            <% }else{ %>
+
+                                <li class="active"><a href="#tab_productoscontador" data-toggle="tab">Contador</a></li>
+                           
                             <% } %>
-                        </ul>  
+                        </ul> 
 
                         <div class="tab-content">
                         {{-- Content sirveas --}}
-                        <% if(producto_tipo != 1) { %>
-                            <div class="tab-pane active" id="tab_sirveas">
-                        <% }else{ %>
-                            <div class="tab-pane" id="tab_sirveas">
-                        <% } %>
+                            
+                            <% if(tipo_codigo != 'EQ'){ %>
+                                <div class="tab-pane-active" id="tab_sirveas">
+                            <%}else{ %>    
+                                <div class="tab-pane" id="tab_sirveas">
+                            <% } %>
                                 <div class="box box-danger" id="wrapper-producto-sirveas">
                                     <div class="box-body">
                                         <form method="POST" accept-charset="UTF-8" id="form-item-sirvea" data-toggle="validator">
@@ -218,11 +222,13 @@
                             </div>
 
                             {{-- Content productoscontador --}}
-                            <% if( producto_tipo == 1 ) { %>
-                                <div class="tab-pane active" id="tab_productoscontador">  
-                            <% }else{ %>
-                                <div class="tab-pane" id="tab_productoscontador">
-                            <% } %>  
+                         
+                                <% if (tipo_codigo != 'EQ'){%>
+                                    <div class="tab-pane" id="tab_productoscontador">
+                                <% }else{ %>
+                                    <div class="tab-pane-active" id="tab_productoscontador">
+                                <% } %>
+                                
                                     <div class="box box-danger" id="wrapper-producto-productoscontador">
                                         <div class="box-body">
                                             <form method="POST" accept-charset="UTF-8" id="form-item-productocontador" data-toggle="validator">

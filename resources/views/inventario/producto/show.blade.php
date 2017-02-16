@@ -107,17 +107,16 @@
             <div class="form-group col-md-12">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        @if( $producto->producto_tipo == 1 )
-                            <li class="active"><a href="#tab_productoscontador" data-toggle="tab">Contador</a></li>
-                        @else
+                        @if( $producto->tipo_codigo != 'EQ' )
                             <li class="active"><a href="#tab_sirveas" data-toggle="tab">Sirve a</a></li>
-                            <li><a href="#tab_productoscontador" data-toggle="tab">Contador</a></li>
+                        @else
+                            <li class="active"><a href="#tab_productoscontador" data-toggle="tab">Contador</a></li>
                         @endif
                     </ul>
 
                     <div class="tab-content">
                         {{-- Content sirveas --}}
-                        @if( $producto->producto_tipo != 1)
+                        @if( $producto->tipo_codigo != 'EQ')
                             <div class="tab-pane active" id="tab_sirveas">
                         @else
                             <div class="tab-pane" id="tab_sirveas">
@@ -143,10 +142,10 @@
                         </div>
 
                         {{-- Content productoscontador --}}
-                        @if( $producto->producto_tipo == 1 )
-                            <div class="tab-pane active" id="tab_productoscontador">  
-                        @else
+                        @if( $producto->tipo_codigo != 'EQ')
                             <div class="tab-pane" id="tab_productoscontador">
+                        @else
+                            <div class="tab-pane active" id="tab_productoscontador">  
                         @endif 
                             <div class="box box-danger" id="wrapper-producto-productoscontador">
                                 <div class="box-body">

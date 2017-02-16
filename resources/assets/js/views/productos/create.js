@@ -68,29 +68,36 @@ app || (app = {});
         * reference to views
         */
         referenceViews: function () {
-            //Sirvea list
-            this.sirveasListView = new app.SirveasListView( {
-                collection: this.sirveasList,
-                parameters: {
-                    edit: true,
-                    wrapper: this.$('#wrapper-producto-sirveas'),
-                    dataFilter: {
-                        'producto_id': this.model.get('id')
-                    }
-               }
-            });
 
-            //ProductoContador list
-            this.productoscontadorListView = new app.ProductosContadorListView( {
-                collection: this.productoscontadorList,
-                parameters: {
-                    edit: true,
-                    wrapper: this.$('#wrapper-producto-productoscontador'),
-                    dataFilter: {
-                        'producto_id': this.model.get('id')
-                    }
-               }
-            });
+            if (this.model.get('tipo_codigo') != 'EQ') 
+            {
+
+                //Sirvea list
+                this.sirveasListView = new app.SirveasListView( {
+                    collection: this.sirveasList,
+                    parameters: {
+                        edit: true,
+                        wrapper: this.$('#wrapper-producto-sirveas'),
+                        dataFilter: {
+                            'producto_id': this.model.get('id')
+                        }
+                   }
+                });
+
+            }else{
+
+                //ProductoContador list
+                this.productoscontadorListView = new app.ProductosContadorListView( {
+                    collection: this.productoscontadorList,
+                    parameters: {
+                        edit: true,
+                        wrapper: this.$('#wrapper-producto-productoscontador'),
+                        dataFilter: {
+                            'producto_id': this.model.get('id')
+                        }
+                   }
+                });
+            }
         },
 
         /**
@@ -189,8 +196,9 @@ app || (app = {});
                     this.createProductoView.undelegateEvents();
                 }
 
-                // Redirect to edit orden
-                Backbone.history.navigate(Route.route('productos.edit', { productos: resp.id}), { trigger:true });
+                // Redirect to edit producto
+                Backbone.history.loadUrl(Route.route('productos.edit', { productos: resp.id}), { trigger:true });
+            
             }
         }
     });
