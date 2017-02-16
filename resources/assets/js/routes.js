@@ -13,7 +13,7 @@ app || (app = {});
         routes : {
             //Login
             'login(/)': 'getLogin',
-            
+
             /*
             |-----------------------
             | Administracion
@@ -24,7 +24,7 @@ app || (app = {});
             'terceros(/)': 'getTercerosMain',
             'terceros/create(/)': 'getTercerosCreate',
             'terceros/:tercero(/)': 'getTercerosShow',
-            'terceros/:tercero/edit(/)': 'getTercerosEdit',            
+            'terceros/:tercero/edit(/)': 'getTercerosEdit',
 
             //Actividades
             'actividades(/)': 'getActividadesMain',
@@ -110,8 +110,7 @@ app || (app = {});
             //'ordenes/:orden(/)': 'getOrdenesShow',
             'ordenes/visitasp/create(/)(?*queryString)': 'getOrdenesVisitaspCreate',
             'ordenes/:orden/edit(/)': 'getOrdenesEdit',
- 
-            
+
             //Prioridad
             'prioridades(/)': 'getPrioridadesMain',
             'prioridades/create(/)': 'getPrioridadesCreate',
@@ -233,6 +232,7 @@ app || (app = {});
         },
 
         getTercerosEdit: function (tercero) {
+            console.log( 'getTercerosEdit', tercero );
             this.terceroModel = new app.TerceroModel();
             this.terceroModel.set({'id': tercero}, {'silent':true});
 
@@ -754,7 +754,7 @@ app || (app = {});
         */
 
 
-       getContratosCreate:function(){ 
+       getContratosCreate:function(){
             this.contratoModel = new app.ContratoModel();
 
             if ( this.createContratoView instanceof Backbone.View ){
@@ -764,7 +764,7 @@ app || (app = {});
 
             this.createContratoView = new app.CreateContratoView({ model: this.contratoModel });
             this.createContratoView.render();
-        },  
+        },
 
          getContratosEdit: function (contrato) {
             this.contratoModel = new app.ContratoModel();
@@ -777,7 +777,7 @@ app || (app = {});
 
             this.createContratoView = new app.CreateContratoView({ model: this.contratoModel });
             this.contratoModel.fetch();
-        },  
+        },
 
         /**
         * show view main ordenes
@@ -792,7 +792,7 @@ app || (app = {});
         },
 
         /**
-        * show view create ordenes 
+        * show view create ordenes
         */
         getOrdenesCreate: function () {
             this.ordenModel = new app.OrdenModel();
@@ -808,7 +808,7 @@ app || (app = {});
 
         /**
         * show view show orden
-        
+
         getOrdenesShow: function (orden) {
             this.ordenModel = new app.OrdenModel();
             this.ordenModel.set({'id': orden}, {'silent':true});
@@ -823,17 +823,17 @@ app || (app = {});
 
         /**
         * show view create visitasp en ordenes ion
-        
+
         getOrdenesVisitaspCreate: function (queryString) {
             var queries = this.parseQueryString(queryString);
-          
+
            this.visitapModel = new app.VisitapModel();
 
             if ( this.createVisitasp2View instanceof Backbone.View ){
                 this.createVisitaspView.stopListening();
                 this.createVisitaspView.undelegateEvents();
             }
- 
+
             this.createVisitaspView = new app.VisitaspView({
                 model: this.visitapModel,
                 parameters: {
@@ -932,7 +932,7 @@ app || (app = {});
 
             this.showAsignacion1View = new app.ShowAsignacion1View({ model: this.asignacion1Model });
         },
-       
+
     }) );
 
 })(jQuery, this, this.document);
