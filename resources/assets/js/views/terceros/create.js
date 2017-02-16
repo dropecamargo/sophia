@@ -125,6 +125,7 @@ app || (app = {});
         responseServer: function ( model, resp, opts ) {
             window.Misc.removeSpinner( this.el );
 
+            console.log( 'responseServer', model );
             if(!_.isUndefined(resp.success)) {
                 // response success or error
                 var text = resp.success ? '' : resp.errors;

@@ -232,7 +232,6 @@ app || (app = {});
         },
 
         getTercerosEdit: function (tercero) {
-            console.log( 'getTercerosEdit', tercero );
             this.terceroModel = new app.TerceroModel();
             this.terceroModel.set({'id': tercero}, {'silent':true});
 
