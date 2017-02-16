@@ -49,11 +49,11 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="producto_parte" class="control-label">Parte</label>
-                    <input type="text" id="producto_parte" name="producto_parte" value="<%- producto_parte %>" placeholder="Parte" class="form-control input-sm input-toupper" maxlength="20">   
+                    <input type="text" id="producto_parte" name="producto_parte" value="<%- producto_parte %>" placeholder="Parte" class="form-control input-sm input-toupper" maxlength="20">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="producto_vida_util" class="control-label">Vida util</label>
-                    <input type="number" id="producto_vida_util" name="producto_vida_util" value="<%- producto_vida_util %>" placeholder="Vida util" class="form-control input-sm input-toupper" maxlength="20" min="0">         
+                    <input type="number" id="producto_vida_util" name="producto_vida_util" value="<%- producto_vida_util %>" placeholder="Vida util" class="form-control input-sm input-toupper" maxlength="20" min="0">
 
                 </div>
             </div>
@@ -75,7 +75,7 @@
                     </button>
                 </div>
 
-                
+
                 <div class="form-group col-md-3">
                 <label for="producto_modelo" class="control-label">Modelo</label>
                     <select name="producto_modelo" id="producto_modelo" class="form-control select2-default" required="">
@@ -108,7 +108,7 @@
 
                 <div class="form-group col-md-3">
                 <label for="producto_tipo" class="control-label">Tipo</label>
-                    <select name="producto_tipo" id="producto_tipo" class="form-control select2-default" required> 
+                    <select name="producto_tipo" id="producto_tipo" class="form-control select2-default" required>
                         <option value="" selected>Seleccione</option>
                         @foreach( App\Models\Inventario\Tipo::getTipos() as $key => $value)
                             <option value="{{ $key }}" <%- producto_tipo == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
@@ -139,7 +139,7 @@
                     </div>
                 </div>
                 <br>
-                
+
             </div>
         </form>
 
@@ -153,31 +153,22 @@
                 </div>
             </div>
         </div>
-            
+
         <% if( typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '') { %>
             <div class="row">
                 <div class="form-group col-md-12">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             <% if(tipo_codigo != 'EQ'){ %>
-
                                 <li class="active"><a href="#tab_sirveas" data-toggle="tab">Sirve a</a></li>
-                            
                             <% }else{ %>
-
                                 <li class="active"><a href="#tab_productoscontador" data-toggle="tab">Contador</a></li>
-                           
                             <% } %>
-                        </ul> 
+                        </ul>
 
                         <div class="tab-content">
-                        {{-- Content sirveas --}}
-                            
-                            <% if(tipo_codigo != 'EQ'){ %>
-                                <div class="tab-pane-active" id="tab_sirveas">
-                            <%}else{ %>    
-                                <div class="tab-pane" id="tab_sirveas">
-                            <% } %>
+                            {{-- Content sirveas --}}
+                            <div class="tab-pane<%- tipo_codigo != 'EQ' ? '-active' : '' %>" id="tab_sirveas">
                                 <div class="box box-danger" id="wrapper-producto-sirveas">
                                     <div class="box-body">
                                         <form method="POST" accept-charset="UTF-8" id="form-item-sirvea" data-toggle="validator">
@@ -221,19 +212,13 @@
                                 </div>
                             </div>
 
-                            {{-- Content productoscontador --}}
-                         
-                                <% if (tipo_codigo != 'EQ'){%>
-                                    <div class="tab-pane" id="tab_productoscontador">
-                                <% }else{ %>
-                                    <div class="tab-pane-active" id="tab_productoscontador">
-                                <% } %>
-                                
-                                    <div class="box box-danger" id="wrapper-producto-productoscontador">
-                                        <div class="box-body">
-                                            <form method="POST" accept-charset="UTF-8" id="form-item-productocontador" data-toggle="validator">
-                                                <div class="row">
-                                                    <label for="productocontador_contador" class="control-label col-sm-1 col-sm-offset-1 hidden-xs">Contador</label>
+                            {{-- Content contadores --}}
+                            <div class="tab-pane<%- tipo_codigo == 'EQ' ? '-active' : '' %>" id="tab_productoscontador">
+                                <div class="box box-danger" id="wrapper-producto-productoscontador">
+                                    <div class="box-body">
+                                        <form method="POST" accept-charset="UTF-8" id="form-item-productocontador" data-toggle="validator">
+                                            <div class="row">
+                                                <label for="productocontador_contador" class="control-label col-sm-1 col-sm-offset-1 hidden-xs">Contador</label>
                                                     <div class="form-group col-sm-7 col-xs-10">
                                                         <select name="productocontador_contador" id="productocontador_contador" class="form-control select2-default" required>
                                                             @foreach( App\Models\Inventario\Contador::getContadores() as $key => $value)
