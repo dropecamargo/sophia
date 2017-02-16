@@ -23,6 +23,7 @@ app || (app = {});
         */
         initialize : function(opts) {
 
+            console.log( 'initialize' );
             // Attributes
             this.msgSuccess = 'Tercero guardado con exito!';
             this.$wraperForm = this.$('#render-form-tercero');
