@@ -57,7 +57,9 @@ class ContadorController extends Controller
                     $contador->fillBoolean($data);
                     $contador->save();
 
-                    // Commit Transaction
+                    // Cache
+                    Cache::forget( Contador::$key_cache );
+                    // Commit
                     DB::commit();
                     return response()->json(['success' => true, 'id' => $contador->id]);
                 }catch(\Exception $e){
@@ -119,7 +121,7 @@ class ContadorController extends Controller
                     $contador->save();
                     // Commit Transaction
                     DB::commit();
-                     //olvidar cache
+                    // Cache
                     Cache::forget( Contador::$key_cache );
                     return response()->json(['success' => true, 'id' => $contador->id]);
                 }catch(\Exception $e){
