@@ -23,7 +23,6 @@ app || (app = {});
         */
         initialize : function(opts) {
 
-            console.log( 'initialize' );
             // Attributes
             this.msgSuccess = 'Tercero guardado con exito!';
             this.$wraperForm = this.$('#render-form-tercero');
@@ -42,11 +41,9 @@ app || (app = {});
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
 
-            console.log( this.model );
             // Model exist
             if( this.model.id != undefined ) {
 
-                console.log( 'Ingreso' );
                 this.contactsList = new app.ContactsList();
 
                 // Reference views
@@ -97,7 +94,7 @@ app || (app = {});
 
                 e.preventDefault();
                 var data = window.Misc.formToJson( e.target );
-                this.model.save( data, {patch: true} );
+                this.model.save( data, {patch: true, silent: true} );
             }
         },
 
@@ -126,7 +123,6 @@ app || (app = {});
         responseServer: function ( model, resp, opts ) {
             window.Misc.removeSpinner( this.el );
 
-            console.log( 'responseServer', model );
             if(!_.isUndefined(resp.success)) {
                 // response success or error
                 var text = resp.success ? '' : resp.errors;
@@ -139,7 +135,14 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('terceros.show', { terceros: resp.id})) );
+                // CreateTerceroView undelegateEvents
+                if ( this.createTerceroView instanceof Backbone.View ){
+                    this.createTerceroView.stopListening();
+                    this.createTerceroView.undelegateEvents();
+                }
+
+                // Redirect to edit orden
+                Backbone.history.navigate(Route.route('terceros.edit', { terceros: resp.id}), { trigger:true });
             }
         }
     });
