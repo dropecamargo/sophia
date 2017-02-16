@@ -29,7 +29,8 @@ app || (app = {});
             this.$wraperForm = this.$('#render-form-tercero');
 
             // Events
-            this.listenTo( this.model, 'change:id', this.render );
+            // this.listenTo( this.model, 'change:id', this.render );
+            this.listenTo( this.model, 'change', this.render );
             this.listenTo( this.model, 'sync', this.responseServer );
             this.listenTo( this.model, 'request', this.loadSpinner );
         },
