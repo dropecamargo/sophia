@@ -18,18 +18,18 @@ class Producto extends Model
     public $timestamps = false;
 
 
-      /**
-     * The key used by cache store.
-     *
-     * @var static string
-     */
+    /**
+    * The key used by cache store.
+    *
+    * @var static string
+    */
     public static $key_cache = '_pruduct';
 
-     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    /**
+    * The attributes that are mass assignable.
+    *
+    * @var array
+    */
     protected $fillable = ['producto_placa','producto_serie','producto_referencia','producto_codigo','producto_nombre','producto_parte','producto_vida_util','producto_marca','producto_modelo','producto_estado','producto_tipo'];
 
     public function isValid($data)
@@ -46,10 +46,8 @@ class Producto extends Model
             'producto_tipo' => 'required',
             'producto_modelo' => 'required',
             'producto_vida_util'=> 'numeric'
-           
         ];
 
- 
         if($this->exists){
             $rules['producto_placa'] .= ',producto_placa,' . $this->id;
             $rules['producto_serie'] .= ',producto_serie,' . $this->id;
@@ -79,7 +77,6 @@ class Producto extends Model
         return $query->first();
     }
 
-    //EQ && RP
     public static function getProducts()
     {
         if (Cache::has( self::$key_cache )) {
@@ -96,32 +93,35 @@ class Producto extends Model
         });
     }
 
-     /**
-     * Get the contadores for the product.
-     */
+    public function validarProducto()
+    {
+        // Validar parte
+        if(in_array($this->tipo->tipo_codigo, ['RP', 'CO'])) {
+            if(empty(trim($this->producto_parte)) || is_null(trim($this->producto_parte))) {
+                return trans('validation.required_if', ['attribute' => 'Parte', 'other' => 'Tipo',  'value' => 'Repuesto o Consumible']);
+            }
+        }
+
+        // Validar vida util
+        if(in_array($this->tipo->tipo_codigo, ['RP', 'CO', 'IN'])) {
+            if(empty(trim($this->producto_vida_util)) || is_null(trim($this->producto_vida_util))) {
+                return trans('validation.required_if', ['attribute' => 'Vida util', 'other' => 'Tipo',  'value' => 'Repuesto, Consumible o Insumo']);
+            }
+        }
+        return 'OK';
+    }
+
+    /**
+    * Get the contadores for the product.
+    */
     public function contadores()
     {
         return $this->hasMany('App\Models\Inventario\ProductoContador', 'productocontador_producto', 'id');
     }
 
     /**
-    *
+    * Get tipo
     */
-
-    public function validarProducto(){
-      
-        $tipo = $this->tipo->tipo_codigo;
-        if(in_array($tipo, ['CO', 'RP'])) {
-            #code ..
-        }
-
-        // return $tipo;
- 
-    }
-
-     /**
-     * Get tipoProducto
-     */
     public function tipo()
     {
         return $this->hasOne('App\Models\Inventario\Tipo', 'id' , 'producto_tipo');
