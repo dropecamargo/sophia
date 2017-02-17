@@ -21,6 +21,8 @@ class CreateProductocontadorTable extends Migration
 
             $table->foreign('productocontador_producto')->references('id')->on('producto')->onDelete('restrict');
             $table->foreign('productocontador_contador')->references('id')->on('contador')->onDelete('restrict');
+
+            $table->unique(['productocontador_producto', 'productocontador_contador'], 'koi_productocontador_producto_contador_unique');
         });
     }
 

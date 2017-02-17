@@ -71,7 +71,7 @@ class ProductoContadorController extends Controller
                     $pcontadoruq = ProductoContador::where('productocontador_contador', $request->productocontador_contador)->where('productocontador_producto', $pp->id)->first();
                     if($pcontadoruq instanceof ProductoContador) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => "La maquina {$contador->contador_nombre} ya se encuentra asociada a este producto."]);
+                        return response()->json(['success' => false, 'errors' => "El contador {$contador->contador_nombre} ya esta asociado a este producto."]);
                     }
 
                     $pcontador->productocontador_producto = $pp->id;
