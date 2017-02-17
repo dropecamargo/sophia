@@ -61,7 +61,7 @@
             <div class="row">
                 <div class="form-group col-md-3">
                 <label for="producto_marca" class="control-label">Marca</label>
-                    <select name="producto_marca" id="producto_marca" class="form-control select2-default" required="">
+                    <select name="producto_marca" id="producto_marca" class="form-control select2-default">
                         <option value="" selected>Seleccione</option>
                         @foreach( App\Models\Inventario\Marca::getMarcas() as $key => $value)
                             <option value="{{ $key }}" <%- producto_marca == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
@@ -78,7 +78,7 @@
 
                 <div class="form-group col-md-3">
                 <label for="producto_modelo" class="control-label">Modelo</label>
-                    <select name="producto_modelo" id="producto_modelo" class="form-control select2-default" required="">
+                    <select name="producto_modelo" id="producto_modelo" class="form-control select2-default">
                         <option value="" selected>Seleccione</option>
                         @foreach( App\Models\Inventario\Modelo::getModelos() as $key => $value)
                             <option value="{{ $key }}" <%- producto_modelo == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
@@ -94,7 +94,7 @@
             <div class="row">
                 <div class="form-group col-md-3">
                     <label for="producto_estado" class="control-label">Estado</label>
-                    <select name="producto_estado" id="producto_estado" class="form-control select2-default" required>
+                    <select name="producto_estado" id="producto_estado" class="form-control select2-default">
                         <option value="" selected>Seleccione</option>
                         @foreach( App\Models\Base\Estado::getEstados() as $key => $value)
                             <option value="{{ $key }}" <%- producto_estado == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
@@ -280,7 +280,7 @@
 <script type="text/template" id="add-productocontador-item-tpl">
     <% if(edit) { %>
     <td class="text-center">
-        <a class="btn btn-default btn-xs item-productocontador-remove" data-resource="<%- id %>">
+        <a class="btn btn-default btn-xs <%- productocontador_contador == {{ App\Models\Inventario\Contador::$ctr_machines }} ? 'hide' : 'item-productocontador-remove' %>" data-resource="<%- id %>">
             <span><i class="fa fa-times"></i></span>
         </a>
     </td>

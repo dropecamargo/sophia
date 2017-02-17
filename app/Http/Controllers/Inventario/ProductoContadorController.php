@@ -140,13 +140,20 @@ class ProductoContadorController extends Controller
             try {
 
                 $pcontador = ProductoContador::find($id);
+                $contador = Contador::$ctr_machines;
+                
                 if(!$pcontador instanceof ProductoContador){
+                    DB::rollback();
                     return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto contador, por favor verifique la información del asiento o consulte al administrador.']);
+                }
+                if ($pcontador->productocontador_contador == $contador) {
+                    DB::rollback();
+                    return response()->json(['success' => false, 'errors' => 'El CONTADOR GENERAL no puede ser eliminado ']);
                 }
 
                 // Eliminar item pcontador
-                $pcontador->delete();
-
+                $pcontador->delete(); 
+           
                 DB::commit();
                 return response()->json(['success' => true]);
 
@@ -156,6 +163,6 @@ class ProductoContadorController extends Controller
                 return response()->json(['success' => false, 'errors' => trans('app.exception')]);
             }
         }
-        abort(403);
+        abortx(403);
     }
 }

@@ -9,7 +9,8 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Datatables, Cache;
 use App\Models\Inventario\Producto, App\Models\Inventario\Contador, App\Models\Inventario\ProductoContador, App\Models\Inventario\Tipo;
-use App\Models\Base\Tercero;
+use App\Models\Inventario\Marca;
+use App\Models\Base\Tercero , App\Models\Base\Estado;
 
 class ProductoController extends Controller
 {
@@ -86,8 +87,9 @@ class ProductoController extends Controller
                         }
                         $producto->producto_proveedor = $tercero->id;
                     }
-
+                    
                     $producto->fill($data);
+
                     // Validar producto
                     $result = $producto->validarProducto();
                     if($result != 'OK') {
@@ -187,6 +189,18 @@ class ProductoController extends Controller
                         return response()->json(['success' => false, 'errors' => $result]);
                     }
                     $producto->save();
+                    if(in_array($producto->tipo->tipo_codigo, ['EQ'])) {
+                        $contador = Contador::find(Contador::$ctr_machines);
+                        if(!$contador instanceof Contador) {
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar contador GENERAL para el eqipo, por favor verifique la información o consulte al administrador.']);
+                    }
+
+                        $pcontador = new ProductoContador;
+                        $pcontador->productocontador_producto = $producto->id;
+                        $pcontador->productocontador_contador = $contador->id;
+                        $pcontador->save();
+                    }
 
                     // Commit Transaction
                     DB::commit();

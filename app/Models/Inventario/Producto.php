@@ -3,10 +3,11 @@
 namespace App\Models\Inventario;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 use Validator,DB,Cache;
 
-class Producto extends Model
+class Producto extends BaseModel
 {
     /**
      * The database table used by the model.
@@ -30,7 +31,15 @@ class Producto extends Model
     *
     * @var array
     */
-    protected $fillable = ['producto_placa','producto_serie','producto_marca','producto_modelo','producto_referencia','producto_codigo','producto_nombre','producto_parte','producto_vida_util','producto_estado','producto_tipo'];
+    protected $fillable = ['producto_placa','producto_serie','producto_referencia','producto_codigo','producto_nombre','producto_parte','producto_vida_util','producto_tipo','producto_estado','producto_modelo','producto_marca'];
+
+    /**
+    * The attributes nulleables from the model.
+    *
+    * @var array
+    */
+
+    protected $nullable = ['producto_estado', 'producto_marca','producto_modelo'];
 
     public function isValid($data)
     {
@@ -41,16 +50,14 @@ class Producto extends Model
             'producto_codigo' => 'required|max:20',
             'producto_nombre' => 'required|max:100',
             'producto_parte' => 'max:20',
-            'producto_estado' => 'required',
-            'producto_marca' => 'required',
             'producto_tipo' => 'required',
-            'producto_modelo' => 'required',
             'producto_vida_util'=> 'numeric'
         ];
 
         if($this->exists){
             $rules['producto_placa'] .= ',producto_placa,' . $this->id;
             $rules['producto_serie'] .= ',producto_serie,' . $this->id;
+        
         }else{
             $rules['producto_placa'] .= '|max:20';
             $rules['producto_serie'] .= '|max:20';
@@ -109,6 +116,19 @@ class Producto extends Model
             }
         }
 
+        //Validar Estado,Marca,Modelo
+        if(in_array($this->tipo->tipo_codigo, ['EQ'])) {
+            if(empty(trim($this->producto_estado)) || is_null(trim($this->producto_estado))) {
+                return trans('validation.required_if', ['attribute' => 'Estado', 'other' => 'Tipo',  'value' => 'Equipo']);
+            }
+            if (empty(trim($this->producto_modelo)) || is_null(trim($this->producto_modelo))) {
+                return trans('validation.required_if', ['attribute' => 'Modelo', 'other' => 'Tipo',  'value' => 'Equipo']);
+            }
+            if (empty(trim($this->producto_marca)) || is_null(trim($this->producto_marca))) {
+                return trans('validation.required_if', ['attribute' => 'Marca', 'other' => 'Tipo',  'value' => 'Equipo']);
+            }
+        }
+
         return 'OK';
     }
 
@@ -126,5 +146,13 @@ class Producto extends Model
     public function tipo()
     {
         return $this->hasOne('App\Models\Inventario\Tipo', 'id' , 'producto_tipo');
+    }
+
+    /**
+    * Get Estado
+    */
+    public function estado()
+    {
+        return $this->hasOne('App\Models\Base\Estado', 'id' , 'producto_estado');
     }
 }
