@@ -23,6 +23,7 @@ class Asignacion2Controller extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+            
             $asignacion2 = [];
             if($request->has('asignacion2')) {
                 $query = Asignacion2::query();
