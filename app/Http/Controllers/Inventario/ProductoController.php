@@ -48,6 +48,12 @@ class ProductoController extends Controller
                     if($request->has('tipo_codigo')) {
                         $query->whereIn('tipo_codigo', explode(',', $request->tipo_codigo));
                     }
+                    
+                    //Filter of Asignaciones
+                    if($request->has('productos_asignados')){
+                        $query->whereNull('producto_tercero')->whereNull('producto_contrato');
+
+                    }
                 })
                 ->make(true);
         }

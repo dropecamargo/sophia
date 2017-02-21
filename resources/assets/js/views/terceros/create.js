@@ -15,7 +15,8 @@ app || (app = {});
         template: _.template( ($('#add-tercero-tpl').html() || '') ),
         events: {
             'submit #form-create-tercero': 'onStore',
-            'click .btn-add-tcontacto': 'addContacto'
+            'click .btn-add-tcontacto': 'addContacto',
+            'ifChanged .click-check' : 'clickcheck'   
         },
 
         /**
@@ -40,7 +41,8 @@ app || (app = {});
         render: function(){
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
-
+            this.$checkEmpleado = $('#tercero_empleado');
+           
             // Model exist
             if( this.model.id != undefined ) {
 
@@ -97,6 +99,10 @@ app || (app = {});
                 this.model.save( data, {patch: true, silent: true} );
             }
         },
+        
+        /**
+        * addContacto
+        */
 
         addContacto: function() {
             this.contactoModel = new app.ContactoModel();
@@ -108,6 +114,18 @@ app || (app = {});
                }
             });
             this.createTContactoView.render();
+        },
+
+        /*
+        *
+        */
+        clickcheck:function(e){
+            var selected = $(e.target).is(':checked');
+            if (selected) {
+                console.log('checked'); 
+            }else{
+                console.log('NO checked'); 
+            }
         },
 
         /**

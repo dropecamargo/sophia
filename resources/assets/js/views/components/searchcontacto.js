@@ -30,6 +30,7 @@ app || (app = {});
 		},
 
 		searchOrden: function(e) {
+            
             e.preventDefault();
             var _this = this;
 
@@ -103,6 +104,7 @@ app || (app = {});
 		},
 
 		setContacto: function(e) {
+            
 			e.preventDefault();
 
 	        var data = this.contactoSearchTable.row( $(e.currentTarget).parents('tr') ).data();
@@ -125,12 +127,14 @@ app || (app = {});
 		},
 
 		search: function(e) {
+           
 			e.preventDefault();
             
 		    this.contactoSearchTable.ajax.reload();
 		},
 
 		clear: function(e) {
+           
 			e.preventDefault();
 
             this.$searchContactoNombres.val('');

@@ -66,12 +66,13 @@ app || (app = {});
         * reference to views
         */
         referenceViews: function () {
-            // Detalle traslado list
+            // Detalle Asignacion2 list
             this.asignacion2sListView = new app.Asignacion2sListView({
                 collection: this.asignacion2sList,
                 parameters: {
                     wrapper: this.el,
-                    edit: true
+                    edit: true,
+                 
                 }
             });
         },

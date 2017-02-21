@@ -48,7 +48,8 @@ app || (app = {});
 			
 			// Filters
 			this.tipo_codigo = this.$inputContent.attr("data-tipo");
-
+			this.asignacion_data = this.$inputContent.attr("data-asignaciones");
+		
 			this.productosSearchTable = this.$productosSearchTable.DataTable({
 				dom: "<'row'<'col-sm-12'tr>>" +
 					"<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -61,6 +62,7 @@ app || (app = {});
                         data.producto_serie = _this.$searchSerie.val();
                         data.producto_nombre = _this.$searchNombre.val();
                         data.tipo_codigo = _this.tipo_codigo;
+                        data.productos_asignados = _this.asignacion_data;
                     }
                 },
                 columns: [

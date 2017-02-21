@@ -183,7 +183,7 @@
                                             <i class="fa fa-barcode"></i>
                                         </button>
                                     </span>
-                                    <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre" data-render="wrapper-render-type" data-tipo="AC,EQ" required>
+                                    <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre" data-render="wrapper-render-type" data-tipo="AC,EQ" data-asignaciones="true" required>
                                 </div>
                             </div>
                             <div class="col-sm-5 col-xs-10">
@@ -211,7 +211,7 @@
                         </tr>
                         <tfoot>
                             <tr>
-                                {{--render XD--}}
+                                {{--render producto--}}
                             </tr>
                         </tfoot>
                     </table>

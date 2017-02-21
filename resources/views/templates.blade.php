@@ -485,7 +485,7 @@
 					    <div class="row">
 					    	<div class="form-group col-md-2">
 						    	<label class="checkbox-inline" for="tercero_empleado">
-									<input type="checkbox" id="tercero_empleado" name="tercero_empleado" value="tercero_empleado" <%- tercero_empleado ? 'checked': ''%>> Empleado
+									<input type="checkbox" class="click-check" id="tercero_empleado" name="tercero_empleado" value="tercero_empleado" <%- tercero_empleado ? 'checked': ''%>> Empleado
 								</label>
 							</div>
 

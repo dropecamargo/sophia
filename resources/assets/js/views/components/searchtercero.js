@@ -31,7 +31,6 @@ app || (app = {});
 		},
 
 		searchTercero: function(e) {
-            
             e.preventDefault();
             var _this = this;
 
@@ -44,12 +43,11 @@ app || (app = {});
 
             this.$tercerosSearchTable = this.$modalComponent.find('#koi-search-tercero-component-table');
             
-			this.$inputContent = this.$("#"+$(e.currentTarget).attr("data-field"));
+            this.$inputContent = this.$("#"+$(e.currentTarget).attr("data-field"));
             this.$inputName = this.$("#"+this.$inputContent.attr("data-name"));
             this.$btnContact = this.$("#"+this.$inputContent.attr("data-contacto"));
-               
-               
             
+               
             this.tercerosSearchTable = this.$tercerosSearchTable.DataTable({
                 dom: "<'row'<'col-sm-12'tr>>" +
                		"<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -60,7 +58,6 @@ app || (app = {});
                 ajax: {
                     url: window.Misc.urlFull( Route.route('terceros.index') ),
                     data: function( data ) {
-                      
                         data.tercero_nit = _this.$searchNit.val();
                         data.tercero_nombre = _this.$searchName.val();
                     }
@@ -111,9 +108,10 @@ app || (app = {});
 			this.$inputName.val( data.tercero_nombre );
 
             if(this.$btnContact.length > 0) {
+                
                 this.$btnContact.attr('data-tercero', data.id);
-            }
-
+            }   
+          
 			this.$modalComponent.modal('hide');
 		},
 
@@ -124,6 +122,7 @@ app || (app = {});
 		},
 
 		clear: function(e) {
+            
 			e.preventDefault();
 
 			this.$searchNit.val('');
@@ -135,13 +134,13 @@ app || (app = {});
 		terceroChanged: function(e) {
 			var _this = this;
 
-			this.$inputContent = $(e.currentTarget);
-			this.$inputName = this.$("#"+$(e.currentTarget).attr("data-name"));
-			this.$wraperConten = this.$("#"+$(e.currentTarget).attr("data-wrapper"));
-
+            this.$inputContent = $(e.currentTarget);
+            this.$inputName = this.$("#"+$(e.currentTarget).attr("data-name"));
+            this.$wraperConten = this.$("#"+$(e.currentTarget).attr("data-wrapper"));
             this.$btnContact = this.$("#"+this.$inputContent.attr("data-contacto"));
             if(this.$btnContact.length > 0) {
-                this.$btnContact.attr('data-tercero', '');
+                
+                this.$btnContact.attr('data-tercero', '' );
             }
 
 			var tercero = this.$inputContent.val();
