@@ -42,12 +42,11 @@ app || (app = {});
             this.$searchName = this.$('#koi_search_tercero_nombre');
 
             this.$tercerosSearchTable = this.$modalComponent.find('#koi-search-tercero-component-table');
-            
+
             this.$inputContent = this.$("#"+$(e.currentTarget).attr("data-field"));
             this.$inputName = this.$("#"+this.$inputContent.attr("data-name"));
             this.$btnContact = this.$("#"+this.$inputContent.attr("data-contacto"));
-            
-               
+
             this.tercerosSearchTable = this.$tercerosSearchTable.DataTable({
                 dom: "<'row'<'col-sm-12'tr>>" +
                		"<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -108,11 +107,10 @@ app || (app = {});
 			this.$inputName.val( data.tercero_nombre );
 
             if(this.$btnContact.length > 0) {
-                
                 this.$btnContact.attr('data-tercero', data.id);
-            }   
-          
-			this.$modalComponent.modal('hide');
+            }
+
+            this.$modalComponent.modal('hide');
 		},
 
 		search: function(e) {
@@ -122,7 +120,7 @@ app || (app = {});
 		},
 
 		clear: function(e) {
-            
+
 			e.preventDefault();
 
 			this.$searchNit.val('');
@@ -139,12 +137,10 @@ app || (app = {});
             this.$wraperConten = this.$("#"+$(e.currentTarget).attr("data-wrapper"));
             this.$btnContact = this.$("#"+this.$inputContent.attr("data-contacto"));
             if(this.$btnContact.length > 0) {
-                
                 this.$btnContact.attr('data-tercero', '' );
             }
 
 			var tercero = this.$inputContent.val();
-
             // Before eval clear data
             this.$inputName.val('');
 
