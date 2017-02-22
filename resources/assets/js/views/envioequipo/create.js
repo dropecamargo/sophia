@@ -12,13 +12,15 @@ app || (app = {});
     app.CreateEnvioEquipoView = Backbone.View.extend({
 
         el: '#asignacion1-create',
-        template: _.template( ($('#add-asignacion1-tpl').html() || '') ),
+        templateRetiro: _.template( ($('#add-asignacion-envio-tpl').html() || '') ),
+        templateEnvio: _.template( ($('#add-asignacion-retiro-tpl').html() || '') ),
         events: {
             'click .submit-asignacion1': 'submitAsignacion1',
             'submit #form-asignacion1': 'onStore',
             'submit #form-asignacion2': 'onStoreA2'
         },
         parameters: {
+            type: null
         },
 
         /**
@@ -31,9 +33,8 @@ app || (app = {});
 
             // Attributes
             this.$wraperForm = this.$('#render-form-asignacion1');
-
             this.enviodetalleList = new app.EnvioDetalleList();
-           
+
             // Events
             this.listenTo( this.model, 'change', this.render );
             this.listenTo( this.model, 'sync', this.responseServer );
@@ -46,7 +47,7 @@ app || (app = {});
         render: function() {
 
             var attributes = this.model.toJSON();
-            this.$wraperForm.html( this.template(attributes) );
+            this.$wraperForm.html( this.parameters.type == 'R' ? this.templateRetiro(attributes): this.templateEnvio(attributes) );
 
             // References
             this.$form = this.$('#form-asignacion1');
@@ -92,7 +93,7 @@ app || (app = {});
 
                 e.preventDefault();
                 var data = window.Misc.formToJson( e.target );
-                data.asignacion1_tipo = 'E';
+                data.asignacion1_tipo = this.parameters.type;
                 data.asignacion2 = this.enviodetalleList.toJSON();
 
                 this.model.save( data, {patch: true, silent: true} );

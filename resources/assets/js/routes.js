@@ -123,7 +123,7 @@ app || (app = {});
 
             //Asignacion #1
             'envioequipos(/)': 'getEnvioEquipoMain',
-            'envioequipos/create(/)': 'getEnvioEquipoCreate',
+            'envioequipos/create(/)(?*queryString)': 'getEnvioEquipoCreate',
             'envioequipos/:envioequipos(/)': 'getEnvioEquipoShow',
         },
 
@@ -908,7 +908,8 @@ app || (app = {});
             this.mainEnvioEquipoView = new app.MainEnvioEquipoView( );
         },
 
-        getEnvioEquipoCreate: function () {
+        getEnvioEquipoCreate: function (queryString) {
+            var queries = this.parseQueryString(queryString);
             this.envioequipoModel = new app.EnvioEquipoModel();
 
             if ( this.createEnvioEquipoView instanceof Backbone.View ){
@@ -916,7 +917,12 @@ app || (app = {});
                 this.createEnvioEquipoView.undelegateEvents();
             }
 
-            this.createEnvioEquipoView = new app.CreateEnvioEquipoView({ model: this.envioequipoModel });
+            this.createEnvioEquipoView = new app.CreateEnvioEquipoView({
+                model: this.envioequipoModel,
+                parameters: {
+                    type: queries.tipo
+                }
+            });
             this.createEnvioEquipoView.render();
         },
 

@@ -17,7 +17,7 @@
         @yield ('module')
     </section>
 
-    <script type="text/template" id="add-asignacion1-tpl">
+    <script type="text/template" id="add-asignacion-envio-tpl">
         <div class="box-body" id="render-form-asignacion1s">
             <form method="POST" accept-charset="UTF-8" id="form-asignacion1" data-toggle="validator">
                 <div class="box-body">
@@ -25,7 +25,7 @@
                         <label for="asignacion1_fecha" class="col-sm-1 control-label">Fecha</label>
                         <div class="form-group col-md-2">
                             <input type="text" id="asignacion1_fecha" name="asignacion1_fecha" class="form-control input-sm datepicker" value="<%- asignacion1_fecha %>" required>
-                        </div> 
+                        </div>
 
                         <label for="asignacion1_tercero" class="col-sm-1 control-label">Cliente</label>
                         <div class="form-group col-md-2">
@@ -97,7 +97,7 @@
                         <div class="form-group col-md-4">
                             <input type="text" id="asignacion1_centrocosto" name="asignacion1_centrocosto" value="<%- asignacion1_centrocosto %>" placeholder="Centro Costo" class="form-control input-sm input-toupper" maxlength="30" required>
                         </div>
-                    </div>  
+                    </div>
 
                     <div class="row">
                         <label for="asignacion1_direccion" class="control-label col-sm-1">Direccion</label>
@@ -148,7 +148,7 @@
                     </div>
                 </div>
             </form>
-            
+
             <div class="box box-danger">
                 <form method="POST" accept-charset="UTF-8" id="form-asignacion2" data-toggle="validator">
                     <div class="box-body">
@@ -166,7 +166,7 @@
                             <div class="col-sm-5 col-xs-10">
                                 <input id="producto_nombre" name="producto_nombre" placeholder="Nombre producto" class="form-control input-sm" type="text" readonly required>
                             </div>
-                            
+
                             <div class="form-group col-sm-1">
                                 <button type="submit" class="btn btn-danger btn-sm btn-block">
                                     <i class="fa fa-plus"></i>
@@ -204,6 +204,17 @@
                     <button type="button" class="btn btn-primary btn-sm btn-block submit-asignacion1">{{ trans('app.save') }}</button>
                 </div>
             </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="add-asignacion-retiro-tpl">
+        <div class="box-body" id="render-form-asignacion1s">
+            <form method="POST" accept-charset="UTF-8" id="form-asignacion1" data-toggle="validator">
+                <div class="box-body">
+                    <div class="row">
+                        Hola mundo template retiro
+                    </div>
+            </form>
         </div>
     </script>
 

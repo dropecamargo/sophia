@@ -55,20 +55,20 @@
                 <br>
 
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-2 col-xs-4">
+                    <div class="col-md-offset-2 col-md-2 col-sm-3 col-xs-6">
                         <button type="button" class="btn btn-default btn-block btn-sm btn-clear">Limpiar</button>
                     </div>
-                    <div class="col-md-2 col-xs-4">
+                    <div class="col-md-2 col-sm-3 col-xs-6">
                         <button type="button" class="btn btn-primary btn-block btn-sm btn-search">Buscar</button>
                     </div>
-                    <div class="col-md-2 col-xs-4">
-                        <a href="{{ route('envioequipos.create') }}" class="btn btn-default btn-block btn-sm">
-                            <i class="fa fa-forward"></i> Nuevo Envío    
+                    <div class="col-md-2 col-sm-3 col-xs-6">
+                        <a href="{{ route('envioequipos.create', ['tipo' => 'E']) }}" class="btn btn-default btn-block btn-sm">
+                            <i class="fa fa-forward"></i> Nuevo Envío
                         </a>
                     </div>
-                    <div class="col-md-2 col-xs-4">
-                        <a href="{{ route('envioequipos.create') }}" class="btn btn-default btn-block btn-sm">
-                            <i class="fa fa-backward"></i> Nuevo Retiro    
+                    <div class="col-md-2 col-sm-3 col-xs-6">
+                        <a href="{{ route('envioequipos.create', ['tipo' => 'R']) }}" class="btn btn-default btn-block btn-sm">
+                            <i class="fa fa-backward"></i> Nuevo Retiro
                         </a>
                     </div>
                 </div>
