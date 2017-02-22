@@ -9,11 +9,11 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.CreateEnvioEquipoView = Backbone.View.extend({
+    app.CreateAsignacionView = Backbone.View.extend({
 
         el: '#asignacion1-create',
-        templateRetiro: _.template( ($('#add-asignacion-envio-tpl').html() || '') ),
-        templateEnvio: _.template( ($('#add-asignacion-retiro-tpl').html() || '') ),
+        templateRetiro: _.template( ($('#add-asignacion-retiro-tpl').html() || '') ),
+        templateEnvio: _.template( ($('#add-asignacion-envio-tpl').html() || '') ),
         events: {
             'click .submit-asignacion1': 'submitAsignacion1',
             'submit #form-asignacion1': 'onStore',
@@ -33,7 +33,7 @@ app || (app = {});
 
             // Attributes
             this.$wraperForm = this.$('#render-form-asignacion1');
-            this.enviodetalleList = new app.EnvioDetalleList();
+            this.asignaciondetalleList = new app.AsignacionDetalleList();
 
             // Events
             this.listenTo( this.model, 'change', this.render );
@@ -56,6 +56,10 @@ app || (app = {});
             this.$inputContacto = $('#tcontacto_nombre');
             this.$inputTcontacto = $('#tcontacto_telefono');
             this.$inputContrato = $('#nombre_contrato');
+            this.$inputContrato = $('#nombre_contrato');
+            this.$inputContrato1 = $('#asignacion1_contrato');
+
+
 
             // Reference views
             this.referenceViews();
@@ -67,8 +71,8 @@ app || (app = {});
         */
         referenceViews: function () {
             // Detalle Asignacion2 list
-            this.enviodetalleListView = new app.EnvioDetalleListView({
-                collection: this.enviodetalleList,
+            this.asignaciondetalleListView = new app.AsignacionDetalleListView({
+                collection: this.asignaciondetalleList,
                 parameters: {
                     wrapper: this.el,
                     edit: true,
@@ -94,7 +98,7 @@ app || (app = {});
                 e.preventDefault();
                 var data = window.Misc.formToJson( e.target );
                 data.asignacion1_tipo = this.parameters.type;
-                data.asignacion2 = this.enviodetalleList.toJSON();
+                data.asignacion2 = this.asignaciondetalleList.toJSON();
 
                 this.model.save( data, {patch: true, silent: true} );
             }
@@ -108,7 +112,7 @@ app || (app = {});
 
                 e.preventDefault();
 
-                this.enviodetalleList.trigger( 'store', this.$(e.target) );
+                this.asignaciondetalleList.trigger( 'store', this.$(e.target) );
             }
         },
 
@@ -149,7 +153,7 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('envioequipos.show', { envioequipos: resp.id})) );
+                window.Misc.redirect( window.Misc.urlFull( Route.route('asignaciones.show', { asignaciones: resp.id})) );
             }
         }
     });

@@ -9,7 +9,7 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.MainEnvioEquipoView = Backbone.View.extend({
+    app.MainAsignacionView = Backbone.View.extend({
 
         el: '#asignacion1s-main',
         events: {
@@ -39,12 +39,12 @@ app || (app = {});
                 serverSide: true,
                 language: window.Misc.dataTableES(),
                 ajax: {
-                    url: window.Misc.urlFull( Route.route('envioequipos.index') ),
+                    url: window.Misc.urlFull( Route.route('asignaciones.index') ),
                     data: function( data ) {
                         data.persistent = true;
                         data.tercero_nit = _this.$searchenvioquipoTercero.val();
                         data.tercero_nombre = _this.$searchenvioquipoTerceroName.val();
-                        data.envioequipo_tipo = _this.$searchenvioquipoTipo.val();
+                        data.asignacion_tipo = _this.$searchenvioquipoTipo.val();
                         data.tecnico_nit = _this.$searchenvioquipoTecnico.val();
                         data.tecnico_nombre = _this.$searchenvioquipoTecnicoName.val();         
                     }
@@ -60,7 +60,7 @@ app || (app = {});
                         text: '<i class="fa fa-plus"></i> Nuevo Envío',
                         className: 'btn-sm',
                         action: function ( e, dt, node, config ) {
-                            window.Misc.redirect( window.Misc.urlFull( Route.route('envioequipos.create') ) )
+                            window.Misc.redirect( window.Misc.urlFull( Route.route('asignaciones.create') ) )
                         }
                     }
                 ],
@@ -69,7 +69,7 @@ app || (app = {});
                         targets: 0,
                         width: '10%',
                         render: function ( data, type, full, row ) {
-                            return '<a href="'+ window.Misc.urlFull( Route.route('envioequipos.show', {envioequipos: full.id }) )  +'">' + data + '</a>';
+                            return '<a href="'+ window.Misc.urlFull( Route.route('asignaciones.show', {asignaciones: full.id }) )  +'">' + data + '</a>';
                         }
                     },
                     {

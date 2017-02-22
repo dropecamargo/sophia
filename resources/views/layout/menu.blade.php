@@ -126,7 +126,7 @@
                         </li>
 
                         <li class="{{ Request::segment(1) == 'envioequipos' ? 'active' : '' }}">
-                        <a href="{{ route('envioequipos.index') }}"><i class="fa fa-cube"></i> Envío Equipo</a>
+                        <a href="{{ route('asignaciones.index') }}"><i class="fa fa-cube"></i> Envío Equipo</a>
                         </li>
                 </ul>
             </li>

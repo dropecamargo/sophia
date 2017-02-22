@@ -9,7 +9,7 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.EnvioDetalleListView = Backbone.View.extend({
+    app.AsignacionDetalleListView = Backbone.View.extend({
 
         el: '#browse-asignacion2-list',
         events: {
@@ -54,14 +54,14 @@ app || (app = {});
         * Render view task by model
         * @param Object mentoringTaskModel Model instance
         */
-        addOne: function (EnvioDetalleModel) {
-            var view = new app.EnvioDetalleItemView({
-                model: EnvioDetalleModel,
+        addOne: function (AsignacionDetalleModel) {
+            var view = new app.AsignacionDetalleItemView({
+                model: AsignacionDetalleModel,
                 parameters: {
                     edit: this.parameters.edit
                 }
             });
-            EnvioDetalleModel.view = view;
+            AsignacionDetalleModel.view = view;
             this.$el.append( view.render().el );
         },
 
@@ -84,9 +84,9 @@ app || (app = {});
             window.Misc.setSpinner( this.parameters.wrapper );
 
             // Add model in collection
-            var enviodetalleModel = new app.EnvioDetalleModel();
+            var asignaciondetalleModel = new app.AsignacionDetalleModel();
 
-            enviodetalleModel.save(data, {
+            asignaciondetalleModel.save(data, {
                 success : function(model, resp) {
                     if(!_.isUndefined(resp.success)) {
 						window.Misc.removeSpinner( _this.parameters.wrapper );

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Validator,DB;
 use App\Models\Inventario\Producto;
 
-class EnvioDetalle extends Model
+class AsignacionDetalle extends Model
 {
     /**
      * The database table used by the model.

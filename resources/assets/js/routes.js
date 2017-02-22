@@ -120,9 +120,9 @@ app || (app = {});
             'zonas/:zonas/edit(/)': 'getZonasEdit',
 
             //Asignacion #1
-            'envioequipos(/)': 'getEnvioEquipoMain',
-            'envioequipos/create(/)(?*queryString)': 'getEnvioEquipoCreate',
-            'envioequipos/:envioequipos(/)': 'getEnvioEquipoShow',
+            'asignaciones(/)': 'getAsignacionMain',
+            'asignaciones/create(/)(?*queryString)': 'getAsignacionCreate',
+            'asignaciones/:asignaciones(/)': 'getAsignacionShow',
         },
 
         /**
@@ -856,44 +856,44 @@ app || (app = {});
         },
 
         // Envio Equipo
-        getEnvioEquipoMain: function () {
+        getAsignacionMain: function () {
 
-            if (this.mainEnvioEquipoView instanceof Backbone.View ){
-                this.mainEnvioEquipoView.stopListening();
-                this.mainEnvioEquipoView.undelegateEvents();
+            if (this.mainAsignacionView instanceof Backbone.View ){
+                this.mainAsignacionView.stopListening();
+                this.mainAsignacionView.undelegateEvents();
             }
 
-            this.mainEnvioEquipoView = new app.MainEnvioEquipoView( );
+            this.mainAsignacionView = new app.MainAsignacionView();
         },
 
-        getEnvioEquipoCreate: function (queryString) {
+        getAsignacionCreate: function (queryString) {
             var queries = this.parseQueryString(queryString);
-            this.envioequipoModel = new app.EnvioEquipoModel();
+            this.envioequipoModel = new app.AsignacionModel();
 
-            if ( this.createEnvioEquipoView instanceof Backbone.View ){
-                this.createEnvioEquipoView.stopListening();
-                this.createEnvioEquipoView.undelegateEvents();
+            if ( this.createAsignacionView instanceof Backbone.View ){
+                this.createAsignacionView.stopListening();
+                this.createAsignacionView.undelegateEvents();
             }
 
-            this.createEnvioEquipoView = new app.CreateEnvioEquipoView({
+            this.createAsignacionView = new app.CreateAsignacionView({
                 model: this.envioequipoModel,
                 parameters: {
                     type: queries.tipo
                 }
             });
-            this.createEnvioEquipoView.render();
+            this.createAsignacionView.render();
         },
 
-        getEnvioEquipoShow: function (envioequipo) {
-            this.envioEquipoModel = new app.EnvioEquipoModel();
-            this.envioEquipoModel.set({'id': envioequipo}, {'silent':true});
+        getAsignacionShow: function (asignacion) {
+            this.asignacionModel = new app.AsignacionModel();
+            this.asignacionModel.set({'id': asignacion}, {'silent':true});
 
-            if ( this.showEnvioEquipoView instanceof Backbone.View ){
-                this.showEnvioEquipoView.stopListening();
-                this.showEnvioEquipoView.undelegateEvents();
+            if ( this.showAsignacionView instanceof Backbone.View ){
+                this.showAsignacionView.stopListening();
+                this.showAsignacionView.undelegateEvents();
             }
 
-            this.showEquipoEnvioView = new app.ShowEnvioEquipoView({ model: this.envioEquipoModel });
+            this.showEquipoEnvioView = new app.ShowAsignacionView({ model: this.asignacionModel });
         },
 
     }) );
