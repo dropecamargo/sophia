@@ -12,8 +12,8 @@ app || (app = {});
     app.CreateEnvioEquipoView = Backbone.View.extend({
 
         el: '#asignacion1-create',
-        templateRetiro: _.template( ($('#add-asignacion-envio-tpl').html() || '') ),
-        templateEnvio: _.template( ($('#add-asignacion-retiro-tpl').html() || '') ),
+        templateRetiro: _.template( ($('#add-asignacion-retiro-tpl').html() || '') ),
+        templateEnvio: _.template( ($('#add-asignacion-envio-tpl').html() || '') ),
         events: {
             'click .submit-asignacion1': 'submitAsignacion1',
             'submit #form-asignacion1': 'onStore',
