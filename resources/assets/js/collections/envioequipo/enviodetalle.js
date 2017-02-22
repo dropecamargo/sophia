@@ -9,12 +9,12 @@ app || (app = {});
 
 (function (window, document, undefined) {
 
-    app.Asignacion2sList = Backbone.Collection.extend({
+    app.EnvioDetalleList = Backbone.Collection.extend({
 
         url: function() {
-            return window.Misc.urlFull( Route.route('asignaciones.detalle.index') );
+            return window.Misc.urlFull( Route.route('envioequipos.detalle.index') );
         },
-        model: app.Asignacion2Model,
+        model: app.EnvioDetalleModel,
 
         /**
         * Constructor Method

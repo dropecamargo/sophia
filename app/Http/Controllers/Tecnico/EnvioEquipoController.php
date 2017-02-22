@@ -9,15 +9,15 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Cache,Datatables, Auth;
 
-use App\Models\Tecnico\Asignacion1;
-use App\Models\Tecnico\Asignacion2;
+use App\Models\Tecnico\EnvioEquipo;
+use App\Models\Tecnico\EnvioDetalle;
 use App\Models\Tecnico\Contrato;
 use App\Models\Inventario\Producto;
 use App\Models\Inventario\Tipo;
 use App\Models\Base\Tercero;
 use App\Models\Base\Contacto;
 
-class Asignacion1Controller extends Controller
+class EnvioEquipoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class Asignacion1Controller extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $query = Asignacion1::query();
+            $query = EnvioEquipo::query();
             $query->select('asignacion1.*',DB::raw("CONCAT(t.tercero_nombre1, ' ', t.tercero_nombre2, ' ',t.tercero_apellido1, ' ',t.tercero_apellido2) as tecnico_nombre"),DB::raw("CONCAT(a.tercero_nombre1, ' ', a.tercero_nombre2, ' ',a.tercero_apellido1, ' ',a.tercero_apellido2) as tercero_nombre"));
             $query->join('tercero as t','asignacion1.asignacion1_tecnico', '=', 't.id');
             $query->join('tercero as a','asignacion1.asignacion1_tercero', '=', 'a.id');
@@ -36,7 +36,7 @@ class Asignacion1Controller extends Controller
             if($request->has('persistent') && $request->persistent) {
                 session(['searchasignacion1_tecnico' => $request->has('tecnico_nit') ? $request->tecnico_nit : '']);
                 session(['searchasignacion1_tecnico_nombre' => $request->has('tecnico_nombre') ? $request->tecnico_nombre : '']);
-                session(['searchasignacion1_tipo' => $request->has('asignacion1_tipo') ? $request->asignacion1_tipo : '']);
+                session(['searchasignacion1_tipo' => $request->has('envioequipo_tipo') ? $request->envioequipo_tipoenvioequipo_tipo : '']);
                 session(['searchasignacion1_tercero' => $request->has('tercero_nit') ? $request->tercero_nit : '']);
                 session(['searchasignacion1_tercero_nombre' => $request->has('tercero_nombre') ? $request->tercero_nombre : '']);
             }
@@ -54,18 +54,18 @@ class Asignacion1Controller extends Controller
 
 
                     // Tipo
-                    if($request->has('asignacion1_tipo')) {
-                        if($request->asignacion1_tipo == 'E') {
-                            $query->where('asignacion1_tipo', 'E');
+                    if($request->has('envioequipo_tipo')) {
+                        if($request->envioequipo_tipo == 'E') {
+                            $query->where('envioequipo_tipo', 'E');
                         }
-                        if($request->asignacion1_tipo == 'R') {
-                            $query->where('asignacion1_tipo', 'R');
+                        if($request->envioequipo_tipo == 'R') {
+                            $query->where('envioequipo_tipo', 'R');
                         }
                     }
                 })
                 ->make(true);
         }
-        return view('tecnico.asignacion1.index');
+        return view('tecnico.envioequipo.index');
     }
 
     /**
@@ -75,7 +75,7 @@ class Asignacion1Controller extends Controller
      */
     public function create()
     {
-        return view('tecnico.asignacion1.create');
+        return view('tecnico.envioequipo.create');
     }
 
     /**
@@ -88,8 +88,8 @@ class Asignacion1Controller extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
-            $asignacion1 = new Asignacion1;
+            
+            $asignacion1 = new EnvioEquipo;
             if ($asignacion1->isValid($data)) {
                 DB::beginTransaction();
                 try {
@@ -138,12 +138,14 @@ class Asignacion1Controller extends Controller
                     $asignacion1->asignacion1_tercero = $tercero->id;
                     $asignacion1->asignacion1_contacto = $contacto->id;
                     $asignacion1->asignacion1_tecnico = $tecnico->id;
+                    $asignacion1->asignacion1_tipo = $request->asignacion1_tipo;
                     $asignacion1->asignacion1_usuario_elaboro = Auth::user()->id;
                     $asignacion1->asignacion1_fh_elaboro = date('Y-m-d H:m:s');
                     $asignacion1->save();
 
                     // Asignacion2
                     $asignacion2 = isset($data['asignacion2']) ? $data['asignacion2'] : null;
+                    
                     foreach ($asignacion2 as $item)
                     {
                         // Recuperar producto
@@ -164,7 +166,7 @@ class Asignacion1Controller extends Controller
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);  
                         }
 
-                        $asignacion2 = new Asignacion2;
+                        $asignacion2 = new EnvioDetalle;
                         $asignacion2->asignacion2_asignacion1 = $asignacion1->id;
                         $asignacion2->asignacion2_producto = $producto->id;
                         if(isset($item['producto_tipo_search']) && $item['producto_tipo_search'] != '') {
@@ -227,8 +229,8 @@ class Asignacion1Controller extends Controller
      */
     public function show(Request $request, $id)
     {
-        $asignacion = Asignacion1::getAsignacion($id);
-        if(!$asignacion instanceof Asignacion1){
+        $asignacion = EnvioEquipo::getAsignacion($id);
+        if(!$asignacion instanceof EnvioEquipo){
             abort(404);
         }
 
@@ -236,7 +238,7 @@ class Asignacion1Controller extends Controller
             return response()->json($asignacion);
         }
 
-        return view('tecnico.asignacion1.show', ['asignacion1' => $asignacion]);
+        return view('tecnico.envioequipo.show', ['asignacion1' => $asignacion]);
     }
 
     /**

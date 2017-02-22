@@ -9,7 +9,7 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.MainAsignacion1sView = Backbone.View.extend({
+    app.MainEnvioEquipoView = Backbone.View.extend({
 
         el: '#asignacion1s-main',
         events: {
@@ -24,29 +24,29 @@ app || (app = {});
             var _this = this;
 
             // References
-            this.$asignacion1sSearchTable = this.$('#asignacion1s-search-table');
-            this.$searchasignacion1Tercero = this.$('#searchasignacion1_tercero');
-            this.$searchasignacion1TerceroName = this.$('#searchasignacion1_tercero_nombre');
-            this.$searchasignacion1Tipo = this.$('#searchasignacion1_tipo');
-            this.$searchasignacion1Tecnico = this.$('#searchasignacion1_tecnico');
-            this.$searchasignacion1TecnicoName = this.$('#searchasignacion1_tecnico_nombre');
+            this.$envioequipoSearchTable = this.$('#asignacion1s-search-table');
+            this.$searchenvioquipoTercero = this.$('#searchasignacion1_tercero');
+            this.$searchenvioquipoTerceroName = this.$('#searchasignacion1_tercero_nombre');
+            this.$searchenvioquipoTipo = this.$('#searchasignacion1_tipo');
+            this.$searchenvioquipoTecnico = this.$('#searchasignacion1_tecnico');
+            this.$searchenvioquipoTecnicoName = this.$('#searchasignacion1_tecnico_nombre');
 
 
-            this.asignacion1sSearchTable = this.$asignacion1sSearchTable.DataTable({
+            this.asignacion1sSearchTable = this.$envioequipoSearchTable.DataTable({
                 dom: "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 processing: true,
                 serverSide: true,
                 language: window.Misc.dataTableES(),
                 ajax: {
-                    url: window.Misc.urlFull( Route.route('asignaciones.index') ),
+                    url: window.Misc.urlFull( Route.route('envioequipos.index') ),
                     data: function( data ) {
                         data.persistent = true;
-                        data.tercero_nit = _this.$searchasignacion1Tercero.val();
-                        data.tercero_nombre = _this.$searchasignacion1TerceroName.val();
-                        data.asignacion1_tipo = _this.$searchasignacion1Tipo.val();
-                        data.tecnico_nit = _this.$searchasignacion1Tecnico.val();
-                        data.tecnico_nombre = _this.$searchasignacion1TecnicoName.val();         
+                        data.tercero_nit = _this.$searchenvioquipoTercero.val();
+                        data.tercero_nombre = _this.$searchenvioquipoTerceroName.val();
+                        data.envioequipo_tipo = _this.$searchenvioquipoTipo.val();
+                        data.tecnico_nit = _this.$searchenvioquipoTecnico.val();
+                        data.tecnico_nombre = _this.$searchenvioquipoTecnicoName.val();         
                     }
                 },
                 columns: [
@@ -57,10 +57,10 @@ app || (app = {});
                 ],
                 buttons: [
                     {
-                        text: '<i class="fa fa-plus"></i> Nueva Asignacion',
+                        text: '<i class="fa fa-plus"></i> Nuevo Envío',
                         className: 'btn-sm',
                         action: function ( e, dt, node, config ) {
-                            window.Misc.redirect( window.Misc.urlFull( Route.route('asignaciones.create') ) )
+                            window.Misc.redirect( window.Misc.urlFull( Route.route('envioequipos.create') ) )
                         }
                     }
                 ],
@@ -69,7 +69,7 @@ app || (app = {});
                         targets: 0,
                         width: '10%',
                         render: function ( data, type, full, row ) {
-                            return '<a href="'+ window.Misc.urlFull( Route.route('asignaciones.show', {asignaciones: full.id }) )  +'">' + data + '</a>';
+                            return '<a href="'+ window.Misc.urlFull( Route.route('envioequipos.show', {envioequipos: full.id }) )  +'">' + data + '</a>';
                         }
                     },
                     {
@@ -92,11 +92,11 @@ app || (app = {});
         clear: function(e) {
             e.preventDefault();
 
-            this.$searchasignacion1Tercero.val('');
-            this.$searchasignacion1TerceroName.val('');
-            this.$searchasignacion1Tipo.val('');
-            this.$searchasignacion1Tecnico.val('');
-            this.$searchasignacion1TecnicoName.val('')
+            this.$searchenvioquipoTercero.val('');
+            this.$searchenvioquipoTerceroName.val('');
+            this.$searchenvioquipoTipo.val('');
+            this.$searchenvioquipoTecnico.val('');
+            this.$searchenvioquipoTecnicoName.val('')
 
             this.asignacion1sSearchTable.ajax.reload();
         },

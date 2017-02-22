@@ -1,11 +1,11 @@
 @extends('layout.layout')
 
-@section('title') Asignacion @stop
+@section('title') Asignación @stop
 
 @section('content')
     <section class="content-header">
         <h1>
-            Asignaciones <small>Administración de Asignaciones</small>
+            Asignación <small>Administración de Asignación</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{trans('app.home')}}</a></li>
@@ -18,17 +18,6 @@
     </section>
 
     <script type="text/template" id="add-asignacion1-tpl">
-        <div class="box-header with-border">
-            <div class="row">
-                <div class="col-md-2 col-sm-6 col-xs-6 text-left">
-                    <a href="{{ route('asignaciones.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
-                </div>
-                <div class="col-md-2 col-md-offset-8 col-sm-6 col-xs-6 text-right">
-                    <button type="button" class="btn btn-primary btn-sm btn-block submit-asignacion1">{{ trans('app.save') }}</button>
-                </div>
-            </div>
-        </div>
-
         <div class="box-body" id="render-form-asignacion1s">
             <form method="POST" accept-charset="UTF-8" id="form-asignacion1" data-toggle="validator">
                 <div class="box-body">
@@ -60,6 +49,15 @@
                     </div>
 
                     <div class="row">
+                       <label for="asignacion1_municipio" class="control-label col-sm-1">Municipio</label>
+                        <div class="form-group col-md-3">
+                            <select name="asignacion1_municipio" id="asignacion1_municipio" class="form-control select2-default" required>
+                                <option value="" selected>Seleccione</option>
+                                @foreach( App\Models\Base\Municipio::getMunicipios() as $key => $value)
+                                    <option value="{{ $key }}" <%- asignacion1_municipio == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <label for="tcontacto_nombre" class="col-sm-1 control-label">Contacto</label>
                         <div class="form-group col-sm-2 col-xs-10">
                             <div class="input-group input-group-sm">
@@ -79,7 +77,7 @@
                         </div>
 
                         <label for="tcontacto_telefono" class="col-sm-1 control-label">Teléfono</label>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <i class="fa fa-phone"></i>
@@ -88,27 +86,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <label for="asignacion1_tipo" class="control-label col-sm-1">Tipo</label>
-                        <div class="form-group col-md-2">
-                            <select name="asignacion1_tipo" id="asignacion1_tipo" class="form-control" required>
-                                @foreach( config('koi.asignacion.tipos') as $key => $value)
-                                    <option value="{{ $key }}" <%- asignacion1_tipo == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <label for="asignacion1_municipio" class="control-label col-md-offset-1 col-sm-1">Municipio</label>
-                        <div class="form-group col-md-4">
-                            <select name="asignacion1_municipio" id="asignacion1_municipio" class="form-control select2-default" required>
-                                <option value="" selected>Seleccione</option>
-                                @foreach( App\Models\Base\Municipio::getMunicipios() as $key => $value)
-                                    <option value="{{ $key }}" <%- asignacion1_municipio == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div> 
 
                     <div class="row">
                         <label for="asignacion1_area" class="control-label col-sm-1">Area</label>
@@ -183,7 +160,7 @@
                                             <i class="fa fa-barcode"></i>
                                         </button>
                                     </span>
-                                    <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre" data-render="wrapper-render-type" data-tipo="AC,EQ" data-asignaciones="true" required>
+                                    <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre" data-render="wrapper-render-type" data-tipo="AC,EQ" data-asignaciones="false" required>
                                 </div>
                             </div>
                             <div class="col-sm-5 col-xs-10">
@@ -215,6 +192,16 @@
                             </tr>
                         </tfoot>
                     </table>
+                </div>
+            </div>
+        </div>
+         <div class="box-footer with-border">
+            <div class="row">
+                <div class="col-md-2 col-sm-6 col-md-offset-4 col-xs-6 text-left">
+                    <a href="{{ route('envioequipos.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
+                </div>
+                <div class="col-md-2  col-sm-6 col-xs-6 text-right">
+                    <button type="button" class="btn btn-primary btn-sm btn-block submit-asignacion1">{{ trans('app.save') }}</button>
                 </div>
             </div>
         </div>

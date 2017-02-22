@@ -105,11 +105,11 @@ Route::group(['middleware' => 'auth'], function()
 	Route::resource('prioridades', 'Tecnico\PrioridadController', ['except' => ['destroy']]);
 	Route::resource('zonas', 'Tecnico\ZonaController', ['except' => ['destroy']]);
 
-	Route::group(['prefix'=>'asignaciones'], function()
+	Route::group(['prefix'=>'envioequipos'], function()
 	{
-		Route::resource('detalle','Tecnico\Asignacion2Controller', ['only'=>['index','store']]);
+		Route::resource('detalle','Tecnico\EnvioDetalleController', ['only'=>['index','store']]);
 		Route::resource('contratos','Tecnico\ContratoController', ['only'=>['index']]);
 	});
-	Route::resource('asignaciones', 'Tecnico\Asignacion1Controller', ['except' => ['edit','destroy']]);
+	Route::resource('envioequipos', 'Tecnico\EnvioEquipoController', ['except' => ['edit','destroy']]);
 });
 

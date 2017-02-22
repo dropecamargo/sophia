@@ -9,7 +9,7 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.CreateAsignacion1View = Backbone.View.extend({
+    app.CreateEnvioEquipoView = Backbone.View.extend({
 
         el: '#asignacion1-create',
         template: _.template( ($('#add-asignacion1-tpl').html() || '') ),
@@ -32,8 +32,8 @@ app || (app = {});
             // Attributes
             this.$wraperForm = this.$('#render-form-asignacion1');
 
-            this.asignacion2sList = new app.Asignacion2sList();
-
+            this.enviodetalleList = new app.EnvioDetalleList();
+           
             // Events
             this.listenTo( this.model, 'change', this.render );
             this.listenTo( this.model, 'sync', this.responseServer );
@@ -66,8 +66,8 @@ app || (app = {});
         */
         referenceViews: function () {
             // Detalle Asignacion2 list
-            this.asignacion2sListView = new app.Asignacion2sListView({
-                collection: this.asignacion2sList,
+            this.enviodetalleListView = new app.EnvioDetalleListView({
+                collection: this.enviodetalleList,
                 parameters: {
                     wrapper: this.el,
                     edit: true,
@@ -92,7 +92,8 @@ app || (app = {});
 
                 e.preventDefault();
                 var data = window.Misc.formToJson( e.target );
-                data.asignacion2 = this.asignacion2sList.toJSON();
+                data.asignacion1_tipo = 'E';
+                data.asignacion2 = this.enviodetalleList.toJSON();
 
                 this.model.save( data, {patch: true, silent: true} );
             }
@@ -105,7 +106,8 @@ app || (app = {});
             if (!e.isDefaultPrevented()) {
 
                 e.preventDefault();
-                this.asignacion2sList.trigger( 'store', this.$(e.target) );
+
+                this.enviodetalleList.trigger( 'store', this.$(e.target) );
             }
         },
 
@@ -146,7 +148,7 @@ app || (app = {});
                     return;
                 }
 
-                window.Misc.redirect( window.Misc.urlFull( Route.route('asignaciones.show', { asignaciones: resp.id})) );
+                window.Misc.redirect( window.Misc.urlFull( Route.route('envioequipos.show', { envioequipos: resp.id})) );
             }
         }
     });

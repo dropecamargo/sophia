@@ -1,7 +1,7 @@
-@extends('tecnico.asignacion1.main')
+@extends('tecnico.envioequipo.main')
 
 @section('breadcrumb')
-    <li><a href="{{ route('asignaciones.index')}}">Asignacion</a></li>
+    <li><a href="{{ route('envioequipos.index')}}">Asignacion</a></li>
     <li class="active">{{ $asignacion1->id }}</li>
 @stop
 
@@ -10,7 +10,7 @@
         <div class="box-header with-border">
             <div class="row">
                 <div class="col-md-2 col-sm-6 col-xs-6 text-left">
-                    <a href=" {{ route('asignaciones.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.comeback') }}</a>
+                    <a href=" {{ route('envioequipos.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.comeback') }}</a>
                 </div>
             </div>
         </div>

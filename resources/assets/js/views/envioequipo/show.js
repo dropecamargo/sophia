@@ -9,7 +9,7 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.ShowAsignacion1View = Backbone.View.extend({
+    app.ShowEnvioEquipoView = Backbone.View.extend({
 
         el: '#asignacion-show',
 
@@ -20,7 +20,7 @@ app || (app = {});
             // Model exist
             if( this.model.id != undefined ) {
 
-            	this.asignacion2sList = new app.Asignacion2sList();
+            	this.enviodetalleList = new app.EnvioDetalleList();
 
                 // Reference views
                 this.referenceViews();
@@ -32,8 +32,8 @@ app || (app = {});
         */
         referenceViews: function () {
     		// Detalle asignaciones list
-            this.asignacion2sListView = new app.Asignacion2sListView({
-                collection: this.asignacion2sList,
+            this.enviodetalleListView = new app.EnvioDetalleListView({
+                collection: this.enviodetalleList,
                 parameters: {
                     wrapper: this.el,
                     edit: false,

@@ -11,9 +11,9 @@ use Log, DB;
 
 use App\Models\Inventario\Tipo;
 use App\Models\Inventario\Producto;
-use App\Models\Tecnico\Asignacion2;
+use App\Models\Tecnico\EnvioDetalle;
 
-class Asignacion2Controller extends Controller
+class EnvioDetalleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class Asignacion2Controller extends Controller
             
             $asignacion2 = [];
             if($request->has('asignacion2')) {
-                $query = Asignacion2::query();
+                $query = EnvioDetalle::query();
                 $query->select('asignacion2.*','tipo_nombre as nombre', 'producto.producto_nombre', 'p.producto_nombre as producto_nombre_search')
                 ->join('producto', 'asignacion2.asignacion2_producto', '=', 'producto.id')
                 ->join('tipo', 'producto.producto_tipo', '=', 'tipo.id')
@@ -58,8 +58,9 @@ class Asignacion2Controller extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
+
             $data = $request->all();
-            $asignacion2 = new Asignacion2;
+            $asignacion2 = new EnvioDetalle;
             if ($asignacion2->isValid($data)) {
                 try {
                     // Recuperar producto

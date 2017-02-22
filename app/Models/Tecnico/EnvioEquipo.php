@@ -5,7 +5,7 @@ namespace App\Models\Tecnico;
 use Illuminate\Database\Eloquent\Model;
 use Validator ,Cache ,DB;
 
-class Asignacion1 extends Model
+class EnvioEquipo extends Model
 {
     /**
      * The database table used by the model.
@@ -51,7 +51,7 @@ class Asignacion1 extends Model
     }
 
     public static function getAsignacion($id){
-        $query = Asignacion1::query();
+        $query = EnvioEquipo::query();
         $query->select('asignacion1.*',DB::raw("CONCAT(tcontacto_nombres, ' ', tcontacto_apellidos) as contacto_nombre"),'tcontacto_telefono','t.tercero_nit','zona_nombre','municipio_nombre',DB::raw("CONCAT(t.tercero_nombre1, ' ', t.tercero_nombre2, ' ', t.tercero_apellido1, ' ', t.tercero_apellido2) as tercero_nombre"),'a.tercero_nit as tecnico_nit',DB::raw("CONCAT(a.tercero_nombre1, ' ', a.tercero_nombre2, ' ', a.tercero_apellido1, ' ', a.tercero_apellido2) as tecnico_nombre"));
         $query->join('tercero as t','asignacion1.asignacion1_tercero', '=', 't.id');
         $query->join('tercero as a','asignacion1.asignacion1_tecnico', '=', 'a.id');

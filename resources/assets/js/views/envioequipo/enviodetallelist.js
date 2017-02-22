@@ -9,7 +9,7 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.Asignacion2sListView = Backbone.View.extend({
+    app.EnvioDetalleListView = Backbone.View.extend({
 
         el: '#browse-asignacion2-list',
         events: {
@@ -39,26 +39,29 @@ app || (app = {});
             this.listenTo( this.collection, 'store', this.storeOne );
             this.listenTo( this.collection, 'sync', this.responseServer );
 
+            
             /* if was passed asignacion2 code */
             if( !_.isUndefined(this.parameters.dataFilter.asignacion2) && !_.isNull(this.parameters.dataFilter.asignacion2) ){
-                 this.confCollection.data.asignacion2 = this.parameters.dataFilter.asignacion2;
+                this.confCollection.data.asignacion2 = this.parameters.dataFilter.asignacion2;
 
                 this.collection.fetch( this.confCollection );
+                
             }
+            
         },
 
         /**
         * Render view task by model
         * @param Object mentoringTaskModel Model instance
         */
-        addOne: function (Asignacion2Model) {
-            var view = new app.Asignacion2sItemView({
-                model: Asignacion2Model,
+        addOne: function (EnvioDetalleModel) {
+            var view = new app.EnvioDetalleItemView({
+                model: EnvioDetalleModel,
                 parameters: {
                     edit: this.parameters.edit
                 }
             });
-            Asignacion2Model.view = view;
+            EnvioDetalleModel.view = view;
             this.$el.append( view.render().el );
         },
 
@@ -81,8 +84,9 @@ app || (app = {});
             window.Misc.setSpinner( this.parameters.wrapper );
 
             // Add model in collection
-            var asignacion2Model = new app.Asignacion2Model();
-            asignacion2Model.save(data, {
+            var enviodetalleModel = new app.EnvioDetalleModel();
+
+            enviodetalleModel.save(data, {
                 success : function(model, resp) {
                     if(!_.isUndefined(resp.success)) {
 						window.Misc.removeSpinner( _this.parameters.wrapper );
@@ -97,7 +101,7 @@ app || (app = {});
                             alertify.error(text);
                             return;
                         }
-
+                        
                         // Add model in collection
                         _this.collection.add(model);
                     }

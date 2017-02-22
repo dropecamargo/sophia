@@ -9,10 +9,10 @@ app || (app = {});
 
 (function (window, document, undefined) {
 
-    app.Asignacion1Model = Backbone.Model.extend({
+    app.EnvioEquipoModel = Backbone.Model.extend({
 
         urlRoot: function () {
-            return window.Misc.urlFull( Route.route('asignaciones.index') );
+            return window.Misc.urlFull( Route.route('envioequipos.index') );
         },
         idAttribute: 'id',
         defaults: {

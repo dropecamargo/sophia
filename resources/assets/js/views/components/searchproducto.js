@@ -49,6 +49,7 @@ app || (app = {});
 			// Filters
 			this.tipo_codigo = this.$inputContent.attr("data-tipo");
 			this.asignacion_data = this.$inputContent.attr("data-asignaciones");
+			//this.asignacion_cliente = this.$inputContent.attr("cliente-asignaciones");
 		
 			this.productosSearchTable = this.$productosSearchTable.DataTable({
 				dom: "<'row'<'col-sm-12'tr>>" +
@@ -63,6 +64,7 @@ app || (app = {});
                         data.producto_nombre = _this.$searchNombre.val();
                         data.tipo_codigo = _this.tipo_codigo;
                         data.productos_asignados = _this.asignacion_data;
+                        data.productos_asignados_cliente = _this.asignacion_cliente;
                     }
                 },
                 columns: [
