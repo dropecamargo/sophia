@@ -45,12 +45,17 @@ app || (app = {});
 			this.$inputContent = this.$("#"+$(e.currentTarget).attr("data-field"));
 			this.$inputName = this.$("#"+this.$inputContent.attr("data-name"));
 			this.$wraperType = this.$("#"+this.$inputContent.attr("data-render"));
-			this.$btnContrato = this.$("#"+this.$inputContent.attr("data-contrato"));
-			
+			var contrato_id = $("#asignacion1_contrato").val();
+			var tercero = $("#asignacion1_tercero").val();
+
+			if( _.isUndefined(contrato_id) || _.isNull(contrato_id) || contrato_id == '') {
+                alertify.error('Por favor ingrese contrato antes agregar producto.');
+                return;
+            }
 			// Filters
 			this.tipo_codigo = this.$inputContent.attr("data-tipo");
 			this.asignacion_data = this.$inputContent.attr("data-asignaciones");
-		
+			
 			this.productosSearchTable = this.$productosSearchTable.DataTable({
 				dom: "<'row'<'col-sm-12'tr>>" +
 					"<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -64,7 +69,8 @@ app || (app = {});
                         data.producto_nombre = _this.$searchNombre.val();
                         data.tipo_codigo = _this.tipo_codigo;
                         data.productos_asignados = _this.asignacion_data;
-                        
+                        data.producto_contrato = contrato_id;                        
+                        data.producto_tercero = tercero;                        
                     }
                 },
                 columns: [
@@ -106,10 +112,7 @@ app || (app = {});
                 this.renderType(data.tipo_codigo);
             }
 
-            if(this.$btnContrato.length > 0) {
-                this.$btnContrato.attr('data-producto', data.id);
-            	console.log(data.id);
-            }
+            
             
 			this.$modalComponent.modal('hide');
 		},
@@ -136,11 +139,6 @@ app || (app = {});
 			this.$inputName = this.$("#"+$(e.currentTarget).attr("data-name"));
 			this.$wraperConten = this.$("#"+$(e.currentTarget).attr("data-wrapper"));
 			this.$wraperType = this.$("#"+this.$inputContent.attr("data-render"));
-			this.$btnContrato = this.$("#"+this.$inputContent.attr("data-contrato"));
-			if(this.$btnContrato.length > 0) {
-				console.log("ajajaj");
-                this.$btnContrato.attr('data-producto', data.id);
-            }
             
 			var producto = this.$inputContent.val();
 
@@ -169,9 +167,7 @@ app || (app = {});
 	                    if(_this.$wraperType.length) {
     		            	_this.renderType(resp.tipo_codigo);
 	                    }
-	                    if(_this.$btnContact.length > 0) {
-                            _this.$btnContact.attr('data-producto', resp.id);
-                        }
+	                   
 	                }
 	            })
 	            .fail(function(jqXHR, ajaxOptions, thrownError) {

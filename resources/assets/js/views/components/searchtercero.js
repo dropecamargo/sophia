@@ -47,6 +47,7 @@ app || (app = {});
             this.$inputName = this.$("#"+this.$inputContent.attr("data-name"));
             this.$btnContact = this.$("#"+this.$inputContent.attr("data-contacto"));
             
+            
             this.tercerosSearchTable = this.$tercerosSearchTable.DataTable({
                 dom: "<'row'<'col-sm-12'tr>>" +
                		"<'row'<'col-sm-5'i><'col-sm-7'p>>",
