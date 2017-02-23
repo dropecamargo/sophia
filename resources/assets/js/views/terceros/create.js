@@ -14,22 +14,32 @@ app || (app = {});
         el: '#tercero-create',
         template: _.template( ($('#add-tercero-tpl').html() || '') ),
         events: {
-            'submit #form-create-tercero': 'onStore',
-            'click .btn-add-tcontacto': 'addContacto',
-            'ifChanged .click-check' : 'clickcheck'   
+            'submit #form-tercero': 'onStore',
+            'submit #form-item-roles': 'onStoreRol',
+            'ifChanged .change_employee': 'changedEmployee',
+            'ifChanged #tercero_tecnico': 'changedTechnical',
+            'click .btn-add-tcontacto': 'addContacto'
         },
 
         /**
         * Constructor Method
         */
         initialize : function(opts) {
+            // Initialize
+            if( opts !== undefined && _.isObject(opts.parameters) )
+                this.parameters = $.extend({}, this.parameters, opts.parameters);
 
             // Attributes
             this.msgSuccess = 'Tercero guardado con exito!';
             this.$wraperForm = this.$('#render-form-tercero');
 
+            // Model exist
+            if( this.model.id != undefined ) {
+                this.contactsList = new app.ContactsList();
+                this.rolList = new app.RolList();
+            }
+
             // Events
-            // this.listenTo( this.model, 'change:id', this.render );
             this.listenTo( this.model, 'change', this.render );
             this.listenTo( this.model, 'sync', this.responseServer );
             this.listenTo( this.model, 'request', this.loadSpinner );
@@ -41,17 +51,99 @@ app || (app = {});
         render: function(){
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
-            this.$checkEmpleado = $('#tercero_empleado');
-           
+
+            this.$form = this.$('#form-tercero');
+            this.$formAccounting = this.$('#form-accounting');
+            this.$formEmployee = this.$('#form-employee');
+
+            this.$checkEmployee = this.$('#tercero_empleado');
+            this.$checkInternal = this.$('#tercero_interno');
+
+            this.$wrapperEmployes = this.$('#wrapper-empleados');
+            this.$wrapperCoordinador = this.$('#wrapper-coordinador');
+
             // Model exist
             if( this.model.id != undefined ) {
-
-                this.contactsList = new app.ContactsList();
 
                 // Reference views
                 this.referenceViews();
             }
             this.ready();
+        },
+
+        /**
+        * reference to views
+        */
+        referenceViews: function () {
+            // Contact list
+            this.contactsListView = new app.ContactsListView( {
+                collection: this.contactsList,
+                parameters: {
+                    edit: true,
+                    wrapper: this.$('#wrapper-tcontacto'),
+                    dataFilter: {
+                        'tercero_id': this.model.get('id')
+                    }
+               }
+            });
+            // Rol list
+            this.rolesListView = new app.RolesListView( {
+                collection: this.rolList,
+                parameters: {
+                    edit: true,
+                    wrapper: this.$('#wrapper-roles'),
+                    dataFilter: {
+                        'tercero_id': this.model.get('id')
+                    }
+               }
+            });
+        },
+
+        /**
+        * Event Create Forum Post
+        */
+        onStore: function (e) {
+            if (!e.isDefaultPrevented()) {
+
+                e.preventDefault();
+                var data = $.extend({}, window.Misc.formToJson( e.target ), window.Misc.formToJson( this.$formAccounting ), window.Misc.formToJson( this.$formEmployee ));
+                this.model.save( data, {patch: true, silent: true} );
+            }
+        },
+
+        /**
+        * Event add item rol
+        */
+        onStoreRol: function (e) {
+            if (!e.isDefaultPrevented()) {
+                e.preventDefault();
+
+                // Prepare global data
+                var data = window.Misc.formToJson( e.target );
+                this.rolList.trigger( 'store', data );
+            }
+        },
+
+        addContacto: function() {
+            this.contactsListView.trigger('createOne', this.model.get('id'));
+        },
+
+        changedTechnical: function(e) {
+            var selected = $(e.target).is(':checked');
+            if( selected ) {
+                this.$wrapperCoordinador.removeClass('hide');
+            }else{
+                this.$wrapperCoordinador.addClass('hide');
+            }
+        },
+
+        changedEmployee: function(e) {
+            // Active if internal or employee
+            if( this.$checkInternal.is(':checked') || this.$checkEmployee.is(':checked') ) {
+                this.$wrapperEmployes.removeClass('hide')
+            }else{
+                this.$wrapperEmployes.addClass('hide')
+            }
         },
 
         /**
@@ -70,62 +162,9 @@ app || (app = {});
 
             if( typeof window.initComponent.initICheck == 'function' )
                 window.initComponent.initICheck();
-        },
 
-        /**
-        * reference to views
-        */
-        referenceViews: function () {
-            // Contact list
-            this.contactsListView = new app.ContactsListView( {
-                collection: this.contactsList,
-                parameters: {
-                    dataFilter: {
-                        'tercero_id': this.model.get('id')
-                    }
-               }
-            });
-        },
-
-        /**
-        * Event Create Forum Post
-        */
-        onStore: function (e) {
-
-            if (!e.isDefaultPrevented()) {
-
-                e.preventDefault();
-                var data = window.Misc.formToJson( e.target );
-                this.model.save( data, {patch: true, silent: true} );
-            }
-        },
-        
-        /**
-        * addContacto
-        */
-
-        addContacto: function() {
-            this.contactoModel = new app.ContactoModel();
-            this.createTContactoView = new app.CreateTContactoView({
-                model: this.contactoModel,
-                collection: this.contactsList,
-                parameters: {
-                    'tercero_id': this.model.get('id')
-               }
-            });
-            this.createTContactoView.render();
-        },
-
-        /*
-        *
-        */
-        clickcheck:function(e){
-            var selected = $(e.target).is(':checked');
-            if (selected) {
-                console.log('checked'); 
-            }else{
-                console.log('NO checked'); 
-            }
+            if( typeof window.initComponent.initValidator == 'function' )
+                window.initComponent.initValidator();
         },
 
         /**
@@ -159,7 +198,7 @@ app || (app = {});
                     this.createTerceroView.undelegateEvents();
                 }
 
-                // Redirect to edit orden
+                // Redirect to edit tercero
                 Backbone.history.navigate(Route.route('terceros.edit', { terceros: resp.id}), { trigger:true });
             }
         }

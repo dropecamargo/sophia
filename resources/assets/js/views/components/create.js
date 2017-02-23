@@ -114,13 +114,15 @@ app || (app = {});
                         var template = _.template($('#add-solicitante-tpl').html());
                         _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
                     },
-                    
+
 	                'tercero' : function() {
                         _this.$modalComponent.find('.inner-title-modal').html('Tercero');
 
                         _this.model = new app.TerceroModel();
                         var template = _.template($('#add-tercero-tpl').html());
                         _this.$modalComponent.find('.content-modal').html( template(_this.model.toJSON()) );
+
+                        _this.$formAccounting = _this.$modalComponent.find('#form-accounting');
                     },
                     'producto' : function() {
                         _this.$modalComponent.find('.inner-title-modal').html('Producto');
@@ -191,6 +193,10 @@ app || (app = {});
 
                 e.preventDefault();
                 var data = $.extend({}, this.parameters, window.Misc.formToJson( e.target ));
+
+                if (this.resource == 'tercero') {
+                    data = $.extend({}, data, window.Misc.formToJson( this.$formAccounting ));
+                }
 
                 this.model.save( data, {patch: true} );
             }

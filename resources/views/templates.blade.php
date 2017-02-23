@@ -474,6 +474,19 @@
 	</div>
 </script>
 
+<script type="text/template" id="contact-item-list-tpl">
+	<td><%- tcontacto_nombres %> <%- tcontacto_apellidos %></td>
+	<td><%- tcontacto_direccion %></td>
+	<td><%- tcontacto_telefono %></td>
+	<td><%- tcontacto_celular %></td>
+
+	<td class="text-center">
+		<a class="btn btn-default btn-xs btn-edit-tcontacto" data-resource="<%- id %>">
+			<span><i class="fa fa-pencil-square-o"></i></span>
+		</a>
+	</td>
+</script>
+
 {{--template Sucursal--}}
 <script type="text/template" id="add-sucursal-tpl">
     <div class="row">
@@ -668,17 +681,3 @@
 		</div>
     </div>
 </script>
-
-<script type="text/template" id="contact-item-list-tpl">
-	<td><%- tcontacto_nombres %> <%- tcontacto_apellidos %></td>
-	<td><%- tcontacto_direccion %></td>
-	<td><%- tcontacto_telefono %></td>
-	<td><%- tcontacto_celular %></td>
-
-	<!-- td class="text-center">
-		<a class="btn btn-default btn-xs btn-edit-tcontacto" data-resource="<%- id %>">
-			<span><i class="fa fa-pencil-square-o"></i></span>
-		</a>
-	</td -->
-</script>
-
