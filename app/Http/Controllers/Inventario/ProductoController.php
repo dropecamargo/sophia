@@ -22,7 +22,7 @@ class ProductoController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-           
+           // dd($request->all());
             $query = Producto::query();
             $query->select('producto.id','producto_serie' ,'producto_nombre', 'tipo_codigo', 'tipo_nombre');
             $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
@@ -53,7 +53,8 @@ class ProductoController extends Controller
                     //Filter of Asignaciones
                     if($request->has('productos_asignados')){
                        if ($request->productos_asignados == "true") {
-
+                            $tercero = Tercero::where('tercero_nit' , $request->producto_tercero)->first();
+                            $query->where('producto_contrato', $request->producto_contrato)->where('producto_tercero', $tercero->id);
                        }else{
                             $query->whereNull('producto_tercero')->whereNull('producto_contrato');
 
