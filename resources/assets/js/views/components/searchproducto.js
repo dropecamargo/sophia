@@ -45,11 +45,11 @@ app || (app = {});
 			this.$inputContent = this.$("#"+$(e.currentTarget).attr("data-field"));
 			this.$inputName = this.$("#"+this.$inputContent.attr("data-name"));
 			this.$wraperType = this.$("#"+this.$inputContent.attr("data-render"));
+			this.$btnContrato = this.$("#"+this.$inputContent.attr("data-contrato"));
 			
 			// Filters
 			this.tipo_codigo = this.$inputContent.attr("data-tipo");
 			this.asignacion_data = this.$inputContent.attr("data-asignaciones");
-			//this.asignacion_cliente = this.$inputContent.attr("cliente-asignaciones");
 		
 			this.productosSearchTable = this.$productosSearchTable.DataTable({
 				dom: "<'row'<'col-sm-12'tr>>" +
@@ -64,7 +64,7 @@ app || (app = {});
                         data.producto_nombre = _this.$searchNombre.val();
                         data.tipo_codigo = _this.tipo_codigo;
                         data.productos_asignados = _this.asignacion_data;
-                        data.productos_asignados_cliente = _this.asignacion_cliente;
+                        
                     }
                 },
                 columns: [
@@ -106,6 +106,11 @@ app || (app = {});
                 this.renderType(data.tipo_codigo);
             }
 
+            if(this.$btnContrato.length > 0) {
+                this.$btnContrato.attr('data-producto', data.id);
+            	console.log(data.id);
+            }
+            
 			this.$modalComponent.modal('hide');
 		},
 
@@ -131,7 +136,12 @@ app || (app = {});
 			this.$inputName = this.$("#"+$(e.currentTarget).attr("data-name"));
 			this.$wraperConten = this.$("#"+$(e.currentTarget).attr("data-wrapper"));
 			this.$wraperType = this.$("#"+this.$inputContent.attr("data-render"));
-
+			this.$btnContrato = this.$("#"+this.$inputContent.attr("data-contrato"));
+			if(this.$btnContrato.length > 0) {
+				console.log("ajajaj");
+                this.$btnContrato.attr('data-producto', data.id);
+            }
+            
 			var producto = this.$inputContent.val();
 
             // Before eval clear data
@@ -159,6 +169,9 @@ app || (app = {});
 	                    if(_this.$wraperType.length) {
     		            	_this.renderType(resp.tipo_codigo);
 	                    }
+	                    if(_this.$btnContact.length > 0) {
+                            _this.$btnContact.attr('data-producto', resp.id);
+                        }
 	                }
 	            })
 	            .fail(function(jqXHR, ajaxOptions, thrownError) {

@@ -1,7 +1,7 @@
-@extends('tecnico.envioequipo.main')
+@extends('tecnico.asignacion.main')
 
 @section('breadcrumb')
-    <li><a href="{{ route('envioequipos.index')}}">Asiganación</a></li>
+    <li><a href="{{ route('asignaciones.index')}}">Asiganación</a></li>
 	<li class="active">Nuevo</li>
 @stop
 

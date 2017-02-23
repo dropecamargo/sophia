@@ -9,7 +9,7 @@ app || (app = {});
 
 (function ($, window, document, undefined) {
 
-    app.EnvioDetalleItemView = Backbone.View.extend({
+    app.AsignacionDetalleItemView = Backbone.View.extend({
 
         tagName: 'tr',
         template: _.template( ($('#add-asignacion2-item-tpl').html() || '') ),

@@ -9,15 +9,15 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Cache,Datatables, Auth;
 
-use App\Models\Tecnico\EnvioEquipo;
-use App\Models\Tecnico\EnvioDetalle;
+use App\Models\Tecnico\Asignacion;
+use App\Models\Tecnico\AsignacionDetalle;
 use App\Models\Tecnico\Contrato;
 use App\Models\Inventario\Producto;
 use App\Models\Inventario\Tipo;
 use App\Models\Base\Tercero;
 use App\Models\Base\Contacto;
 
-class EnvioEquipoController extends Controller
+class AsignacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,8 +26,9 @@ class EnvioEquipoController extends Controller
      */
     public function index(Request $request)
     {
+
         if($request->ajax()){
-            $query = EnvioEquipo::query();
+            $query = Asignacion::query();
             $query->select('asignacion1.*',DB::raw("CONCAT(t.tercero_nombre1, ' ', t.tercero_nombre2, ' ',t.tercero_apellido1, ' ',t.tercero_apellido2) as tecnico_nombre"),DB::raw("CONCAT(a.tercero_nombre1, ' ', a.tercero_nombre2, ' ',a.tercero_apellido1, ' ',a.tercero_apellido2) as tercero_nombre"));
             $query->join('tercero as t','asignacion1.asignacion1_tecnico', '=', 't.id');
             $query->join('tercero as a','asignacion1.asignacion1_tercero', '=', 'a.id');
@@ -36,7 +37,7 @@ class EnvioEquipoController extends Controller
             if($request->has('persistent') && $request->persistent) {
                 session(['searchasignacion1_tecnico' => $request->has('tecnico_nit') ? $request->tecnico_nit : '']);
                 session(['searchasignacion1_tecnico_nombre' => $request->has('tecnico_nombre') ? $request->tecnico_nombre : '']);
-                session(['searchasignacion1_tipo' => $request->has('envioequipo_tipo') ? $request->envioequipo_tipoenvioequipo_tipo : '']);
+                session(['searchasignacion1_tipo' => $request->has('asignacion_tipo') ? $request->asignacion_tipo : '']);
                 session(['searchasignacion1_tercero' => $request->has('tercero_nit') ? $request->tercero_nit : '']);
                 session(['searchasignacion1_tercero_nombre' => $request->has('tercero_nombre') ? $request->tercero_nombre : '']);
             }
@@ -65,7 +66,7 @@ class EnvioEquipoController extends Controller
                 })
                 ->make(true);
         }
-        return view('tecnico.envioequipo.index');
+        return view('tecnico.asignacion.index');
     }
 
     /**
@@ -75,7 +76,7 @@ class EnvioEquipoController extends Controller
      */
     public function create()
     {
-        return view('tecnico.envioequipo.create');
+        return view('tecnico.asignacion.create');
     }
 
     /**
@@ -88,8 +89,8 @@ class EnvioEquipoController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-            
-            $asignacion1 = new EnvioEquipo;
+           
+            $asignacion1 = new Asignacion;
             if ($asignacion1->isValid($data)) {
                 DB::beginTransaction();
                 try {
@@ -166,7 +167,7 @@ class EnvioEquipoController extends Controller
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);  
                         }
 
-                        $asignacion2 = new EnvioDetalle;
+                        $asignacion2 = new AsignacionDetalle;
                         $asignacion2->asignacion2_asignacion1 = $asignacion1->id;
                         $asignacion2->asignacion2_producto = $producto->id;
                         if(isset($item['producto_tipo_search']) && $item['producto_tipo_search'] != '') {
@@ -229,8 +230,8 @@ class EnvioEquipoController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $asignacion = EnvioEquipo::getAsignacion($id);
-        if(!$asignacion instanceof EnvioEquipo){
+        $asignacion = Asignacion::getAsignacion($id);
+        if(!$asignacion instanceof Asignacion){
             abort(404);
         }
 
@@ -238,7 +239,7 @@ class EnvioEquipoController extends Controller
             return response()->json($asignacion);
         }
 
-        return view('tecnico.envioequipo.show', ['asignacion1' => $asignacion]);
+        return view('tecnico.asignacion.show', ['asignacion1' => $asignacion]);
     }
 
     /**
