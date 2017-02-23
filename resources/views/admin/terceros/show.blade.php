@@ -6,7 +6,7 @@
 @stop
 
 @section('module')
-	<div class="box box-success">
+	<div class="box box-danger">
 		<div class="box-body">
 			<div class="row">
 				<div class="form-group col-md-3">
@@ -283,7 +283,7 @@
 								<br />
 								<div class="row">
 							    	<div class="form-group col-md-offset-2 col-md-8">
-										<div class="box box-success" id="wrapper-roles">
+										<div class="box box-danger" id="wrapper-roles">
 											<div class="box-header with-border">
 												<h3 class="box-title">Roles de usuario</h3>
 											</div>
@@ -301,7 +301,7 @@
 
 							{{-- Tab contactos --}}
 							<div class="tab-pane" id="tab_contactos">
-								<div class="box box-success">
+								<div class="box box-danger">
 									<div class="box-body table-responsive no-padding">
 										<table id="browse-contact-list" class="table table-hover table-bordered" cellspacing="0" width="100%">
 								            <thead>
@@ -322,7 +322,7 @@
 
 							{{-- Tab proveedor --}}
 							<div class="tab-pane" id="tab_proveedor">
-								<div class="box box-success">
+								<div class="box box-danger">
 									<div class="box-body table-responsive no-padding">
 										<table id="browse-facturap-list" class="table table-hover table-bordered" cellspacing="0" width="100%">
 								            <thead>
