@@ -63,13 +63,24 @@ class AsignacionDetalleController extends Controller
             $asignacion2 = new AsignacionDetalle;
             if ($asignacion2->isValid($data)) {
                 try {
-                    // Recuperar producto
-                    $producto = Producto::where('producto_serie', $request->asignacion2_producto)->whereNull('producto_tercero')->whereNull('producto_contrato')->first();
-                    if(!$producto instanceof Producto) {
-                        return response()->json(['success' => false, 'errors' => 'Este producto ya esta asignado, por favor verifique la información o consulte al administrador.']);
+                    if($request->tipo == 'E')
+                    {  
+                        // Recuperar producto
+                        $producto = Producto::where('producto_serie', $request->asignacion2_producto)->whereNull('producto_tercero')->whereNull('producto_contrato')->first();
+                        if(!$producto instanceof Producto) {
+                            return response()->json(['success' => false, 'errors' => 'Este producto ya esta asignado, por favor verifique la información o consulte al administrador.']);
+                        }
                     }
-                  
 
+                    if($request->tipo == 'R')
+                    {  
+                        // Recuperar producto
+                        $producto = Producto::where('producto_serie', $request->asignacion2_producto)->whereNotNull('producto_tercero')->whereNotNull('producto_contrato')->first();
+                        if(!$producto instanceof Producto) {
+                            return response()->json(['success' => false, 'errors' => 'Este producto ya esta Retirado, por favor verifique la información o consulte al administrador.']);
+                        }
+                    }
+  
                     $tipo = Tipo::find($producto->producto_tipo);
                     if(!$tipo instanceof Tipo) {
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);
@@ -80,6 +91,8 @@ class AsignacionDetalleController extends Controller
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'Ingrese un Equipo ó un Accesorio, por favor verifique la información o consulte al administrador.']);  
                     }
+
+                   
 
                     return response()->json(['success' => true, 'id' => uniqid(), 'nombre'=>$tipo->tipo_nombre]);
                 }catch(\Exception $e){

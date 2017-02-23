@@ -27,7 +27,7 @@ app || (app = {});
             this.$envioequipoSearchTable = this.$('#asignacion1s-search-table');
             this.$searchenvioquipoTercero = this.$('#searchasignacion1_tercero');
             this.$searchenvioquipoTerceroName = this.$('#searchasignacion1_tercero_nombre');
-            this.$searchenvioquipoTipo = this.$('#searchasignacion1_tipo');
+            this.$searchasignacionTipo = this.$('#searchasignacion1_tipo');
             this.$searchenvioquipoTecnico = this.$('#searchasignacion1_tecnico');
             this.$searchenvioquipoTecnicoName = this.$('#searchasignacion1_tecnico_nombre');
 
@@ -44,7 +44,7 @@ app || (app = {});
                         data.persistent = true;
                         data.tercero_nit = _this.$searchenvioquipoTercero.val();
                         data.tercero_nombre = _this.$searchenvioquipoTerceroName.val();
-                        data.asignacion_tipo = _this.$searchenvioquipoTipo.val();
+                        data.asignacion_tipo = _this.$searchasignacionTipo.val();
                         data.tecnico_nit = _this.$searchenvioquipoTecnico.val();
                         data.tecnico_nombre = _this.$searchenvioquipoTecnicoName.val();         
                     }
@@ -94,7 +94,7 @@ app || (app = {});
 
             this.$searchenvioquipoTercero.val('');
             this.$searchenvioquipoTerceroName.val('');
-            this.$searchenvioquipoTipo.val('');
+            this.$searchasignacionTipo.val('');
             this.$searchenvioquipoTecnico.val('');
             this.$searchenvioquipoTecnicoName.val('')
 

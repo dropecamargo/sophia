@@ -27,6 +27,7 @@ app || (app = {});
             this.$productosSearchTable = this.$('#productos-search-table');
             this.$searchSerie = this.$('#producto_serie');
             this.$searchName = this.$('#producto_nombre');
+            this.$searchproductoTipo = this.$('#searchproducto_tipo');
 
             this.productosSearchTable = this.$productosSearchTable.DataTable({
                 dom: "<'row'<'col-sm-4'><'col-sm-4 text-center'l>>" +
@@ -41,10 +42,12 @@ app || (app = {});
                         data.persistent = true;
                         data.producto_serie = _this.$searchSerie.val();
                         data.producto_nombre = _this.$searchName.val();
+                        data.producto_tipo = _this.$searchproductoTipo.val();
                     }
                 },
                 columns: [
                     { data: 'id', name: 'id' },
+                    { data: 'producto_placa', name: 'producto_placa' },
                     { data: 'producto_serie', name: 'producto_serie' },
                     { data: 'producto_nombre', name: 'producto_nombre'}
                 ],

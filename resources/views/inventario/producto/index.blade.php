@@ -16,9 +16,23 @@
                         </div>
 
                         <label for="producto_nombre" class="col-md-1 control-label">Nombre</label>
-                        <div class="col-md-8">
+                        <div class="col-md-5">
                             {!! Form::text('producto_nombre',session('search_producto_nombre'), ['id' => 'producto_nombre', 'class' => 'form-control input-sm input-toupper' ]) !!}
                         </div>
+
+                        <label for="searchproducto_tipo" class="col-sm-1 control-label">Tipo</label>
+                   
+                            <div class="col-md-2">
+                                <select name="searchproducto_tipo" id="searchproducto_tipo" class="form-control">
+                                    <option value="" selected>Todas</option>
+                                    <option value="RP" {{ session('searchproducto_tipo') == 'RP' ? 'selected': '' }}>Repuesto</option>
+                                    <option value="CO" {{ session('searchproducto_tipo') == 'CO' ? 'selected': '' }}>Consumible</option>
+                                    <option value="AC" {{ session('searchproducto_tipo') == 'AC' ? 'selected': '' }}>Accesorio</option>
+                                    <option value="EQ" {{ session('searchproducto_tipo') == 'EQ' ? 'selected': '' }}>Equipo</option>
+                                    <option value="IN" {{ session('searchproducto_tipo') == 'IN' ? 'selected': '' }}>Insumo</option>
+                                </select>
+                            </div>
+                        
                     </div>
 
                     <div class="form-group">
@@ -40,6 +54,7 @@
                     <thead>
                         <tr>
                             <th>Id</th>
+                            <th>Placa</th>
                             <th>Serie</th>
                             <th>Nombre del producto</th>
                         </tr>

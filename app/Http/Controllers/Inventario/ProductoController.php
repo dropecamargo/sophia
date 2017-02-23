@@ -24,13 +24,14 @@ class ProductoController extends Controller
         if ($request->ajax()) {
            // dd($request->all());
             $query = Producto::query();
-            $query->select('producto.id','producto_serie' ,'producto_nombre', 'tipo_codigo', 'tipo_nombre');
+            $query->select('producto.id','producto_placa','producto_serie' ,'producto_nombre','tipo_codigo', 'tipo_nombre');
             $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
 
             // Persistent data filter
             if($request->has('persistent') && $request->persistent) {
                 session(['search_producto_serie' => $request->has('producto_serie') ? $request->producto_serie : '']);
                 session(['search_producto_nombre' => $request->has('producto_nombre') ? $request->producto_nombre : '']);
+                session(['searchproducto_tipo' => $request->has('producto_tipo') ? $request->producto_tipo : '']);
             }
 
             return Datatables::of($query)
@@ -43,6 +44,13 @@ class ProductoController extends Controller
                     // Nombre
                     if($request->has('producto_nombre')) {
                         $query->whereRaw("producto_nombre LIKE '%{$request->producto_nombre}%'");
+                    }
+                    // Tipo
+                    if($request->has('producto_tipo')) {
+                        $tipo = Tipo::where('tipo_codigo' , $request->producto_tipo)->first();
+                        if($tipo instanceof Tipo){
+                            $query->where('producto_tipo',$tipo->id); 
+                        }
                     }
 
                     // Filter default search

@@ -30,7 +30,7 @@ class AsignacionController extends Controller
         if($request->ajax()){
             $query = Asignacion::query();
             $query->select('asignacion1.*',DB::raw("CONCAT(t.tercero_nombre1, ' ', t.tercero_nombre2, ' ',t.tercero_apellido1, ' ',t.tercero_apellido2) as tecnico_nombre"),DB::raw("CONCAT(a.tercero_nombre1, ' ', a.tercero_nombre2, ' ',a.tercero_apellido1, ' ',a.tercero_apellido2) as tercero_nombre"));
-            $query->join('tercero as t','asignacion1.asignacion1_tecnico', '=', 't.id');
+            $query->Leftjoin('tercero as t','asignacion1.asignacion1_tecnico', '=', 't.id');
             $query->join('tercero as a','asignacion1.asignacion1_tercero', '=', 'a.id');
 
             // Persistent data filter
@@ -53,14 +53,13 @@ class AsignacionController extends Controller
                         $query->where('t.tercero_nit', $request->tecnico_nit);
                     }
 
-
                     // Tipo
-                    if($request->has('envioequipo_tipo')) {
-                        if($request->envioequipo_tipo == 'E') {
-                            $query->where('envioequipo_tipo', 'E');
+                    if($request->has('asignacion_tipo')) {
+                        if($request->asignacion_tipo  == 'E') {
+                            $query->where('asignacion1_tipo', 'E');
                         }
-                        if($request->envioequipo_tipo == 'R') {
-                            $query->where('envioequipo_tipo', 'R');
+                        if($request->asignacion_tipo == 'R') {
+                            $query->where('asignacion1_tipo', 'R');
                         }
                     }
                 })
@@ -95,7 +94,7 @@ class AsignacionController extends Controller
                 DB::beginTransaction();
                 try {
                     $tercero = Tercero::where('tercero_nit', $request->asignacion1_tercero)->first();
-                    $tecnico = Tercero::where('tercero_nit', $request->asignacion1_tecnico)->first();
+                    
                     $contrato = Contrato::find($request->asignacion1_contrato);
                     $contacto = Contacto::find($request->asignacion1_contacto);
                     
@@ -103,10 +102,14 @@ class AsignacionController extends Controller
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
                     }
-
-                    if(!$tecnico instanceof Tercero) {
-                        DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                    if($request->asignacion1_tipo == "E"){
+                        $tecnico = Tercero::where('tercero_nit', $request->asignacion1_tecnico)->first();
+                        if(!$tecnico instanceof Tercero) {
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                        }
+                        $asignacion1->asignacion1_tecnico = $tecnico->id;
+                        
                     }
 
                     // Validar contacto
@@ -138,7 +141,6 @@ class AsignacionController extends Controller
                     $asignacion1->asignacion1_contrato = $contrato->id;
                     $asignacion1->asignacion1_tercero = $tercero->id;
                     $asignacion1->asignacion1_contacto = $contacto->id;
-                    $asignacion1->asignacion1_tecnico = $tecnico->id;
                     $asignacion1->asignacion1_tipo = $request->asignacion1_tipo;
                     $asignacion1->asignacion1_usuario_elaboro = Auth::user()->id;
                     $asignacion1->asignacion1_fh_elaboro = date('Y-m-d H:m:s');

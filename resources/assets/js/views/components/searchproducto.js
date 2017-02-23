@@ -75,6 +75,7 @@ app || (app = {});
                 },
                 columns: [
                     { data: 'producto_serie', name: 'producto_serie' },
+                    { data: 'producto_placa', name: 'producto_placa' },
                     { data: 'producto_nombre', name: 'producto_nombre' },
                     { data: 'tipo_nombre', name: 'producto_tipo' },
                     { data: 'tipo_codigo', name: 'tipo_codigo' }
