@@ -39,11 +39,9 @@ app || (app = {});
             this.listenTo( this.collection, 'store', this.storeOne );
             this.listenTo( this.collection, 'sync', this.responseServer );
 
-            
             /* if was passed asignacion2 code */
             if( !_.isUndefined(this.parameters.dataFilter.asignacion2) && !_.isNull(this.parameters.dataFilter.asignacion2) ){
                 this.confCollection.data.asignacion2 = this.parameters.dataFilter.asignacion2;
-
                 this.collection.fetch( this.confCollection );
                 
             }
@@ -79,7 +77,8 @@ app || (app = {});
         storeOne: function (form) {
             var _this = this,
             data = window.Misc.formToJson( form );
-
+            data.tipo = this.parameters.dataFilter.tipo;
+            console.log(data);
             // Set Spinner
             window.Misc.setSpinner( this.parameters.wrapper );
 

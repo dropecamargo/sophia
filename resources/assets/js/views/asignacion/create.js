@@ -76,7 +76,9 @@ app || (app = {});
                 parameters: {
                     wrapper: this.el,
                     edit: true,
-
+                    dataFilter: {
+                        'tipo': this.parameters.type
+                    }
                 }
             });
         },
@@ -99,7 +101,7 @@ app || (app = {});
                 var data = window.Misc.formToJson( e.target );
                 data.asignacion1_tipo = this.parameters.type;
                 data.asignacion2 = this.asignaciondetalleList.toJSON();
-
+                
                 this.model.save( data, {patch: true, silent: true} );
             }
         },

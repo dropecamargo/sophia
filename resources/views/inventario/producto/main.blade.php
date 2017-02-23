@@ -111,7 +111,7 @@
                     <select name="producto_tipo" id="producto_tipo" class="form-control select2-default" required>
                         <option value="" selected>Seleccione</option>
                         @foreach( App\Models\Inventario\Tipo::getTipos() as $key => $value)
-                            <option value="{{ $key }}" <%- producto_tipo == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
+                            <option value="{{ $key }}" <%- producto_tipo == '{{ $key }}' ? 'selected': ''%>>{{ $value }}</option>
                         @endforeach
                     </select>
                 </div>

@@ -180,8 +180,9 @@
 				<div class="col-md-12 table-responsive">
 					<table id="koi-search-producto-component-table" class="table table-bordered table-striped" cellspacing="0" width="100%">
 		                <thead>
-				            <tr>
+				            <tr>	
 				                <th>Serie</th>
+				            	<th>Placa</th>
 			                	<th>Nombre</th>
 			                	<th>Tipo</th>
 			                	<th>Codigo tipo</th>

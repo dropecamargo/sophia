@@ -42,6 +42,7 @@ app || (app = {});
                     }
                 }
             });
+            console.log(this.model.get());
         }
     });
 
