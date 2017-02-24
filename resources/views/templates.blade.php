@@ -271,7 +271,7 @@
 						    <div class="row">
 						    	<div class="form-group col-md-2">
 									<label class="checkbox-inline" for="tercero_cliente">
-										<input type="checkbox" id="tercero_cliente" name="tercero_cliente" value="tercero_cliente" <%- parseInt(tercero_socio) ? 'checked': ''%>> Cliente
+										<input type="checkbox" id="tercero_cliente" name="tercero_cliente" value="tercero_cliente" <%- parseInt(tercero_cliente) ? 'checked': ''%>> Cliente
 									</label>
 								</div>
 								<div class="form-group col-md-2">
