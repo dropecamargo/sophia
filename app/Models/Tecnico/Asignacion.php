@@ -22,7 +22,7 @@ class Asignacion extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['asignacion1_fecha','asignacion1_tipo','asignacion1_direccion','asignacion1_area','asignacion1_centrocosto','asignacion1_municipio','asignacion1_zona'];
+    protected $fillable = ['asignacion1_fecha','asignacion1_tipo','asignacion1_direccion','asignacion1_area','asignacion1_centrocosto','asignacion1_municipio'];
 
     /**
     * The attributes nulleables from the model.
@@ -30,7 +30,7 @@ class Asignacion extends BaseModel
     * @var array
     */
 
-    protected $nullable = ['asignacion1_municipio', 'asignacion1_zona','asignacion1_tecnico'];
+    protected $nullable = ['asignacion1_municipio', 'asignacion1_tecnico'];
 
     public function isValid($data)
     {
@@ -64,7 +64,6 @@ class Asignacion extends BaseModel
         $query->join('tercero as t','asignacion1.asignacion1_tercero', '=', 't.id');
         $query->Leftjoin('tercero as a','asignacion1.asignacion1_tecnico', '=', 'a.id');
         $query->Leftjoin('municipio','asignacion1.asignacion1_municipio', '=', 'municipio.id');
-        $query->Leftjoin('zona','asignacion1.asignacion1_zona', '=', 'zona.id');
         $query->join('tcontacto','asignacion1.asignacion1_contacto', '=', 'tcontacto.id');
         $query->where('asignacion1.id', $id);
         return $query->first();

@@ -15,6 +15,6 @@ class EstadoTableSeeder extends Seeder
         Estado::create([
         	'estado_nombre' => 'Excelente',
         	'estado_activo' => true
-        	]);
+    	]);
     }
 }

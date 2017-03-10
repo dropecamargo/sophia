@@ -11,7 +11,7 @@ class ContratoSeeder extends Seeder
      */
     public function run()
     {
-         Contrato::create([
+        Contrato::create([
             'contrato_numero'=>'25-C',
             'contrato_tercero'=>1,
             'contrato_fecha'=>'2015-05-10',

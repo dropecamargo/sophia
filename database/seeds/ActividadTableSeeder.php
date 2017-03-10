@@ -17,6 +17,6 @@ class ActividadTableSeeder extends Seeder
         	'actividad_nombre' => 'Ilicita',
         	'actividad_tarifa' => 400,
         	'actividad_categoria' => 'A'
-        	]);
+    	]);
     }
 }

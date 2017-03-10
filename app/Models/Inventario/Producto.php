@@ -24,14 +24,14 @@ class Producto extends BaseModel
     *
     * @var static string
     */
-    public static $key_cache = '_pruduct';
+    public static $key_cache = '_product';
 
     /**
     * The attributes that are mass assignable.
     *
     * @var array
     */
-    protected $fillable = ['producto_placa','producto_serie','producto_referencia','producto_codigo','producto_nombre','producto_parte','producto_vida_util','producto_tipo','producto_estado','producto_modelo','producto_marca'];
+    protected $fillable = ['producto_placa','producto_serie','producto_referencia','producto_codigo','producto_nombre','producto_vida_util','producto_tipo','producto_estado','producto_modelo','producto_marca'];
 
     /**
     * The attributes nulleables from the model.
@@ -46,21 +46,20 @@ class Producto extends BaseModel
         $rules = [
             'producto_placa' => 'unique:producto',
             'producto_serie' => 'unique:producto',
+            'producto_codigo' => 'unique:producto',
             'producto_referencia' => 'required|max:20',
-            'producto_codigo' => 'required|max:20',
             'producto_nombre' => 'required|max:100',
-            'producto_parte' => 'max:20',
             'producto_tipo' => 'required',
-            'producto_vida_util'=> 'numeric'
         ];
 
         if($this->exists){
             $rules['producto_placa'] .= ',producto_placa,' . $this->id;
             $rules['producto_serie'] .= ',producto_serie,' . $this->id;
-        
+            $rules['producto_codigo'] .= ',producto_codigo,' . $this->id;
         }else{
             $rules['producto_placa'] .= '|max:20';
             $rules['producto_serie'] .= '|max:20';
+            $rules['producto_codigo'] .= '|max:20';
         }
 
         $validator = Validator::make($data, $rules);
@@ -102,13 +101,6 @@ class Producto extends BaseModel
 
     public function validarProducto()
     {
-        // Validar parte
-        if(in_array($this->tipo->tipo_codigo, ['RP', 'CO'])) {
-            if(empty(trim($this->producto_parte)) || is_null(trim($this->producto_parte))) {
-                return trans('validation.required_if', ['attribute' => 'Parte', 'other' => 'Tipo',  'value' => 'Repuesto o Consumible']);
-            }
-        }
-
         // Validar vida util
         if(in_array($this->tipo->tipo_codigo, ['RP', 'CO', 'IN'])) {
             if(empty(trim($this->producto_vida_util)) || is_null(trim($this->producto_vida_util))) {

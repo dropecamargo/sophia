@@ -19,9 +19,8 @@ class CreateProductoTable extends Migration
             $table->integer('producto_placa')->unique()->nullable();
             $table->string('producto_serie', 20)->unique()->nullable();
             $table->string('producto_referencia', 20);
-            $table->string('producto_codigo', 20);
+            $table->string('producto_codigo', 20)->unique()->nullable();
             $table->string('producto_nombre', 100);
-            $table->string('producto_parte', 20);
 
             $table->integer('producto_tipo')->unsigned()->nullable();
             $table->integer('producto_marca')->unsigned()->nullable();

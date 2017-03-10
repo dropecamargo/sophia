@@ -15,7 +15,6 @@ class ModeloTableSeeder extends Seeder
         Modelo::create([
         	'modelo_nombre' => 'Bmw',
         	'modelo_activo' => true
-        	]);
-
+    	]);
     }
 }

@@ -27,7 +27,6 @@ class CreateAsignacion1Table extends Migration
             $table->integer('asignacion1_tercero')->unsigned()->nullable();
             $table->integer('asignacion1_municipio')->unsigned()->nullable();
             $table->integer('asignacion1_contrato')->unsigned()->nullable();
-            $table->integer('asignacion1_zona')->unsigned()->nullable();
             $table->integer('asignacion1_tecnico')->unsigned()->nullable();
             $table->integer('asignacion1_contacto')->unsigned()->nullable();
             $table->integer('asignacion1_usuario_elaboro')->unsigned();
@@ -35,7 +34,6 @@ class CreateAsignacion1Table extends Migration
             $table->foreign('asignacion1_tercero')->references('id')->on('tercero')->onDelete('restrict');
             $table->foreign('asignacion1_municipio')->references('id')->on('municipio')->onDelete('restrict');
             $table->foreign('asignacion1_contrato')->references('id')->on('contrato')->onDelete('restrict');
-            $table->foreign('asignacion1_zona')->references('id')->on('zona')->onDelete('restrict');
             $table->foreign('asignacion1_tecnico')->references('id')->on('tercero')->onDelete('restrict');
             $table->foreign('asignacion1_contacto')->references('id')->on('tcontacto')->onDelete('restrict');
         });

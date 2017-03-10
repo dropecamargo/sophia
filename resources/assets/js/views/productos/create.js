@@ -53,7 +53,6 @@ app || (app = {});
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
             this.$form = this.$('#form-producto');
-
             // Model exist
             if( this.model.id != undefined ) {
 
@@ -163,6 +162,9 @@ app || (app = {});
 
             if( typeof window.initComponent.initValidator == 'function' )
                 window.initComponent.initValidator();
+
+            if( typeof window.initComponent.initInputMask == 'function' )
+                window.initComponent.initInputMask();
         },
 
         /**
@@ -197,7 +199,7 @@ app || (app = {});
                 }
 
                 // Redirect to edit producto
-                Backbone.history.loadUrl(Route.route('productos.edit', { productos: resp.id}), { trigger:true });
+                Backbone.history.navigate(Route.route('productos.edit', { productos: resp.id}), { trigger:true });
             
             }
         }

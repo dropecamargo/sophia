@@ -57,7 +57,6 @@
                                         <i class="fa fa-address-book"></i>
                                     </button>
                                 </span>
-                                <input id="asignacion1_contacto" name="asignacion1_contacto" type="hidden" value="<%- asignacion1_contacto %>">
                                 <input id="tcontacto_nombre" placeholder="Contacto" class="form-control" name="tcontacto_nombre" type="text" value="<%- contacto_nombre %>" readonly required>
                             </div>
                         </div>
@@ -73,7 +72,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </div>
-                                <input id="tcontacto_telefono" class="form-control input-sm" name="tcontacto_telefono" type="text" data-inputmask="'mask': '(999) 999-99-99'" data-mask value="<%- tcontacto_telefono %>" required>
+                                <input id="tcontacto_telefono" class="form-control input-sm" name="tcontacto_telefono" type="text" data-inputmask="'mask': '999-99-99'" data-mask value="<%- tcontacto_telefono %>" required>
                             </div>
                         </div>
                        <label for="asignacion1_municipio" class="control-label col-sm-1">Municipio</label>
@@ -104,15 +103,6 @@
                         <div class="form-group col-md-3">
                             <input type="text" id="asignacion1_direccion" name="asignacion1_direccion" value="<%- asignacion1_direccion %>" placeholder="Direccion" class="form-control input-sm input-toupper" maxlength="100" required>
                         </div>
-                        <label for="asignacion1_zona" class="control-label col-sm-1">Zona</label>
-                        <div class="form-group col-md-3">
-                            <select name="asignacion1_zona" id="asignacion1_zona" class="form-control select2-default" required>
-                                <option value="" selected>Seleccione</option>
-                                @foreach( App\Models\Tecnico\Zona::getZonas() as $key => $value)
-                                    <option value="{{ $key }}" <%- asignacion1_zona == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
-                                @endforeach
-                            </select>
-                        </div>
                     </div>
 
                     <div class="row">
@@ -141,7 +131,6 @@
                                         <i class="fa fa-briefcase"></i>
                                     </button>
                                 </span>
-                                <input id="asignacion1_contrato" name="asignacion1_contrato" type="hidden" value="<%- asignacion1_contrato %>">
                                 <input id="nombre_contrato" placeholder="Contrato" class="form-control" name="nombre_contrato" type="text" readonly>
                             </div>
                         </div>
@@ -156,11 +145,14 @@
                             <div class="form-group col-sm-2 col-md-offset-2">
                                 <div class="input-group input-group-sm">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="asignacion2_producto">
+                                        <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="asignacion2_producto" data-contrato="btn-add-producto">
                                             <i class="fa fa-barcode"></i>
                                         </button>
                                     </span>
-                                    <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre" data-render="wrapper-render-type" data-tipo="AC,EQ" data-asignaciones="false" required>
+                                    
+                                    <input id="asignacion1_contacto" name="asignacion1_contacto" type="hidden" value="<%- asignacion1_contacto %>">
+
+                                    <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre" data-render="wrapper-render-type" data-tipo="AC,EQ" required>
                                 </div>
                             </div>
                             <div class="col-sm-5 col-xs-10">
@@ -246,7 +238,6 @@
                                         <i class="fa fa-address-book"></i>
                                     </button>
                                 </span>
-                                <input id="asignacion1_contacto" name="asignacion1_contacto" type="hidden" value="<%- asignacion1_contacto %>">
                                 <input id="tcontacto_nombre" placeholder="Contacto" class="form-control" name="tcontacto_nombre" type="text" value="<%- contacto_nombre %>" readonly required>
                             </div>
                         </div>
@@ -262,7 +253,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </div>
-                                <input id="tcontacto_telefono" class="form-control input-sm" name="tcontacto_telefono" type="text" data-inputmask="'mask': '(999) 999-99-99'" data-mask value="<%- tcontacto_telefono %>" required>
+                                <input id="tcontacto_telefono" class="form-control input-sm" name="tcontacto_telefono" type="text" data-inputmask="'mask': '999-99-99'" data-mask value="<%- tcontacto_telefono %>" required>
                             </div>
                         </div>
                         <label for="asignacion1_contrato" class="col-sm-1 control-label">Contrato</label>
@@ -273,7 +264,6 @@
                                         <i class="fa fa-briefcase"></i>
                                     </button>
                                 </span>
-                                <input id="asignacion1_contrato" name="asignacion1_contrato" type="hidden" value="<%- asignacion1_contrato %>">
                                 <input id="nombre_contrato" placeholder="Contrato" class="form-control" name="nombre_contrato" type="text" readonly>
                             </div>
                         </div>
@@ -288,11 +278,11 @@
                             <div class="form-group col-sm-2 col-md-offset-2">
                                 <div class="input-group input-group-sm">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="asignacion2_producto">
+                                        <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="asignacion2_producto" data-contrato="btn-add-producto">
                                             <i class="fa fa-barcode"></i>
                                         </button>
                                     </span>
-                                    <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre" data-render="wrapper-render-type" data-tipo="AC,EQ" data-asignaciones="true"required>
+                                    <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre" data-render="wrapper-render-type" data-tipo="AC,EQ" required>
                                 </div>
                             </div>
                             <div class="col-sm-5 col-xs-10">

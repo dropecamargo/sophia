@@ -37,24 +37,19 @@
                     <input type="text" id="producto_serie" name="producto_serie" value="<%- producto_serie %>" placeholder="Serie" class="form-control input-sm input-toupper" maxlength="20">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="producto_referencia" class="control-label">Referencia</label>
+                    <label for="producto_referencia" class="control-label">Referencia de Proveedor</label>
                     <input type="text" id="producto_referencia" name="producto_referencia" value="<%- producto_referencia %>" placeholder="Referencia" class="form-control input-sm input-toupper" maxlength="20" required>
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col-md-3">
-                    <label for="producto_codigo" class="control-label">Codigo</label>
+                    <label for="producto_codigo" class="control-label">Codigo contable</label>
                     <input type="text" id="producto_codigo" name="producto_codigo" value="<%- producto_codigo %>" placeholder="Codigo" class="form-control input-sm input-toupper" maxlength="20" required></i>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="producto_parte" class="control-label">Parte</label>
-                    <input type="text" id="producto_parte" name="producto_parte" value="<%- producto_parte %>" placeholder="Parte" class="form-control input-sm input-toupper" maxlength="20">
-                </div>
-                <div class="form-group col-md-3">
                     <label for="producto_vida_util" class="control-label">Vida util</label>
-                    <input type="number" id="producto_vida_util" name="producto_vida_util" value="<%- producto_vida_util %>" placeholder="Vida util" class="form-control input-sm input-toupper" maxlength="20" min="0">
-
+                    <input type="text" id="producto_vida_util" name="producto_vida_util" value="<%- producto_vida_util %>" placeholder="Vida util" class="form-control input-sm" maxlength="20" min="0" data-currency-numeric>
                 </div>
             </div>
 

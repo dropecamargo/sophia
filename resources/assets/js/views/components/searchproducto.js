@@ -45,13 +45,15 @@ app || (app = {});
 			this.$inputContent = this.$("#"+$(e.currentTarget).attr("data-field"));
 			this.$inputName = this.$("#"+this.$inputContent.attr("data-name"));
 			this.$wraperType = this.$("#"+this.$inputContent.attr("data-render"));
-			var contrato_id = $("#asignacion1_contrato").val();
-			var tercero = $("#asignacion1_tercero").val();
 
-			if( _.isUndefined(contrato_id) || _.isNull(contrato_id) || contrato_id == '') {
-                alertify.error('Por favor ingrese contrato antes agregar producto.');
-                return;
-            }
+			var contrato = $("#asignacion1_contrato").val();
+			// Validate contrato
+            // if( _.isUndefined(contrato) || _.isNull(contrato) || contrato == '') {
+            //     alertify.error('Por favor ingrese contrato antes agregar producto.');
+            //     return;
+            // }
+            console.log(contrato);
+
 			// Filters
 			this.tipo_codigo = this.$inputContent.attr("data-tipo");
 			this.asignacion_data = this.$inputContent.attr("data-asignaciones");
@@ -69,8 +71,9 @@ app || (app = {});
                         data.producto_nombre = _this.$searchNombre.val();
                         data.tipo_codigo = _this.tipo_codigo;
                         data.productos_asignados = _this.asignacion_data;
-                        data.producto_contrato = contrato_id;                        
-                        data.producto_tercero = tercero;                        
+                        // data.producto_contrato = contrato_id;                        
+                        // data.producto_tercero = tercero;  
+                        console.log(data);                      
                     }
                 },
                 columns: [

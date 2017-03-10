@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
 use App\Models\Inventario\Producto;
 
 class ProductoSeeder extends Seeder
@@ -19,7 +18,6 @@ class ProductoSeeder extends Seeder
             'producto_referencia'   => 'T-2',
             'producto_codigo'   => 'T-2',
             'producto_nombre'   => 'TONER',
-            'producto_parte'   => 'MAQUINA',
             'producto_tipo'   => 1,
             'producto_marca'   => 1,
             'producto_modelo'   => 1,
@@ -30,9 +28,6 @@ class ProductoSeeder extends Seeder
             'producto_ultimo_costo' => 5.033 ,
             'producto_tercero' => 1,
             'producto_contrato' =>1,
-            
         ]);
-           
-           
     }
 }
