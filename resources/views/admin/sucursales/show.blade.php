@@ -12,7 +12,7 @@
                 <div class="form-group col-md-8">
                     <label class="control-label">Nombre</label>
                     <div>{{ $sucursal->sucursal_nombre }}</div>
-                    <label class="control-label">Direccion</label>
+                    <label class="control-label">Direccion</label> <small> {{ $sucursal->sucursal_direccion_nomenclatura }}</small>
                     <div>{{ $sucursal->sucursal_direccion }}</div>
                 </div>
             </div>

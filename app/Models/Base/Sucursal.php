@@ -29,7 +29,7 @@ class Sucursal extends Model
      *
      * @var array
      */
-    protected $fillable = ['sucursal_nombre','sucursal_direccion'];
+    protected $fillable = ['sucursal_nombre','sucursal_direccion','sucursal_direccion_nomenclatura'];
 
     public function isValid($data)
     {

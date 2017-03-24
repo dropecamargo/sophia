@@ -60,7 +60,7 @@
         	</div>
         	<div class="row">
         		<div class="form-group col-md-4">
-                    <label class="control-label">Direccion</label>
+                    <label class="control-label">Direccion</label> <small>{{ $asignacion1->asignacion1_direccion_nomenclatura }}</small>
                     <div>{{ $asignacion1->asignacion1_direccion }}</div>
                 </div>
                 <div class="form-group col-md-2">

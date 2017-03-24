@@ -17,7 +17,8 @@ app || (app = {});
             'click .submit-producto': 'submitProducto',
             'submit #form-producto': 'onStore',
             'submit #form-item-sirvea': 'onStoreItem',
-            'submit #form-item-productocontador': 'onStorePcontador'
+            'submit #form-item-productocontador': 'onStorePcontador',
+            'change .select-tipo': 'changeTipo'
         },
         parameters: {
         },
@@ -53,6 +54,21 @@ app || (app = {});
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
             this.$form = this.$('#form-producto');
+
+            //divs 
+            this.$divMarca = this.$('.div-marca');
+            this.$divModelo = this.$('.div-modelo');
+            this.$divEstado = this.$('.div-estado');
+            this.$divPlaca = this.$('.div-placa');
+            this.$divVidaUtil = this.$('.div-vidautil');
+            this.$divSerie = this.$('.div-serie');
+            this.$inputPlaca = this.$('#producto_placa');
+            this.$inputSerie = this.$('#producto_serie');
+            this.$inputVidaUtil = this.$('#producto_vida_util');
+            this.$inputMarca = this.$('#producto_marca');
+            this.$inputModelo = this.$('#producto_modelo');
+            this.$inputEstado = this.$('#producto_estado');
+
             // Model exist
             if( this.model.id != undefined ) {
 
@@ -97,6 +113,85 @@ app || (app = {});
                    }
                 });
             }
+        },
+
+        changeTipo: function (e){
+            var _this = this;
+            _this.$inputSerie.val('');
+            _this.$inputPlaca.val('');
+            _this.$inputVidaUtil.val('');
+            _this.$inputMarca.val('').trigger('change');
+            _this.$inputModelo.val('').trigger('change');
+            _this.$inputEstado.val('').trigger('change');
+
+            $.ajax({
+                url: window.Misc.urlFull(Route.route('tipos.show',{tipos: $(e.currentTarget).val()})),
+                type: 'GET',
+                beforeSend: function() {
+                    window.Misc.setSpinner( _this.el );
+                }
+            })
+            .done(function(resp) {
+                window.Misc.removeSpinner( _this.el );
+                if( resp.tipo_codigo == 'EQ'){
+                    _this.$divMarca.show();
+                    _this.$divModelo.show();
+                    _this.$divEstado.show();
+                    _this.$divVidaUtil.hide();
+                    _this.$divPlaca.show();
+                    _this.$divSerie.show();
+                    _this.$inputSerie.attr('required', true);
+                    _this.$inputPlaca.attr('required', true);
+                    _this.$inputVidaUtil.removeAttr('required');
+                }else if ( resp.tipo_codigo == 'AC'){
+                    _this.$divMarca.show();
+                    _this.$divModelo.hide();
+                    _this.$divEstado.show();
+                    _this.$divVidaUtil.hide();
+                    _this.$divPlaca.show();
+                    _this.$divSerie.show();
+                    _this.$inputSerie.attr('required', true);
+                    _this.$inputPlaca.attr('required', true);
+                    _this.$inputVidaUtil.removeAttr('required');
+                }else if ( resp.tipo_codigo == 'RP'){
+                    _this.$divMarca.show();
+                    _this.$divModelo.hide();
+                    _this.$divEstado.show();
+                    _this.$divVidaUtil.hide();
+                    _this.$divPlaca.hide();
+                    _this.$divSerie.hide();
+                    _this.$inputSerie.removeAttr('required');
+                    _this.$inputPlaca.removeAttr('required');
+                    _this.$inputVidaUtil.removeAttr('required');
+                }else if ( resp.tipo_codigo == 'IN'){
+                    _this.$divMarca.show();
+                    _this.$divModelo.hide();
+                    _this.$divEstado.show();
+                    _this.$divVidaUtil.show();
+                    _this.$divPlaca.hide();
+                    _this.$divSerie.hide();
+                    _this.$inputSerie.removeAttr('required');
+                    _this.$inputPlaca.removeAttr('required');
+                    _this.$inputVidaUtil.attr('required', true);
+                }else if ( resp.tipo_codigo == 'CO'){
+                    _this.$divMarca.show();
+                    _this.$divModelo.hide();
+                    _this.$divEstado.show();
+                    _this.$divVidaUtil.show();
+                    _this.$divPlaca.hide();
+                    _this.$divSerie.hide();
+                    _this.$inputSerie.removeAttr('required');
+                    _this.$inputPlaca.removeAttr('required');
+                    _this.$inputVidaUtil.attr('required', true);
+                }else{
+                    alertify.error('error inesperado, consulte al administrador');
+                    return false;
+                }
+            })
+            .fail(function(jqXHR, ajaxOptions, thrownError) {
+                window.Misc.removeSpinner( _this.el );
+                alertify.error(thrownError);
+            });
         },
 
         /**

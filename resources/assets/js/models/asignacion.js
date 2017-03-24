@@ -21,6 +21,7 @@ app || (app = {});
             'asignacion1_tipo': '',
             'asignacion1_contrato': '',
             'asignacion1_direccion': '',
+            'asignacion1_direccion_nomenclatura': '',
             'asignacion1_municipio': '',
             'asignacion1_area': '',
             'asignacion1_centrocosto': '',

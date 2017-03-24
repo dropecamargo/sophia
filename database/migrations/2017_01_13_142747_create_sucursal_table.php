@@ -18,7 +18,7 @@ class CreateSucursalTable extends Migration
             $table->increments('id');
             $table->string('sucursal_nombre', 200);
             $table->string('sucursal_direccion', 200);
-            
+            $table->string('sucursal_direccion_nomenclatura', 200);
         });
     }
 

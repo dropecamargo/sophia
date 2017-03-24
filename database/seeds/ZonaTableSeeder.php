@@ -13,22 +13,22 @@ class ZonaTableSeeder extends Seeder
     public function run()
     {
         Zona::create([
-        	'zona_nombre' => 'Ilicita',
+        	'zona_nombre' => 'Norte',
         	'zona_activo' => true
     	]);
 
     	Zona::create([
-        	'zona_nombre' => 'Ilicita',
+        	'zona_nombre' => 'Sur',
         	'zona_activo' => true
     	]);
 
     	Zona::create([
-        	'zona_nombre' => 'Ilicita',
+        	'zona_nombre' => 'Este',
         	'zona_activo' => true
     	]);
 
     	Zona::create([
-        	'zona_nombre' => 'Ilicita',
+        	'zona_nombre' => 'Oeste',
         	'zona_activo' => true
     	]);
     }

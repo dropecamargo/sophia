@@ -21,6 +21,7 @@ class CreateAsignacion1Table extends Migration
            
             $table->string('asignacion1_tipo', 1);    
             $table->string('asignacion1_direccion', 100);
+            $table->string('asignacion1_direccion_nomenclatura', 100);
             $table->string('asignacion1_area', 30);
             $table->string('asignacion1_centrocosto', 30);
 

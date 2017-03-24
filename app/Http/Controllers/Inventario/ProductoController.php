@@ -108,8 +108,14 @@ class ProductoController extends Controller
                         }
                         $producto->producto_proveedor = $tercero->id;
                     }
-                    
+
+                    //convertir a null si es 0
+                    $placa = $request->producto_placa == '' ? null : $request->producto_placa;
+                    $serie = $request->producto_serie == '' ? null : $request->producto_serie;
+
                     $producto->fill($data);
+                    $producto->producto_placa = $placa;
+                    $producto->producto_serie = $serie;
 
                     // Validar producto
                     $result = $producto->validarProducto();
@@ -202,7 +208,12 @@ class ProductoController extends Controller
                         $producto->producto_proveedor = $tercero->id;
                     }
 
+                    //convertir a null si es 0
+                    $placa = $request->producto_placa == '' ? null : $request->producto_placa;
+                    $serie = $request->producto_serie == '' ? null : $request->producto_serie;
                     $producto->fill($data);
+                    $producto->producto_placa = $placa;
+                    $producto->producto_serie = $serie;
 
                     // Validar producto
                     $result = $producto->validarProducto();
@@ -211,7 +222,6 @@ class ProductoController extends Controller
                         return response()->json(['success' => false, 'errors' => $result]);
                     }
                     $producto->save();
-
                     //Valida unico contadores
                     if(in_array($producto->tipo->tipo_codigo, ['EQ'])) {
 

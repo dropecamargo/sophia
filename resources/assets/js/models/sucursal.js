@@ -17,7 +17,8 @@ app || (app = {});
         idAttribute: 'id',
         defaults: {
         	'sucursal_nombre': '',
-        	'sucursal_direccion': '',
+            'sucursal_direccion': '',
+        	'sucursal_direccion_nomenclatura': ''
         }
     });
 

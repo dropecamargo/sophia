@@ -22,7 +22,7 @@ class Asignacion extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['asignacion1_fecha','asignacion1_tipo','asignacion1_direccion','asignacion1_area','asignacion1_centrocosto','asignacion1_municipio'];
+    protected $fillable = ['asignacion1_fecha','asignacion1_tipo','asignacion1_direccion','asignacion1_direccion_nomenclatura','asignacion1_area','asignacion1_centrocosto','asignacion1_municipio'];
 
     /**
     * The attributes nulleables from the model.

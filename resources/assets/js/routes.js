@@ -158,6 +158,7 @@ app || (app = {});
             this.componentGlobalView = new app.ComponentGlobalView();
             this.componentSearchTerceroView = new app.ComponentSearchTerceroView();
             this.componentTerceroView = new app.ComponentTerceroView();
+            this.componentAddressView = new app.ComponentAddressView();
             this.componentCreateResourceView = new app.ComponentCreateResourceView();
             this.componentSearchProductoView = new app.ComponentSearchProductoView();
             this.componentSearchContactoView = new app.ComponentSearchContactoView();
