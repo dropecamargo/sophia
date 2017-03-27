@@ -28,15 +28,16 @@
             </div>
 
             <div class="row">
-                 <div class="form-group col-md-3 div-placa" hidden>
+                <div class="form-group col-md-3 div-placa" <%- tipo_codigo != 'EQ' ? 'hidden' : '' %> >
                     <label for="producto_placa" class="control-label">Placa</label>
                     <input type="number" id="producto_placa" min="1" max="99999999" name="producto_placa" value="<%- producto_placa %>" placeholder="Placa" class="form-control input-sm input-toupper">
                 </div>
 
-                <div class="form-group col-md-3 div-serie" hidden>
+                <div class="form-group col-md-3 div-serie" <%- tipo_codigo != 'EQ' && tipo_codigo != 'AC' ? 'hidden' : '' %> >
                     <label for="producto_serie" class="control-label">Serie</label>
                     <input type="text" id="producto_serie" name="producto_serie" value="<%- producto_serie %>" placeholder="Serie" class="form-control input-sm input-toupper" maxlength="20">
                 </div>
+
                 <div class="form-group col-md-3">
                     <label for="producto_referencia" class="control-label">Referencia de Proveedor</label>
                     <input type="text" id="producto_referencia" name="producto_referencia" value="<%- producto_referencia %>" placeholder="Referencia" class="form-control input-sm input-toupper" maxlength="20" required>
@@ -48,7 +49,7 @@
                     <label for="producto_codigo" class="control-label">Codigo contable</label>
                     <input type="text" id="producto_codigo" name="producto_codigo" value="<%- producto_codigo %>" placeholder="Codigo" class="form-control input-sm input-toupper" maxlength="20" required></i>
                 </div>
-                <div class="form-group col-md-3 div-vidautil" hidden>
+                <div class="form-group col-md-3 div-vidautil" <%- tipo_codigo != 'IN' && tipo_codigo != 'CO' ? 'hidden' : '' %> >
                     <label for="producto_vida_util" class="control-label">Vida util</label>
                     <input type="text" id="producto_vida_util" name="producto_vida_util" value="<%- producto_vida_util %>" placeholder="Vida util" class="form-control input-sm" maxlength="20" min="0" data-currency-numeric>
                 </div>
@@ -65,7 +66,7 @@
                     </select>
                 </div>
 
-                <div class="form-group col-md-offset-1 col-md-3 div-modelo" hidden>
+                <div class="form-group col-md-offset-1 col-md-3 div-modelo" <%- tipo_codigo != 'EQ' ? 'hidden' : '' %> >
                 <label for="producto_modelo" class="control-label">Modelo</label>
                     <select name="producto_modelo" id="producto_modelo" class="form-control select2-default">
                         <option value="" selected>Seleccione</option>
@@ -74,14 +75,14 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-md-1 div-modelo" hidden>
+                <div class="form-group col-md-1 div-modelo" <%- tipo_codigo != 'EQ' ? 'hidden' : '' %> >
                 <br>
                     <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="modelo" data-field="producto_modelo" > <i class="fa fa-plus"></i></button>
                 </div>
             </div>
 
             <div class="row">
-                <div class="form-group col-md-3 div-marca" hidden>
+                <div class="form-group col-md-3 div-marca" <%- tipo_codigo != 'EQ' && tipo_codigo != 'AC' && tipo_codigo != 'IN' && tipo_codigo != 'CO' && tipo_codigo != 'RP' ? 'hidden' : '' %> >
                 <label for="producto_marca" class="control-label">Marca</label>
                     <select name="producto_marca" id="producto_marca" class="form-control select2-default">
                         <option value="" selected>Seleccione</option>
@@ -90,14 +91,14 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-md-1 div-marca" hidden>
+                <div class="form-group col-md-1 div-marca" <%- tipo_codigo != 'EQ' && tipo_codigo != 'AC' && tipo_codigo != 'IN' && tipo_codigo != 'CO' && tipo_codigo != 'RP' ? 'hidden' : '' %> >
                 <br>
                     <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="marca" data-field="producto_marca">
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
 
-                <div class="form-group col-md-3 div-estado" hidden>
+                <div class="form-group col-md-3 div-estado" <%- tipo_codigo != 'EQ' && tipo_codigo != 'AC' && tipo_codigo != 'IN' && tipo_codigo != 'CO' && tipo_codigo != 'RP' ? 'hidden' : '' %> >
                     <label for="producto_estado" class="control-label">Estado</label>
                     <select name="producto_estado" id="producto_estado" class="form-control select2-default">
                         <option value="" selected>Seleccione</option>
@@ -106,7 +107,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-md-1 div-estado" hidden>
+                <div class="form-group col-md-1 div-estado" <%- tipo_codigo != 'EQ' && tipo_codigo != 'AC' && tipo_codigo != 'IN' && tipo_codigo != 'CO' && tipo_codigo != 'RP' ? 'hidden' : '' %> >
                 <br>
                     <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="estado" data-field="producto_estado"> <i class="fa fa-plus"></i></button>
                 </div>

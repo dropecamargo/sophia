@@ -117,12 +117,6 @@ app || (app = {});
 
         changeTipo: function (e){
             var _this = this;
-            _this.$inputSerie.val('');
-            _this.$inputPlaca.val('');
-            _this.$inputVidaUtil.val('');
-            _this.$inputMarca.val('').trigger('change');
-            _this.$inputModelo.val('').trigger('change');
-            _this.$inputEstado.val('').trigger('change');
 
             $.ajax({
                 url: window.Misc.urlFull(Route.route('tipos.show',{tipos: $(e.currentTarget).val()})),
@@ -144,16 +138,21 @@ app || (app = {});
                     _this.$inputPlaca.attr('required', true);
                     _this.$inputVidaUtil.removeAttr('required');
                 }else if ( resp.tipo_codigo == 'AC'){
+                    _this.$inputPlaca.val('');
                     _this.$divMarca.show();
                     _this.$divModelo.hide();
                     _this.$divEstado.show();
                     _this.$divVidaUtil.hide();
-                    _this.$divPlaca.show();
+                    _this.$divPlaca.hide();
                     _this.$divSerie.show();
                     _this.$inputSerie.attr('required', true);
-                    _this.$inputPlaca.attr('required', true);
+                    _this.$inputPlaca.removeAttr('required');
                     _this.$inputVidaUtil.removeAttr('required');
+                    _this.$inputModelo.val('').trigger('change');
                 }else if ( resp.tipo_codigo == 'RP'){
+                    _this.$inputSerie.val('');
+                    _this.$inputPlaca.val('');
+                    _this.$inputVidaUtil.val('');
                     _this.$divMarca.show();
                     _this.$divModelo.hide();
                     _this.$divEstado.show();
@@ -163,7 +162,10 @@ app || (app = {});
                     _this.$inputSerie.removeAttr('required');
                     _this.$inputPlaca.removeAttr('required');
                     _this.$inputVidaUtil.removeAttr('required');
-                }else if ( resp.tipo_codigo == 'IN'){
+                    _this.$inputModelo.val('').trigger('change');
+                }else if ( resp.tipo_codigo == 'IN' || resp.tipo_codigo == 'CO'){
+                    _this.$inputSerie.val('');
+                    _this.$inputPlaca.val('');
                     _this.$divMarca.show();
                     _this.$divModelo.hide();
                     _this.$divEstado.show();
@@ -173,16 +175,7 @@ app || (app = {});
                     _this.$inputSerie.removeAttr('required');
                     _this.$inputPlaca.removeAttr('required');
                     _this.$inputVidaUtil.attr('required', true);
-                }else if ( resp.tipo_codigo == 'CO'){
-                    _this.$divMarca.show();
-                    _this.$divModelo.hide();
-                    _this.$divEstado.show();
-                    _this.$divVidaUtil.show();
-                    _this.$divPlaca.hide();
-                    _this.$divSerie.hide();
-                    _this.$inputSerie.removeAttr('required');
-                    _this.$inputPlaca.removeAttr('required');
-                    _this.$inputVidaUtil.attr('required', true);
+                    _this.$inputModelo.val('').trigger('change');
                 }else{
                     alertify.error('error inesperado, consulte al administrador');
                     return false;
