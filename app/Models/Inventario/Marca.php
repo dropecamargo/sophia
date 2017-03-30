@@ -55,6 +55,7 @@ class Marca extends BaseModel
 
         return Cache::rememberForever( self::$key_cache , function() {
             $query = Marca::query();
+            $query->where('marca_activo', true);
             $query->orderBy('marca_modelo', 'asc');
             $collection = $query->lists('marca_modelo', 'marca.id');
 

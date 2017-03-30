@@ -46,8 +46,6 @@ class Producto extends BaseModel
             'producto_placa' => 'unique:producto',
             'producto_serie' => 'unique:producto',
             'producto_codigo' => 'unique:producto',
-            'producto_referencia' => 'required|max:20',
-            'producto_nombre' => 'required|max:100',
             'producto_tipo' => 'required',
         ];
 
@@ -114,9 +112,15 @@ class Producto extends BaseModel
             if(empty(trim($this->producto_codigo)) || is_null(trim($this->producto_codigo))) {
                 return trans('validation.required_if', ['attribute' => 'Codigo contable', 'other' => 'tipo',  'value' => 'Consumible o Insumo']);
             } 
-            if(empty(trim($this->producto_vida_util)) || is_null(trim($this->producto_vida_util))) {
-                return trans('validation.required_if', ['attribute' => 'Vida util', 'other' => 'tipo',  'value' => 'Consumible o Insumo']);
-            } 
+            if(empty(trim($this->producto_referencia)) || is_null(trim($this->producto_referencia))) {
+                return trans('validation.required_if', ['attribute' => 'Referencia de proovedor', 'other' => 'tipo',  'value' => 'Consumible o Insumo']);
+            }
+            if(empty(trim($this->producto_nombre)) || is_null(trim($this->producto_nombre))) {
+                return trans('validation.required_if', ['attribute' => 'Nombre', 'other' => 'tipo',  'value' => 'Consumible o Insumo']);
+            }
+            if(empty(trim($this->producto_proveedor)) || is_null(trim($this->producto_proveedor))) {
+                return trans('validation.required_if', ['attribute' => 'Proovedor', 'other' => 'tipo',  'value' => 'Consumible o Insumo']);
+            }
         }
 
         //Validar Repuesto
@@ -129,26 +133,50 @@ class Producto extends BaseModel
             }
             if(empty(trim($this->producto_codigo)) || is_null(trim($this->producto_codigo))) {
                 return trans('validation.required_if', ['attribute' => 'Codigo contable', 'other' => 'tipo',  'value' => 'Repuesto']);
-            }  
+            }
+            if(empty(trim($this->producto_referencia)) || is_null(trim($this->producto_referencia))) {
+                return trans('validation.required_if', ['attribute' => 'Referencia de proovedor', 'other' => 'tipo',  'value' => 'Repuesto']);
+            }
+            if(empty(trim($this->producto_nombre)) || is_null(trim($this->producto_nombre))) {
+                return trans('validation.required_if', ['attribute' => 'Nombre', 'other' => 'tipo',  'value' => 'Repuesto']);
+            }
+            if(empty(trim($this->producto_proveedor)) || is_null(trim($this->producto_proveedor))) {
+                return trans('validation.required_if', ['attribute' => 'Proovedor', 'other' => 'tipo',  'value' => 'Repuesto']);
+            }
         }
 
         if(in_array($this->tipo->tipo_codigo, ['AC'])){
+            if(empty(trim($this->producto_referencia)) || is_null(trim($this->producto_referencia))) {
+                return trans('validation.required_if', ['attribute' => 'Referencia de proovedor', 'other' => 'tipo',  'value' => 'Accesorio']);
+            }
+            if(empty(trim($this->producto_nombre)) || is_null(trim($this->producto_nombre))) {
+                return trans('validation.required_if', ['attribute' => 'Nombre', 'other' => 'tipo',  'value' => 'Accesorio']);
+            }
             if(empty(trim($this->producto_estado)) || is_null(trim($this->producto_estado))) {
-                return trans('validation.required_if', ['attribute' => 'Estado', 'other' => 'tipo',  'value' => 'Equipo']);
+                return trans('validation.required_if', ['attribute' => 'Estado', 'other' => 'tipo',  'value' => 'Accesorio']);
             }
             if (empty(trim($this->producto_marca)) || is_null(trim($this->producto_marca))) {
-                return trans('validation.required_if', ['attribute' => 'Marca', 'other' => 'tipo',  'value' => 'Equipo']);
+                return trans('validation.required_if', ['attribute' => 'Marca', 'other' => 'tipo',  'value' => 'Accesorio']);
             }
             if(empty(trim($this->producto_serie)) || is_null(trim($this->producto_serie))){
                 return trans('validation.required_if', ['attribute' => 'Serie', 'other' => 'tipo',  'value' => 'Accesorio']);
             }
             if(empty(trim($this->producto_codigo)) || is_null(trim($this->producto_codigo))) {
                 return trans('validation.required_if', ['attribute' => 'Codigo contable', 'other' => 'tipo',  'value' => 'Accesorio']);
-            }  
+            }
+            if(empty(trim($this->producto_proveedor)) || is_null(trim($this->producto_proveedor))) {
+                return trans('validation.required_if', ['attribute' => 'Proovedor', 'other' => 'tipo',  'value' => 'Accesorio']);
+            }
         }
 
         //Validar Estado,Marca,Modelo
         if(in_array($this->tipo->tipo_codigo, ['EQ'])) {
+            if(empty(trim($this->producto_referencia)) || is_null(trim($this->producto_referencia))) {
+                return trans('validation.required_if', ['attribute' => 'Referencia de proovedor', 'other' => 'tipo',  'value' => 'Equipo']);
+            }
+            if(empty(trim($this->producto_nombre)) || is_null(trim($this->producto_nombre))) {
+                return trans('validation.required_if', ['attribute' => 'nombre', 'other' => 'tipo',  'value' => 'Equipo']);
+            }
             if(empty(trim($this->producto_estado)) || is_null(trim($this->producto_estado))) {
                 return trans('validation.required_if', ['attribute' => 'Estado', 'other' => 'tipo',  'value' => 'Equipo']);
             }
@@ -166,9 +194,11 @@ class Producto extends BaseModel
             }
             if(empty(trim($this->producto_codigo)) || is_null(trim($this->producto_codigo))) {
                 return trans('validation.required_if', ['attribute' => 'Codigo contable', 'other' => 'tipo',  'value' => 'Equipo']);
-            } 
+            }
+            if(empty(trim($this->producto_proveedor)) || is_null(trim($this->producto_proveedor))) {
+                return trans('validation.required_if', ['attribute' => 'Proovedor', 'other' => 'tipo',  'value' => 'Equipo']);
+            }
         }
-
         return 'OK';
     }
 

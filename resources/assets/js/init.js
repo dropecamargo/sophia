@@ -119,7 +119,6 @@ var app = app || {};
                 min: 0,
                 onBeforeMask: function (value, opts) {
                     var processedValue = value || 0;
-
                     return processedValue;
                 },
                 oncleared: function  (event) {
@@ -140,7 +139,6 @@ var app = app || {};
                 digits: 0,
                 onBeforeMask: function (value, opts) {
                     var processedValue = value || 0;
-
                     return processedValue;
                 },
                 oncleared: function  (event) {
@@ -158,6 +156,11 @@ var app = app || {};
                 groupSeparator: ",",
                 autoGroup: true,
                 autoUnmask: true
+            });
+
+            $("[data-currency-text]").inputmask({
+                alias: 'numeric',
+                rightAlign: false
             });
         },
 

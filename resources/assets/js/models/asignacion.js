@@ -25,16 +25,8 @@ app || (app = {});
             'asignacion1_municipio': '',
             'asignacion1_area': '',
             'asignacion1_centrocosto': '',
-            'asignacion1_zona': '',
-            'tercero_nombre':'',
-            'tercero_nit':'',
-            'tecnico_nombre':'',
-            'tecnico_nit':'',
-            'contacto_nombre': '',
-            'tcontacto_telefono': '',
             'asignacion1_tecnico': '',
-            'asignacion1_contacto': '',
-            'asignacion2_deproducto': ''
+            'asignacion1_contacto': ''
         }
     });
 

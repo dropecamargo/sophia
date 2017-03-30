@@ -214,7 +214,8 @@
 
 <script type="text/template" id="koi-search-producto-type-component-tpl">
 	<div class="row">
-        <div class="form-group col-sm-2 col-md-offset-2">
+    	<label for="producto_tipo_search" class="col-md-1 col-md-offset-1 control-label">Sirve a equipo</label>
+        <div class="form-group col-sm-2 col-md-2">
             <div class="input-group input-group-sm">
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="producto_tipo_search">

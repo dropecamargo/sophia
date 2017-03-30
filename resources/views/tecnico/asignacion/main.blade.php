@@ -26,7 +26,9 @@
                         <label for="asignacion1_fecha" class="control-label">Fecha</label>
                             <input type="text" id="asignacion1_fecha" name="asignacion1_fecha" class="form-control input-sm datepicker" value="<%- asignacion1_fecha %>" required>
                         </div>
+                    </div>
 
+                    <div class="row">
                         <div class="form-group col-md-2 col-xs-6 col-sm-6">
                         <label for="asignacion1_tercero" class="control-label">Cliente</label>
                             <div class="input-group input-group-sm">
@@ -35,17 +37,25 @@
                                         <i class="fa fa-user"></i>
                                     </button>
                                 </span>
-                                <input id="asignacion1_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="asignacion1_tercero" type="text" maxlength="15" data-wrapper="asignacion1s-create" data-name="orden_terecero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit%>" required>
+                                <input id="asignacion1_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="asignacion1_tercero" type="text" maxlength="15" data-wrapper="asignacion1s-create" data-name="tercero_nombre" data-contacto="btn-add-contact" data-activo="true" required>
                             </div>
                         </div>
-                        <br>
                         <div class="col-sm-5 col-md-5 col-xs-10">
-                            <input id="orden_terecero_nombre" name="orden_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly required>
+                            <br>
+                            <input id="tercero_nombre" name="tercero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" readonly required>
                         </div>
-                        <div class="col-sm-1 col-md-1 col-xs-2">
-                            <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="asignacion1_tercero">
-                                <i class="fa fa-plus"></i>
-                            </button>
+
+                        <div class="form-group col-md-2 col-sm-2 col-xs-6">
+                            <label for="asignacion1_contrato" class="control-label">Contrato</label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-flat btn-koi-search-contrato-component-table" data-field="asignacion1_contrato" data-name="nombre_contrato" data-tercero="btn-add-contact">
+                                        <i class="fa fa-briefcase"></i>
+                                    </button>
+                                </span>
+                                <input id="asignacion1_contrato" name="asignacion1_contrato" type="hidden" value="<%- asignacion1_contrato %>">
+                                <input id="nombre_contrato" placeholder="Contacto" class="form-control" name="nombre_contrato" type="text" readonly required>
+                            </div>
                         </div>
                     </div>
 
@@ -58,7 +68,8 @@
                                         <i class="fa fa-address-book"></i>
                                     </button>
                                 </span>
-                                <input id="tcontacto_nombre" placeholder="Contacto" class="form-control" name="tcontacto_nombre" type="text" value="<%- contacto_nombre %>" readonly required>
+                                <input id="asignacion1_contacto" name="asignacion1_contacto" type="hidden" value="<%- asignacion1_contacto %>">
+                                <input id="tcontacto_nombre" placeholder="Contacto" class="form-control" name="tcontacto_nombre" type="text" readonly required>
                             </div>
                         </div>
                         <div class="col-sm-1 col-md-1 col-xs-2">
@@ -74,7 +85,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </div>
-                                <input id="tcontacto_telefono" class="form-control input-sm" name="tcontacto_telefono" type="text" data-inputmask="'mask': '999-99-99'" data-mask value="<%- tcontacto_telefono %>" readonly required>
+                                <input id="tcontacto_telefono" class="form-control input-sm" name="tcontacto_telefono" type="text" data-inputmask="'mask': '(999) 999-99-99'" data-mask readonly required>
                             </div>
                         </div>
                         <div class="form-group col-md-3">
@@ -123,26 +134,12 @@
                                         <i class="fa fa-user"></i>
                                     </button>
                                 </span>
-                                <input id="asignacion1_tecnico" placeholder="Tecnico" class="form-control tercero-koi-component" name="asignacion1_tecnico" type="text" maxlength="15" data-wrapper="asignacion1s-create" data-name="asignacion1_tecnico_nombre" value="<%- tecnico_nit %>" required>
+                                <input id="asignacion1_tecnico" placeholder="Tecnico" class="form-control tercero-koi-component" name="asignacion1_tecnico" type="text" maxlength="15" data-wrapper="asignacion1s-create" data-name="tecnico_nombre" required>
                             </div>
                         </div>
                         <br>
                         <div class="col-sm-5 col-md-6 col-xs-12">
-                            <input id="asignacion1_tecnico_nombre" name="asignacion1_tecnico_nombre" placeholder="Nombre tecnico" class="form-control input-sm" type="text" maxlength="15" value="<%- tecnico_nombre %>" readonly required>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-sm-2 col-xs-12">
-                            <label for="asignacion1_contrato" class="control-label">Contrato</label>
-                            <div class="input-group input-group-sm">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-flat btn-koi-search-contrato-component-table" data-field="asignacion1_contrato" data-name="nombre_contrato" data-tercero="btn-add-contact">
-                                        <i class="fa fa-briefcase"></i>
-                                    </button>
-                                </span>
-                                <input id="nombre_contrato" placeholder="Contrato" class="form-control" name="nombre_contrato" type="text" readonly>
-                            </div>
+                            <input id="tecnico_nombre" name="tecnico_nombre" placeholder="Nombre tecnico" class="form-control input-sm" type="text" readonly required>
                         </div>
                     </div>
                 </div>
@@ -155,22 +152,20 @@
                             <div class="form-group col-sm-2 col-md-offset-2">
                                 <div class="input-group input-group-sm">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="asignacion2_producto" data-contrato="true">
+                                        <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="asignacion2_producto">
                                             <i class="fa fa-barcode"></i>
                                         </button>
                                     </span>
-                                    
                                     <input id="asignacion1_contrato" name="asignacion1_contrato" type="hidden" value="<%- asignacion1_contrato %>">
-
-                                    <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre" data-render="wrapper-render-type" data-tipo="AC,EQ" required>
+                                    <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre" data-render="wrapper-render-type" data-tipo="AC,EQ" data-contrato="true" required>
                                 </div>
                             </div>
                             <div class="col-sm-5 col-xs-12">
                                 <input id="producto_nombre" name="producto_nombre" placeholder="Nombre producto" class="form-control input-sm" type="text" readonly required>
                             </div>
 
-                            <div class="form-group col-sm-1 col-xs-6 col-xs-offset-3">
-                                <button type="submit" class="btn btn-danger btn-sm btn-block">
+                            <div class="form-group col-sm-1 col-md-1 col-xs-6">
+                                <button type="submit" class="btn btn-success btn-sm btn-block">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
@@ -222,18 +217,12 @@
                                         <i class="fa fa-user"></i>
                                     </button>
                                 </span>
-                                <input id="asignacion1_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="asignacion1_tercero" type="text" maxlength="15" data-wrapper="asignacion1s-create" data-name="orden_terecero_nombre" data-contacto="btn-add-contact" value="<%- tercero_nit%>" required>
+                                <input id="asignacion1_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="asignacion1_tercero" type="text" maxlength="15" data-wrapper="asignacion1s-create" data-name="tercero_nombre" data-contacto="btn-add-contact" data-activo="true" required>
                             </div>
                         </div>
                         <div class="col-sm-5 col-md-5 col-xs-10">
                             <br>
-                            <input id="orden_terecero_nombre" name="orden_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly required>
-                        </div>
-                        <div class="col-sm-1 col-md-1 col-xs-2">
-                            <br>
-                            <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="asignacion1_tercero">
-                                <i class="fa fa-plus"></i>
-                            </button>
+                            <input id="tercero_nombre" name="tercero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" readonly required>
                         </div>
                     </div>
 
@@ -251,7 +240,8 @@
                                         <i class="fa fa-address-book"></i>
                                     </button>
                                 </span>
-                                <input id="tcontacto_nombre" placeholder="Contacto" class="form-control" name="tcontacto_nombre" type="text" value="<%- contacto_nombre %>" readonly required>
+                                <input id="asignacion1_contacto" name="asignacion1_contacto" type="hidden" value="<%- asignacion1_contacto %>">
+                                <input id="tcontacto_nombre" placeholder="Contacto" class="form-control" name="tcontacto_nombre" type="text" readonly required>
                             </div>
                         </div>
                         <div class="col-sm-1 col-xs-2">
@@ -267,7 +257,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </div>
-                                <input id="tcontacto_telefono" class="form-control input-sm" name="tcontacto_telefono" type="text" data-inputmask="'mask': '999-99-99'" data-mask value="<%- tcontacto_telefono %>" readonly required>
+                                <input id="tcontacto_telefono" class="form-control input-sm" name="tcontacto_telefono" type="text" data-inputmask="'mask': '(999) 999-99-99'" data-mask readonly required>
                             </div>
                         </div>
                     </div>
@@ -281,7 +271,8 @@
                                         <i class="fa fa-briefcase"></i>
                                     </button>
                                 </span>
-                                <input id="nombre_contrato" placeholder="Contrato" class="form-control" name="nombre_contrato" type="text" readonly>
+                                <input id="asignacion1_contrato" name="asignacion1_contrato" type="hidden" value="<%- asignacion1_contrato %>">
+                                <input id="nombre_contrato" placeholder="Contacto" class="form-control" name="nombre_contrato" type="text" readonly required>
                             </div>
                         </div>
                     </div>
@@ -300,15 +291,15 @@
                                                 <i class="fa fa-barcode"></i>
                                             </button>
                                         </span>
-                                        <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre" data-render="wrapper-render-type" data-tipo="AC,EQ" required>
+                                        <input id="asignacion2_producto" placeholder="Serie" class="form-control producto-koi-component" name="asignacion2_producto" type="text" data-wrapper="producto_create" data-name="producto_nombre" data-render="wrapper-render-type" data-tipo="AC,EQ" data-contrato="true" data-asignaciones="false" required>
                                     </div>
                                 </div>
-                                <div class="col-sm-5 col-md-4 col-xs-10">
+                                <div class="col-sm-5 col-md-5 col-xs-10">
                                     <input id="producto_nombre" name="producto_nombre" placeholder="Nombre producto" class="form-control input-sm" type="text" readonly required>
                                 </div>
 
                                 <div class="form-group col-md-1 col-sm-1">
-                                    <button type="submit" class="btn btn-danger btn-sm btn-block">
+                                    <button type="submit" class="btn btn-success btn-sm btn-block">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>

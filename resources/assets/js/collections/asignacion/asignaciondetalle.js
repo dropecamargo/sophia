@@ -20,6 +20,14 @@ app || (app = {});
         * Constructor Method
         */
         initialize : function(){
-        }
+        },
+
+        validar: function(){
+
+            var found  = this.find(function(item, i){
+                console.log(item.get('asignacion2_producto'), i);
+                //return item.get('asignacion2_producto') === asignacion2_producto;
+            });
+        },
    });
 })(this, this.document);

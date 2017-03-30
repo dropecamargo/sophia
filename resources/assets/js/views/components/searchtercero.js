@@ -42,12 +42,11 @@ app || (app = {});
             this.$searchName = this.$('#koi_search_tercero_nombre');
 
             this.$tercerosSearchTable = this.$modalComponent.find('#koi-search-tercero-component-table');
-
             this.$inputContent = this.$("#"+$(e.currentTarget).attr("data-field"));
             this.$inputName = this.$("#"+this.$inputContent.attr("data-name"));
             this.$btnContact = this.$("#"+this.$inputContent.attr("data-contacto"));
-            
-            
+            var activo = this.$inputContent.attr('data-activo');
+
             this.tercerosSearchTable = this.$tercerosSearchTable.DataTable({
                 dom: "<'row'<'col-sm-12'tr>>" +
                		"<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -60,6 +59,7 @@ app || (app = {});
                     data: function( data ) {
                         data.tercero_nit = _this.$searchNit.val();
                         data.tercero_nombre = _this.$searchName.val();
+                        data.activo = activo;
                     }
                 },
 

@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Datatables;
 
-use App\Models\Base\Tercero, App\Models\Base\Actividad;
+use App\Models\Base\Tercero, App\Models\Base\Actividad, App\Models\Tecnico\Contrato;
 
 class TerceroController extends Controller
 {
@@ -43,6 +43,10 @@ class TerceroController extends Controller
                     // Documento
                     if($request->has('tercero_nit')) {
                         $query->whereRaw("tercero_nit LIKE '%{$request->tercero_nit}%'");
+                    }
+
+                    if($request->has('activo') && $request->activo == 'true'){
+                        $query->whereIn('tercero.id', DB::table('contrato')->select('contrato_tercero')->distinct()->where('contrato_activo',true));
                     }
 
                     // Nombre
@@ -82,7 +86,6 @@ class TerceroController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $tercero = new Tercero;
             if ($tercero->isValid($data)) {
                 DB::beginTransaction();

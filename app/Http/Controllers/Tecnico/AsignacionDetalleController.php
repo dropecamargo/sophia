@@ -58,7 +58,6 @@ class AsignacionDetalleController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
-
             $data = $request->all();
             $asignacion2 = new AsignacionDetalle;
             if ($asignacion2->isValid($data)) {
@@ -91,8 +90,6 @@ class AsignacionDetalleController extends Controller
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'Ingrese un Equipo ó un Accesorio, por favor verifique la información o consulte al administrador.']);  
                     }
-
-                   
 
                     return response()->json(['success' => true, 'id' => uniqid(), 'nombre'=>$tipo->tipo_nombre]);
                 }catch(\Exception $e){

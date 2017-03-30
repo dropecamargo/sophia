@@ -40,7 +40,7 @@ class AsignacionController extends Controller
                 session(['searchasignacion1_tipo' => $request->has('asignacion_tipo') ? $request->asignacion_tipo : '']);
                 session(['searchasignacion1_tercero' => $request->has('tercero_nit') ? $request->tercero_nit : '']);
                 session(['searchasignacion1_tercero_nombre' => $request->has('tercero_nombre') ? $request->tercero_nombre : '']);
-            }
+            }  
 
             return Datatables::of($query)->filter(function($query) use($request) {
                     
@@ -88,7 +88,6 @@ class AsignacionController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-           
             $asignacion1 = new Asignacion;
             if ($asignacion1->isValid($data)) {
                 DB::beginTransaction();
@@ -135,7 +134,6 @@ class AsignacionController extends Controller
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'El contrato seleccionado no corresponde al tercero, por favor seleccione de nuevo el contrato o consulte al administrador.']);
                     }
-
                     // asignacion1
                     $asignacion1->fill($data);
                     $asignacion1->asignacion1_contrato = $contrato->id;
@@ -169,6 +167,11 @@ class AsignacionController extends Controller
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);  
                         }
 
+                        if(!in_array($item['asignacion2_producto'], $item)){
+                            DB::rollback();
+                            return response()->json(['success' => false, 'errors' => 'Guevo']);
+                        }
+
                         $asignacion2 = new AsignacionDetalle;
                         $asignacion2->asignacion2_asignacion1 = $asignacion1->id;
                         $asignacion2->asignacion2_producto = $producto->id;
@@ -193,7 +196,7 @@ class AsignacionController extends Controller
                             $asignacion2->asignacion2_deproducto = $deproducto->id;
                         }
 
-                        $asignacion2->save();  
+                        // $asignacion2->save();  
                         
                         if($request->asignacion1_tipo == 'E'){
                             $producto->producto_tercero = $tercero->id;

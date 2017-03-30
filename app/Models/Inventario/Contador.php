@@ -64,6 +64,7 @@ class Contador extends BaseModel
 
         return Cache::rememberForever( self::$key_cache , function() {
             $query = Contador::query();
+            $query->where('contador_activo', true);
             $query->orderBy('contador_nombre', 'asc');
             $collection = $query->lists('contador_nombre', 'contador.id');
 
