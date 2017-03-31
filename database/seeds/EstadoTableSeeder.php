@@ -13,8 +13,23 @@ class EstadoTableSeeder extends Seeder
     public function run()
     {
         Estado::create([
-        	'estado_nombre' => 'Excelente',
+        	'estado_nombre' => 'EXCELENTE',
         	'estado_activo' => true
     	]);
+
+        Estado::create([
+            'estado_nombre' => 'NUEVO',
+            'estado_activo' => true
+        ]);
+
+        Estado::create([
+            'estado_nombre' => 'USADO',
+            'estado_activo' => true
+        ]);
+
+        Estado::create([
+            'estado_nombre' => 'CRITICO',
+            'estado_activo' => true
+        ]);
     }
 }

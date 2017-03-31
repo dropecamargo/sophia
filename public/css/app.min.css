@@ -105,30 +105,38 @@ label {
 .nav-tabs-custom > .nav-tabs > li.active {
   border-top-color: #dd4b39; }
 
-.address-numbers {
-  padding: 0px 1px 0px 1px; }
+@media (min-width: 992px) {
+  .modal-xlg {
+    width: 1050px; } }
 
-.address-numbers .btn {
-  padding: 5px 10px;
-  font-size: 12px; }
+#modal-address-component .modal-header {
+  padding: 10px; }
 
-.address-letter {
-  padding: 0px 1px 0px 1px; }
+#modal-address-component .modal-body {
+  padding: 10px; }
 
-.address-letter .btn {
-  padding: 5px;
-  font-size: 12px; }
+#modal-address-component .small-box {
+  margin-bottom: 0px; }
 
-.address-nomenclatura {
-  padding: 0px 1px 0px 1px; }
+#modal-address-component .address-nomenclatura {
+  padding: 1px 1px 1px 1px; }
+  #modal-address-component .address-nomenclatura .btn {
+    padding: 2px;
+    font-size: 12px; }
 
-.address-nomenclatura .btn {
-  padding: 5px 10px;
-  font-size: 12px; }
+#modal-address-component .address-digitos > li {
+  width: 50px;
+  padding-right: 0px;
+  padding-bottom: 2px; }
+  #modal-address-component .address-digitos > li .btn {
+    padding: 3px 12px;
+    font-size: 12px; }
 
-#margin {
-  margin-left: 0px;
-  margin-right: -25px; }
+#modal-address-component .other-controls .btn {
+  padding: 3px 12px; }
+
+#modal-address-component .modal-footer {
+  padding: 10px; }
 
 .icon-close-koi {
   opacity: 1;

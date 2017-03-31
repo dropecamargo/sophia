@@ -14,7 +14,7 @@ class DepartamentoTableSeeder extends Seeder
     {
         Departamento::create([
         	'departamento_codigo' => '1',
-        	'departamento_nombre' => 'Bogota D.C'
+        	'departamento_nombre' => 'BOGOTA D.C'
         ]);
     }
 }

@@ -72,7 +72,7 @@
                                                                 <i class="fa fa-barcode"></i>
                                                             </button>
                                                         </span>
-                                                        <input id="sirvea_codigo" placeholder="Serie" class="form-control producto-koi-component" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-tipo="<%- producto_tipo == 1 ? 'AC,CO,IN,RP' : '' %>" data-name="sirvea_codigo_nombre" required>
+                                                        <input id="sirvea_codigo" placeholder="Serie" class="form-control producto-koi-component" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-tipo="<%- tipo_codigo != 'EQ' ? 'EQ,AC' : 'AC,CO,IN,RP' %>" data-name="sirvea_codigo_nombre" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-7 col-xs-10">

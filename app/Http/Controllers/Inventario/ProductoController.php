@@ -236,7 +236,6 @@ class ProductoController extends Controller
                         // Validar unique
                         $pcontador = ProductoContador::where('productocontador_contador', $contador->id)->where('productocontador_producto', $producto->id)->first();
                         if(!$pcontador instanceof ProductoContador) {
-                            
                             $pcontador = new ProductoContador;
                             $pcontador->productocontador_producto = $producto->id;
                             $pcontador->productocontador_contador = $contador->id;

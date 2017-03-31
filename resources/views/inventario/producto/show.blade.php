@@ -20,77 +20,126 @@
         <div class="box-body">
             <div class="row">
                 <div class="form-group col-md-2">
-                    <label class="control-label">Id</label>
-                    <div>{{ $producto->id }}</div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-2">
-                    <label class="control-label">Placa</label>
-                    <div>{{ $producto->producto_placa }}</div>
-                </div>
-                <div class="form-group col-md-2">
-                    <label class="control-label">Serie</label>
-                    <div>{{ $producto->producto_serie }}</div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-2">
-                    <label class="control-label">Referencia</label>
-                    <div>{{ $producto->producto_referencia }}</div>
-                </div>
-                <div class="form-group col-md-2">
-                    <label class="control-label">Codigo</label>
-                    <div>{{ $producto->producto_codigo }}</div>
-                </div>
-                <div class="form-group col-md-2">
-                    <label class="control-label">Nombre del producto</label>
-                    <div>{{ $producto->producto_nombre }}</div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-2">
-                    <label class="control-label">Parte</label>
-                    <div>{{ $producto->producto_parte }}</div>
-                </div>
-                <div class="form-group col-md-2">
-                    <label class="control-label">Vida Util</label>
-                    <div>{{ $producto->producto_vida_util }}</div>
-                </div>
-            </div>            
-
-            <div class="row">
-                <div class="form-group col-md-2">
-                    <label class="control-label">Costo Promedio</label>
-                    <div>{{ $producto->producto_costo_promedio }}</div>
-                </div>
-                <div class="form-group col-md-2">
-                    <label class="control-label">Ultimo Costo</label>
-                    <div>{{ $producto->producto_ultimo_costo }}</div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-2">
-                    <label class="control-label">Marca</label>
-                    <div>{{ $producto->marca_modelo }}</div>
-                </div>
-                <div class="form-group col-md-2">
-                    <label class="control-label">Modelo</label>
-                    <div>{{ $producto->modelo_nombre }}</div>
-                </div>
-                <div class="form-group col-md-2">
-                    <label class="control-label">Estado</label>
-                    <div>{{ $producto->estado_nombre }}</div>
-                </div>
-                <div class="form-group col-md-2">
                     <label class="control-label">Tipo</label>
                     <div>{{ $producto->tipo_nombre }}</div>
                 </div>
             </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label class="control-label">Nombre del producto</label>
+                    <div>{{ $producto->producto_nombre }}</div>
+                </div>
+            </div>
+            
+            @if($producto->tipo_codigo == 'EQ')
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Placa</label>
+                        <div>{{ $producto->producto_placa }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Serie</label>
+                        <div>{{ $producto->producto_serie }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Referencia de proveedor</label>
+                        <div>{{ $producto->producto_referencia }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Codigo contable</label>
+                        <div>{{ $producto->producto_codigo }}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Marca</label>
+                        <div>{{ $producto->marca_modelo }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Modelo</label>
+                        <div>{{ $producto->modelo_nombre }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Estado</label>
+                        <div>{{ $producto->estado_nombre }}</div>
+                    </div>
+                </div>
+            @endif
+
+            @if($producto->tipo_codigo == 'AC')
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Serie</label>
+                        <div>{{ $producto->producto_serie }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Referencia de proveedor</label>
+                        <div>{{ $producto->producto_referencia }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Codigo contable</label>
+                        <div>{{ $producto->producto_codigo }}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Marca</label>
+                        <div>{{ $producto->marca_modelo }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Estado</label>
+                        <div>{{ $producto->estado_nombre }}</div>
+                    </div>
+                </div>
+            @endif
+
+            @if($producto->tipo_codigo == 'CO' || $producto->tipo_codigo == 'IN')
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Referencia de proveedor</label>
+                        <div>{{ $producto->producto_referencia }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Vida Util</label>
+                        <div>{{ $producto->producto_vida_util }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Codigo contable</label>
+                        <div>{{ $producto->producto_codigo }}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Marca</label>
+                        <div>{{ $producto->marca_modelo }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Estado</label>
+                        <div>{{ $producto->estado_nombre }}</div>
+                    </div>
+                </div>
+            @endif
+
+            @if($producto->tipo_codigo == 'RP')
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Referencia de proveedor</label>
+                        <div>{{ $producto->producto_referencia }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Codigo contable</label>
+                        <div>{{ $producto->producto_codigo }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Marca</label>
+                        <div>{{ $producto->marca_modelo }}</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Estado</label>
+                        <div>{{ $producto->estado_nombre }}</div>
+                    </div>
+                </div>
+            @endif
 
             <div class="row">
                 <div class="form-group col-md-6">
@@ -103,6 +152,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="form-group col-md-12">
                 <div class="nav-tabs-custom">
