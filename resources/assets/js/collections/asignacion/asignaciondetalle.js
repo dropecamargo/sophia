@@ -20,13 +20,24 @@ app || (app = {});
         * Constructor Method
         */
         initialize : function(){
+
         },
 
-        validar: function(){
-            var found  = this.find(function(item, i){
-                
+        validar: function( producto ) {
+            var error = { success: false, message: '' };
 
+            // Validate exist
+            var modelExits = _.find(this.models, function(item) {
+                return item.get('asignacion2_producto') == producto;
             });
+
+            if(modelExits instanceof Backbone.Model ) {
+                error.message = 'Este producto ya fue agregado.'
+                return error;
+            }
+
+            error.success = true;
+            return error;
         },
    });
 })(this, this.document);

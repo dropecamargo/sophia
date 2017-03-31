@@ -59,8 +59,6 @@ app || (app = {});
             this.$inputContrato = $('#nombre_contrato');
             this.$inputContrato1 = $('#asignacion1_contrato');
 
-
-
             // Reference views
             this.referenceViews();
         },
@@ -101,7 +99,7 @@ app || (app = {});
                 var data = window.Misc.formToJson( e.target );
                 data.asignacion1_tipo = this.parameters.type;
                 data.asignacion2 = this.asignaciondetalleList.toJSON();
-                
+
                 this.model.save( data, {patch: true, silent: true} );
             }
         },

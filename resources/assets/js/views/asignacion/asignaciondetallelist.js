@@ -43,27 +43,24 @@ app || (app = {});
             if( !_.isUndefined(this.parameters.dataFilter.asignacion2) && !_.isNull(this.parameters.dataFilter.asignacion2) ){
                 this.confCollection.data.asignacion2 = this.parameters.dataFilter.asignacion2;
                 this.collection.fetch( this.confCollection );
-                
+
             }
-            
+
         },
 
         /**
         * Render view task by model
         * @param Object mentoringTaskModel Model instance
         */
-        addOne: function (AsignacionDetalleModel) {
+        addOne: function (asignacionDetalleModel) {
             var view = new app.AsignacionDetalleItemView({
-                model: AsignacionDetalleModel,
+                model: asignacionDetalleModel,
                 parameters: {
                     edit: this.parameters.edit
                 }
             });
-            AsignacionDetalleModel.view = view;
+            asignacionDetalleModel.view = view;
             this.$el.append( view.render().el );
-            
-            // Validar carrito temporal
-            this.collection.validar();
         },
 
         /**
@@ -81,12 +78,19 @@ app || (app = {});
             var _this = this,
             data = window.Misc.formToJson( form );
             data.tipo = this.parameters.dataFilter.tipo;
+
+            // Validar carrito temporal
+            var valid = this.collection.validar( data.asignacion2_producto );
+            if(!valid.success) {
+                alertify.error(valid.message);
+                return;
+            }
+
             // Set Spinner
             window.Misc.setSpinner( this.parameters.wrapper );
 
             // Add model in collection
             var asignaciondetalleModel = new app.AsignacionDetalleModel();
-
             asignaciondetalleModel.save(data, {
                 success : function(model, resp) {
                     if(!_.isUndefined(resp.success)) {
@@ -102,7 +106,7 @@ app || (app = {});
                             alertify.error(text);
                             return;
                         }
-                        
+
                         // Add model in collection
                         _this.collection.add(model);
                     }
