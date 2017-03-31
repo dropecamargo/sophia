@@ -125,7 +125,8 @@ app || (app = {});
                 });
             }
             this.validarTipo(this.model.get('tipo_codigo'));
-            this.$('#producto_tipo').find('option:not(:selected)').remove();
+            this.$('#producto_tipo').attr('disabled', true);
+            
         },
 
         changeTipo: function (e){
@@ -158,7 +159,7 @@ app || (app = {});
         onStore: function (e) {
             if (!e.isDefaultPrevented()) {
                 e.preventDefault();
-                var data = $.extend({}, window.Misc.formToJson( e.target ), window.Misc.formToJson( this.$formEq ), window.Misc.formToJson( this.$formAc ), window.Misc.formToJson( this.$formRp ), window.Misc.formToJson( this.$formInCo ));
+                var data = $.extend({ producto_tipo: this.$('#producto_tipo').val() }, window.Misc.formToJson( e.target ), window.Misc.formToJson( this.$formEq ), window.Misc.formToJson( this.$formAc ), window.Misc.formToJson( this.$formRp ), window.Misc.formToJson( this.$formInCo ));
                 this.model.save( data, {patch: true, silent: true} );
             }
         },
