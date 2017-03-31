@@ -502,7 +502,6 @@
 </script>
 
 {{-- templeates Administrador --}}
-
 <script type="text/template" id="add-estado-tpl">
 	<div class="row">
 		<div class="form-group col-md-8">
