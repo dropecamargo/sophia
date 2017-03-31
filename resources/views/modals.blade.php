@@ -71,6 +71,23 @@
 	</div>
 </div>
 
+<!-- Modal address -->
+<div class="modal fade" id="modal-address-component" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+	<div class="modal-dialog modal-xlg" role="document">
+		<div class="modal-content">
+			<div class="content-modal"></div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="modal-address-component-validacion" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+	<div class="modal-dialog modal-md" role="document">
+		<div class="modal-content">
+			<div class="content-modal"></div>
+		</div>
+	</div>
+</div>
+
 <!-- Modal search contacto -->
 <div class="modal fade" id="modal-search-contacto-component" data-backdrop="static" data-keyboard="false" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
@@ -197,7 +214,8 @@
 
 <script type="text/template" id="koi-search-producto-type-component-tpl">
 	<div class="row">
-        <div class="form-group col-sm-2 col-md-offset-2">
+    	<label for="producto_tipo_search" class="col-md-1 col-md-offset-1 control-label">Sirve a equipo</label>
+        <div class="form-group col-sm-2 col-md-2">
             <div class="input-group input-group-sm">
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="producto_tipo_search">
@@ -304,3 +322,95 @@
 	{!! Form::close() !!}
 </script>
 
+<script type="text/template" id="koi-address-component-tpl">
+	<div class="modal-header small-box {{ config('koi.template.bg') }}">
+		<button type="button" class="close icon-close-koi" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<h4><strong>Generador de direcciones</strong></h4>
+	</div>
+
+	{!! Form::open(['id' => 'form-address-component', 'data-toggle' => 'validator', 'role' => 'form']) !!}
+	<div class="modal-body koi-component-address-modal-body">
+		<div class="row">
+			<div class="col-md-offset-2">
+				<label for="koi_direccion" class="col-md-1 control-label">Direccion</label>
+				<div class="form-group col-md-8">
+					{!! Form::text('koi_direccion', null, ['id' => 'koi_direccion', 'class' => 'form-control input-sm','disabled']) !!}
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-12 col-sm-12 col-xs-12">
+				@foreach(config('koi.direcciones.nomenclatura') as $key => $value)
+					<div class="col-md-2 col-sm-4 col-xs-6 koi-component-add address-nomenclatura">
+						<a class="btn btn-default btn-block" data-key="{{$key}}">{{ $value }}</a>
+					</div>
+				@endforeach
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="list-inline address-digitos">
+					<!-- Leters -->
+					@foreach(config('koi.direcciones.alfabeto') as $key => $value)
+						<li>
+							<a class="btn btn-default btn-block koi-component-add" data-key="{{$key}}">{{ $value }}</a>
+						</li>
+					@endforeach
+
+					<!-- Numbers -->
+					@for($i=0; $i<=9; $i++)
+						<li>
+							<a class="btn btn-default btn-block koi-component-add">{{ $i }}</a>
+						</li>
+					@endfor
+				</ul>
+			</div>
+		</div>
+
+		<div class="row other-controls ">
+			<label for="koi_direccion" class="col-md-2 col-xs-12 control-label text-right">Dirección DIAN</label>
+			<div class="col-md-6">
+				{!! Form::text('koi_direccion_nm', null, ['id' => 'koi_direccion_nm', 'class' => 'form-control input-sm','disabled']) !!}
+			</div>
+			<div class="col-md-2 koi-component-remove-last">
+				<a class="btn btn-default btn-block"><i class="fa fa-backward"> Regresar</i></a>
+			</div>
+			<div class="col-md-2 koi-component-remove">
+				<a class="btn btn-default btn-block"><i class="fa fa-trash-o"> Limpiar</i></a>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+		<button type="submit" class="btn btn-primary btn-sm btn-address-component-add-address">Continuar</button>
+	</div>
+	{!! Form::close() !!}
+</script>
+
+<script type="text/template" id="koi-component-select-tpl">
+	<div class="modal-header">
+		<h4 class="modal-title"></h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="form-group col-md-12">
+			<label class="col-md-2 col-xs-12 control-label">Nombre</label>
+				<div class="col-md-5">
+				    <select name="component-select" id="component-select" class="form-control" required>
+	                    <option value="" selected>Seleccione</option>
+	                    <option value="si">Si</option>
+	                    <option value="no">No</option>
+	                </select>
+				</div>
+				<div class="col-md-5" id="component-input" hidden>
+					<input type="text" class="form-control input-sm" name="component-input-text" id="component-input-text">
+				</div>
+			</div>
+		</div>
+	</div>
+</script>

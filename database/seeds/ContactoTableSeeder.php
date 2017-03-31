@@ -22,6 +22,6 @@ class ContactoTableSeeder extends Seeder
         	'tcontacto_celular' => '1234567890',
         	'tcontacto_email' => 'email@hotmail.com',
         	'tcontacto_cargo' => 'Boss'
-        	]);
+    	]);
     }
 }

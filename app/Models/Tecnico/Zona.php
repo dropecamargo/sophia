@@ -55,6 +55,7 @@ class Zona extends BaseModel
 
         return Cache::rememberForever( self::$key_cache , function() {
             $query = Zona::query();
+            $query->where('zona_activo', true);
             $query->orderBy('zona_nombre', 'asc');
             $collection = $query->lists('zona_nombre', 'id');
 

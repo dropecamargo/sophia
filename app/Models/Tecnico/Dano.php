@@ -55,6 +55,7 @@ class Dano extends BaseModel
 
         return Cache::rememberForever( self::$key_cache , function() {
             $query = Dano::query();
+            $query->where('dano_activo', true);
             $query->orderBy('id', 'asc');
             $collection = $query->lists('dano_nombre', 'id');
 

@@ -13,11 +13,15 @@ app || (app = {});
 
         el: '#producto-create',
         template: _.template( ($('#add-producto-tpl').html() || '') ),
+        templateEq: _.template( ($('#tipo-eq-tpl').html() || '') ),
+        templateAc: _.template( ($('#tipo-ac-tpl').html() || '') ),
+        templateRp: _.template( ($('#tipo-rp-tpl').html() || '') ),
+        templateInCo: _.template( ($('#tipo-inco-tpl').html() || '') ),
         events: {
-            'click .submit-producto': 'submitProducto',
             'submit #form-producto': 'onStore',
             'submit #form-item-sirvea': 'onStoreItem',
-            'submit #form-item-productocontador': 'onStorePcontador'
+            'submit #form-item-productocontador': 'onStorePcontador',
+            'change .select-tipo': 'changeTipo'
         },
         parameters: {
         },
@@ -49,14 +53,17 @@ app || (app = {});
         * Render View Element
         */
         render: function() {
-
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
             this.$form = this.$('#form-producto');
+            this.$formEq = this.$('#form-producto-Eq');
+            this.$formAc = this.$('#form-producto-Ac');
+            this.$formRp = this.$('#form-producto-Rp');
+            this.$formInCo = this.$('#form-producto-InCo');
+            this.$wrapper = this.$('#render-tipos');
 
             // Model exist
             if( this.model.id != undefined ) {
-
                 // Reference views
                 this.referenceViews();
             }
@@ -64,14 +71,35 @@ app || (app = {});
             this.ready();
         },
 
+        validarTipo: function (dato){
+            if( dato == 'EQ'){
+                var attributes = this.model.toJSON();
+                this.$wrapper.html( this.templateEq(attributes) );
+                this.ready();
+            }else if ( dato == 'AC'){
+                var attributes = this.model.toJSON();
+                this.$wrapper.html( this.templateAc(attributes) );
+                this.ready();
+            }else if ( dato == 'RP'){
+                var attributes = this.model.toJSON();
+                this.$wrapper.html( this.templateRp(attributes) );
+                this.ready();
+            }else if ( dato == 'IN' || dato == 'CO'){
+                var attributes = this.model.toJSON();
+                this.$wrapper.html( this.templateInCo(attributes) );
+                this.ready();
+            }else{
+                alertify.error('error inesperado, consulte al administrador');
+                return false;
+            }
+        },
+
         /**
         * reference to views
         */
         referenceViews: function () {
-
             if (this.model.get('tipo_codigo') != 'EQ') 
             {
-
                 //Sirvea list
                 this.sirveasListView = new app.SirveasListView( {
                     collection: this.sirveasList,
@@ -83,9 +111,7 @@ app || (app = {});
                         }
                    }
                 });
-
             }else{
-
                 //ProductoContador list
                 this.productoscontadorListView = new app.ProductosContadorListView( {
                     collection: this.productoscontadorList,
@@ -98,24 +124,41 @@ app || (app = {});
                    }
                 });
             }
+            this.validarTipo(this.model.get('tipo_codigo'));
+            this.$('#producto_tipo').find('option:not(:selected)').remove();
         },
 
-        /**
-        * Event submit producto
-        */
-        submitProducto: function (e) {
-            this.$form.submit();
+        changeTipo: function (e){
+            var _this = this;
+
+            if( _this.model.id != undefined ) {
+                _this.referenceViews();
+            }else{
+                $.ajax({
+                    url: window.Misc.urlFull(Route.route('tipos.show',{tipos: $(e.currentTarget).val()})),
+                    type: 'GET',
+                    beforeSend: function() {
+                        window.Misc.setSpinner( _this.el );
+                    }
+                })
+                .done(function(resp) {
+                    window.Misc.removeSpinner( _this.el );
+                    _this.validarTipo(resp.tipo_codigo);
+                })
+                .fail(function(jqXHR, ajaxOptions, thrownError) {
+                    window.Misc.removeSpinner( _this.el );
+                    alertify.error(thrownError);
+                });
+            }
         },
 
         /**
         * Event Create Folder
         */
         onStore: function (e) {
-
             if (!e.isDefaultPrevented()) {
-
                 e.preventDefault();
-                var data = window.Misc.formToJson( e.target );
+                var data = $.extend({}, window.Misc.formToJson( e.target ), window.Misc.formToJson( this.$formEq ), window.Misc.formToJson( this.$formAc ), window.Misc.formToJson( this.$formRp ), window.Misc.formToJson( this.$formInCo ));
                 this.model.save( data, {patch: true, silent: true} );
             }
         },
@@ -128,7 +171,6 @@ app || (app = {});
             if (!e.isDefaultPrevented()) {
 
                 e.preventDefault();
-
                 // Prepare global data
                 var data = window.Misc.formToJson( e.target );
                 this.sirveasList.trigger( 'store', data );
@@ -163,6 +205,9 @@ app || (app = {});
 
             if( typeof window.initComponent.initValidator == 'function' )
                 window.initComponent.initValidator();
+
+            if( typeof window.initComponent.initInputMask == 'function' )
+                window.initComponent.initInputMask();
         },
 
         /**
@@ -197,7 +242,7 @@ app || (app = {});
                 }
 
                 // Redirect to edit producto
-                Backbone.history.loadUrl(Route.route('productos.edit', { productos: resp.id}), { trigger:true });
+                Backbone.history.navigate(Route.route('productos.edit', { productos: resp.id}), { trigger:true });
             
             }
         }

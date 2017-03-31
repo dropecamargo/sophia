@@ -57,17 +57,23 @@ class ProductoController extends Controller
                     if($request->has('tipo_codigo')) {
                         $query->whereIn('tipo_codigo', explode(',', $request->tipo_codigo));
                     }
-                    
+
                     //Filter of Asignaciones
-                    if($request->has('productos_asignados')){
-                       if ($request->productos_asignados == "true") {
+                    if($request->has('productos_asignados') && $request->has('producto_tercero')){
+                        if ($request->productos_asignados == "true") {
+                            $tercero = Tercero::where('tercero_nit' , $request->producto_tercero)->first();
+                            $query->whereNull('producto_tercero')->whereNull('producto_contrato');
+                        }else{
                             $tercero = Tercero::where('tercero_nit' , $request->producto_tercero)->first();
                             $query->where('producto_contrato', $request->producto_contrato)->where('producto_tercero', $tercero->id);
-                       }else{
-                            $query->whereNull('producto_tercero')->whereNull('producto_contrato');
-
-                       }
+                        }
                     }   
+
+                    // Filter producto tercero
+                    if($request->has('producto_tercero') && !$request->has('productos_asignados')){
+                        $tercero = Tercero::where('tercero_nit' , $request->producto_tercero)->first();
+                        $query->whereNull('producto_tercero')->whereNull('producto_contrato');
+                    }
                   
                 })
                 ->make(true);
@@ -108,7 +114,7 @@ class ProductoController extends Controller
                         }
                         $producto->producto_proveedor = $tercero->id;
                     }
-                    
+
                     $producto->fill($data);
 
                     // Validar producto
@@ -202,6 +208,12 @@ class ProductoController extends Controller
                         $producto->producto_proveedor = $tercero->id;
                     }
 
+                    // Validar que Tipo no se cambie
+                    if($request->producto_tipo != $producto->producto_tipo){
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No se permite cambiar de tipo, por favor verifique la información o consulte al administrador.']);
+                    }
+
                     $producto->fill($data);
 
                     // Validar producto
@@ -211,7 +223,6 @@ class ProductoController extends Controller
                         return response()->json(['success' => false, 'errors' => $result]);
                     }
                     $producto->save();
-
                     //Valida unico contadores
                     if(in_array($producto->tipo->tipo_codigo, ['EQ'])) {
 
@@ -225,7 +236,6 @@ class ProductoController extends Controller
                         // Validar unique
                         $pcontador = ProductoContador::where('productocontador_contador', $contador->id)->where('productocontador_producto', $producto->id)->first();
                         if(!$pcontador instanceof ProductoContador) {
-                            
                             $pcontador = new ProductoContador;
                             $pcontador->productocontador_producto = $producto->id;
                             $pcontador->productocontador_contador = $contador->id;

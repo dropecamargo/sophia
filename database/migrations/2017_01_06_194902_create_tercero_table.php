@@ -28,6 +28,7 @@ class CreateTerceroTable extends Migration
             $table->string('tercero_apellido2', 100)->nullable();
             $table->string('tercero_razonsocial', 200)->nullable();
             $table->string('tercero_direccion', 200)->nullable();
+            $table->string('tercero_dir_nomenclatura', 200)->nullable();
             $table->string('tercero_postal', 100)->nullable();
             $table->integer('tercero_municipio')->unsigned()->nullable();
             $table->string('tercero_email', 200)->nullable();
@@ -61,6 +62,7 @@ class CreateTerceroTable extends Migration
             $table->boolean('tercero_otro')->default(false);
             $table->string('tercero_cual', 200)->nullable();
             $table->integer('tercero_coordinador_por')->unsigned()->nullable();
+            $table->integer('tercero_zona')->unsigned()->nullable();
 
             $table->string('username')->unique()->nullable();
             $table->string('password', 60);
@@ -68,6 +70,7 @@ class CreateTerceroTable extends Migration
             $table->foreign('tercero_municipio')->references('id')->on('municipio')->onDelete('restrict');
             $table->foreign('tercero_actividad')->references('id')->on('actividad')->onDelete('restrict');
             $table->foreign('tercero_coordinador_por')->references('id')->on('tercero')->onDelete('restrict');
+            $table->foreign('tercero_zona')->references('id')->on('zona')->onDelete('restrict');
 
             $table->rememberToken();
             $table->timestamps();

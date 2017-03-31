@@ -45,10 +45,9 @@ class ContratoController extends Controller
             }
 
            return Datatables::of($query)
-
                 ->filter(function($query) use($request) {
                     if($request->has('contrato_tercero')) {
-                        $query->where('contrato_tercero', $request->contrato_tercero);
+                        $query->where('contrato_tercero', $request->contrato_tercero)->where('contrato_activo', true);
                     }   
 
                     //id Contrato

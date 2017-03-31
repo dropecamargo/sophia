@@ -79,7 +79,7 @@ var app = app || {};
         * Init toUpper
         */
         initToUpper: function () {
-            $('.input-toupper').keyup(function(){
+            $('.input-toupper').change(function(){
                 $(this).val( $(this).val().toUpperCase() );
             });
         },
@@ -116,7 +116,51 @@ var app = app || {};
                 alias: 'currency',
                 removeMaskOnSubmit: true,
                 unmaskAsNumber: true,
-                min: 0
+                min: 0,
+                onBeforeMask: function (value, opts) {
+                    var processedValue = value || 0;
+                    return processedValue;
+                },
+                oncleared: function  (event) {
+                    var $input = $(this);
+
+                    if( this.inputmask.unmaskedvalue() == null || isNaN(parseFloat(this.inputmask.unmaskedvalue())) ) {
+                        $input.inputmask('setvalue', 0);
+                    }
+                },
+            });
+
+            $("[data-currency-precise]").inputmask({
+                radixPoint: ",",
+                alias: 'currency',
+                removeMaskOnSubmit: true,
+                unmaskAsNumber: true,
+                min: 0,
+                digits: 0,
+                onBeforeMask: function (value, opts) {
+                    var processedValue = value || 0;
+                    return processedValue;
+                },
+                oncleared: function  (event) {
+                    var $input = $(this);
+
+                    if( this.inputmask.unmaskedvalue() == null || isNaN(parseFloat(this.inputmask.unmaskedvalue())) ) {
+                        $input.inputmask('setvalue', 0);
+                    }
+                },
+            });
+
+            $("[data-currency-numeric]").inputmask({
+                radixPoint: ",",
+                alias: 'numeric',
+                groupSeparator: ",",
+                autoGroup: true,
+                autoUnmask: true
+            });
+
+            $("[data-currency-text]").inputmask({
+                alias: 'numeric',
+                rightAlign: false
             });
         },
 

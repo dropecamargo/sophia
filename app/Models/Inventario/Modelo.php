@@ -65,6 +65,7 @@ class Modelo extends BaseModel
 
         return Cache::rememberForever( self::$key_cache , function() {
             $query = Modelo::query();
+            $query->where('modelo_activo', true);
             $query->orderBy('modelo_nombre', 'asc');
             $collection = $query->lists('modelo_nombre', 'modelo.id');
 

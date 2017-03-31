@@ -54,6 +54,7 @@ class Estado extends BaseModel
 
         return Cache::rememberForever( self::$key_cache , function() {
             $query = Estado::query();
+            $query->where('estado_activo', true);
             $query->orderBy('estado_nombre', 'asc');
             $collection = $query->lists('estado_nombre', 'estado.id');
 

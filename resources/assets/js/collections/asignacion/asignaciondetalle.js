@@ -20,6 +20,13 @@ app || (app = {});
         * Constructor Method
         */
         initialize : function(){
-        }
+        },
+
+        validar: function(){
+            var found  = this.find(function(item, i){
+                
+
+            });
+        },
    });
 })(this, this.document);

@@ -61,6 +61,9 @@ app || (app = {});
             });
             AsignacionDetalleModel.view = view;
             this.$el.append( view.render().el );
+            
+            // Validar carrito temporal
+            this.collection.validar();
         },
 
         /**
@@ -78,7 +81,6 @@ app || (app = {});
             var _this = this,
             data = window.Misc.formToJson( form );
             data.tipo = this.parameters.dataFilter.tipo;
-            console.log(data);
             // Set Spinner
             window.Misc.setSpinner( this.parameters.wrapper );
 

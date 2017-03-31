@@ -21,7 +21,6 @@ class TerceroTableSeeder extends Seeder
             'tercero_nombre2'   => 'Antonio',
             'tercero_apellido1'   => 'Camargo',
             'tercero_apellido2'   => 'Jimenez',
-            // 'tercero_actividad'   => 204,
             'tercero_activo'   => true,
             'tercero_interno'   => true,
             'tercero_email'    => 'dropecamargo@gmail.com',
@@ -38,7 +37,6 @@ class TerceroTableSeeder extends Seeder
             'tercero_nombre2'   => str_random(6),
             'tercero_apellido1'   => str_random(6),
             'tercero_apellido2'   => str_random(6),
-            // 'tercero_actividad'   => 204,
             'tercero_activo'   => true,
             'tercero_interno'   => true,
             'tercero_email'    => str_random(10).'@gmail.com',
@@ -55,12 +53,11 @@ class TerceroTableSeeder extends Seeder
             'tercero_nombre2'   => 'Camilo',
             'tercero_apellido1'   => 'Machado',
             'tercero_apellido2'   => 'Bautista',
-            // 'tercero_actividad'   => 204,
             'tercero_activo'   => true,
             'tercero_interno'   => true,
-            'tercero_email'    => str_random(10).'@gmail.com',
-            'username'    => 'jaja',
-            'password' => bcrypt('jaja')
+            'tercero_email'    => 'machadoo00@hotmail.com',
+            'username'    => 'machadoo00',
+            'password' => bcrypt('123321')
         ]);
     }
  }

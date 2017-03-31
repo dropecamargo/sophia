@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Datatables;
 
-use App\Models\Base\Tercero, App\Models\Base\Actividad;
+use App\Models\Base\Tercero, App\Models\Base\Actividad, App\Models\Tecnico\Contrato;
 
 class TerceroController extends Controller
 {
@@ -43,6 +43,10 @@ class TerceroController extends Controller
                     // Documento
                     if($request->has('tercero_nit')) {
                         $query->whereRaw("tercero_nit LIKE '%{$request->tercero_nit}%'");
+                    }
+
+                    if($request->has('activo') && $request->activo == 'true'){
+                        $query->whereIn('tercero.id', DB::table('contrato')->select('contrato_tercero')->distinct()->where('contrato_activo',true));
                     }
 
                     // Nombre
@@ -82,7 +86,6 @@ class TerceroController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $tercero = new Tercero;
             if ($tercero->isValid($data)) {
                 DB::beginTransaction();
@@ -257,5 +260,38 @@ class TerceroController extends Controller
             }
         }
         return response()->json(['success' => false]);
+    }
+
+    public function setpassword(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            $tercero = Tercero::find($request->id);
+            if ($tercero->isValidPass($data)) {
+                DB::beginTransaction();
+                try {
+                    if(!$tercero instanceof Tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar tercero, por favor verifique la información del asiento o consulte al administrador.']);
+                    }
+
+                    $tercero->username = trim($request->username);
+                    if($request->has('password')) {
+                        $tercero->password = bcrypt($request->password);
+                    }
+                    $tercero->save();
+
+                    // Commit Transaction
+                    DB::commit();
+                    return response()->json(['success' => true, 'message' => 'Datos de acceso fueron actualizados.']);
+                }catch(\Exception $e){
+                    DB::rollback();
+                    Log::error($e->getMessage());
+                    return response()->json(['success' => false, 'errors' => trans('app.exception')]);
+                }
+            }
+            return response()->json(['success' => false, 'errors' => $tercero->errors]);
+        }
+        abort(403);
     }
 }

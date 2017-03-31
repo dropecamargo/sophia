@@ -70,10 +70,10 @@ class Tipo extends BaseModel
 
         return Cache::rememberForever( self::$key_cache , function() {
             $query = Tipo::query();
+            $query->where('tipo_activo', true);
             $query->orderBy('tipo_nombre', 'asc');
             $collection = $query->lists('tipo_nombre', 'tipo.id');
 
-            $collection->prepend('', '');
             return $collection;
         });
     }
@@ -86,6 +86,7 @@ class Tipo extends BaseModel
 
         return Cache::rememberForever( self::$key_cache , function() {
             $query = Tipo::query();
+            $query->where('tipo_activo', true);
             $query->orderBy('tipo_codigo', 'asc');
             $collection = $query->lists('tipo_codigo', 'tipo.id');
 

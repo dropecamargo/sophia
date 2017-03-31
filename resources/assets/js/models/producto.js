@@ -25,7 +25,6 @@ app || (app = {});
             'producto_marca': '',
             'producto_modelo': '',
             'producto_estado': '',
-            'producto_parte': '',
             'tercero_nit': '',
             'tercero_nombre':'',
             'producto_proveedor': '',

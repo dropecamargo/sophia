@@ -15,9 +15,10 @@
 
     <div class="row">
     	<div class="form-group col-md-4">
-			<label for="tcontacto_direccion" class="control-label">Dirección</label>
+			<label for="tcontacto_direccion" class="control-label">Dirección</label> <small id="tcontacto_dir_nomenclatura"><%- tcontacto_direccion_nomenclatura %></small>
       		<div class="input-group input-group-sm">
-				<input id="tcontacto_direccion" value="<%- tcontacto_direccion %>" placeholder="Dirección" class="form-control address-koi-component" name="tcontacto_direccion" type="text" maxlength="200" required>
+  		 		<input type="hidden" id="tcontacto_direccion_nomenclatura" name="tcontacto_direccion_nomenclatura" value="<%- tcontacto_direccion_nomenclatura %>">
+				<input id="tcontacto_direccion" value="<%- tcontacto_direccion %>" placeholder="Dirección" class="form-control address-koi-component" name="tcontacto_direccion" type="text" maxlength="200" required data-nm-name="tcontacto_dir_nomenclatura" data-nm-value="tcontacto_direccion_nomenclatura">
 				<span class="input-group-btn">
 					<button type="button" class="btn btn-default btn-flat btn-address-koi-component" data-field="tcontacto_direccion">
 						<i class="fa fa-map-signs"></i>
@@ -64,7 +65,7 @@
 				<div class="input-group-addon">
 					<i class="fa fa-mobile"></i>
 				</div>
-				<input id="tcontacto_celular" value="<%- tcontacto_celular %>" class="form-control input-sm" name="tcontacto_celular" type="text" data-inputmask="'mask': '(999) 999-99-99'" data-mask>
+				<input id="tcontacto_celular" value="<%- tcontacto_celular %>" class="form-control input-sm" name="tcontacto_celular" type="text" data-inputmask="'mask': '(999) 999-9999'" data-mask>
 			</div>
 		</div>
 	</div>
@@ -147,9 +148,10 @@
 
 		<div class="row">
 			<div class="form-group col-md-3">
-				<label for="tercero_direccion" class="control-label">Dirección</label>
+				<label for="tercero_direccion" class="control-label">Dirección</label> <small id="tercero_nomenclatura"><%- tercero_dir_nomenclatura %></small>
 	      		<div class="input-group input-group-sm">
-					<input id="tercero_direccion" value="<%- tercero_direccion %>" placeholder="Dirección" class="form-control address-koi-component" name="tercero_direccion" type="text" required>
+      		 		<input type="hidden" id="tercero_dir_nomenclatura" name="tercero_dir_nomenclatura" value="<%- tercero_dir_nomenclatura %>">
+					<input id="tercero_direccion" value="<%- tercero_direccion %>" placeholder="Dirección" class="form-control address-koi-component" name="tercero_direccion" type="text" data-nm-name="tercero_nomenclatura" data-nm-value="tercero_dir_nomenclatura" required>
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-default btn-flat btn-address-koi-component" data-field="tercero_direccion">
 							<i class="fa fa-map-signs"></i>
@@ -211,7 +213,7 @@
 					<div class="input-group-addon">
 						<i class="fa fa-mobile"></i>
 					</div>
-					<input id="tercero_celular" value="<%- tercero_celular %>" class="form-control input-sm" name="tercero_celular" type="text" data-inputmask="'mask': '(999) 999-99-99'" data-mask>
+					<input id="tercero_celular" value="<%- tercero_celular %>" class="form-control input-sm" name="tercero_celular" type="text" data-inputmask="'mask': '(999) 999-9999'" data-mask>
 				</div>
 			</div>
 		</div>
@@ -389,13 +391,57 @@
 		                                        <option value="{{ $key }}" <%- tercero_coordinador_por == '{{ $key }}' ? 'selected': ''%>>{{ $value }}</option>
 		                                    @endforeach
 		                                </select>
+		                                
+		                                <label for="tercero_zona" class="control-label">Zona</label>
+										<select name="tercero_zona" id="tercero_zona" class="form-control select2-default">
+		                                    @foreach( App\Models\Tecnico\Zona::getZonas() as $key => $value)
+		                                        <option value="{{ $key }}" <%- tercero_zona == '{{ $key }}' ? 'selected': ''%>>{{ $value }}</option>
+		                                    @endforeach
+		                                </select>
 			                        </div>
 								</div>
 							</form>
 
 							<br />
 							<div class="row">
-						    	<div class="form-group col-md-offset-2 col-md-8">
+								<div class="form-group col-md-6">
+					            	<div class="box box-danger" id="wrapper-password">
+										<div class="box-header with-border">
+											<h3 class="box-title">Datos de acceso</h3>
+										</div>
+										<div class="box-body">
+											<form method="POST" accept-charset="UTF-8" id="form-changed-password" data-toggle="validator">
+												<div class="row">
+													<div class="form-group col-md-12">
+														<label for="username" class="control-label">Cuenta de usuario</label>
+														<input type="text" name="username" id="username" class="form-control input-lower" value="<%- username %>" minlength="4" maxlength="20" required>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="form-group col-md-6">
+													<label for="password" class="control-label">Contraseña</label>
+														<input type="password" name="password" id="password" class="form-control" minlength="6" maxlength="15">
+														<div class="help-block">Minimo de 6 caracteres</div>
+													</div>
+
+													<div class="form-group col-md-6">
+													<label for="password_confirmation" class="control-label">Verificar contraseña</label>
+														<input type="password" name="password_confirmation" id="password_confirmation" class="form-control" data-match="#password" data-match-error="Oops, no coinciden la contraseña" minlength="6" maxlength="15">
+														<div class="help-block with-errors"></div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-12 text-center">
+														<button type="submit" class="btn btn-success change-pass">Cambiar</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+						    	<div class="form-group col-md-6">
 									<div class="box box-danger" id="wrapper-roles">
 										<div class="box-header with-border">
 											<h3 class="box-title">Roles de usuario</h3>
@@ -494,9 +540,18 @@
 			<label for="sucursal_nombre" class="control-label">Nombre</label>
 			<input type="text" id="sucursal_nombre" name="sucursal_nombre" value="<%- sucursal_nombre %>" placeholder="Nombre" class="form-control input-sm input-toupper" maxlength="100" required>
 		</div>
-		<div class="form-group col-md-8">
-			<label for="sucursal_direccion" class="control-label">Direccion</label>
-			<input type="text" id="sucursal_direccion" name="sucursal_direccion" value="<%- sucursal_direccion %>" placeholder="Direccion" class="form-control input-sm input-toupper" maxlength="100" required>
+
+		<div class="form-group col-md-4">
+			<label for="sucursal_direccion" class="control-label">Dirección</label> <small id="sucursal_dir_nomenclatura"><%- sucursal_direccion_nomenclatura %></small>
+      		<div class="input-group input-group-sm">
+  		 		<input type="hidden" id="sucursal_direccion_nomenclatura" name="sucursal_direccion_nomenclatura" value="<%- sucursal_direccion_nomenclatura %>">
+				<input id="sucursal_direccion" value="<%- sucursal_direccion %>" placeholder="Dirección" class="form-control address-koi-component" name="sucursal_direccion" type="text" maxlength="200" required data-nm-name="sucursal_dir_nomenclatura" data-nm-value="sucursal_direccion_nomenclatura">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default btn-flat btn-address-koi-component" data-field="sucursal_direccion">
+						<i class="fa fa-map-signs"></i>
+					</button>
+				</span>
+			</div>
 		</div>
 	</div>
 </script>

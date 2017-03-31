@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactoTableSeeder::class);
         $this->call(ContratoSeeder::class);
         $this->call(ContadorTableSeeder::class);
+        $this->call(ZonaTableSeeder::class);
         $this->call(ProductoSeeder::class);
 
         Model::reguard();
