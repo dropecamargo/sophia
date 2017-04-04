@@ -13,7 +13,7 @@ class ProductoSeeder extends Seeder
     public function run()
     {
         Producto::create([
-            'producto_placa'   => 1,
+            'producto_placa'   => 5231,
             'producto_serie'   => 'TC',
             'producto_referencia'   => 'T-2',
             'producto_codigo'   => 'T-2',
@@ -23,11 +23,10 @@ class ProductoSeeder extends Seeder
             'producto_modelo'   => 1,
             'producto_estado'   => 1,
             'producto_proveedor'    => 1,
-            'producto_vida_util'    => 1,
             'producto_costo_promedio'=> 1.52 ,
             'producto_ultimo_costo' => 5.033 ,
-            'producto_tercero' => 1,
-            'producto_contrato' =>1,
+            'producto_tercero' => null,
+            'producto_contrato' =>null,
         ]);
     }
 }

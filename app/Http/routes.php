@@ -56,6 +56,15 @@ Route::group(['middleware' => 'auth'], function()
 	Route::resource('sucursales', 'Admin\SucursalController', ['except' => ['destroy']]);
 	Route::resource('estados', 'Admin\EstadoController', ['except' => ['destroy']]);
 
+	Route::group(['prefix' => 'roles'], function()
+	{
+		Route::resource('permisos', 'Admin\PermisoRolController', ['only' => ['index', 'update', 'destroy']]);
+	});
+
+	Route::resource('roles', 'Admin\RolController', ['except' => ['destroy']]);
+    Route::resource('permisos', 'Admin\PermisoController', ['only' => ['index']]);
+    Route::resource('modulos', 'Admin\ModuloController', ['only' => ['index']]);
+
 	/*
 	|-------------------------
 	| Inventario Routes

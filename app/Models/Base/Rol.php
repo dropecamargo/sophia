@@ -10,6 +10,15 @@ use Validator, Cache;
 class Rol extends EntrustRole
 {
     /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'rol';
+
+    public $timestamps = false;
+
+    /**
      * The key used by cache store.
      *
      * @var static string

@@ -116,27 +116,30 @@ class AsignacionDetalleController extends Controller
                                 return response()->json(['success' => false, 'errors' => 'El contrato seleccionado no corresponde al tercero, por favor seleccione de nuevo el contrato o consulte al administrador.']);
                             }
 
-                            $query = AsignacionDetalle::query();
-                            $query->select('asignacion2.id as id_asignacion','producto.id as id_producto','producto_nombre','producto_serie as asignacion2_producto','tipo_nombre as nombre', 'tipo_codigo');
-                            $query->where('asignacion2_producto', $producto->id);
-                            $query->where('asignacion1_tercero', $tercero->id);
-                            $query->where('asignacion1_contrato', $contrato->id);
-                            $query->where('asignacion1_tipo', 'R');
-                            $query->join('asignacion1', 'asignacion2.asignacion2_asignacion1', '=', 'asignacion1.id');
-                            $query->join('producto', 'asignacion2.asignacion2_producto', '=', 'producto.id');
-                            $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
-                            $retiro = $query->get();
-                            dd($retiro);
+                            // $query = AsignacionDetalle::query();
+                            // $query->select('asignacion2.id as id_asignacion','producto.id as id_producto','producto_nombre','producto_serie as asignacion2_producto','tipo_nombre as nombre', 'tipo_codigo');
+                            // $query->where('asignacion2_producto', $producto->id);
+                            // $query->where('asignacion1_tercero', $tercero->id);
+                            // $query->where('asignacion1_contrato', $contrato->id);
+                            // $query->where('asignacion1_tipo', 'R');
+                            // $query->join('asignacion1', 'asignacion2.asignacion2_asignacion1', '=', 'asignacion1.id');
+                            // $query->join('producto', 'asignacion2.asignacion2_producto', '=', 'producto.id');
+                            // $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
+                            // $retiro = $query->get();
+                            // dd($retiro);
 
                             $query = AsignacionDetalle::query();
-                            $query->select('producto.id','producto_nombre','producto_serie as asignacion2_producto','tipo_nombre as nombre', 'tipo_codigo');
+                            $query->select('asignacion2.id as as_id','producto.id as pr.id','producto_nombre','producto_serie as asignacion2_producto','tipo_nombre as nombre', 'tipo_codigo');
                             $query->where('asignacion2_deproducto', $producto->id);
                             $query->where('asignacion1_tercero', $tercero->id);
                             $query->where('asignacion1_contrato', $contrato->id);
+
                             $query->join('asignacion1', 'asignacion2.asignacion2_asignacion1', '=', 'asignacion1.id');
                             $query->join('producto', 'asignacion2.asignacion2_producto', '=', 'producto.id');
                             $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
                             $asignacion = $query->get();
+
+                            dd($asignacion);
                         }
                     }
 
