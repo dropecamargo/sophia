@@ -11,6 +11,8 @@ use DB, Log, Datatables, Cache;
 use App\Models\Inventario\Producto, App\Models\Inventario\Contador, App\Models\Inventario\ProductoContador, App\Models\Inventario\Tipo;
 use App\Models\Inventario\Marca;
 use App\Models\Base\Tercero , App\Models\Base\Estado;
+use App\Models\Tecnico\AsignacionDetalle;
+use App\Models\Tecnico\Asignacion;
 
 class ProductoController extends Controller
 {

@@ -56,10 +56,6 @@ app || (app = {});
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
             this.$form = this.$('#form-producto');
-            this.$formEq = this.$('#form-producto-Eq');
-            this.$formAc = this.$('#form-producto-Ac');
-            this.$formRp = this.$('#form-producto-Rp');
-            this.$formInCo = this.$('#form-producto-InCo');
             this.$wrapper = this.$('#render-tipos');
 
             // Model exist
@@ -159,7 +155,7 @@ app || (app = {});
         onStore: function (e) {
             if (!e.isDefaultPrevented()) {
                 e.preventDefault();
-                var data = $.extend({ producto_tipo: this.$('#producto_tipo').val() }, window.Misc.formToJson( e.target ), window.Misc.formToJson( this.$formEq ), window.Misc.formToJson( this.$formAc ), window.Misc.formToJson( this.$formRp ), window.Misc.formToJson( this.$formInCo ));
+                var data = $.extend({ producto_tipo: this.$('#producto_tipo').val() }, window.Misc.formToJson( e.target ));
                 this.model.save( data, {patch: true, silent: true} );
             }
         },

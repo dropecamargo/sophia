@@ -29,6 +29,8 @@ app || (app = {});
             if( opts !== undefined && _.isObject(opts.parameters) )
                 this.parameters = $.extend({},this.parameters, opts.parameters);
 
+            this.parameters.wrapper
+
             // Init Attributes
             this.confCollection = { reset: true, data: {} };
 
@@ -43,9 +45,7 @@ app || (app = {});
             if( !_.isUndefined(this.parameters.dataFilter.asignacion2) && !_.isNull(this.parameters.dataFilter.asignacion2) ){
                 this.confCollection.data.asignacion2 = this.parameters.dataFilter.asignacion2;
                 this.collection.fetch( this.confCollection );
-
             }
-
         },
 
         /**
@@ -74,18 +74,19 @@ app || (app = {});
         * storescuenta
         * @param form element
         */
-        storeOne: function (form) {
-            var _this = this,
+        storeOne: function (form, contrato, tercero) {
+            var _this = this;
             data = window.Misc.formToJson( form );
             data.tipo = this.parameters.dataFilter.tipo;
+            data.contrato = contrato;
+            data.tercero = tercero;
 
             // Validar carrito temporal
-            var valid = this.collection.validar( data.asignacion2_producto );
+            var valid = this.collection.validar( data );
             if(!valid.success) {
                 alertify.error(valid.message);
                 return;
             }
-
             // Set Spinner
             window.Misc.setSpinner( this.parameters.wrapper );
 
@@ -94,9 +95,7 @@ app || (app = {});
             asignaciondetalleModel.save(data, {
                 success : function(model, resp) {
                     if(!_.isUndefined(resp.success)) {
-						window.Misc.removeSpinner( _this.parameters.wrapper );
-
-                        // response success or error
+                        window.Misc.removeSpinner( _this.parameters.wrapper );
                         var text = resp.success ? '' : resp.errors;
                         if( _.isObject( resp.errors ) ) {
                             text = window.Misc.parseErrors(resp.errors);
@@ -106,9 +105,14 @@ app || (app = {});
                             alertify.error(text);
                             return;
                         }
-
                         // Add model in collection
                         _this.collection.add(model);
+                        
+                        // Add accesorios de equipo in collection
+                        _.each(resp.accesorio, function(childs){
+                            childs.idFather = resp.id;
+                            _this.collection.add(childs);
+                        });
                     }
                 },
                 error : function(model, error) {
@@ -126,6 +130,9 @@ app || (app = {});
 
             var resource = $(e.currentTarget).attr("data-resource");
             var model = this.collection.get(resource);
+
+            this.collection.eliminar( model );
+
             if ( model instanceof Backbone.Model ) {
                 model.view.remove();
                 this.collection.remove(model);
@@ -146,5 +153,4 @@ app || (app = {});
             window.Misc.removeSpinner( this.parameters.wrapper );
         }
    });
-
 })(jQuery, this, this.document);

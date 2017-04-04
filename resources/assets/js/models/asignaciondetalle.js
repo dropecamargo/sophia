@@ -17,7 +17,8 @@ app || (app = {});
         idAttribute: 'id',
         defaults: {
         	'producto_nombre_search': '',
-        	'producto_tipo_search': ''
+            'producto_tipo_search': '',
+            'tipo_codigo': ''
         }
     });
 

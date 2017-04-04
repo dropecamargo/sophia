@@ -20,7 +20,7 @@ app || (app = {});
             'submit #form-asignacion2': 'onStoreA2'
         },
         parameters: {
-            type: null
+            type: null,
         },
 
         /**
@@ -58,6 +58,7 @@ app || (app = {});
             this.$inputContrato = $('#nombre_contrato');
             this.$inputContrato = $('#nombre_contrato');
             this.$inputContrato1 = $('#asignacion1_contrato');
+            this.$inputTercero = $('#asignacion1_tercero');
 
             // Reference views
             this.referenceViews();
@@ -72,7 +73,7 @@ app || (app = {});
             this.asignaciondetalleListView = new app.AsignacionDetalleListView({
                 collection: this.asignaciondetalleList,
                 parameters: {
-                    wrapper: this.el,
+                    wrapper: this.$('#wrapper-producto'),
                     edit: true,
                     dataFilter: {
                         'tipo': this.parameters.type
@@ -109,10 +110,9 @@ app || (app = {});
         */
         onStoreA2: function (e) {
             if (!e.isDefaultPrevented()) {
-
                 e.preventDefault();
 
-                this.asignaciondetalleList.trigger( 'store', this.$(e.target) );
+                this.asignaciondetalleList.trigger( 'store', this.$(e.target), this.$inputContrato1.val(), this.$inputTercero.val());
             }
         },
 

@@ -49,10 +49,11 @@ app || (app = {});
 			
 			// Filters
 			this.tipo_codigo = this.$inputContent.attr("data-tipo");
+			this.tipo = this.$inputContent.attr("data-tipo-asignacion");
 			this.asignacion_data = this.$inputContent.attr("data-asignaciones");
 			var contrato = $("#asignacion1_contrato").val();
 			var tercero = $("#asignacion1_tercero").val();
-			
+
 			if(this.$resourceContrato == "true") {
 				// //Validate contrato
 	            if( _.isUndefined(contrato) || _.isNull(contrato) || contrato == '') {
@@ -76,6 +77,7 @@ app || (app = {});
                         data.productos_asignados = _this.asignacion_data;
                         data.producto_contrato = contrato;                        
                         data.producto_tercero = tercero;
+                        data.tipo = _this.tipo;
                     }
                 },
                 columns: [
@@ -114,7 +116,7 @@ app || (app = {});
 			this.$inputName.val( data.producto_nombre );
 
 		 	if(this.$wraperType.length) {
-                this.renderType(data.tipo_codigo);
+                this.renderType(data.tipo_codigo, this.tipo);
             }
 			this.$modalComponent.modal('hide');
 		},
@@ -180,14 +182,17 @@ app || (app = {});
         /**
         * Render form type
         */
-        renderType: function (type) {
+        renderType: function (type, tipo_asignacion) {
         	this.$wraperType.empty();
 
         	var data = { };
-        	if( type == 'AC') {
-	        	data.producto_tipo = type;
-	        	var template = _.template($('#koi-search-producto-type-component-tpl').html());
-	           	this.$wraperType.html( template( data ) );
+        	if( this.tipo == 'E'){
+	        	if( type == 'AC') {
+		        	data.producto_tipo = type;
+		        	data.tipo = this.tipo;
+		        	var template = _.template($('#koi-search-producto-type-component-tpl').html());
+		           	this.$wraperType.html( template( data ) );
+	        	}
         	}
         },
 

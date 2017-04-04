@@ -196,7 +196,7 @@ class AsignacionController extends Controller
                             $asignacion2->asignacion2_deproducto = $deproducto->id;
                         }
 
-                        // $asignacion2->save();  
+                        $asignacion2->save();  
                         
                         if($request->asignacion1_tipo == 'E'){
                             $producto->producto_tercero = $tercero->id;
