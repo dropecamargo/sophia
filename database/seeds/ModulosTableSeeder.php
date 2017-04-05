@@ -45,7 +45,7 @@ class ModulosTableSeeder extends Seeder
 
     	//Modulos
     	Modulo::create([
-        	'name' => 'tercero',
+        	'name' => 'terceros',
         	'display_name' => 'Tercero',
         	'nivel1' => 1,
         	'nivel2' => 1,
@@ -62,7 +62,7 @@ class ModulosTableSeeder extends Seeder
 
     	//Referencias
     	Modulo::create([
-        	'name' => 'acitividades',
+        	'name' => 'actividades',
         	'display_name' => 'Acitividades',
         	'nivel1' => 1,
         	'nivel2' => 2,
@@ -213,7 +213,7 @@ class ModulosTableSeeder extends Seeder
 
     	//Referencias
     	Modulo::create([
-        	'name' => 'tipodeorden',
+        	'name' => 'tiposorden',
         	'display_name' => 'Tipo de Orden',
         	'nivel1' => 3,
         	'nivel2' => 2,
@@ -229,7 +229,7 @@ class ModulosTableSeeder extends Seeder
     	]);
 
     	Modulo::create([
-        	'name' => 'daños',
+        	'name' => 'danos',
         	'display_name' => 'Daños',
         	'nivel1' => 3,
         	'nivel2' => 2,
