@@ -32,7 +32,7 @@ app || (app = {});
             });
 
             if(modelExits instanceof Backbone.Model ) {
-                error.message = 'Este producto ya fue agregado.'
+                error.message = 'El producto '+ data.producto_nombre +' ya fue agregado.'
                 return error;
             }
 
@@ -53,18 +53,32 @@ app || (app = {});
         },
 
         eliminar: function( model ){
-            if(model.get('tipo') == 'E'){
-                var deleteChild = _.find(this.models, function(item){
-                    return item.get('producto_tipo_search') == model.get('asignacion2_producto');
+            var _this = this;
+            
+            if( model.get('tipo') == 'E' ){
+                var arrayChilds = _.filter(this.models, function(item){
+                    return item.get('producto_tipo_search') === model.get('asignacion2_producto');
                 });
 
-                if ( deleteChild instanceof Backbone.Model ) {
-                    deleteChild.view.remove();
-                    this.remove(deleteChild);
-                }
+                _.each(arrayChilds, function(deleteChild){
+                    if ( deleteChild instanceof Backbone.Model ) {
+                        deleteChild.view.remove();
+                        _this.remove(deleteChild);
+                    }
+                });
             }
-            if(model.get('tipo') == 'R'){
-                
+
+            if( model.get('tipo') == 'R' ){
+                var arrayChilds = _.filter(this.models, function(item){
+                    return item.get('idFather') === model.get('id');
+                });
+
+                _.each(arrayChilds, function(deleteChild){
+                    if ( deleteChild instanceof Backbone.Model ) {
+                        deleteChild.view.remove();
+                        _this.remove(deleteChild);
+                    }
+                });
             }
         }
    });

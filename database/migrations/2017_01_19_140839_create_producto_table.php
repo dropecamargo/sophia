@@ -34,8 +34,10 @@ class CreateProductoTable extends Migration
 
             $table->integer('producto_tercero')->unsigned()->nullable();
             $table->integer('producto_contrato')->unsigned()->nullable();
+            $table->integer('producto_maquina')->unsigned()->nullable();
 
             $table->foreign('producto_tipo')->references('id')->on('tipo')->onDelete('restrict');
+            $table->foreign('producto_maquina')->references('id')->on('producto')->onDelete('restrict');
             $table->foreign('producto_marca')->references('id')->on('marca')->onDelete('restrict');
             $table->foreign('producto_modelo')->references('id')->on('modelo')->onDelete('restrict');
             $table->foreign('producto_estado')->references('id')->on('estado')->onDelete('restrict');

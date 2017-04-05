@@ -31,14 +31,14 @@ class Producto extends BaseModel
     *
     * @var array
     */
-    protected $fillable = ['producto_referencia','producto_codigo','producto_nombre','producto_placa', 'producto_serie','producto_vida_util','producto_tipo','producto_estado','producto_modelo','producto_marca'];
+    protected $fillable = ['producto_referencia','producto_codigo','producto_nombre','producto_placa', 'producto_serie','producto_vida_util','producto_tipo','producto_estado','producto_modelo','producto_marca','producto_maquina'];
 
     /**
     * The attributes nulleables from the model.
     *
     * @var array
     */
-    protected $nullable = ['producto_estado', 'producto_marca','producto_modelo','producto_placa', 'producto_serie'];
+    protected $nullable = ['producto_estado', 'producto_marca','producto_modelo','producto_placa', 'producto_serie','producto_maquina'];
 
     public function isValid($data)
     {

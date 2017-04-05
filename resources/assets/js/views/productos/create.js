@@ -127,25 +127,28 @@ app || (app = {});
 
         changeTipo: function (e){
             var _this = this;
+            var tipo = $(e.currentTarget).val();
 
             if( _this.model.id != undefined ) {
                 _this.referenceViews();
             }else{
-                $.ajax({
-                    url: window.Misc.urlFull(Route.route('tipos.show',{tipos: $(e.currentTarget).val()})),
-                    type: 'GET',
-                    beforeSend: function() {
-                        window.Misc.setSpinner( _this.el );
-                    }
-                })
-                .done(function(resp) {
-                    window.Misc.removeSpinner( _this.el );
-                    _this.validarTipo(resp.tipo_codigo);
-                })
-                .fail(function(jqXHR, ajaxOptions, thrownError) {
-                    window.Misc.removeSpinner( _this.el );
-                    alertify.error(thrownError);
-                });
+                if(tipo != ''){
+                   $.ajax({
+                        url: window.Misc.urlFull(Route.route('tipos.show',{tipos: tipo})),
+                        type: 'GET',
+                        beforeSend: function() {
+                            window.Misc.setSpinner( _this.el );
+                        }
+                    })
+                    .done(function(resp) {
+                        window.Misc.removeSpinner( _this.el );
+                        _this.validarTipo(resp.tipo_codigo);
+                    })
+                    .fail(function(jqXHR, ajaxOptions, thrownError) {
+                        window.Misc.removeSpinner( _this.el );
+                        alertify.error(thrownError);
+                    }); 
+                }
             }
         },
 

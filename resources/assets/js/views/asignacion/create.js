@@ -20,7 +20,7 @@ app || (app = {});
             'submit #form-asignacion2': 'onStoreA2'
         },
         parameters: {
-            type: null,
+            type: null
         },
 
         /**
@@ -95,12 +95,11 @@ app || (app = {});
         onStore: function (e) {
 
             if (!e.isDefaultPrevented()) {
-
                 e.preventDefault();
+
                 var data = window.Misc.formToJson( e.target );
                 data.asignacion1_tipo = this.parameters.type;
                 data.asignacion2 = this.asignaciondetalleList.toJSON();
-
                 this.model.save( data, {patch: true, silent: true} );
             }
         },

@@ -107,8 +107,8 @@ app || (app = {});
                         }
                         // Add model in collection
                         _this.collection.add(model);
-                        
-                        // Add accesorios de equipo in collection
+
+                        // Agregar accesorios de equipo en la collection
                         _.each(resp.accesorio, function(childs){
                             childs.idFather = resp.id;
                             _this.collection.add(childs);

@@ -24,6 +24,7 @@
                 <div class="form-group col-md-3 col-sm-6 col-xs-12">
                 <label for="producto_tipo" class="control-label">Tipo</label>
                     <select name="producto_tipo" id="producto_tipo" class="form-control select-tipo">
+                        <option value="">Seleccione</option>
                         @foreach( App\Models\Inventario\Tipo::getTipos() as $key => $value)
                             <option value="{{ $key }}" <%- producto_tipo == '{{ $key }}' ? 'selected': ''%>>{{ $value }}</option>
                         @endforeach

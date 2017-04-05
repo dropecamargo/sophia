@@ -29,11 +29,11 @@ class AsignacionDetalleController extends Controller
             $asignacion2 = [];
             if($request->has('asignacion2')) {
                 $query = AsignacionDetalle::query();
-                $query->select('asignacion2.*','tipo_nombre as nombre', 'producto.producto_nombre', 'p.producto_nombre as producto_nombre_search')
-                ->join('producto', 'asignacion2.asignacion2_producto', '=', 'producto.id')
-                ->join('tipo', 'producto.producto_tipo', '=', 'tipo.id')
-                ->Leftjoin('producto as p', 'asignacion2_deproducto', '=', 'p.id')
-                ->where('asignacion2_asignacion1', $request->asignacion2);
+                $query->select('asignacion2.*','tipo_nombre as nombre', 'producto.producto_nombre', 'p.producto_nombre as producto_nombre_search');
+                $query->join('producto', 'asignacion2.asignacion2_producto', '=', 'producto.id');
+                $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
+                $query->Leftjoin('producto as p', 'asignacion2_deproducto', '=', 'p.id');
+                $query->where('asignacion2_asignacion1', $request->asignacion2);
                 $asignacion2 = $query->get();
             }
             return response()->json($asignacion2);
@@ -64,7 +64,7 @@ class AsignacionDetalleController extends Controller
             $asignacion2 = new AsignacionDetalle;
             if ($asignacion2->isValid($data)) {
                 try {
-                    $asignacion = [];
+                    $accesorios = [];
                     if($request->tipo == 'E')
                     {  
                         // Recuperar producto
@@ -86,20 +86,21 @@ class AsignacionDetalleController extends Controller
 
                     if($request->tipo == 'R')
                     {  
-                        $tercero = Tercero::where('tercero_nit', $request->tercero)->first();
                         $contrato = Contrato::find($request->contrato);
-                        $producto = Producto::where('producto_serie', $request->asignacion2_producto)->where('producto_tercero',$tercero->id)->where('producto_contrato', $contrato->id)->first();
-                        $tipo = Tipo::find($producto->producto_tipo);
                         
+                        $tercero = Tercero::where('tercero_nit', $request->tercero)->first();
                         if(!$tercero instanceof Tercero) {
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);   
                         }
+                        
                         // Recuperar producto
+                        $producto = Producto::where('producto_serie', $request->asignacion2_producto)->where('producto_tercero',$tercero->id)->where('producto_contrato', $contrato->id)->first();
                         if(!$producto instanceof Producto) {
                             return response()->json(['success' => false, 'errors' => 'Este producto ya esta Retirado, por favor verifique la información o consulte al administrador.']);
                         }
 
                         // Recuperar Tipo
+                        $tipo = Tipo::find($producto->producto_tipo);
                         if(!$tipo instanceof Tipo) {
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);
                         }
@@ -116,34 +117,16 @@ class AsignacionDetalleController extends Controller
                                 return response()->json(['success' => false, 'errors' => 'El contrato seleccionado no corresponde al tercero, por favor seleccione de nuevo el contrato o consulte al administrador.']);
                             }
 
-                            // $query = AsignacionDetalle::query();
-                            // $query->select('asignacion2.id as id_asignacion','producto.id as id_producto','producto_nombre','producto_serie as asignacion2_producto','tipo_nombre as nombre', 'tipo_codigo');
-                            // $query->where('asignacion2_producto', $producto->id);
-                            // $query->where('asignacion1_tercero', $tercero->id);
-                            // $query->where('asignacion1_contrato', $contrato->id);
-                            // $query->where('asignacion1_tipo', 'R');
-                            // $query->join('asignacion1', 'asignacion2.asignacion2_asignacion1', '=', 'asignacion1.id');
-                            // $query->join('producto', 'asignacion2.asignacion2_producto', '=', 'producto.id');
-                            // $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
-                            // $retiro = $query->get();
-                            // dd($retiro);
-
-                            $query = AsignacionDetalle::query();
-                            $query->select('asignacion2.id as as_id','producto.id as pr.id','producto_nombre','producto_serie as asignacion2_producto','tipo_nombre as nombre', 'tipo_codigo');
-                            $query->where('asignacion2_deproducto', $producto->id);
-                            $query->where('asignacion1_tercero', $tercero->id);
-                            $query->where('asignacion1_contrato', $contrato->id);
-
-                            $query->join('asignacion1', 'asignacion2.asignacion2_asignacion1', '=', 'asignacion1.id');
-                            $query->join('producto', 'asignacion2.asignacion2_producto', '=', 'producto.id');
+                            // Recuperar Accesorio de la maquina
+                            $query = Producto::select('producto_nombre','producto_serie as asignacion2_producto','tipo_nombre as nombre', 'tipo_codigo');
                             $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
-                            $asignacion = $query->get();
-
-                            dd($asignacion);
+                            $query->where('producto_tercero',$tercero->id);
+                            $query->where('producto_contrato', $contrato->id);
+                            $query->where('producto_maquina', $producto->id);
+                            $accesorios = $query->get();
                         }
                     }
-
-                    return response()->json(['success' => true, 'id' => uniqid(), 'nombre'=>$tipo->tipo_nombre, 'accesorio'=>$asignacion]);
+                    return response()->json(['success' => true, 'id' => uniqid(), 'nombre'=>$tipo->tipo_nombre, 'accesorio'=>$accesorios]);
                 }catch(\Exception $e){
                     Log::error($e->getMessage());
                     return response()->json(['success' => false, 'errors' => trans('app.exception')]);
