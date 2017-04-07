@@ -735,3 +735,14 @@
 		</div>
     </div>
 </script>
+
+<script type="text/template" id="roles-item-list-tpl">
+	<% if(edit) { %>
+        <td class="text-center">
+            <a class="btn btn-default btn-xs item-roles-remove" data-resource="<%- id %>">
+                <span><i class="fa fa-times"></i></span>
+            </a>
+    	</td>
+    <% } %>
+	<td><%- display_name %></td>
+</script>

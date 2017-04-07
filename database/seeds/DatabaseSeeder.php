@@ -15,8 +15,6 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call(TerceroTableSeeder::class);
-        $this->call(DepartamentoTableSeeder::class);
-        $this->call(MunicipioTableSeeder::class);
         $this->call(MarcaTableSeeder::class);
         $this->call(ModeloTableSeeder::class);
         $this->call(TipoTableSeeder::class);
