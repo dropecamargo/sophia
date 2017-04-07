@@ -101,7 +101,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label class="control-label">Vida Util</label>
-                        <div>{{ $producto->producto_vida_util }}</div>
+                        <div>{{ number_format($producto->producto_vida_util) }}</div>
                     </div>
                     <div class="form-group col-md-2">
                         <label class="control-label">Codigo contable</label>

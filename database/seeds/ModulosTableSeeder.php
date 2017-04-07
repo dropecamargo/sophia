@@ -49,7 +49,7 @@ class ModulosTableSeeder extends Seeder
         	'display_name' => 'Tercero',
         	'nivel1' => 1,
         	'nivel2' => 1,
-        	'nivel3' => 2
+        	'nivel3' => 1
     	]);
 
     	Modulo::create([
@@ -57,7 +57,7 @@ class ModulosTableSeeder extends Seeder
         	'display_name' => 'Roles',
         	'nivel1' => 1,
         	'nivel2' => 1,
-        	'nivel3' => 3
+        	'nivel3' => 2
     	]);
 
     	//Referencias
@@ -106,7 +106,7 @@ class ModulosTableSeeder extends Seeder
         	'display_name' => 'Sucursales',
         	'nivel1' => 1,
         	'nivel2' => 2,
-        	'nivel3' => 7
+        	'nivel3' => 6
     	]);
 
     	// Inventario
