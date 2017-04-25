@@ -139,6 +139,10 @@ app || (app = {});
                 this.$wrapperCoordinador.removeClass('hide');
             }else{
                 this.$wrapperCoordinador.addClass('hide');
+                this.$('#tercero_coordinador_por').val('');
+                this.$('#tercero_coordinador_por').trigger('change');
+                this.$('#tercero_zona').val('');
+                this.$('#tercero_zona').trigger('change');
             }
         },
 
