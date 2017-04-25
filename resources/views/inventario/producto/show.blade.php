@@ -7,16 +7,6 @@
 
 @section('module')
     <div class="box box-danger">
-        <div class="box-header with-border">
-            <div class="row">
-                <div class="col-md-2 col-sm-6 col-xs-6 text-left">
-                    <a href=" {{ route('productos.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.comeback') }}</a>
-                </div>
-                <div class="col-md-2 col-md-offset-8 col-sm-6 col-xs-6 text-right">
-                    <a href=" {{ route('productos.edit', ['productos' => $producto->id])}}" class="btn btn-primary btn-sm btn-block"> {{trans('app.edit')}}</a>
-                </div>
-            </div>
-        </div>
         <div class="box-body">
             <div class="row">
                 <div class="form-group col-md-2">
@@ -153,6 +143,17 @@
             </div>
         </div>
 
+        <div class="box-footer with-border">
+            <div class="row">
+                <div class="col-md-2 col-md-offset-4 col-sm-6 col-xs-6">
+                    <a href=" {{ route('productos.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.comeback') }}</a>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-6">
+                    <a href=" {{ route('productos.edit', ['productos' => $producto->id])}}" class="btn btn-primary btn-sm btn-block"> {{trans('app.edit')}}</a>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="form-group col-md-12">
                 <div class="nav-tabs-custom">
@@ -178,8 +179,8 @@
                                         <table id="browse-sirveas-producto-list" class="table table-hover table-bordered" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th width="1px">Serie</th>
-                                                    <th width="100px">Nombre</th>
+                                                    <th width="1px">Modelo</th>
+                                                    <th width="100px">Referencia</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

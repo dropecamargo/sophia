@@ -1,7 +1,7 @@
 @extends('tecnico.tipoorden.main')
 
 @section('breadcrumb')
-    <li class="active">Tipos de Orden</li>
+    <li class="active">Tipos de orden</li>
 @stop
 
 @section('module')

@@ -47,7 +47,7 @@ class Dano extends BaseModel
         return false;
     }
 
-     public static function getDanos()
+    public static function getDanos()
     {
         if (Cache::has( self::$key_cache )) {
             return Cache::get( self::$key_cache );

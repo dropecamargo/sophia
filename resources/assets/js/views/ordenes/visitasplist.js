@@ -25,7 +25,6 @@ app || (app = {});
         * Constructor Method
         */
         initialize : function(opts){
-
             // extends parameters
             if( opts !== undefined && _.isObject(opts.parameters) )
                 this.parameters = $.extend({},this.parameters, opts.parameters);
@@ -42,7 +41,6 @@ app || (app = {});
         * Render View Element
         */
         render: function() {
-
         },
 
         /**
@@ -50,7 +48,6 @@ app || (app = {});
         * @param Object contactModel Model instance
         */
         addOne: function (visitapModel) {
-            
             var view = new app.VisitaspItemView({
                 model: visitapModel,
                 parameters: {
@@ -58,7 +55,6 @@ app || (app = {});
                 }
             });
             visitapModel.view = view;
-            
             this.$el.prepend( view.render().el );
         },
 
@@ -66,8 +62,7 @@ app || (app = {});
         * Render all view Marketplace of the collection
         */
         addAll: function () {
-            
-             this.collection.forEach( this.addOne, this );
+            this.collection.forEach( this.addOne, this );
         },
 
         storeOne: function (data) {
@@ -113,28 +108,14 @@ app || (app = {});
         * Event remove item
         */
         removeOne: function (e) {
-          e.preventDefault();
+            e.preventDefault();
 
-            var resource = $(e.currentTarget).attr("data-resource"),
-                model = this.collection.get(resource),
-                _this = this;
+            var resource = $(e.currentTarget).attr("data-resource");
+            var model = this.collection.get(resource);
 
             if ( model instanceof Backbone.Model ) {
-                model.destroy({
-                    success : function(model, resp) {
-                        if(!_.isUndefined(resp.success)) {
-                            window.Misc.removeSpinner( _this.parameters.wrapper );
-
-                            if( !resp.success ) {
-                                alertify.error(resp.errors);
-                                return;
-                            }
-
-                            model.view.remove();
-                        }
-                    }
-                });
-
+                model.view.remove();
+                this.collection.remove(model);
             }
         },
 

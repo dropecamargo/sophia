@@ -45,6 +45,8 @@ app || (app = {});
             this.$inputContent = this.$("#"+$(e.currentTarget).attr("data-field"));
             this.$inputName = this.$("#"+this.$inputContent.attr("data-name"));
             this.$btnContact = this.$("#"+this.$inputContent.attr("data-contacto"));
+            this.$type = this.$inputContent.attr("data-type");
+
             var activo = this.$inputContent.attr('data-activo');
 
             this.tercerosSearchTable = this.$tercerosSearchTable.DataTable({
@@ -60,6 +62,7 @@ app || (app = {});
                         data.tercero_nit = _this.$searchNit.val();
                         data.tercero_nombre = _this.$searchName.val();
                         data.activo = activo;
+                        data.type = _this.$type;
                     }
                 },
 

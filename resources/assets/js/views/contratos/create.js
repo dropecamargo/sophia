@@ -29,13 +29,13 @@ app || (app = {});
                 this.parameters = $.extend({}, this.parameters, opts.parameters);
 
             // Attributes
+            this.msgSuccess = 'Contrato guardado con exito!';
             this.$wraperForm = this.$('#render-form-contrato');
 
             // Model exist
             if( this.model.id != undefined ) {
                 this.contratosList = new app.ContratosList();
-             
-           }
+            }
 
             // Events
             this.listenTo( this.model, 'change', this.render );
@@ -83,13 +83,10 @@ app || (app = {});
         * Event Create Folder
         */
         onStore: function (e) {
-
             if (!e.isDefaultPrevented()) {
-
                 e.preventDefault();
-                var data = window.Misc.formToJson( e.target );
 
-               
+                var data = window.Misc.formToJson( e.target );
                 this.model.save( data, {patch: true, silent: true} );
             }
         },      
@@ -99,14 +96,11 @@ app || (app = {});
         * Event Create Dano
         */
         onStoreDano: function (e) {
-
             if (!e.isDefaultPrevented()) {
-
                 e.preventDefault();
 
                 // Prepare global data
                 var data = window.Misc.formToJson( e.target );
-
                 this.contratosList.trigger( 'store', data );
             }
         },
@@ -158,6 +152,8 @@ app || (app = {});
                     alertify.error(text);
                     return;
                 }
+
+                alertify.success(this.msgSuccess);
 
                 // ContratoView undelegateEvents
                 if ( this.createContratoView instanceof Backbone.View ){

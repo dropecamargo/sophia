@@ -237,6 +237,8 @@ app || (app = {});
                     alertify.error(text);
                     return;
                 }
+                
+                alertify.success(this.msgSuccess);
 
                 // CreateTerceroView undelegateEvents
                 if ( this.createTerceroView instanceof Backbone.View ){

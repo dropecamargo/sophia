@@ -2,12 +2,14 @@
 <div class="modal fade" id="modal-add-resource-component" data-backdrop="static" data-keyboard="false" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content" id="content-create-resource-component">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<div class="modal-header small-box {{ config('koi.template.bg') }}">
+				<button type="button" class="close icon-close-koi" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 				<h4 class="inner-title-modal modal-title"></h4>
 			</div>
 			{!! Form::open(['id' => 'form-create-resource-component', 'data-toggle' => 'validator']) !!}
-				<div class="modal-body box box-danger">
+				<div class="modal-body">
 					<div id="error-resource-component" class="alert alert-danger"></div>
 					<div class="content-modal"></div>
 				</div>
@@ -24,12 +26,14 @@
 <div class="modal fade" id="modal-tcontacto-component" data-backdrop="static" data-keyboard="false" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content" id="content-tcontacto-component">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="inner-title-modal">Contactos</h4>
+			<div class="modal-header small-box {{ config('koi.template.bg') }}">
+				<button type="button" class="close icon-close-koi" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Contactos</h4>
 			</div>
 			{!! Form::open(['id' => 'form-tcontacto-component', 'data-toggle' => 'validator']) !!}
-				<div class="modal-body box box-success">
+				<div class="modal-body">
 					<div class="content-modal"></div>
 				</div>
 				<div class="modal-footer">
@@ -45,12 +49,14 @@
 <div class="modal fade" id="modal-contrato-component" data-backdrop="static" data-keyboard="false" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content" id="content-contrato-component">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="inner-title-modal">Contratos</h4>
+			<div class="modal-header small-box {{ config('koi.template.bg') }}">
+				<button type="button" class="close icon-close-koi" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Contratos</h4>
 			</div>
 			{!! Form::open(['id' => 'form-contrato-component', 'data-toggle' => 'validator']) !!}
-				<div class="modal-body box box-success">
+				<div class="modal-body">
 					<div class="content-modal"></div>
 				</div>
 				<div class="modal-footer">
@@ -97,6 +103,15 @@
 	</div>
 </div>
 
+<!-- Modal search modelo -->
+<div class="modal fade" id="modal-search-modelo-component" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="content-modal"></div>
+		</div>
+	</div>
+</div>
+
 <!-- Modal search contrato -->
 <div class="modal fade" id="modal-search-contrato-component" data-backdrop="static" data-keyboard="false" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
@@ -117,8 +132,10 @@
 
 <!-- Tpls modals-->
 <script type="text/template" id="koi-search-tercero-component-tpl">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<div class="modal-header small-box {{ config('koi.template.bg') }}">
+		<button type="button" class="close icon-close-koi" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
 		<h4 class="modal-title">Buscador de terceros</h4>
 	</div>
 	{!! Form::open(['id' => 'form-koi-search-tercero-component', 'class' => 'form-horizontal', 'data-toggle' => 'validator', 'role' => 'form']) !!}
@@ -166,8 +183,10 @@
 </script>
 
 <script type="text/template" id="koi-search-producto-component-tpl">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<div class="modal-header small-box {{ config('koi.template.bg') }}">
+		<button type="button" class="close icon-close-koi" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
 		<h4 class="modal-title">Buscador de productos</h4>
 	</div>
 	{!! Form::open(['id' => 'form-koi-search-producto-component', 'class' => 'form-horizontal', 'data-toggle' => 'validator', 'role' => 'form']) !!}
@@ -199,6 +218,7 @@
 		                <thead>
 				            <tr>	
 				                <th>Serie</th>
+				                <th>Referencia</th>
 				            	<th>Placa</th>
 			                	<th>Nombre</th>
 			                	<th>Tipo</th>
@@ -222,6 +242,8 @@
                         <i class="fa fa-barcode"></i>
                     </button>
                 </span>
+                <input id="producto_tercero" name="producto_tercero" type="hidden">
+                <input id="producto_contrato" name="producto_contrato" type="hidden">
                 <input id="producto_tipo_search" placeholder="Serie" class="form-control producto-koi-component" name="producto_tipo_search" type="text" maxlength="15" data-wrapper="producto_create" data-name="producto_nombre_search" data-tipo="EQ" data-asignaciones="true" required>
             </div>
         </div>
@@ -232,10 +254,13 @@
 </script>
 
 <script type="text/template" id="koi-search-contacto-component-tpl">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<div class="modal-header small-box {{ config('koi.template.bg') }}">
+		<button type="button" class="close icon-close-koi" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
 		<h4 class="modal-title">Buscador de contactos</h4>
 	</div>
+
 	{!! Form::open(['id' => 'form-koi-search-contacto-component', 'class' => 'form-horizontal', 'data-toggle' => 'validator', 'role' => 'form']) !!}
 		<div class="modal-body">
 			<div class="form-group">
@@ -281,10 +306,13 @@
 
 
 <script type="text/template" id="koi-search-contrato-component-tpl">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h4 class="modal-title">Buscador de Contratos</h4>
+	<div class="modal-header small-box {{ config('koi.template.bg') }}">
+		<button type="button" class="close icon-close-koi" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<h4 class="modal-title">Buscador de contratos</h4>
 	</div>
+
 	{!! Form::open(['id' => 'form-koi-search-contrato-component', 'class' => 'form-horizontal', 'data-toggle' => 'validator', 'role' => 'form']) !!}
 		<div class="modal-body">
 			<div class="form-group">
@@ -327,9 +355,8 @@
 		<button type="button" class="close icon-close-koi" data-dismiss="modal" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<h4><strong>Generador de direcciones</strong></h4>
+		<h4 class="modal-title">Generador de direcciones</h4>
 	</div>
-
 	{!! Form::open(['id' => 'form-address-component', 'data-toggle' => 'validator', 'role' => 'form']) !!}
 	<div class="modal-body koi-component-address-modal-body">
 		<div class="row">
@@ -413,4 +440,49 @@
 			</div>
 		</div>
 	</div>
+</script>
+
+<script type="text/template" id="koi-search-modelo-component-tpl">
+	<div class="modal-header small-box {{ config('koi.template.bg') }}">
+		<button type="button" class="close icon-close-koi" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<h4 class="modal-title">Buscador de modelos</h4>
+	</div>
+	{!! Form::open(['id' => 'form-koi-search-modelo-component', 'class' => 'form-horizontal', 'data-toggle' => 'validator', 'role' => 'form']) !!}
+		<div class="modal-body">
+			<div class="form-group">
+				<label for="koi_search_modelo" class="col-md-1 control-label">Modelo</label>
+				<div class="col-md-5">
+					{!! Form::text('koi_search_modelo', null, ['id' => 'koi_search_modelo', 'class' => 'form-control input-sm input-toupper']) !!}
+				</div>
+				<label for="koi_search_referencia" class="col-md-1 control-label">Referencia</label>
+				<div class="col-md-5">
+					{!! Form::text('koi_search_referencia', null, ['id' => 'koi_search_referencia', 'class' => 'form-control input-sm input-toupper']) !!}
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-md-offset-4 col-md-2 col-xs-6">
+					<button type="button" class="btn btn-primary btn-block btn-sm btn-search-koi-search-modelo-component">Buscar</button>
+				</div>
+				<div class="col-md-2 col-xs-6">
+					<button type="button" class="btn btn-default btn-block btn-sm btn-clear-koi-search-modelo-component">Limpiar</button>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-md-12 table-responsive">
+					<table id="koi-search-modelo-component-table" class="table table-bordered table-striped" cellspacing="0" width="100%">
+		                <thead>
+				            <tr>
+			                	<th>Modelo</th>
+			                	<th>Referencia producto</th>
+				            </tr>
+				        </thead>
+		            </table>
+	           	</div>
+	     	</div>
+		</div>
+	{!! Form::close() !!}
 </script>

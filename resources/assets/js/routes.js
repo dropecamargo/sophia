@@ -116,6 +116,7 @@ app || (app = {});
             'ordenes(/)': 'getOrdenesMain',
             'ordenes/create(/)': 'getOrdenesCreate',
             'ordenes/:orden/edit(/)': 'getOrdenesEdit',
+            'ordenes/:orden(/)': 'getOrdenesShow',
 
             //Prioridad
             'prioridades(/)': 'getPrioridadesMain',
@@ -171,6 +172,7 @@ app || (app = {});
             this.componentSearchProductoView = new app.ComponentSearchProductoView();
             this.componentSearchContactoView = new app.ComponentSearchContactoView();
             this.componentSearchContratoView = new app.ComponentSearchContratoView();
+            this.componentSearchModeloView = new app.ComponentSearchModeloView();
       	},
 
         /**
@@ -826,6 +828,21 @@ app || (app = {});
 
             this.createOrdenView = new app.CreateOrdenView({ model: this.ordenModel });
             this.ordenModel.fetch();
+        },
+
+        /**
+        * show view show tercero
+        */
+        getOrdenesShow: function (orden) {
+            this.ordenModel = new app.OrdenModel();
+            this.ordenModel.set({'id': orden}, {silent: true});
+
+            if ( this.showOrdenView instanceof Backbone.View ){
+                this.showOrdenView.stopListening();
+                this.showOrdenView.undelegateEvents();
+            }
+
+            this.showOrdenView = new app.ShowOrdenView({ model: this.ordenModel });
         },
 
         // Zonas

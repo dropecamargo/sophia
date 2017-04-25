@@ -47,7 +47,6 @@ class MarcaController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $marca = new Marca;
             if ($marca->isValid($data)) {
                 DB::beginTransaction();

@@ -15,7 +15,7 @@ app || (app = {});
         template: _.template( ($('#koi-search-contrato-component-tpl').html() || '') ),
 
 		events: {
-            'click .btn-koi-search-contrato-component-table': 'searchOrden',
+            'click .btn-koi-search-contrato-component-table': 'searchContrato',
             'click .btn-search-koi-search-contrato-component': 'search',
             'click .btn-clear-koi-search-contrato-component': 'clear',
             'click .a-koi-search-contrato-component-table': 'setContrato'
@@ -29,7 +29,7 @@ app || (app = {});
             this.$modalComponent = this.$('#modal-search-contrato-component');
 		},
 
-		searchOrden: function(e) {
+		searchContrato: function(e) {
             e.preventDefault();
             var _this = this;
 
@@ -114,7 +114,6 @@ app || (app = {});
 			e.preventDefault();
 
             this.$searchContratoNumero.val('');
-
             this.contratoSearchTable.ajax.reload();
 		},
 

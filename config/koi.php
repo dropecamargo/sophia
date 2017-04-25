@@ -218,7 +218,6 @@ return [
     ],
 
     'template' => [
-        'bg' => 'bg-red'
+        'bg' => 'bg-red',
     ]
-
 ];

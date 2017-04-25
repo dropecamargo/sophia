@@ -73,22 +73,49 @@ class AsignacionDetalleController extends Controller
                             return response()->json(['success' => false, 'errors' => 'Este producto ya esta asignado, por favor verifique la información o consulte al administrador.']);
                         }
 
+                        // Validar equipo de accesorio
+                        if($request->has('producto_tipo_search') && $request->has('producto_nombre_search')){
+                            if( !empty($request->producto_tercero) && !empty($request->producto_contrato) ){
+                                $contrato = Contrato::find($request->producto_contrato);
+                                $tercero = Tercero::find($request->producto_tercero);
+                                
+                                if(!$tercero instanceof Tercero) {
+                                    return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);   
+                                }
+
+                                // Recuperar equipo de accesorio
+                                $productoEq = Producto::where('producto_serie', $request->producto_tipo_search)->where('producto_tercero', $tercero->id)->where('producto_contrato', $contrato->id)->first();
+                                if(!$productoEq instanceof Producto) {
+                                    return response()->json(['success' => false, 'errors' => 'No es posible recuperar el producto, por favor verifique la información o consulte al administrador.']);
+                                }
+
+                                // Validar los hidden
+                                if($productoEq->producto_tercero != $request->producto_tercero){
+                                    return response()->json(['success' => false, 'errors' => 'No es posible cambiar el cliente, por favor verifique la información o consulte al administrador.']);   
+                                }
+
+                                // Validar los hidden
+                                if($productoEq->producto_contrato != $request->producto_contrato){
+                                    return response()->json(['success' => false, 'errors' => 'No es posible cambiar el contrato, por favor verifique la información o consulte al administrador.']);   
+                                }
+                            }
+
+                        }
+
                         $tipo = Tipo::find($producto->producto_tipo);
                         if(!$tipo instanceof Tipo) {
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);
                         }
                         //Valida tipo producto
                         if(!in_array($tipo->tipo_codigo, ['AC', 'EQ'])){
-                            DB::rollback();
                             return response()->json(['success' => false, 'errors' => 'Ingrese un Equipo ó un Accesorio, por favor verifique la información o consulte al administrador.']);  
                         }
                     }
 
                     if($request->tipo == 'R')
                     {  
-                        $contrato = Contrato::find($request->contrato);
-                        
-                        $tercero = Tercero::where('tercero_nit', $request->tercero)->first();
+                        $contrato = Contrato::find($request->contrato_id);
+                        $tercero = Tercero::where('tercero_nit', $request->tercero_id)->first();
                         if(!$tercero instanceof Tercero) {
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);   
                         }
@@ -107,13 +134,11 @@ class AsignacionDetalleController extends Controller
 
                         //Valida tipo producto
                         if(!in_array($tipo->tipo_codigo, ['AC', 'EQ'])){
-                            DB::rollback();
                             return response()->json(['success' => false, 'errors' => 'Ingrese un Equipo ó un Accesorio, por favor verifique la información o consulte al administrador.']);  
                         }
                         if($tipo->tipo_codigo == 'EQ'){
                             // Validar contrato tercero
                             if($contrato->contrato_tercero != $tercero->id) {
-                                DB::rollback();
                                 return response()->json(['success' => false, 'errors' => 'El contrato seleccionado no corresponde al tercero, por favor seleccione de nuevo el contrato o consulte al administrador.']);
                             }
 

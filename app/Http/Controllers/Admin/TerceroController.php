@@ -45,6 +45,17 @@ class TerceroController extends Controller
                         $query->whereRaw("tercero_nit LIKE '%{$request->tercero_nit}%'");
                     }
 
+                    // Type
+                    if($request->has('type')) {
+                        if($request->type == 'cliente'){
+                            $query->where('tercero_cliente', true);
+                        }
+
+                        if($request->type == 'tecnico'){
+                            $query->where('tercero_empleado', true)->orWhere('tercero_interno', true);
+                        }
+                    }
+
                     if($request->has('activo') && $request->activo == 'true'){
                         $query->whereIn('tercero.id', DB::table('contrato')->select('contrato_tercero')->distinct()->where('contrato_activo',true));
                     }

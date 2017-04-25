@@ -74,19 +74,20 @@ app || (app = {});
         * storescuenta
         * @param form element
         */
-        storeOne: function (form, contrato, tercero) {
+        storeOne: function (form, resource) {
             var _this = this;
             data = window.Misc.formToJson( form );
             data.tipo = this.parameters.dataFilter.tipo;
-            data.contrato = contrato;
-            data.tercero = tercero;
+            data.tercero_id = resource.tercero_id;
+            data.contrato_id = resource.contrato_id;
 
             // Validar carrito temporal
-            var valid = this.collection.validar( data );
+            var valid = this.collection.validar(data, resource);
             if(!valid.success) {
                 alertify.error(valid.message);
                 return;
             }
+
             // Set Spinner
             window.Misc.setSpinner( this.parameters.wrapper );
 

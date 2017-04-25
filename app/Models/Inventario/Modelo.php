@@ -32,7 +32,7 @@ class Modelo extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['modelo_nombre'];
+    protected $fillable = ['modelo_nombre','producto_referencia','producto_nombre'];
 
     /**
      * The attributes that are mass boolean assignable.
@@ -41,6 +41,12 @@ class Modelo extends BaseModel
      */
     protected $boolean = ['modelo_activo'];
 
+    /**
+    * The attributes nulleables from the model.
+    *
+    * @var array
+    */
+    protected $nullable = ['producto_referencia','producto_nombre','producto_marca'];
 
     public function isValid($data)
     {

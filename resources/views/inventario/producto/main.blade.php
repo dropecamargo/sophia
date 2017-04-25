@@ -34,7 +34,7 @@
 
             <div id="render-tipos"></div>
 
-            <div class="box-header with-border">
+            <div class="box-footer with-border">
                 <div class="row">
                     <div class="col-md-2 col-md-offset-4 col-sm-6 col-xs-6">
                         <a href="{{ route('productos.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.cancel') }}</a>
@@ -68,18 +68,18 @@
                                                 <div class="form-group col-sm-2 col-md-offset-1">
                                                     <div class="input-group input-group-sm">
                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="sirvea_codigo">
+                                                            <button type="button" class="btn btn-default btn-flat btn-koi-search-modelo-component-table" data-field="sirvea_codigo">
                                                                 <i class="fa fa-barcode"></i>
                                                             </button>
                                                         </span>
-                                                        <input id="sirvea_codigo" placeholder="Serie" class="form-control producto-koi-component" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-tipo="<%- tipo_codigo != 'EQ' ? 'EQ,AC' : 'AC,CO,IN,RP' %>" data-name="sirvea_codigo_nombre" required>
+                                                        <input id="sirvea_codigo" placeholder="Modelo" class="form-control" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-name="sirvea_codigo_nombre" data-filter="true" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-7 col-xs-10">
-                                                    <input id="sirvea_codigo_nombre" name="sirvea_codigo_nombre" placeholder="Nombre producto" class="form-control input-sm" type="text" maxlength="15" readonly required>
+                                                    <input id="sirvea_codigo_nombre" name="sirvea_codigo_nombre" placeholder="Referencia producto" class="form-control input-sm" type="text" maxlength="15" readonly required>
                                                 </div>
                                                 <div class="form-group col-sm-1">
-                                                    <button type="submit" class="btn btn-danger btn-sm btn-block">
+                                                    <button type="submit" class="btn btn-success btn-sm btn-block">
                                                         <i class="fa fa-plus"></i>
                                                     </button>
                                                 </div>
@@ -91,8 +91,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th width="5px"></th>
-                                                        <th width="5px">Serie</th>
-                                                        <th width="95px">Nombre</th>
+                                                        <th width="5px">Modelo</th>
+                                                        <th width="95px">Referencia producto</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -124,7 +124,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="form-group col-sm-1">
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-block">
+                                                        <button type="submit" class="btn btn-success btn-sm btn-block">
                                                             <i class="fa fa-plus"></i>
                                                         </button>
                                                     </div>
@@ -165,8 +165,8 @@
         </a>
     </td>
     <% } %>
-    <td><%- serie %></td>
-    <td><%- nombre %></td>
+    <td><%- modelo_nombre %></td>
+    <td><%- producto_referencia %></td>
 </script>
 
 <script type="text/template" id="tipo-eq-tpl">
@@ -263,9 +263,6 @@
         <div class="col-md-5 col-sm-7 col-xs-5">
             <input id="producto_tercero_nombre" name="producto_tercero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly>
         </div>
-        <div class="col-md-1 col-sm-1 col-xs-1">
-            <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="producto_proveedor" > <i class="fa fa-plus"></i></button>
-        </div>
     </div>
 </script>
 
@@ -342,9 +339,6 @@
         <div class="col-md-5 col-sm-7 col-xs-5">
             <input id="producto_tercero_nombre" name="producto_tercero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly>
         </div>
-        <div class="col-md-1 col-sm-1 col-xs-1">
-            <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="producto_proveedor" > <i class="fa fa-plus"></i></button>
-        </div>
     </div>
 </script>
 
@@ -414,10 +408,7 @@
         </div>
         <br>
         <div class="col-md-5 col-sm-7 col-xs-5">
-            <input id="producto_tercero_nombre" name="producto_tercero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly>
-        </div>
-        <div class="col-md-1 col-sm-1 col-xs-1">
-            <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="producto_proveedor" > <i class="fa fa-plus"></i></button>
+            <input id="producto_tercero_nombre" name="producto_tercero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" data-type="proveedor" value="<%- tercero_nombre %>" readonly>
         </div>
     </div>
 </script>
@@ -492,10 +483,7 @@
         </div>
         <br>
         <div class="col-md-5 col-sm-7 col-xs-5">
-            <input id="producto_tercero_nombre" name="producto_tercero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly>
-        </div>
-        <div class="col-md-1 col-sm-1 col-xs-1">
-            <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tercero" data-field="producto_proveedor" > <i class="fa fa-plus"></i></button>
+            <input id="producto_tercero_nombre" name="producto_tercero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" data-type="proveedor" value="<%- tercero_nombre %>" readonly>
         </div>
     </div>
 </script>

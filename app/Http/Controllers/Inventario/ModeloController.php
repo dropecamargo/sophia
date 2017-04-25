@@ -22,7 +22,25 @@ class ModeloController extends Controller
     {
         if ($request->ajax()) {
             $query = Modelo::query();
-            return Datatables::of($query)->make(true);
+
+            return Datatables::of($query)
+                ->filter(function($query) use($request) {
+                    // Filter
+                    if($request->has('filter')){
+                        $query->whereNotNull('producto_referencia')->whereNotNull('producto_nombre')->whereNotNull('producto_marca');
+                    }
+
+                    // modelo
+                    if($request->has('modelo')){
+                        $query->where('modelo_nombre', $request->modelo);
+                    }
+
+                    // referencia
+                    if($request->has('referencia')){
+                        $query->where('producto_referencia', $request->referencia);
+                    }
+                })
+                ->make(true);
         }
 
         return view('inventario.modelo.index');
@@ -48,7 +66,6 @@ class ModeloController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-            
             $modelo = new Modelo;
             if ($modelo->isValid($data)) {
                 DB::beginTransaction();
@@ -83,8 +100,11 @@ class ModeloController extends Controller
      */
     public function show(Request $request ,$id)
     {
-        $modelo = Modelo::findOrFail($id);
-        
+        $query = Modelo::where('modelo.id' ,$id);
+        $query->Leftjoin('marca','modelo.producto_marca','=','marca.id');
+        $query->select('modelo.*','marca_modelo');
+        $modelo = $query->first();
+
         if ($request->ajax()) {
             return response()->json($modelo);    
         }        
@@ -150,5 +170,23 @@ class ModeloController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Search modelo.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        if($request->has('modelo')) {
+            $modelo = Modelo::select('modelo.id', 'modelo_nombre', 'producto_referencia')
+                ->where('modelo_nombre', $request->modelo)->whereNotNull('producto_referencia')->whereNotNull('producto_nombre')->whereNotNull('producto_marca')->first();
+
+            if($modelo instanceof Modelo) {
+                return response()->json(['success' => true, 'id' => $modelo->id, 'modelo_nombre' => $modelo->modelo_nombre, 'producto_referencia' => $modelo->producto_referencia]);
+            }
+        }
+        return response()->json(['success' => false]);
     }
 }

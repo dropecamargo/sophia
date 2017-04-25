@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Inventario\Sirvea;
 use App\Models\Inventario\Producto;
 use App\Models\Inventario\Tipo;
+use App\Models\Inventario\Modelo;
 use DB, Log, Datatables;
 
 class SirveaController extends Controller
@@ -24,10 +25,10 @@ class SirveaController extends Controller
         if ($request->ajax())
         {
             $query = Sirvea::query();
-            $query->where('sirvea_maquina', $request->producto_id);
-            $query->select('sirvea.*','p.producto_nombre as nombre','po.producto_serie as serie');
-            $query->join('producto as p', 'sirvea.sirvea_codigo', '=', 'p.id');
-            $query->join('producto as po', 'sirvea.sirvea_codigo', '=', 'po.id');
+            $query->where('sirvea_codigo', $request->producto_id);
+            $query->select('sirvea.*','modelo.modelo_nombre','modelo.producto_referencia');
+            $query->join('modelo', 'sirvea.sirvea_modelo', '=', 'modelo.id');
+            $query->join('producto', 'sirvea.sirvea_codigo', '=', 'producto.id');
             return response()->json( $query->get() );
         }
         abort(404);
@@ -57,46 +58,33 @@ class SirveaController extends Controller
             if ($sirvea->isValid($data)) {
                 DB::beginTransaction();
                 try {
-                    // Validar producto
-                    $producto = Producto::where('producto_serie', $request->sirvea_codigo)->first();
-                    
-                    if(!$producto instanceof Producto) {
+                    // Validar modelo
+                    $modelo = Modelo::where('modelo_nombre', $request->sirvea_codigo)->where('producto_referencia', $request->sirvea_codigo_nombre)->first();
+                    if(!$modelo instanceof Modelo) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar serie, por favor verifique la información o consulte al administrador.']);
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar modelo, por favor verifique la información o consulte al administrador.']);
                     }
 
-                    $tipo = Tipo::find($producto->producto_tipo);
-                    if(!$tipo instanceof Tipo){
-                        DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar Tipo, por favor verifique la información o consulte al administrador.']);
-                    }
-
-                    $producto_maquina = Producto::find($request->sirvea_maquina);
+                    $producto_maquina = Producto::find($request->sirvea_modelo);
                     if(!$producto_maquina instanceof Producto){
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar maquina, por favor verifique la información o consulte al administrador.']);
                     }
 
-                    $mTipo = Tipo::find($producto_maquina->producto_tipo);
-                    if(!$mTipo instanceof Tipo){
-                        DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar Tipo, por favor verifique la información o consulte al administrador.']);
-                    }
-
                     // Validar unique
-                    $sirveauq = Sirvea::where('sirvea_maquina', $request->sirvea_maquina)->where('sirvea_codigo', $producto->id)->first();
+                    $sirveauq = Sirvea::where('sirvea_modelo', $modelo->id)->where('sirvea_codigo', $producto_maquina->id)->first();
                     if($sirveauq instanceof Sirvea) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => "La maquina {$producto->producto_nombre} ya se encuentra asociada a este producto."]);
+                        return response()->json(['success' => false, 'errors' => "El modelo {$modelo->modelo_nombre} ya se encuentra asociada a este producto."]);
                     }
 
-                    $sirvea->sirvea_maquina = $producto_maquina->id;
-                    $sirvea->sirvea_codigo = $producto->id;
+                    $sirvea->sirvea_modelo = $modelo->id;
+                    $sirvea->sirvea_codigo = $producto_maquina->id;
                     $sirvea->save();
 
                     // Commit Transaction
                     DB::commit();
-                    return response()->json(['success' => true, 'id' => $sirvea->id, 'sirvea_maquina'=>$sirvea->sirvea_maquina, 'serie'=>$producto->producto_serie , 'nombre'=>$producto->producto_nombre]);
+                    return response()->json(['success' => true, 'id' => $sirvea->id, 'sirvea_modelo'=>$sirvea->sirvea_modelo, 'modelo_nombre'=>$modelo->modelo_nombre , 'producto_referencia'=>$modelo->producto_referencia]);
                 }catch(\Exception $e){
                     DB::rollback();
                     Log::error($e->getMessage());

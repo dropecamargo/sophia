@@ -93,19 +93,18 @@ class AsignacionController extends Controller
                 DB::beginTransaction();
                 try {
                     $tercero = Tercero::where('tercero_nit', $request->asignacion1_tercero)->first();
-                    
                     $contrato = Contrato::find($request->asignacion1_contrato);
                     $contacto = Contacto::find($request->asignacion1_contacto);
                     
                     if(!$tercero instanceof Tercero) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos del cliente, por favor verifique la información o consulte al administrador.']);
                     }
                     if($request->asignacion1_tipo == "E"){
                         $tecnico = Tercero::where('tercero_nit', $request->asignacion1_tecnico)->first();
                         if(!$tecnico instanceof Tercero) {
                             DB::rollback();
-                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos del tecnico, por favor verifique la información o consulte al administrador.']);
                         }
                         $asignacion1->asignacion1_tecnico = $tecnico->id;
                         

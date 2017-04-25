@@ -53,12 +53,8 @@ app || (app = {});
             this.$form = this.$('#form-asignacion1');
             this.$formItem = this.$('#form-asignacion2');
 
-            this.$inputContacto = $('#tcontacto_nombre');
-            this.$inputTcontacto = $('#tcontacto_telefono');
-            this.$inputContrato = $('#nombre_contrato');
-            this.$inputContrato = $('#nombre_contrato');
-            this.$inputContrato1 = $('#asignacion1_contrato');
-            this.$inputTercero = $('#asignacion1_tercero');
+            this.$inputContratoId = $('#asignacion1_contrato');
+            this.$inputTerceroId = $('#asignacion1_tercero');
 
             // Reference views
             this.referenceViews();
@@ -76,7 +72,7 @@ app || (app = {});
                     wrapper: this.$('#wrapper-producto'),
                     edit: true,
                     dataFilter: {
-                        'tipo': this.parameters.type
+                        'tipo': this.parameters.type,
                     }
                 }
             });
@@ -93,7 +89,6 @@ app || (app = {});
         * Event Create Folder
         */
         onStore: function (e) {
-
             if (!e.isDefaultPrevented()) {
                 e.preventDefault();
 
@@ -111,7 +106,13 @@ app || (app = {});
             if (!e.isDefaultPrevented()) {
                 e.preventDefault();
 
-                this.asignaciondetalleList.trigger( 'store', this.$(e.target), this.$inputContrato1.val(), this.$inputTercero.val());
+                var resource = {
+                    producto_tercero: this.$('#producto_tercero').val(),
+                    producto_contrato: this.$('#producto_contrato').val(),
+                    tercero_id: this.$inputTerceroId.val(),
+                    contrato_id: this.$inputContratoId.val(),
+                }
+                this.asignaciondetalleList.trigger( 'store', this.$(e.target), resource );
             }
         },
 

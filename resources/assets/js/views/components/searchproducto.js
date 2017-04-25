@@ -48,11 +48,13 @@ app || (app = {});
 			this.$resourceContrato = this.$inputContent.attr("data-contrato");
 			
 			// Filters
+			this.resourceTercero = this.$inputContent.attr("data-tercero");
 			this.tipo_codigo = this.$inputContent.attr("data-tipo");
 			this.tipo = this.$inputContent.attr("data-tipo-asignacion");
 			this.asignacion_data = this.$inputContent.attr("data-asignaciones");
 			var contrato = $("#asignacion1_contrato").val();
 			var tercero = $("#asignacion1_tercero").val();
+			var orden_tercero = $("#orden_tercero").val();
 
 			if(this.$resourceContrato == "true") {
 				// //Validate contrato
@@ -62,6 +64,14 @@ app || (app = {});
 	            }
 			}
 			
+			if(this.resourceTercero == 'true') {
+				// Validate tercero
+	            if( _.isUndefined(orden_tercero) || _.isNull(orden_tercero) || orden_tercero == '') {
+	                alertify.error('Por favor ingrese cliente antes agregar producto.');
+	                return;
+	            }
+			}
+
 			this.productosSearchTable = this.$productosSearchTable.DataTable({
 				dom: "<'row'<'col-sm-12'tr>>" +
 					"<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -75,13 +85,15 @@ app || (app = {});
                         data.producto_nombre = _this.$searchNombre.val();
                         data.tipo_codigo = _this.tipo_codigo;
                         data.productos_asignados = _this.asignacion_data;
-                        data.producto_contrato = contrato;                        
-                        data.producto_tercero = tercero;
+                        data.tercero_id = orden_tercero;
+                        data.contrato = contrato;                        
+                        data.tercero = tercero;
                         data.tipo = _this.tipo;
                     }
                 },
                 columns: [
                     { data: 'producto_serie', name: 'producto_serie' },
+                    { data: 'producto_referencia', name: 'producto_referencia' },
                     { data: 'producto_placa', name: 'producto_placa' },
                     { data: 'producto_nombre', name: 'producto_nombre' },
                     { data: 'tipo_nombre', name: 'producto_tipo' },
@@ -97,11 +109,21 @@ app || (app = {});
 						}
 					},
 					{
-						targets: 3,
-						visible: false						
-					}
-                ]
+						targets: [1,4],
+						visible: false,
+						render: function ( data, type, full, row ) {
+							return '<a href="#" class="a-koi-search-producto-component-table">' + data + '</a>';
+						}
+					},
+                ],
 			});
+
+			// Ocultar columnas
+			var arrayType = this.tipo_codigo.split(',');
+			if( (arrayType.indexOf('RP') != -1) || (arrayType.indexOf('CO') != -1) || (arrayType.indexOf('IN') != -1) ){
+				this.productosSearchTable.columns( [0,2] ).visible( false,false );
+				this.productosSearchTable.column( 1 ).visible( true );
+			}
 
             // Modal show
             this.ready();
@@ -114,6 +136,15 @@ app || (app = {});
 	        var data = this.productosSearchTable.row( $(e.currentTarget).parents('tr') ).data();
 			this.$inputContent.val( data.producto_serie );
 			this.$inputName.val( data.producto_nombre );
+
+	 		if(data.tipo_codigo == 'RP' || data.tipo_codigo == 'CO' || data.tipo_codigo == 'IN'){
+				this.$inputContent.val( data.producto_referencia );
+	 		}
+
+	 		if(this.$('#producto_tercero').length){
+	 			this.$('#producto_tercero').val( data.producto_tercero );
+	 			this.$('#producto_contrato').val( data.producto_contrato );
+	 		}
 
 		 	if(this.$wraperType.length) {
                 this.renderType(data.tipo_codigo, this.tipo);
@@ -159,7 +190,6 @@ app || (app = {});
 	            })
 	            .done(function(resp) {
 	                window.Misc.removeSpinner( _this.$wraperConten );
-	                
 	                if(resp.success) {
 	                    if(!_.isUndefined(resp.producto_nombre) && !_.isNull(resp.producto_nombre)){
 							_this.$inputName.val(resp.producto_nombre);
@@ -182,9 +212,8 @@ app || (app = {});
         /**
         * Render form type
         */
-        renderType: function (type, tipo_asignacion) {
+        renderType: function (type, tipo_asignacion, producto_tercero, producto_contrato) {
         	this.$wraperType.empty();
-
         	var data = { };
         	if( this.tipo == 'E'){
 	        	if( type == 'AC') {

@@ -63,7 +63,6 @@ app || (app = {});
                 // Reference views
                 this.referenceViews();
             }
-
             this.ready();
         },
 
@@ -158,6 +157,7 @@ app || (app = {});
         onStore: function (e) {
             if (!e.isDefaultPrevented()) {
                 e.preventDefault();
+                
                 var data = $.extend({ producto_tipo: this.$('#producto_tipo').val() }, window.Misc.formToJson( e.target ));
                 this.model.save( data, {patch: true, silent: true} );
             }
@@ -167,10 +167,9 @@ app || (app = {});
         * Event add item detalle traslado
         */
         onStoreItem: function (e) {
-
             if (!e.isDefaultPrevented()) {
-
                 e.preventDefault();
+
                 // Prepare global data
                 var data = window.Misc.formToJson( e.target );
                 this.sirveasList.trigger( 'store', data );
@@ -181,9 +180,7 @@ app || (app = {});
         * Event add productoitem detalle traslado
         */
         onStorePcontador: function (e) {
-
             if (!e.isDefaultPrevented()) {
-
                 e.preventDefault();
 
                 // Prepare global data
@@ -222,7 +219,6 @@ app || (app = {});
         */
         responseServer: function ( model, resp, opts ) {
             window.Misc.removeSpinner( this.el );
-
             if(!_.isUndefined(resp.success)) {
                 // response success or error
                 var text = resp.success ? '' : resp.errors;

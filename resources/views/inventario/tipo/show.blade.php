@@ -9,21 +9,22 @@
     <div class="box box-danger">
         <div class="box-body">
             <div class="row">
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-2 col-xs-6 col-sm-6">
                     <label class="control-label">Código</label>
                     <div>{{ $tipo->id }}</div>
                 </div>
-                <div class="form-group col-md-3">
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-2 col-xs-6 col-sm-6">
                     <label class="control-label">Tipo</label>
                     <div>{{ $tipo->tipo_codigo }}</div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-3 col-xs-6 col-sm-6">
                     <label class="control-label">Nombre</label>
                     <div>{{ $tipo->tipo_nombre }}</div>
                 </div>
-                <div class="form-group col-md-2 col-xs-8 ">
+                <div class="form-group col-md-2 col-xs-6 col-sm-6"><br>
                     <label class="checkbox-inline" for="tipo_activo">
                         <input type="checkbox" id="tipo_activo" name="tipo_activo" value="tipo_activo" disabled {{ $tipo->tipo_activo ? 'checked': '' }}> Activo
                     </label>

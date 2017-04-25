@@ -15,7 +15,7 @@ app || (app = {});
         template: _.template( ($('#koi-search-contacto-component-tpl').html() || '') ),
 
 		events: {
-            'click .btn-koi-search-contacto-component-table': 'searchOrden',
+            'click .btn-koi-search-contacto-component-table': 'searchContacto',
             'click .btn-search-koi-search-contacto-component': 'search',
             'click .btn-clear-koi-search-contacto-component': 'clear',
             'click .a-koi-search-contacto-component-table': 'setContacto'
@@ -29,8 +29,7 @@ app || (app = {});
             this.$modalComponent = this.$('#modal-search-contacto-component');
 		},
 
-		searchOrden: function(e) {
-            
+		searchContacto: function(e) {
             e.preventDefault();
             var _this = this;
 
@@ -104,7 +103,6 @@ app || (app = {});
 		},
 
 		setContacto: function(e) {
-            
 			e.preventDefault();
 
 	        var data = this.contactoSearchTable.row( $(e.currentTarget).parents('tr') ).data();
@@ -127,14 +125,12 @@ app || (app = {});
 		},
 
 		search: function(e) {
-           
 			e.preventDefault();
             
 		    this.contactoSearchTable.ajax.reload();
 		},
 
 		clear: function(e) {
-           
 			e.preventDefault();
 
             this.$searchContactoNombres.val('');

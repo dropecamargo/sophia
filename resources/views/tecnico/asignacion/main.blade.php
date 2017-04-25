@@ -131,7 +131,7 @@
                                     <i class="fa fa-user"></i>
                                 </button>
                             </span>
-                            <input id="asignacion1_tecnico" placeholder="Tecnico" class="form-control tercero-koi-component" name="asignacion1_tecnico" type="text" maxlength="15" data-wrapper="asignacion1s-create" data-name="tecnico_nombre" required>
+                            <input id="asignacion1_tecnico" placeholder="Tecnico" class="form-control tercero-koi-component" name="asignacion1_tecnico" type="text" maxlength="15" data-type="tecnico" data-wrapper="asignacion1s-create" data-name="tecnico_nombre" required>
                         </div>
                     </div>
                     <br>

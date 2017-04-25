@@ -16,12 +16,12 @@ class CreateSirveaTable extends Migration
             $table->engine = "InnoDB";
 
             $table->increments('id');
-            $table->integer('sirvea_maquina')->unsigned()->nullable();
+            $table->integer('sirvea_modelo')->unsigned()->nullable();
             $table->integer('sirvea_codigo')->unsigned()->nullable();
 
-            $table->foreign('sirvea_maquina')->references('id')->on('producto')->onDelete('restrict');
+            $table->foreign('sirvea_modelo')->references('id')->on('modelo')->onDelete('restrict');
             $table->foreign('sirvea_codigo')->references('id')->on('producto')->onDelete('restrict');
-            $table->unique(['sirvea_codigo', 'sirvea_maquina']);
+            $table->unique(['sirvea_codigo', 'sirvea_modelo']);
 
         });
     }

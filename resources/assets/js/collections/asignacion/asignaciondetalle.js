@@ -23,7 +23,7 @@ app || (app = {});
 
         },
 
-        validar: function( data ) {
+        validar: function( data, resource ) {
             var error = { success: false, message: '' };
 
             // Validate exist
@@ -38,13 +38,15 @@ app || (app = {});
 
             if( data.producto_tipo_search ){
                 // Validate insert EQ in AC
-                var equipoExist = _.find(this.models, function(item){
-                    return item.get('asignacion2_producto') == data.producto_tipo_search;
-                });
+                if( resource.producto_tercero == '' && resource.producto_contrato == ''){
+                    var equipoExist = _.find(this.models, function(item){
+                        return item.get('asignacion2_producto') == data.producto_tipo_search;
+                    });
 
-                if( _.isUndefined(equipoExist) ){
-                    error.message = 'Para poder agregar accesorio '+ data.producto_nombre +' primero debe agregar el equipo '+ data.producto_nombre_search+ '.';
-                    return error;       
+                    if( _.isUndefined(equipoExist) ){
+                        error.message = 'Para poder agregar accesorio '+ data.producto_nombre +' primero debe agregar el equipo '+ data.producto_nombre_search+ '.';
+                        return error;       
+                    }
                 }
             }
 
