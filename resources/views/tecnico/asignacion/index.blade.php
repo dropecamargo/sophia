@@ -18,7 +18,7 @@
                                     <i class="fa fa-user"></i>
                                 </button>
                             </span>
-                            <input id="searchasignacion1_tercero" placeholder="Documento Cliente" class="form-control tercero-koi-component input-sm" name="searchasignacion1_tercero" type="text" maxlength="15" data-wrapper="modal-asiento-wrapper-ordenp" data-name="searchasignacion1_tercero_nombre" value="{{ session('searchasignacion1_tercero') }}">
+                            <input id="searchasignacion1_tercero" placeholder="Documento Cliente" class="form-control tercero-koi-component input-sm" name="searchasignacion1_tercero" type="text" maxlength="15" data-wrapper="modal-asiento-wrapper-ordenp" data-type="cliente" data-name="searchasignacion1_tercero_nombre" value="{{ session('searchasignacion1_tercero') }}">
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -33,7 +33,7 @@
                                     <i class="fa fa-user"></i>
                                 </button>
                             </span>
-                            <input id="searchasignacion1_tecnico" placeholder="Documento Tecnico" class="form-control tercero-koi-component input-sm" name="searchasignacion1_tecnico" type="text" maxlength="15" data-wrapper="modal-asiento-wrapper-ordenp" data-name="searchasignacion1_tecnico_nombre" value="{{ session('searchasignacion1_tecnico') }}">
+                            <input id="searchasignacion1_tecnico" placeholder="Documento Tecnico" class="form-control tercero-koi-component input-sm" name="searchasignacion1_tecnico" type="text" maxlength="15" data-wrapper="modal-asiento-wrapper-ordenp" data-type="tecnico" data-name="searchasignacion1_tecnico_nombre" value="{{ session('searchasignacion1_tecnico') }}">
                         </div>
                     </div>
                     <div class="col-sm-3">

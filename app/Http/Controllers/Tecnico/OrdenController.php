@@ -21,9 +21,7 @@ class OrdenController extends Controller
     public function index(Request $request)
     {
          if($request->ajax()){
-
             $query = Orden::query();
-
             $query->select('orden.*',
                 DB::raw("
                     CONCAT(
@@ -39,17 +37,14 @@ class OrdenController extends Controller
             );
             $query->join('tercero', 'orden_tercero', '=', 'tercero.id');
 
-
-               // Persistent data filter
+           // Persistent data filter
             if($request->has('persistent') && $request->persistent) {
                 session(['searchorden_orden_id' => $request->has('id') ? $request->id : '']);
                 session(['searchorden_tercero' => $request->has('tercero_nit') ? $request->tercero_nit : '']);
                 session(['searchorden_tercero_nombre' => $request->has('tercero_nombre') ? $request->tercero_nombre : '']);
             }
 
-
             return Datatables::of($query)
-
                 ->filter(function($query) use($request) {
 
                     //id Orden
@@ -97,20 +92,15 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
-         if ($request->ajax()) {
+        if ($request->ajax()) {
             $data = $request->all();
-        
             $orden = new Orden;
-
             if ($orden->isValid($data)) {
-
-
                 DB::beginTransaction();
                 try {
                     $tercero = Tercero::where('tercero_nit', $request->orden_tercero)->first();
                     $producto = Producto::where('producto_serie', $request->sirvea_codigo)->first();
                     $tecnico = Tercero::where('tercero_nit', $request->orden_tecnico)->first();
-                   
 
                     if(!$producto instanceof Producto) {
                         DB::rollback();
@@ -118,13 +108,11 @@ class OrdenController extends Controller
                     }
 
                     $tipo= Tipo::where('id', $producto->producto_tipo)->first();
-
                     if (!$tipo instanceof Tipo) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);
                     }
 
-                    
                     if(!in_array($tipo->tipo_codigo, ['EQ'])){
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar tipo, por favor verifique la información o consulte al administrador.']);  
@@ -132,14 +120,18 @@ class OrdenController extends Controller
                     
                     if(!$tecnico instanceof Tercero) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos del tecnico, por favor verifique la información o consulte al administrador.']);
                     }
 
                     if(!$tercero instanceof Tercero) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos del cliente, por favor verifique la información o consulte al administrador.']);
                     }
-                    
+
+                    if($tercero->id != $producto->producto_tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'El producto no corresponde al cliente, por favor verifique la información o consulte al administrador.']);
+                    }
 
                     // orden
                     $orden->fill($data);
@@ -173,8 +165,7 @@ class OrdenController extends Controller
      */
     public function show(Request $request, $id)
     {
-          $orden = Orden::getOrden($id);
-     
+        $orden = Orden::getOrden($id);
         if($request->ajax()){
             return response()->json($orden);
         }
@@ -193,10 +184,8 @@ class OrdenController extends Controller
         if(!$orden instanceof Orden) {
             abort(404);
         }
-
         return view('tecnico.orden.edit', ['orden' => $orden]);    
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -207,11 +196,10 @@ class OrdenController extends Controller
      */
     public function update(Request $request, $id)
     {
-         if ($request->ajax()) {
+        if( $request->ajax() ) {
             $data = $request->all();
-
             $orden = Orden::findOrFail($id);
-            if ($orden->isValid($data)) {
+            if( $orden->isValid($data) ) {
                 DB::beginTransaction();
                 try {
                     $tercero = Tercero::where('tercero_nit', $request->orden_tercero)->first();
@@ -241,9 +229,13 @@ class OrdenController extends Controller
 
                     if(!$tercero instanceof Tercero) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar tercero, por favor verifique la información o consulte al administrador.']);
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
                     }
 
+                    if($tercero->id != $producto->producto_tercero) {
+                        DB::rollback();
+                        return response()->json(['success' => false, 'errors' => 'El producto no corresponde al cliente, por favor verifique la información o consulte al administrador.']);
+                    }
 
                     // ordenes
                     $orden->orden_fh_servicio = "$request->orden_fecha_servicio $request->orden_hora_servicio";
@@ -266,7 +258,6 @@ class OrdenController extends Controller
             return response()->json(['success' => false, 'errors' => $orden->errors]);
         }
         abort(403);
-           
     }
 
     /**

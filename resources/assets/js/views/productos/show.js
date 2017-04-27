@@ -1,5 +1,5 @@
 /**
-* Class ShowProductopView
+* Class ShowProductoView
 * @author KOI || @dropecamargo
 * @link http://koi-ti.com
 */

@@ -28,7 +28,7 @@ class ContratoDanoController extends Controller
             $query->join('dano', 'contratodano_dano', '=', 'dano.id');
             $query->orderBy('contratodano.id', 'asc');
             return response()->json( $query->get() );
-          
+
             $query->orderBy('id', 'asc');
             return response()->json( $query->get() );
         }

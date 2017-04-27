@@ -18,7 +18,7 @@ app || (app = {});
  			'visitap_orden': '',
             'visitap_cantidad': '',
  			'visitap_nombre': '',
- 			'visitasp_codigo': ''
+ 			'visitap_codigo': ''
         }
     });
 

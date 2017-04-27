@@ -584,13 +584,13 @@
 		</div>
     </div>
     <div class="row">
-		<div class="form-group col-md-2">
-			<label for="actividad_tarifa" class="control-label">% Cree</label>
-			<input type="text" id="actividad_tarifa" name="actividad_tarifa" value="<%- actividad_tarifa %>" placeholder="% Cree" class="form-control input-sm spinner-percentage" maxlength="4" required>
-		</div>
     	<div class="form-group col-md-2">
 			<label for="actividad_categoria" class="control-label">Categoria</label>
 			<input type="text" id="actividad_categoria" name="actividad_categoria" value="<%- actividad_categoria %>" placeholder="Categoria" class="form-control input-sm input-toupper" maxlength="3">
+		</div>
+		<div class="form-group col-md-2">
+			<label for="actividad_tarifa" class="control-label">% Cree</label><br>
+			<input type="text" id="actividad_tarifa" name="actividad_tarifa" value="<%- actividad_tarifa %>" placeholder="% Cree" class="form-control input-sm spinner-percentage" maxlength="4" required>
 		</div>
 	</div>
 </script>
@@ -734,4 +734,15 @@
 			</label>
 		</div>
     </div>
+</script>
+
+<script type="text/template" id="roles-item-list-tpl">
+	<% if(edit) { %>
+        <td class="text-center">
+            <a class="btn btn-default btn-xs item-roles-remove" data-resource="<%- id %>">
+                <span><i class="fa fa-times"></i></span>
+            </a>
+    	</td>
+    <% } %>
+	<td><%- display_name %></td>
 </script>

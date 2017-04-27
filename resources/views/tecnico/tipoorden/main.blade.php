@@ -1,11 +1,11 @@
 @extends('layout.layout')
 
-@section('title') Tipo de Orden @stop
+@section('title') Tipos de orden @stop
 
 @section('content')
     <section class="content-header">
         <h1>
-            Tipo de Orden <small>Administración de Tipo de orden</small>
+            Tipos de orden <small>Administración de Tipo de orden</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> {{trans('app.home')}}</a></li>

@@ -56,10 +56,6 @@ app || (app = {});
             var attributes = this.model.toJSON();
             this.$wraperForm.html( this.template(attributes) );
             this.$form = this.$('#form-producto');
-            this.$formEq = this.$('#form-producto-Eq');
-            this.$formAc = this.$('#form-producto-Ac');
-            this.$formRp = this.$('#form-producto-Rp');
-            this.$formInCo = this.$('#form-producto-InCo');
             this.$wrapper = this.$('#render-tipos');
 
             // Model exist
@@ -67,7 +63,6 @@ app || (app = {});
                 // Reference views
                 this.referenceViews();
             }
-
             this.ready();
         },
 
@@ -131,25 +126,28 @@ app || (app = {});
 
         changeTipo: function (e){
             var _this = this;
+            var tipo = $(e.currentTarget).val();
 
             if( _this.model.id != undefined ) {
                 _this.referenceViews();
             }else{
-                $.ajax({
-                    url: window.Misc.urlFull(Route.route('tipos.show',{tipos: $(e.currentTarget).val()})),
-                    type: 'GET',
-                    beforeSend: function() {
-                        window.Misc.setSpinner( _this.el );
-                    }
-                })
-                .done(function(resp) {
-                    window.Misc.removeSpinner( _this.el );
-                    _this.validarTipo(resp.tipo_codigo);
-                })
-                .fail(function(jqXHR, ajaxOptions, thrownError) {
-                    window.Misc.removeSpinner( _this.el );
-                    alertify.error(thrownError);
-                });
+                if(tipo != ''){
+                   $.ajax({
+                        url: window.Misc.urlFull(Route.route('tipos.show',{tipos: tipo})),
+                        type: 'GET',
+                        beforeSend: function() {
+                            window.Misc.setSpinner( _this.el );
+                        }
+                    })
+                    .done(function(resp) {
+                        window.Misc.removeSpinner( _this.el );
+                        _this.validarTipo(resp.tipo_codigo);
+                    })
+                    .fail(function(jqXHR, ajaxOptions, thrownError) {
+                        window.Misc.removeSpinner( _this.el );
+                        alertify.error(thrownError);
+                    }); 
+                }
             }
         },
 
@@ -159,7 +157,8 @@ app || (app = {});
         onStore: function (e) {
             if (!e.isDefaultPrevented()) {
                 e.preventDefault();
-                var data = $.extend({ producto_tipo: this.$('#producto_tipo').val() }, window.Misc.formToJson( e.target ), window.Misc.formToJson( this.$formEq ), window.Misc.formToJson( this.$formAc ), window.Misc.formToJson( this.$formRp ), window.Misc.formToJson( this.$formInCo ));
+                
+                var data = $.extend({ producto_tipo: this.$('#producto_tipo').val() }, window.Misc.formToJson( e.target ));
                 this.model.save( data, {patch: true, silent: true} );
             }
         },
@@ -168,10 +167,9 @@ app || (app = {});
         * Event add item detalle traslado
         */
         onStoreItem: function (e) {
-
             if (!e.isDefaultPrevented()) {
-
                 e.preventDefault();
+
                 // Prepare global data
                 var data = window.Misc.formToJson( e.target );
                 this.sirveasList.trigger( 'store', data );
@@ -182,9 +180,7 @@ app || (app = {});
         * Event add productoitem detalle traslado
         */
         onStorePcontador: function (e) {
-
             if (!e.isDefaultPrevented()) {
-
                 e.preventDefault();
 
                 // Prepare global data
@@ -223,7 +219,6 @@ app || (app = {});
         */
         responseServer: function ( model, resp, opts ) {
             window.Misc.removeSpinner( this.el );
-
             if(!_.isUndefined(resp.success)) {
                 // response success or error
                 var text = resp.success ? '' : resp.errors;

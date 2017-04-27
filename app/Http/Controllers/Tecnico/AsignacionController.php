@@ -93,19 +93,18 @@ class AsignacionController extends Controller
                 DB::beginTransaction();
                 try {
                     $tercero = Tercero::where('tercero_nit', $request->asignacion1_tercero)->first();
-                    
                     $contrato = Contrato::find($request->asignacion1_contrato);
                     $contacto = Contacto::find($request->asignacion1_contacto);
                     
                     if(!$tercero instanceof Tercero) {
                         DB::rollback();
-                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                        return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos del cliente, por favor verifique la información o consulte al administrador.']);
                     }
                     if($request->asignacion1_tipo == "E"){
                         $tecnico = Tercero::where('tercero_nit', $request->asignacion1_tecnico)->first();
                         if(!$tecnico instanceof Tercero) {
                             DB::rollback();
-                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos, por favor verifique la información o consulte al administrador.']);
+                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar datos del tecnico, por favor verifique la información o consulte al administrador.']);
                         }
                         $asignacion1->asignacion1_tecnico = $tecnico->id;
                         
@@ -156,6 +155,21 @@ class AsignacionController extends Controller
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
                         }
 
+                        if($request->asignacion1_tipo == "R"){
+                            // Validar tercero del producto
+                            if($producto->producto_tercero != $tercero->id){
+                                DB::rollback();
+                                return response()->json(['success' => false, 'errors' => 'Los productos del carrito no corresponde al tercero, por favor verifique la información o consulte al administrador.']);
+                            }
+                            
+                            // Validar contratos del producto
+                            if($producto->producto_contrato != $contrato->id){
+                                DB::rollback();
+                                return response()->json(['success' => false, 'errors' => 'Los productos del carrito no corresponde al contrato del tercero, por favor verifique la información o consulte al administrador.']);
+                            }
+                        }
+
+                        // Validar tipo
                         $tipo = Tipo::find($producto->producto_tipo);
                         if(!$tipo instanceof Tipo){
                             DB::rollback();
@@ -165,11 +179,6 @@ class AsignacionController extends Controller
                         if(!in_array($tipo->tipo_codigo, ['AC', 'EQ'])){
                             DB::rollback();
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);  
-                        }
-
-                        if(!in_array($item['asignacion2_producto'], $item)){
-                            DB::rollback();
-                            return response()->json(['success' => false, 'errors' => 'Guevo']);
                         }
 
                         $asignacion2 = new AsignacionDetalle;
@@ -194,10 +203,12 @@ class AsignacionController extends Controller
                             }
                             
                             $asignacion2->asignacion2_deproducto = $deproducto->id;
+                            
+                            $producto->producto_maquina = $deproducto->id;
+                            $producto->save();
                         }
-
-                        // $asignacion2->save();  
-                        
+                        $asignacion2->save();
+                                                
                         if($request->asignacion1_tipo == 'E'){
                             $producto->producto_tercero = $tercero->id;
                             $producto->producto_contrato = $contrato->id;
@@ -205,12 +216,12 @@ class AsignacionController extends Controller
                         }elseif($request->asignacion1_tipo == 'R'){
                             $producto->producto_tercero = null;
                             $producto->producto_contrato = null;
+                            $producto->producto_maquina = null;
                             $producto->save();
                         }else{
                             DB::rollback();
                             return response()->json(['success' => false, 'errors' => 'El tipo no es correcto, por favor verifique la información o consulte al administrador.']);                                
                         } 
-
                     }
 
                     // Commit Transaction

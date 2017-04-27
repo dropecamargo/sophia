@@ -42,4 +42,6 @@ class ContratoDano extends Model
         return false;
     }
 
+
+    
 }

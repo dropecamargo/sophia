@@ -9,10 +9,10 @@
 @section('module')
 	<div class="box box-danger" id="modelo-create">
 		{!! Form::open(['id' => 'form-modelo', 'data-toggle' => 'validator']) !!}
-	        <div class="box-header with-border">
 	        <div class="box-body" id="render-form-modelo">
 				{{-- Render form modelo --}}
 			</div>
+			
 			<div class="box-footer clearfix">
 	        	<div class="row">
 					<div class="col-md-2 col-md-offset-4 col-sm-6 col-xs-6 text-left">
@@ -23,7 +23,6 @@
 					</div>
 				</div>
 			</div>
-			</div>
-			{!! Form::close() !!}
+		{!! Form::close() !!}
 	</div>
 @stop

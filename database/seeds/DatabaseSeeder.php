@@ -15,19 +15,17 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call(TerceroTableSeeder::class);
-        $this->call(DepartamentoTableSeeder::class);
-        $this->call(MunicipioTableSeeder::class);
-        $this->call(MarcaTableSeeder::class);
-        $this->call(ModeloTableSeeder::class);
         $this->call(TipoTableSeeder::class);
         $this->call(EstadoTableSeeder::class);
-        $this->call(ActividadTableSeeder::class);
         $this->call(ContactoTableSeeder::class);
         $this->call(ContratoSeeder::class);
         $this->call(ContadorTableSeeder::class);
+        $this->call(ModulosTableSeeder::class);
+        $this->call(PermisosTableSeeder::class);
         $this->call(ZonaTableSeeder::class);
-        $this->call(ProductoSeeder::class);
-
+        $this->call(RolTableSeeder::class);
+        $this->call(UsuarioRolTableSeeder::class);
+        
         Model::reguard();
     }
 }

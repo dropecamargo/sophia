@@ -147,7 +147,8 @@ return [
         
         Lord\Laroute\LarouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        Yajra\Datatables\DatatablesServiceProvider::class
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
     ],
 
     /*
@@ -162,7 +163,6 @@ return [
     */
 
     'aliases' => [
-
         'App'       => Illuminate\Support\Facades\App::class,
         'Artisan'   => Illuminate\Support\Facades\Artisan::class,
         'Auth'      => Illuminate\Support\Facades\Auth::class,
@@ -197,7 +197,8 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
-        'Datatables' => Yajra\Datatables\Datatables::class
+        'Datatables' => Yajra\Datatables\Datatables::class,
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];

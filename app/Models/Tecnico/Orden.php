@@ -9,7 +9,7 @@ use App\Models\BaseModel;
 
 class Orden extends Model
 {
-	  /**
+    /**
      * The database table used by the model.
      *
      * @var string
@@ -27,7 +27,6 @@ class Orden extends Model
     public function isValid($data)
     {
         $rules = [  
-
         	'orden_fecha'=>'required|date_format:Y-m-d',
         	'orden_tipoorden'=>'required',
         	'orden_solicitante'=>'required',
@@ -37,8 +36,6 @@ class Orden extends Model
         	'orden_problema'=>'required|max:100',
             'orden_fecha_servicio' => 'required|date_format:Y-m-d',
             'orden_hora_servicio' => 'required|date_format:H:m'
-
-
         ];
 
         $validator = Validator::make($data, $rules);
@@ -49,8 +46,7 @@ class Orden extends Model
         return false;
     }
 
-
-   public static function getOrden($id)
+    public static function getOrden($id)
     {
         $query = Orden::query();
         $query->select('orden.*',DB::raw("TIME(orden_fh_servicio) as orden_hora_servicio"),DB::raw("DATE(orden_fh_servicio) as orden_fecha_servicio"), 'o.tercero_nit','t.tercero_nit as tecnico_nit','producto.id as id_p','producto_nombre','producto_serie','dano_nombre','tipoorden_nombre','prioridad_nombre','solicitante_nombre', DB::raw("CONCAT(o.tercero_nombre1, ' ', o.tercero_nombre2, ' ', o.tercero_apellido1, ' ', o.tercero_apellido2) as tercero_nombre"),DB::raw("CONCAT(t.tercero_nombre1 , ' ', t.tercero_nombre2, ' ', t.tercero_apellido1, ' ', t.tercero_apellido2) as tecnico_nombre"));
@@ -67,4 +63,3 @@ class Orden extends Model
         return $query->first();
     }
 }    
-

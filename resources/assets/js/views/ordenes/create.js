@@ -25,7 +25,7 @@ app || (app = {});
         parameters: {
         },
 
-       /**
+        /**
         * Constructor Method
         */
         initialize : function(opts) {
@@ -34,6 +34,7 @@ app || (app = {});
                 this.parameters = $.extend({}, this.parameters, opts.parameters);
 
             // Attributes
+            this.msgSuccess = 'Orden guardada con exito!';
             this.$wraperForm = this.$('#render-form-orden');
 
             //Model Exists
@@ -53,7 +54,6 @@ app || (app = {});
         * Render View Element
         */
         render: function() {
-
             var attributes = this.model.toJSON();
              
             this.$wraperForm.html( this.template(attributes) );
@@ -63,16 +63,13 @@ app || (app = {});
             
             // Model exist
             if( this.model.id != undefined ) {
-
                 // Reference views
                 this.referenceViews();
             }
-
             this.ready();
         },
 
         referenceViews:function(){
-
             this.visitasView = new app.VisitasView( {
                 collection: this.visita,
                 parameters: {
@@ -81,7 +78,7 @@ app || (app = {});
                     dataFilter: {
                         'orden_id': this.model.get('id')
                     }
-               }
+                }
             });
 
             this.visitaspView = new app.VisitaspView( {
@@ -92,7 +89,7 @@ app || (app = {});
                     dataFilter: {
                         'orden_id': this.model.get('id')
                     }
-               }
+                }
             });
 
             this.contadorespView = new app.ContadorespView( {
@@ -103,7 +100,7 @@ app || (app = {});
                     dataFilter: {
                         'producto_id': this.model.get('id_p')
                     }
-               }
+                }
             });
         },
         
@@ -113,14 +110,14 @@ app || (app = {});
         submitOrden:function(e){
             this.$form.submit();
         },
+
         /**
         * Event Create Orden
         */
         onStore: function (e) {
-
             if (!e.isDefaultPrevented()) {
-                
                 e.preventDefault();
+
                 var data = window.Misc.formToJson( e.target );
                 this.model.save( data, {patch: true, silent: true} );
             }
@@ -128,8 +125,8 @@ app || (app = {});
 
         submitVisita:function(e){
             this.$formvisitasp.submit();
-            
         },
+
         /**
         * Event Create visita
         */
@@ -145,7 +142,6 @@ app || (app = {});
 
                 // Repuestos
                 data.visitap = this.visitap.toJSON();
-                
                 this.visita.trigger( 'store', data );
             }
         },  
@@ -159,7 +155,6 @@ app || (app = {});
                 e.preventDefault();
 
                 var data = window.Misc.formToJson( e.target );
-
                 this.visitap.trigger( 'store', data );
             }
         },   
@@ -203,8 +198,6 @@ app || (app = {});
         */
         responseServer: function ( model, resp, opts ) {
             window.Misc.removeSpinner( this.el );
-
-            
             if(!_.isUndefined(resp.success)) {
                 // response success or error
                 var text = resp.success ? '' : resp.errors;
@@ -215,6 +208,14 @@ app || (app = {});
                 if( !resp.success ) {
                     alertify.error(text);
                     return;
+                }
+
+                alertify.success(this.msgSuccess);
+
+                // CreateOrdenView undelegateEvents
+                if ( this.createOrdenView instanceof Backbone.View ){
+                    this.createOrdenView.stopListening();
+                    this.createOrdenView.undelegateEvents();
                 }
 
                 // Redirect to edit orden

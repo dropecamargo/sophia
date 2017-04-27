@@ -87,7 +87,7 @@ app || (app = {});
             window.Misc.setSpinner( this.parameters.wrapper );
             
             // Prepare data
-            data.sirvea_maquina = this.parameters.dataFilter.producto_id;
+            data.sirvea_modelo = this.parameters.dataFilter.producto_id;
 
             // Add model in collection
             var sirveaModel = new app.SirveaModel();

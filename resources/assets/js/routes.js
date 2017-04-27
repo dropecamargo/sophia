@@ -45,6 +45,14 @@ app || (app = {});
             'estados/create(/)': 'getEstadosCreate',
             'estados/:modelo/edit(/)': 'getEstadosEdit',
 
+            //permisos
+            'permisos(/)': 'getPermisosMain',
+            'modulos(/)': 'getModulosMain',
+
+            'roles(/)': 'getRolesMain',
+            'roles/create(/)': 'getRolesCreate',
+            'roles/:rol/edit(/)': 'getRolesEdit',
+
             /*
             |----------------------
             | Inventario
@@ -108,6 +116,7 @@ app || (app = {});
             'ordenes(/)': 'getOrdenesMain',
             'ordenes/create(/)': 'getOrdenesCreate',
             'ordenes/:orden/edit(/)': 'getOrdenesEdit',
+            'ordenes/:orden(/)': 'getOrdenesShow',
 
             //Prioridad
             'prioridades(/)': 'getPrioridadesMain',
@@ -163,6 +172,7 @@ app || (app = {});
             this.componentSearchProductoView = new app.ComponentSearchProductoView();
             this.componentSearchContactoView = new app.ComponentSearchContactoView();
             this.componentSearchContratoView = new app.ComponentSearchContratoView();
+            this.componentSearchModeloView = new app.ComponentSearchModeloView();
       	},
 
         /**
@@ -171,7 +181,7 @@ app || (app = {});
         start: function () {
             var config = { pushState: true };
 
-            if( document.domain.search(/(104.236.57.82|localhost)/gi) != '-1' )
+            if( document.domain.search(/(104.236.57.82|162.243.56.221|localhost)/gi) != '-1' )
                 config.root = '/sophia/public/';
 
             Backbone.history.start( config );
@@ -820,6 +830,21 @@ app || (app = {});
             this.ordenModel.fetch();
         },
 
+        /**
+        * show view show tercero
+        */
+        getOrdenesShow: function (orden) {
+            this.ordenModel = new app.OrdenModel();
+            this.ordenModel.set({'id': orden}, {silent: true});
+
+            if ( this.showOrdenView instanceof Backbone.View ){
+                this.showOrdenView.stopListening();
+                this.showOrdenView.undelegateEvents();
+            }
+
+            this.showOrdenView = new app.ShowOrdenView({ model: this.ordenModel });
+        },
+
         // Zonas
         getZonasMain: function () {
 
@@ -895,6 +920,76 @@ app || (app = {});
             }
 
             this.showEquipoEnvioView = new app.ShowAsignacionView({ model: this.asignacionModel });
+        },
+
+        /**
+        * show main view permisos
+        */
+        getPermisosMain: function () {
+
+            if ( this.mainPermisoView instanceof Backbone.View ){
+                this.mainPermisoView.stopListening();
+                this.mainPermisoView.undelegateEvents();
+            }
+
+            this.mainPermisoView = new app.MainPermisoView( );
+        },
+
+        /**
+        * show main view modulos
+        */
+        getModulosMain: function () {
+
+            if ( this.mainModuloView instanceof Backbone.View ){
+                this.mainModuloView.stopListening();
+                this.mainModuloView.undelegateEvents();
+            }
+
+            this.mainModuloView = new app.MainModuloView( );
+        },
+
+        /**
+        * show view main roles
+        */
+        getRolesMain: function () {
+
+            if ( this.mainRolesView instanceof Backbone.View ){
+                this.mainRolesView.stopListening();
+                this.mainRolesView.undelegateEvents();
+            }
+
+            this.mainRolesView = new app.MainRolesView( );
+        },
+
+        /**
+        * show view create roles
+        */
+        getRolesCreate: function () {
+            this.rolModel = new app.RolModel();
+
+            if ( this.createRolView instanceof Backbone.View ){
+                this.createRolView.stopListening();
+                this.createRolView.undelegateEvents();
+            }
+
+            this.createRolView = new app.CreateRolView({ model: this.rolModel });
+            this.createRolView.render();
+        },
+
+        /**
+        * show view edit roles
+        */
+        getRolesEdit: function (rol) {
+            this.rolModel = new app.RolModel();
+            this.rolModel.set({'id': rol}, {silent: true});
+
+            if ( this.createRolView instanceof Backbone.View ){
+                this.createRolView.stopListening();
+                this.createRolView.undelegateEvents();
+            }
+
+            this.createRolView = new app.CreateRolView({ model: this.rolModel });
+            this.rolModel.fetch();
         },
 
     }) );

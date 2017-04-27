@@ -19,6 +19,11 @@ class CreateModeloTable extends Migration
             $table->increments('id');
             $table->string('modelo_nombre', 200);
             $table->boolean('modelo_activo')->default(false);
+            $table->string('producto_referencia', 20);
+            $table->string('producto_nombre', 100);
+            $table->integer('producto_marca')->unsigned()->nullable();
+
+            $table->foreign('producto_marca')->references('id')->on('marca')->onDelete('restrict');
         });
     }
 

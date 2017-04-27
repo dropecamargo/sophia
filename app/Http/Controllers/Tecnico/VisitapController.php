@@ -22,7 +22,7 @@ class VisitapController extends Controller
         if ($request->ajax()) {          
             $query = VisitaP::query();
             $query->where('visitap_numero',$request->visitap);
-            $query->select('visitap.*','producto.producto_serie as visitasp_codigo', 'producto.producto_nombre as visitap_nombre');
+            $query->select('visitap.*','producto.producto_referencia as visitap_codigo', 'producto.producto_nombre as visitap_nombre');
             $query->join('producto','visitap_producto', '=','producto.id');
             return response()->json($query->get());
         }
@@ -49,24 +49,18 @@ class VisitapController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-            //dd($data);
             $visitap = new Visitap;
             if ($visitap->isValid($data)) {
-
-                DB::beginTransaction();
                 try {
-                      // Validar producto
-                    $producto = Producto::where('producto_serie', $request->visitasp_codigo)->first();
+                    // Validar producto
+                    $producto = Producto::where('producto_referencia', $request->visitap_codigo)->first();
                     if(!$producto instanceof Producto) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
                     }
 
-                    // Commit Transaction
-                    DB::commit();
                     return response()->json(['success' => true, 'id' => uniqid()]);
                 }catch(\Exception $e){
-                    DB::rollback();
                     Log::error($e->getMessage());
                     return response()->json(['success' => false, 'errors' => trans('app.exception')]);
                 }
@@ -115,28 +109,8 @@ class VisitapController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
-        if ($request->ajax()) {
-            DB::beginTransaction();
-            try {
-
-                $visitap = Visitap::find($id);
-                if(!$visitap instanceof Visitap){
-                    return response()->json(['success' => false, 'errors' => 'No es posible recuperar repuesto, por favor verifique la información o consulte al administrador.']);
-                }
-
-                // Eliminar item visitap
-                $VisitaP->delete();
-
-                DB::commit();
-                return response()->json(['success' => true]);
-
-            }catch(\Exception $e){
-                DB::rollback();
-                Log::error(sprintf('%s -> %s: %s', 'VisitapController', 'destroy', $e->getMessage()));
-                return response()->json(['success' => false, 'errors' => trans('app.exception')]);
-            }
-        }
-        abort(403);    }
+        //  
+    }
 }

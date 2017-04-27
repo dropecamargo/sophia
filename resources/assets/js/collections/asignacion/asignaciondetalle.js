@@ -23,21 +23,65 @@ app || (app = {});
 
         },
 
-        validar: function( producto ) {
+        validar: function( data, resource ) {
             var error = { success: false, message: '' };
 
             // Validate exist
             var modelExits = _.find(this.models, function(item) {
-                return item.get('asignacion2_producto') == producto;
+                return item.get('asignacion2_producto') == data.asignacion2_producto;
             });
 
             if(modelExits instanceof Backbone.Model ) {
-                error.message = 'Este producto ya fue agregado.'
+                error.message = 'El producto '+ data.producto_nombre +' ya fue agregado.'
                 return error;
+            }
+
+            if( data.producto_tipo_search ){
+                // Validate insert EQ in AC
+                if( resource.producto_tercero == '' && resource.producto_contrato == ''){
+                    var equipoExist = _.find(this.models, function(item){
+                        return item.get('asignacion2_producto') == data.producto_tipo_search;
+                    });
+
+                    if( _.isUndefined(equipoExist) ){
+                        error.message = 'Para poder agregar accesorio '+ data.producto_nombre +' primero debe agregar el equipo '+ data.producto_nombre_search+ '.';
+                        return error;       
+                    }
+                }
             }
 
             error.success = true;
             return error;
         },
+
+        eliminar: function( model ){
+            var _this = this;
+            
+            if( model.get('tipo') == 'E' ){
+                var arrayChilds = _.filter(this.models, function(item){
+                    return item.get('producto_tipo_search') === model.get('asignacion2_producto');
+                });
+
+                _.each(arrayChilds, function(deleteChild){
+                    if ( deleteChild instanceof Backbone.Model ) {
+                        deleteChild.view.remove();
+                        _this.remove(deleteChild);
+                    }
+                });
+            }
+
+            if( model.get('tipo') == 'R' ){
+                var arrayChilds = _.filter(this.models, function(item){
+                    return item.get('idFather') === model.get('id');
+                });
+
+                _.each(arrayChilds, function(deleteChild){
+                    if ( deleteChild instanceof Backbone.Model ) {
+                        deleteChild.view.remove();
+                        _this.remove(deleteChild);
+                    }
+                });
+            }
+        }
    });
 })(this, this.document);

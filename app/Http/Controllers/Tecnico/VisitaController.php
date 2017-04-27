@@ -40,6 +40,7 @@ class VisitaController extends Controller
                 ));
             $query->join('orden', 'visita_orden', '=', 'orden.id');
             $query->join('tercero', 'visita_tecnico', '=', 'tercero.id');
+            $query->orderBy('id', 'desc');
 
             return response()->json( $query->get() );          
         }
@@ -68,15 +69,13 @@ class VisitaController extends Controller
             $data = $request->all();
             $visita = new Visita;
             if ($visita->isValid($data)) {
-
                 DB::beginTransaction();
                 try {
-                    // Validar Tercero
-                    $tercero = Tercero::where('tercero_nit', $request->visita_tercero)->first();
+                    // Validar Tecnico
+                    $tercero = Tercero::where('tercero_nit', $request->visita_tercero)->where('tercero_tecnico', true)->first();
                     if(!$tercero instanceof Tercero) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar técnico, por favor verifique la información o consulte al administrador.']);
-                    
                     }
 
                     // Validar orden
@@ -129,7 +128,7 @@ class VisitaController extends Controller
                     foreach ($visitasp as $item)
                     {
                         // Recuperar producto
-                        $productov = Producto::where('producto_serie', $item['visitasp_codigo'])->first();
+                        $productov = Producto::where('producto_referencia', $item['visitap_codigo'])->first();
                         if (!$productov instanceof Producto) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar producto, por favor verifique la información o consulte al administrador.']);
@@ -215,19 +214,15 @@ class VisitaController extends Controller
         if ($request->ajax()) {
             DB::beginTransaction();
             try {
-
                 $visita = Visita::find($id);
-                //dd($visita);
                 if(!$visita instanceof Visita){
                     return response()->json(['success' => false, 'errors' => 'No es posible recuperar visita, por favor verifique la información o consulte al administrador.']);
                 }
-
                 // Eliminar item visita
                 $visita->delete();
 
                 DB::commit();
                 return response()->json(['success' => true]);
-
             }catch(\Exception $e){
                 DB::rollback();
                 Log::error(sprintf('%s -> %s: %s', 'VisitaController', 'destroy', $e->getMessage()));
