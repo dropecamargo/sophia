@@ -181,7 +181,7 @@ app || (app = {});
         start: function () {
             var config = { pushState: true };
 
-            if( document.domain.search(/(104.236.57.82|162.243.56.221|localhost)/gi) != '-1' )
+            if( document.domain.search(/(104.236.57.82|localhost)/gi) != '-1' )
                 config.root = '/sophia/public/';
 
             Backbone.history.start( config );
