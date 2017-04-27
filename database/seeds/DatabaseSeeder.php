@@ -18,14 +18,14 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoTableSeeder::class);
         $this->call(EstadoTableSeeder::class);
         $this->call(ContactoTableSeeder::class);
-        $this->call(ContratoSeeder::class);
+        // $this->call(ContratoSeeder::class);
         $this->call(ContadorTableSeeder::class);
         $this->call(ModulosTableSeeder::class);
         $this->call(PermisosTableSeeder::class);
-        $this->call(ZonaTableSeeder::class);
+        // $this->call(ZonaTableSeeder::class);
         $this->call(RolTableSeeder::class);
         $this->call(UsuarioRolTableSeeder::class);
-        
+
         Model::reguard();
     }
 }
