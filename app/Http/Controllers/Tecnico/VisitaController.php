@@ -65,14 +65,14 @@ class VisitaController extends Controller
      */
     public function store(Request $request)
     {
-       if ($request->ajax()) {
+        if ($request->ajax()) {
             $data = $request->all();
             $visita = new Visita;
             if ($visita->isValid($data)) {
                 DB::beginTransaction();
                 try {
                     // Validar Tecnico
-                    $tercero = Tercero::where('tercero_nit', $request->visita_tercero)->where('tercero_tecnico', true)->first();
+                    $tercero = Tercero::where('tercero_nit', $request->visita_tercero)->first();
                     if(!$tercero instanceof Tercero) {
                         DB::rollback();
                         return response()->json(['success' => false, 'errors' => 'No es posible recuperar técnico, por favor verifique la información o consulte al administrador.']);

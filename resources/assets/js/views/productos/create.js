@@ -37,7 +37,7 @@ app || (app = {});
             // Attributes
             this.$wraperForm = this.$('#render-form-producto');
 
-             // Model exist
+            // Model exist
             if( this.model.id != undefined ) {
                 this.sirveasList = new app.SirveasList();
                 this.productoscontadorList = new app.ProductosContadorList();

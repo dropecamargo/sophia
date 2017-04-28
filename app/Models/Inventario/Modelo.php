@@ -52,7 +52,6 @@ class Modelo extends BaseModel
     {
         $rules = [
             'modelo_nombre' => 'required|max:200',
-        
         ];
 
         $validator = Validator::make($data, $rules);

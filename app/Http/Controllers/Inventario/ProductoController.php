@@ -62,14 +62,16 @@ class ProductoController extends Controller
                             return response()->json(['success' => false, 'errors' => 'No es posible recuperar cliente, por favor verifique la información o consulte al administrador.']);
                         }
 
-                        $tipo = Tipo::where('tipo_codigo' , $request->tipo_codigo)->first();
-                        if($tipo instanceof Tipo){
-                            $query->where('producto_tipo',$tipo->id); 
-                        }
+                        if($request->tipo_codigo == 'EQ'){
+                            $tipo = Tipo::where('tipo_codigo' , $request->tipo_codigo)->first();
+                            if($tipo instanceof Tipo){
+                                $query->where('producto_tipo',$tipo->id); 
+                            }
 
-                        if($tipo->tipo_codigo == 'EQ'){
-                            $query->where('producto_tercero', $tercero->id);
-                            $query->where('producto_tipo', $tipo->id);
+                            if($tipo->tipo_codigo == 'EQ'){
+                                $query->where('producto_tercero', $tercero->id);
+                                $query->where('producto_tipo', $tipo->id);
+                            }
                         }
                     }
 
@@ -178,9 +180,9 @@ class ProductoController extends Controller
                         $pcontador->productocontador_contador = $contador->id;
                         $pcontador->save();
                     }
+
                     //forget cache
                     Cache::forget( Producto::$key_cache );
-
                     // Commit Transaction
                     DB::commit();
                     return response()->json(['success' => true, 'id' => $producto->id]);
@@ -255,7 +257,6 @@ class ProductoController extends Controller
                     }
 
                     $producto->fill($data);
-
                     // Validar producto
                     $result = $producto->validarProducto();
                     if($result != 'OK') {
@@ -263,6 +264,7 @@ class ProductoController extends Controller
                         return response()->json(['success' => false, 'errors' => $result]);
                     }
                     $producto->save();
+                    
                     //Valida unico contadores
                     if(in_array($producto->tipo->tipo_codigo, ['EQ'])) {
                         // actualizar modelo

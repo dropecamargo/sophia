@@ -47,7 +47,6 @@ class ContadorController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $contador = new Contador;
             if ($contador->isValid($data)) {
                 DB::beginTransaction();
@@ -119,10 +118,11 @@ class ContadorController extends Controller
                     $contador->fill($data);
                     $contador->fillBoolean($data);
                     $contador->save();
-                    // Commit Transaction
-                    DB::commit();
+                    
                     // Cache
                     Cache::forget( Contador::$key_cache );
+                    // Commit Transaction
+                    DB::commit();
                     return response()->json(['success' => true, 'id' => $contador->id]);
                 }catch(\Exception $e){
                     DB::rollback();

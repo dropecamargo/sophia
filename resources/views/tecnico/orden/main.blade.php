@@ -54,15 +54,13 @@
                             <div class="box-body">
                                 <form method="POST" accept-charset="UTF-8" id="form-orden" data-toggle="validator">
                                     <div class="row">
-                                        <div class="form-group col-md-2 ">
-                                            <label for="orden_fecha" class="control-label">Fecha</label>
+                                        <label for="orden_fecha" class="col-md-1 control-label">Fecha</label>
+                                        <div class="form-group col-md-2">
                                             <input type="text" id="orden_fecha" name="orden_fecha" class="form-control input-sm datepicker" value="<%- orden_fecha %>" required>
                                         </div> 
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="form-group col-md-2">
-                                            <label for="orden_tercero" class="control-label">Cliente</label>
+                                        <label for="orden_tercero" class="col-md-1 control-label">Cliente</label>
+                                        <div class="form-group col-md-3">
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-default btn-flat btn-koi-search-tercero-component-table" data-field="orden_tercero">
@@ -73,15 +71,14 @@
                                             </div>
                                         </div>
                                         <div class="col-md-5 col-xs-10">
-                                            <br>
                                             <input id="tercero_nombre" name="tercero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tercero_nombre %>" readonly required>
                                         </div>
                                     </div>
 
                                     {{--producto--}}
                                     <div class="row">
-                                        <div class="form-group col-md-2">
-                                            <label for="orden_fecha" class="control-label">Producto</label>
+                                        <label for="orden_fecha" class="col-md-1 control-label">Producto</label>
+                                        <div class="form-group col-md-3">
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-default btn-flat btn-koi-search-producto-component" data-field="sirvea_codigo" >
@@ -91,16 +88,15 @@
                                                 <input id="sirvea_codigo" placeholder="Serie" class="form-control producto-koi-component" name="sirvea_codigo" type="text" maxlength="15" data-wrapper="producto_create" data-tercero="true" data-name="sirvea_maquina" value="<%- producto_serie %>" data-tipo="EQ" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-5 col-xs-10">
-                                            <br>
+                                        <div class="col-md-6 col-xs-10">
                                             <input id="sirvea_maquina" name="sirvea_maquina" placeholder="Nombre producto" class="form-control input-sm" type="text" value="<%- producto_nombre %>" readonly required>
                                         </div>
                                     </div>
 
                                     {{--selects--}}
                                     <div class="row">
+                                        <label for="orden_tipoorden" class="col-md-1 control-label">Tipo</label>
                                         <div class="form-group col-md-3">
-                                            <label for="orden_tipoorden" class="control-label">Tipo</label>
                                             <select name="orden_tipoorden" id="orden_tipoorden" class="form-control select2-default" required>
                                                 <option value="" selected>Seleccione</option>
                                                 @foreach( App\Models\Tecnico\TipoOrden::getTiposOrden() as $key => $value)
@@ -108,14 +104,14 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="form-group col-md-1"><br>
+                                        <div class="form-group col-md-1">
                                             <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="tipoorden" data-field="orden_tipoorden">
                                                 <i class="fa fa-plus"></i>
                                             </button>
                                         </div>
 
+                                        <label for="orden_solicitante" class="col-md-1 control-label">Solicitante</label>
                                         <div class="form-group col-md-3">
-                                            <label for="orden_solicitante" class="control-label">Solicitante</label>
                                             <select name="orden_solicitante" id="orden_solicitante" class="form-control select2-default" required>
                                                 <option value="" selected>Seleccione</option>
                                                 @foreach( App\Models\Tecnico\Solicitante::getSolicitantes() as $key => $value)
@@ -123,7 +119,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="form-group col-md-1"><br>
+                                        <div class="form-group col-md-1">
                                             <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="solicitante" data-field="orden_solicitante">
                                                 <i class="fa fa-plus"></i>
                                             </button>
@@ -131,8 +127,8 @@
                                     </div>   
                                     
                                     <div class="row">
+                                        <label for="orden_dano" class="col-md-1 control-label">Daño</label>
                                         <div class="form-group col-md-3">
-                                            <label for="orden_dano" class="control-label">Daño</label>
                                             <select name="orden_dano" id="orden_dano" class="form-control select2-default" required>
                                                 <option value="" selected>Seleccione</option>
                                                 @foreach( App\Models\Tecnico\Dano::getDanos() as $key => $value)
@@ -140,14 +136,14 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="form-group col-md-1"><br>
+                                        <div class="form-group col-md-1">
                                             <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="dano" data-field="orden_dano">
                                                 <i class="fa fa-plus"></i>
                                             </button>
                                         </div>
 
+                                        <label for="orden_prioridad" class="col-md-1 control-label">Prioridad</label>
                                         <div class="form-group col-md-3">
-                                            <label for="orden_prioridad" class="control-label">Prioridad</label>
                                             <select name="orden_prioridad" id="orden_prioridad" class="form-control select2-default" required>
                                                 <option value="" selected="">Seleccione</option>
                                                 @foreach( App\Models\Tecnico\Prioridad::getPrioridad() as $key => $value)
@@ -155,7 +151,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="form-group col-md-1"><br>
+                                        <div class="form-group col-md-1">
                                             <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="prioridad" data-field="orden_prioridad">
                                                 <i class="fa fa-plus"></i>
                                             </button>
@@ -163,22 +159,22 @@
                                     </div>
                                     
                                     <div class="row">
+                                        <label for="orden_persona" class="col-md-1 control-label">Persona</label>
                                         <div class="form-group col-md-7">
-                                            <label for="orden_persona" class="control-label">Persona</label>
                                             <input id="orden_persona" type="text" name="orden_persona" class="form-control" placeholder="Persona" value="<%- orden_persona %>">
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <label for="orden_problema" class="col-md-1 control-label">Problema</label>
                                         <div class="form-group col-md-7">
-                                            <label for="orden_problema" class="control-label">Problema</label>
                                             <textarea id="orden_problema" name="orden_problema" class="form-control" rows="2" placeholder="Problema ..."><%- orden_problema %></textarea>
                                         </div>
                                     </div>
 
                                     {{--tecnico--}}
                                     <div class="row">
-                                        <div class="form-group col-md-2">
-                                            <label for="orden_tecnico" class="control-label">Tecnico</label>
+                                        <label for="orden_tecnico" class="col-md-1 control-label">Tecnico</label>
+                                        <div class="form-group col-md-3">
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-default btn-flat btn-koi-search-tercero-component-table" data-field="orden_tecnico">
@@ -188,19 +184,19 @@
                                                 <input id="orden_tecnico" placeholder="Tecnico" class="form-control tercero-koi-component" name="orden_tecnico" type="text" maxlength="15" data-wrapper="ordenes-create" data-type="tecnico" data-name="orden_tecnico_nombre" data-contacto="btn-add-contact" value="<%- tecnico_nit %>" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-5 col-xs-10"><br>
+                                        <div class="col-md-4 col-xs-10">
                                             <input id="orden_tecnico_nombre" name="orden_tecnico_nombre" placeholder="Nombre Tecnico" class="form-control input-sm" type="text" maxlength="15" value="<%- tecnico_nombre %>" readonly required>
                                         </div>
                                     </div>
 
                                     <div class="row">
+                                        <label for="orden_fecha_servicio" class="col-md-1 control-label">F. Servicio</label>
                                         <div class="form-group col-md-2">
-                                            <label for="orden_fecha_servicio" class="control-label">F. Servicio</label>
                                             <input type="text" id="orden_fecha_servicio" name="orden_fecha_servicio" class="form-control input-sm datepicker" value="<%- orden_fecha_servicio %>" required>
                                         </div> 
-
+                                        
+                                        <label for="orden_hora_servicio" class="col-md-1 control-label">H. Servicio</label>
                                         <div class="form-group col-md-2">
-                                            <label for="orden_hora_servicio" class="control-label">H. Servicio</label>
                                             <div class="bootstrap-timepicker">
                                                 <div class="input-group">
                                                     <input type="text" id="orden_hora_servicio" name="orden_hora_servicio" placeholder="Fecha servicio" class="form-control input-sm timepicker" value="<%- orden_hora_servicio %>" required>
@@ -234,8 +230,8 @@
                                 <div class="box-body">
                                     <form method="POST" accept-charset="UTF-8" id="form-visitas" data-toggle="validator">
                                         <div class="row">
-                                            <div class="form-group col-md-2 col-md-offset-2">
-                                                <label for="visita_tercero" class="control-label">Tecnico</label>
+                                            <label for="visita_tercero" class="col-md-offset-1 col-md-1 control-label">Tecnico</label>
+                                            <div class="form-group col-md-3">
                                                 <div class="input-group input-group-sm">
                                                     <span class="input-group-btn">
                                                         <button type="button" class="btn btn-default btn-flat btn-koi-search-tercero-component-table" data-field="visita_tercero">
@@ -245,18 +241,19 @@
                                                     <input id="visita_tercero" placeholder="Cliente" class="form-control tercero-koi-component" name="visita_tercero" type="text" maxlength="15" data-wrapper="ordenes-create" data-type="tecnico" data-name="visita_terecero_nombre" data-contacto="btn-add-contact" value="<%- tecnico_nit%>" required>
                                                 </div>
                                             </div>
-                                            <div class="col-md-5 col-xs-10"><br>
+                                            <div class="col-md-5 col-xs-10">
                                                 <input id="visita_terecero_nombre" name="visita_terecero_nombre" placeholder="Nombre cliente" class="form-control input-sm" type="text" maxlength="15" value="<%- tecnico_nombre %>" readonly required>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="form-group col-md-2 col-md-offset-1">
-                                                <label for="visita_fecha_llegada" class="control-label">F. visita</label>
-                                                   <input type="text" id="visita_fecha_llegada" name="visita_fecha_llegada" class="form-control input-sm datepicker" placeholder="yyyy/mm/dd" required>
+                                            <label for="visita_fecha_llegada" class="col-md-1 control-label">F. visita</label>
+                                            <div class="form-group col-md-2">
+                                                <input type="text" id="visita_fecha_llegada" name="visita_fecha_llegada" class="form-control input-sm datepicker" placeholder="yyyy/mm/dd" required>
                                             </div> 
+                                            
+                                            <label for="visita_hora_llegada" class="col-md-1 control-label">H. visita</label>
                                             <div class="col-md-2">
-                                                <label for="visita_hora_llegada" class="control-label">H. visita</label>
                                                 <div class="bootstrap-timepicker">
                                                      <div class="input-group">
                                                         <input type="text" id="visita_hora_llegada" name="visita_hora_llegada" class="form-control input-sm timepicker" value="" required>
@@ -267,12 +264,13 @@
                                                 </div>
                                             </div>
                                        
-                                            <div class="form-group col-md-2 col-md-offset-1">
-                                                <label for="visita_fecha_inicio" class="control-label">F. inicio</label>
+                                            <label for="visita_fecha_inicio" class="col-md-1 control-label">F. inicio</label>
+                                            <div class="form-group col-md-2">
                                                 <input type="text" id="visita_fecha_inicio" name="visita_fecha_inicio" class="form-control input-sm datepicker" placeholder="yyyy/mm/dd" required>
                                             </div>
+                                            
+                                            <label for="visita_hora_inicio" class="col-md-1 control-label">H. inicio</label>
                                             <div class="col-md-2">
-                                                <label for="visita_hora_inicio" class="control-label">H. inicio</label>
                                                 <div class="bootstrap-timepicker">
                                                      <div class="input-group">
                                                         <input type="text" id="visita_hora_inicio" name="visita_hora_inicio" class="form-control input-sm timepicker" value="" required>
@@ -285,12 +283,13 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="form-group col-md-2 col-md-offset-1">
-                                                <label for="visita_fecha_fin" class="control-label">F. finalización</label>
+                                            <label for="visita_fecha_fin" class="col-md-1 control-label">F. finalización</label>
+                                            <div class="form-group col-md-2">
                                                 <input type="text" id="visita_fecha_fin" name="visita_fecha_fin" class="form-control input-sm datepicker" placeholder="yyyy/mm/dd" required>
                                             </div> 
+                                            
+                                            <label for="visita_hora_fin" class="col-md-1 control-label">H. finalización</label>
                                             <div class="col-md-2">
-                                                <label for="visita_hora_fin" class="control-label">H. finalización</label>
                                                 <div class="bootstrap-timepicker">
                                                      <div class="input-group">
                                                         <input type="text" id="0" name="visita_hora_fin" class="form-control input-sm timepicker" value="" required>
@@ -301,13 +300,13 @@
                                                 </div>
                                             </div>
                                         
-                                            <div class="form-group col-md-2 col-md-offset-1">                                                
-                                                <label class="control-label" for="visita_tiempo_transporte">T. Transporte</label>
+                                            <label  for="visita_tiempo_transporte" class="col-md-1 control-label">T. Transporte</label>
+                                            <div class="form-group col-md-2">                                                
                                                 <input type="number" min="0" class="form-control input-sm" id="visita_tiempo_transporte" name="visita_tiempo_transporte" value="" required="">
                                             </div>
 
+                                            <label for="visita_viaticos" class="col-md-1 control-label">Viaticos</label>
                                             <div class="form-group col-md-2">
-                                                <label class="control-label" for="visita_viaticos">Viaticos</label>
                                                 <input type="text" class="form-control input-sm" name="visita_viaticos" id="visita_viaticos" data-currency>
                                             </div>
                                         </div>

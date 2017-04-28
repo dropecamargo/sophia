@@ -83,6 +83,24 @@ class Tercero extends BaseModel implements AuthenticatableContract,
         $validator = Validator::make($data, $rules);
         if ($validator->passes())
         {
+
+            if($this->exists){
+                if(isset($data['tercero_tecnico'])) {
+                    if(empty($data['tercero_coordinador_por'])) {
+                        $this->errors = trans('validation.required', ['attribute' => 'El coordinador es requerido cuando es tecnico.']);
+                        return false;
+                    }
+                }
+
+                if( !empty($data['tercero_coordinador_por']) ) {
+                    if( !isset($data['tercero_tecnico']) ){
+                        $this->errors = trans('validation.required', ['attribute' => 'coordinador no puede ir vacio,']);
+                        return false;
+                    }
+                }
+                return true;
+            }
+
             if($data['tercero_persona'] == 'N') {
                 if(empty($data['tercero_nombre1'])) {
                     $this->errors = trans('validation.required', ['attribute' => '1er. Nombre']);

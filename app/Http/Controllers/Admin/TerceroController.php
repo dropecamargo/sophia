@@ -21,7 +21,6 @@ class TerceroController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-
             $query = Tercero::query();
             $query->select('id', 'tercero_nit', 'tercero_razonsocial', 'tercero_nombre1', 'tercero_nombre2', 'tercero_apellido1', 'tercero_apellido2',
                 DB::raw("(CASE WHEN tercero_persona = 'N'
@@ -108,7 +107,6 @@ class TerceroController extends Controller
 
                     // Commit Transaction
                     DB::commit();
-                    
                     return response()->json(['success' => true, 'id' => $tercero->id]);
                 }catch(\Exception $e){
                     DB::rollback();
@@ -159,7 +157,6 @@ class TerceroController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $tercero = Tercero::findOrFail($id);
             if ($tercero->isValid($data)) {
                 DB::beginTransaction();

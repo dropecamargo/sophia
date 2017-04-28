@@ -21,7 +21,6 @@ class ContactoController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-
             if($request->has('tercero_id')) {
                 // Collection
                 $query = Contacto::query();
@@ -29,7 +28,6 @@ class ContactoController extends Controller
                 $query->where('tcontacto_tercero', $request->tercero_id);
                 $contacts = $query->get();
                 return response()->json($contacts);
-
             }else{
                 // Search datatables
                 $query = Contacto::query();
@@ -80,7 +78,6 @@ class ContactoController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $contacto = new Contacto;
             if ($contacto->isValid($data)) {
                 DB::beginTransaction();
@@ -96,7 +93,6 @@ class ContactoController extends Controller
                     $contacto->fill($data);
                     $contacto->tcontacto_tercero = $tercero->id;
                     $contacto->save();
-
 
                     // Commit Transaction
                     DB::commit();
@@ -148,7 +144,6 @@ class ContactoController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $contacto = Contacto::findOrFail($id);
             if ($contacto->isValid($data)) {
                 DB::beginTransaction();

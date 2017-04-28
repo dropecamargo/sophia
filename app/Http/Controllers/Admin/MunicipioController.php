@@ -21,15 +21,11 @@ class MunicipioController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-
             $query = Municipio::query();
             $query->select('departamento.departamento_codigo', 'municipio_codigo', 'municipio_nombre', 'departamento_nombre', 'departamento.id as departamento_id');
             $query->join('departamento', 'municipio.departamento_codigo', '=', 'departamento.departamento_codigo');
-            
             return Datatables::of($query)->make(true);
-
         }
-
         return view('admin.municipios.index');
     }
 

@@ -48,7 +48,6 @@ class SucursalController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $sucursal = new Sucursal;
             if ($sucursal->isValid($data)) {
                 DB::beginTransaction();
@@ -57,11 +56,10 @@ class SucursalController extends Controller
                     $sucursal->fill($data);
                     $sucursal->save();
 
-                    // Commit Transaction
-                    DB::commit();
                     // Forget cache
                     Cache::forget( Sucursal::$key_cache );
-
+                    // Commit Transaction
+                    DB::commit();
                     return response()->json(['success' => true, 'id' => $sucursal->id]);
                 }catch(\Exception $e){
                     DB::rollback();
@@ -121,11 +119,10 @@ class SucursalController extends Controller
                     $sucursal->fill($data);
                     $sucursal->save();
 
+                    // Forget cache
+                    Cache::forget( Sucursal::$key_cache );
                     // Commit Transaction
                     DB::commit();
-                    // Forget cache
-                    //Cache::forget( Sucursal::$key_cache );
-
                     return response()->json(['success' => true, 'id' => $sucursal->id]);
                 }catch(\Exception $e){
                     DB::rollback();

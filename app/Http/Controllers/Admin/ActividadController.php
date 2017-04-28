@@ -46,7 +46,6 @@ class ActividadController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $actividad = new Actividad;
             if ($actividad->isValid($data)) {
                 DB::beginTransaction();
@@ -55,11 +54,10 @@ class ActividadController extends Controller
                     $actividad->fill($data);
                     $actividad->save();
 
-                    // Commit Transaction
-                    DB::commit();
                     //Forget cache
                     Cache::forget( Actividad::$key_cache );
-
+                    // Commit Transaction
+                    DB::commit();
                     return response()->json(['success' => true, 'id' => $actividad->id]);
                 }catch(\Exception $e){
                     DB::rollback();
@@ -110,7 +108,6 @@ class ActividadController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $actividad = Actividad::findOrFail($id);
             if ($actividad->isValid($data)) {
                 DB::beginTransaction();
@@ -121,7 +118,6 @@ class ActividadController extends Controller
 
                     // Commit Transaction
                     DB::commit();
-
                     return response()->json(['success' => true, 'id' => $actividad->id]);
                 }catch(\Exception $e){
                     DB::rollback();

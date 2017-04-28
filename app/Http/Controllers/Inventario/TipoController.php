@@ -47,7 +47,6 @@ class TipoController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $tipo = new Tipo;
             if ($tipo->isValid($data)) {
                 DB::beginTransaction();
@@ -57,11 +56,10 @@ class TipoController extends Controller
                     $tipo->fillBoolean($data);
                     $tipo->save();
 
-                    // Commit Transaction
-                    DB::commit();
                     //Forget cache
                     Cache::forget( Tipo::$key_cache );
-
+                    // Commit Transaction
+                    DB::commit();
                     return response()->json(['success' => true, 'id' => $tipo->id]);
                 }catch(\Exception $e){
                     DB::rollback();
@@ -120,9 +118,9 @@ class TipoController extends Controller
                     $tipo->fill($data);
                     $tipo->fillBoolean($data);
                     $tipo->save();
+                    
                     // Commit Transaction
                     DB::commit();
-                    
                     return response()->json(['success' => true, 'id' => $tipo->id]);
                 }catch(\Exception $e){
                     DB::rollback();

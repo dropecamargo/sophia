@@ -47,7 +47,6 @@ class EstadoController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $estado = new Estado;
             if ($estado->isValid($data)) {
                 DB::beginTransaction();
@@ -57,11 +56,10 @@ class EstadoController extends Controller
                     $estado->fillBoolean($data);
                     $estado->save();
 
-                    // Commit Transaction
-                    DB::commit();
                     //Forget cache
                     Cache::forget( Estado::$key_cache );
-
+                    // Commit Transaction
+                    DB::commit();
                     return response()->json(['success' => true, 'id' => $estado->id]);
                 }catch(\Exception $e){
                     DB::rollback();
@@ -120,9 +118,9 @@ class EstadoController extends Controller
                     $estado->fill($data);
                     $estado->fillBoolean($data);
                     $estado->save();
+                    
                     // Commit Transaction
                     DB::commit();
-                    
                     return response()->json(['success' => true, 'id' => $estado->id]);
                 }catch(\Exception $e){
                     DB::rollback();

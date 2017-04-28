@@ -47,7 +47,6 @@ class ZonaController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
-
             $zona = new Zona;
             if ($zona->isValid($data)) {
                 DB::beginTransaction();
@@ -60,8 +59,7 @@ class ZonaController extends Controller
                     // Commit Transaction
                     DB::commit();
                     //Forget Cache
-                     Cache::forget( Zona::$key_cache );
-
+                    Cache::forget( Zona::$key_cache );
                     return response()->json(['success' => true, 'id' => $zona->id]);
                 }catch(\Exception $e){
                     DB::rollback();

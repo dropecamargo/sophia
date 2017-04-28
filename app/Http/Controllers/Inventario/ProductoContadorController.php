@@ -80,7 +80,6 @@ class ProductoContadorController extends Controller
 
                     // Commit Transaction
                     DB::commit();
-                   
                     return response()->json(['success' => true, 'id' => $pcontador->id, 'productocontador_producto'=>$pcontador->productocontador_producto, 'contador_nombre'=>$contador->contador_nombre , 'producto_nombre'=>$pp->producto_nombre]);
                 }catch(\Exception $e){
                     DB::rollback();
@@ -138,7 +137,6 @@ class ProductoContadorController extends Controller
         if ($request->ajax()) {
             DB::beginTransaction();
             try {
-
                 $pcontador = ProductoContador::find($id);
                 $contador = Contador::$ctr_machines;
                 
@@ -156,7 +154,6 @@ class ProductoContadorController extends Controller
            
                 DB::commit();
                 return response()->json(['success' => true]);
-
             }catch(\Exception $e){
                 DB::rollback();
                 Log::error(sprintf('%s -> %s: %s', 'ProductoContadorController', 'destroy', $e->getMessage()));
