@@ -71,7 +71,8 @@ class Tercero extends BaseModel implements AuthenticatableContract,
             'tercero_persona' => 'required',
             'tercero_direccion' => 'required',
             'tercero_municipio' => 'required',
-            'tercero_actividad' => 'required'
+            'tercero_actividad' => 'required',
+            'tercero_email' => 'confirmed',
         ];
 
         if ($this->exists){
@@ -83,12 +84,16 @@ class Tercero extends BaseModel implements AuthenticatableContract,
         $validator = Validator::make($data, $rules);
         if ($validator->passes())
         {
-
             if($this->exists){
                 if(isset($data['tercero_tecnico'])) {
                     if(empty($data['tercero_coordinador_por'])) {
-                        $this->errors = trans('validation.required', ['attribute' => 'El coordinador es requerido cuando es tecnico.']);
+                        $this->errors = trans('validation.required', ['attribute' => 'coordinador por es requerido cuando es tecnico,']);
                         return false;
+                    }
+
+                    if(empty($data['tercero_zona'])){
+                        $this->errors = trans('validation.required', ['attribute' => 'zona es requerido cuando es tecnico,']);
+                        return false;   
                     }
                 }
 
@@ -98,7 +103,6 @@ class Tercero extends BaseModel implements AuthenticatableContract,
                         return false;
                     }
                 }
-                return true;
             }
 
             if($data['tercero_persona'] == 'N') {
@@ -116,6 +120,7 @@ class Tercero extends BaseModel implements AuthenticatableContract,
                     return false;
                 }
             }
+
             return true;
         }
         $this->errors = $validator->errors();

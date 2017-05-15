@@ -33,7 +33,9 @@ app || (app = {});
             'contador_nombre': '',
             'tipo_codigo': '',
             'producto_costo_promedio': '',
-            'producto_ultimo_costo': ''
+            'producto_ultimo_costo': '',
+            'modelo_nombre_producto': '',
+            'modelo_referencia_producto': ''
         }
     });
 

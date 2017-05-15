@@ -41,17 +41,12 @@ class Modelo extends BaseModel
      */
     protected $boolean = ['modelo_activo'];
 
-    /**
-    * The attributes nulleables from the model.
-    *
-    * @var array
-    */
-    protected $nullable = ['producto_referencia','producto_nombre','producto_marca'];
-
     public function isValid($data)
     {
         $rules = [
             'modelo_nombre' => 'required|max:200',
+            'producto_nombre' => 'required|max:100',
+            'producto_referencia' => 'required|max:20',
         ];
 
         $validator = Validator::make($data, $rules);
@@ -77,5 +72,14 @@ class Modelo extends BaseModel
             $collection->prepend('', '');
             return $collection;
         });
+    }
+
+    public static function getModel($id)
+    {
+        $query = Modelo::where('modelo.id' ,$id);
+        $query->Leftjoin('marca','modelo.producto_marca','=','marca.id');
+        $query->select('modelo.*','marca_modelo');
+         
+        return $query->first();
     }
 }

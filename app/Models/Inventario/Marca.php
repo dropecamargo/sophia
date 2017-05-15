@@ -3,7 +3,7 @@
 namespace App\Models\Inventario;
 
 use Illuminate\Database\Eloquent\Model;
-use Validator,Cache;
+use Validator,Cache, DB;
 use App\Models\BaseModel;
 
 class Marca extends BaseModel
@@ -62,5 +62,17 @@ class Marca extends BaseModel
             $collection->prepend('', '');
             return $collection;
         });
+    }
+
+    public static function getModels()
+    {
+        $query = Marca::query();
+        $query->where('marca_activo', true);
+        $query->whereIn('marca.id', DB::table('modelo')->select('producto_marca')->distinct());
+        $query->orderBy('marca_modelo', 'asc');
+        $collection = $query->lists('marca_modelo', 'marca.id');
+
+        $collection->prepend('', '');
+        return $collection;
     }
 }

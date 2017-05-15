@@ -40,7 +40,6 @@ app || (app = {});
         * Event Create Folder
         */
         onStore: function (e) {
-
             if (!e.isDefaultPrevented()) {
 
                 e.preventDefault();
@@ -95,6 +94,12 @@ app || (app = {});
                 if( !resp.success ) {
                     alertify.error(text);
                     return;
+                }
+
+                // CreateTerceroView undelegateEvents
+                if ( this.createMarcaView instanceof Backbone.View ){
+                    this.createMarcaView.stopListening();
+                    this.createMarcaView.undelegateEvents();
                 }
 
                 window.Misc.redirect( window.Misc.urlFull( Route.route('marcas.index')) );

@@ -21,7 +21,9 @@ app || (app = {});
             'submit #form-producto': 'onStore',
             'submit #form-item-sirvea': 'onStoreItem',
             'submit #form-item-productocontador': 'onStorePcontador',
-            'change .select-tipo': 'changeTipo'
+            'change .change-marca': 'changeMarca',
+            'change .change-modelo': 'changeModelo',
+            'change .change-tipo': 'changeTipo'
         },
         parameters: {
         },
@@ -70,6 +72,9 @@ app || (app = {});
             if( dato == 'EQ'){
                 var attributes = this.model.toJSON();
                 this.$wrapper.html( this.templateEq(attributes) );
+                this.$modelo = this.$('#producto_modelo');
+                this.$prodNombre = this.$('#producto_nombre');
+                this.$prodReferencia = this.$('#producto_referencia');
                 this.ready();
             }else if ( dato == 'AC'){
                 var attributes = this.model.toJSON();
@@ -122,6 +127,59 @@ app || (app = {});
             this.validarTipo(this.model.get('tipo_codigo'));
             this.$('#producto_tipo').attr('disabled', true);
             
+        },
+
+        changeMarca: function (e){
+            var _this = this;
+            var marca = this.$(e.currentTarget).val();
+
+            $.ajax({
+                url: window.Misc.urlFull( Route.route('modelos.index', {marca: marca}) ),
+                type: 'GET',
+                beforeSend: function() {
+                    window.Misc.setSpinner( _this.el );
+                }
+            })
+            .done(function(resp) {
+                window.Misc.removeSpinner( _this.el );
+                _this.$modelo.empty().val(0);
+
+                _this.$prodNombre.val('');
+                _this.$prodReferencia.val('');
+
+                _this.$modelo.append("<option value=></option>");
+                _.each(resp.data, function(item){
+                    _this.$modelo.append("<option value="+item.id+">"+item.modelo_nombre+"</option>");
+                });
+
+            })
+            .fail(function(jqXHR, ajaxOptions, thrownError) {
+                window.Misc.removeSpinner( _this.el );
+                alertify.error(thrownError);
+            }); 
+        },
+
+        changeModelo:function (e){
+            var _this = this;
+            var modelo = this.$(e.currentTarget).val();
+
+            $.ajax({
+                url: window.Misc.urlFull( Route.route('modelos.show', {modelos: modelo}) ),
+                type: 'GET',
+                beforeSend: function() {
+                    window.Misc.setSpinner( _this.el );
+                }
+            })
+            .done(function(resp) {
+                window.Misc.removeSpinner( _this.el );
+           
+                _this.$prodNombre.val(resp.producto_nombre);
+                _this.$prodReferencia.val(resp.producto_referencia);
+            })
+            .fail(function(jqXHR, ajaxOptions, thrownError) {
+                window.Misc.removeSpinner( _this.el );
+                alertify.error(thrownError);
+            }); 
         },
 
         changeTipo: function (e){

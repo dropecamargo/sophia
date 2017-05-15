@@ -70,7 +70,7 @@ class Producto extends BaseModel
     public static function getProducto($id)
     {
         $query = Producto::query();
-        $query->select('producto.*','tercero_nit', 'marca_modelo', 'modelo_nombre', 'tipo_nombre','tipo_codigo', 'estado_nombre',DB::raw("CONCAT(tercero_nombre1, ' ', tercero_nombre2, ' ', tercero_apellido1, ' ', tercero_apellido2) as tercero_nombre"));
+        $query->select('producto.*','tercero_nit', 'marca_modelo', 'modelo_nombre','modelo.producto_nombre as modelo_nombre_producto','modelo.producto_referencia as modelo_referencia_producto','tipo_nombre','tipo_codigo', 'estado_nombre',DB::raw("CONCAT(tercero_nombre1, ' ', tercero_nombre2, ' ', tercero_apellido1, ' ', tercero_apellido2) as tercero_nombre"));
         $query->Leftjoin('marca', 'producto.producto_marca', '=', 'marca.id');
         $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
         $query->Leftjoin('modelo', 'producto.producto_modelo', '=', 'modelo.id');

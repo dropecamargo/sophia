@@ -17,6 +17,9 @@ app || (app = {});
        	idAttribute: 'id',
         defaults: {
             'modelo_nombre': '',
+            'producto_nombre': '',
+            'producto_referencia': '',
+            'producto_marca': '',
             'modelo_activo': true
         }
     });

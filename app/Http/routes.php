@@ -75,7 +75,7 @@ Route::group(['middleware' => 'auth'], function()
 	{
 		Route::get('search', ['as' => 'modelos.search', 'uses' => 'Inventario\ModeloController@search']);
 	});
-	
+
 	Route::resource('modelos','Inventario\ModeloController', ['except' => ['destroy']]);
 	Route::resource('marcas', 'Inventario\MarcaController', ['except' => ['destroy']]);
 	Route::resource('tipos', 'Inventario\TipoController', ['except' => ['destroy']]);

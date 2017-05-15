@@ -19,6 +19,7 @@ app || (app = {});
             'submit #form-changed-password': 'onStorePassword',
             'ifChanged .change_employee': 'changedEmployee',
             'ifChanged #tercero_tecnico': 'changedTechnical',
+            'ifChanged #tercero_coordinador': 'changedCoordinador',
             'click .btn-add-tcontacto': 'addContacto'
         },
 
@@ -154,6 +155,19 @@ app || (app = {});
             }
         },
 
+        changedCoordinador: function(e){
+            var selected = $(e.target).is(':checked');
+            var nombre = this.model.get('tercero_nombre1')+' '+this.model.get('tercero_nombre2')+' '+this.model.get('tercero_apellido1')+' '+this.model.get('tercero_apellido2');
+            var select = [{id: this.model.get('id') , text: nombre}];
+
+            if( selected ) {
+                this.$coordinador_por.select2({ data: select }).trigger('change');
+                this.$coordinador_por.select2({ language: 'es', placeholder: 'Seleccione', allowClear: false });
+            }else{
+                this.$coordinador_por.find('option[value='+this.model.get('id')+']').remove();
+            }
+        },
+
         changedEmployee: function(e) {
             // Active if internal or employee
             if( this.$checkInternal.is(':checked') || this.$checkEmployee.is(':checked') ) {
@@ -226,6 +240,9 @@ app || (app = {});
 
             if( typeof window.initComponent.initValidator == 'function' )
                 window.initComponent.initValidator();
+
+            if( typeof window.initComponent.initDisabledPaste == 'function' )
+                window.initComponent.initDisabledPaste();
         },
 
         /**

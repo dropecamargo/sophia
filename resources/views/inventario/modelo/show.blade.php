@@ -19,46 +19,29 @@
                     <label class="control-label">Nombre</label>
                     <div>{{ $modelo->modelo_nombre }}</div>
                 </div>
-
-                @if(!$modelo->producto_referencia)
-                    <div class="form-group col-md-2 col-sm-6 col-xs-6"><br>
-                        <label class="checkbox-inline" for="modelo_activo">
-                        <input type="checkbox" id="modelo_activo" name="modelo_activo" value="modelo_activo" disabled {{ $modelo->modelo_activo ? 'checked': '' }}><b>Activo</b></label>
-                    </div>
-                @endif
-
-                @if($modelo->producto_referencia)
-                    <div class="form-group col-md-4 col-sm-6 col-xs-6">
-                        <label class="control-label">Producto referencia</label>
-                        <div>{{ $modelo->producto_referencia }}</div>
-                    </div>
-                @endif
+                <div class="form-group col-md-4 col-sm-6 col-xs-6">
+                    <label class="control-label">Producto referencia</label>
+                    <div>{{ $modelo->producto_referencia }}</div>
+                </div>
             </div>
 
             <div class="row">
-                @if($modelo->producto_nombre)
-                    <div class="form-group col-md-4 col-sm-6 col-xs-6">
-                        <label class="control-label">Producto nombre</label>
-                        <div>{{ $modelo->producto_nombre }}</div>
-                    </div>
-                @endif
-
-                @if($modelo->producto_marca)
-                    <div class="form-group col-md-4 col-sm-6 col-xs-6">
-                        <label class="control-label">Producto marca</label>
-                        <div><a href=" {{ route('marcas.show', ['marca' => $modelo->producto_marca])}}">{{ $modelo->marca_modelo }}</a></div>
-                    </div>
-                @endif
-            </div>
-
-            @if($modelo->producto_referencia)
-                <div class="row">
-                    <div class="form-group col-md-2 col-sm-6 col-xs-6"><br>
-                        <label class="checkbox-inline" for="modelo_activo">
-                        <input type="checkbox" id="modelo_activo" name="modelo_activo" value="modelo_activo" disabled {{ $modelo->modelo_activo ? 'checked': '' }}><b>Activo</b></label>
+                <div class="form-group col-md-4 col-sm-6 col-xs-6">
+                    <label class="control-label">Producto nombre</label>
+                    <div>{{ $modelo->producto_nombre }}</div>
+                </div>
+                <div class="form-group col-md-4 col-sm-6 col-xs-6">
+                    <label class="control-label">Producto marca</label>
+                    <div>
+                        <a href=" {{ route('marcas.show', ['marca' => $modelo->producto_marca])}}">{{ $modelo->marca_modelo }}</a>
                     </div>
                 </div>
-            @endif
+
+                <div class="form-group col-md-2 col-sm-6 col-xs-6"><br>
+                    <label class="checkbox-inline" for="modelo_activo">
+                    <input type="checkbox" id="modelo_activo" name="modelo_activo" value="modelo_activo" disabled {{ $modelo->modelo_activo ? 'checked': '' }}><b>Activo</b></label>
+                </div>
+            </div>
         </div>
 
         <div class="box-footer with-footer">

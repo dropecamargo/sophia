@@ -171,8 +171,14 @@
 
 			<div class="form-group col-md-3">
 				<label for="tercero_email" class="control-label">Email</label>
-				<input id="tercero_email" value="<%- tercero_email %>" placeholder="Email" class="form-control input-sm" name="tercero_email" type="email">
-			    <div class="help-block with-errors"></div>
+				<input type="email" name="tercero_email" id="tercero_email" placeholder="Email" class="form-control input-sm" value="<%- tercero_email %>">
+				<div class="help-block with-errors"></div>
+			</div>
+
+			<div class="form-group col-md-3">
+				<label for="email_confirmation" class="control-label">Verificar Email</label>
+				<input type="email" name="tercero_email_confirmation" id="tercero_email_confirmation" class="form-control input-sm input-dp" data-match="#tercero_email" placeholder="Confirmar email" data-match-error="Oops, el email no coincide">
+				<div class="help-block with-errors"></div>
 			</div>
 	    </div>
 
@@ -573,7 +579,7 @@
 </script>
 
 <script type="text/template" id="add-actividad-tpl">
-    <div class="row">
+    <data></data>iv class="row">
 		<div class="form-group col-md-2">
 			<label for="actividad_codigo" class="control-label">Código</label>
 			<input type="text" id="actividad_codigo" name="actividad_codigo" value="<%- actividad_codigo %>" placeholder="Código" class="form-control input-sm input-toupper" maxlength="11" required>
@@ -617,6 +623,28 @@
 			<label for="modelo_nombre" class="control-label">Nombre</label>
 			<input type="text" id="modelo_nombre" name="modelo_nombre" value="<%- modelo_nombre %>" placeholder="Modelo" class="form-control input-sm input-toupper" maxlength="200" required>
 		</div>
+	</div>
+	<div class="row">
+		<div class="form-group col-md-6">
+			<label for="producto_nombre" class="control-label">Producto nombre</label>
+			<input type="text" id="producto_nombre" name="producto_nombre" value="<%- producto_nombre %>" placeholder="Nombre" class="form-control input-sm input-toupper" maxlength="100" required>
+		</div>
+		<div class="form-group col-md-2">
+			<label for="producto_referencia" class="control-label">Producto referencia</label>
+			<input type="text" id="producto_referencia" name="producto_referencia" value="<%- producto_referencia %>" placeholder="Referencia" class="form-control input-sm input-toupper" maxlength="20" required>
+		</div>
+	</div>	
+
+	<div class="row">
+		<div class="form-group col-md-3 col-sm-5 col-xs-10">
+        <label for="producto_marca" class="control-label">Marca</label>
+            <select name="producto_marca" id="producto_marca" class="form-control select2-default" required>
+                <option value="" selected>Seleccione</option>
+                @foreach( App\Models\Inventario\Marca::getMarcas() as $key => $value)
+                    <option value="{{ $key }}" <%- producto_marca == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
+                @endforeach
+            </select>
+        </div>
 		<div class="form-group col-md-2 col-xs-8 col-sm-3">
 			<br><label class="checkbox-inline" for="modelo_activo">
 				<input type="checkbox" id="modelo_activo" name="modelo_activo" value="modelo_activo" <%- modelo_activo ? 'checked': ''%>> Activo

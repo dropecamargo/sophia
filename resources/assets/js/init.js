@@ -41,6 +41,7 @@ var app = app || {};
             this.initInputMask();
             this.initDatePicker();
             this.initTimePicker();
+            this.initDisabledPaste();
         },
 
         /**
@@ -184,6 +185,15 @@ var app = app || {};
                 autoclose: true,
                 language: 'es',
                 format: 'yyyy-mm-dd'
+            });
+        },
+
+        /**
+        * Init DisabledPaste
+        */
+        initDisabledPaste: function(){
+            $('.input-dp').bind("cut copy paste",function(e) {
+                e.preventDefault();
             });
         },
 

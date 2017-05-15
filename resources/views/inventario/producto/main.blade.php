@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="form-group col-md-3 col-sm-6 col-xs-12">
                 <label for="producto_tipo" class="control-label">Tipo</label>
-                    <select name="producto_tipo" id="producto_tipo" class="form-control select-tipo">
+                    <select name="producto_tipo" id="producto_tipo" class="form-control change-tipo">
                         <option value="">Seleccione</option>
                         @foreach( App\Models\Inventario\Tipo::getTipos() as $key => $value)
                             <option value="{{ $key }}" <%- producto_tipo == '{{ $key }}' ? 'selected': ''%>>{{ $value }}</option>
@@ -171,67 +171,47 @@
 
 <script type="text/template" id="tipo-eq-tpl">
     <div class="row">
-        <div class="form-group col-md-9 col-sm-12 col-xs-12">
-            <label for="producto_nombre" class="control-label">Nombre</label>
-            <input type="text" id="producto_nombre" name="producto_nombre" value="<%- producto_nombre %>" placeholder="Nombre Producto" class="form-control input-sm input-toupper" maxlength="100" required>
-        </div>
-    </div>
-
-    <div class="row">
         <div class="form-group col-md-3 col-sm-4 col-xs-12">
             <label for="producto_placa" class="control-label">Placa</label>
             <input type="text" id="producto_placa" min="1" maxlength="4" name="producto_placa" value="<%- producto_placa %>" placeholder="Placa" class="form-control input-sm" required data-currency-text>
         </div>
-
-        <div class="form-group col-md-3 col-sm-4 col-xs-12">
-            <label for="producto_serie" class="control-label">Serie</label>
-            <input type="text" id="producto_serie" name="producto_serie" value="<%- producto_serie %>" placeholder="Serie" class="form-control input-sm input-toupper" maxlength="20" required>
-        </div>
-
-        <div class="form-group col-md-3 col-sm-4 col-xs-12">
-            <label for="producto_referencia" class="control-label">Referencia de proveedor</label>
-            <input type="text" id="producto_referencia" name="producto_referencia" value="<%- producto_referencia %>" placeholder="Referencia" class="form-control input-sm input-toupper" maxlength="20" required>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group col-md-3 col-sm-5 col-xs-12">
-            <label for="producto_codigo" class="control-label">Codigo contable</label>
-            <input type="text" id="producto_codigo" name="producto_codigo" value="<%- producto_codigo %>" placeholder="Codigo" class="form-control input-sm input-toupper" maxlength="20" required>
-        </div>
-        
-        <div class="form-group col-sm-offset-1 col-md-3 col-sm-5 col-xs-10">
-            <label for="producto_modelo" class="control-label">Modelo</label>
-            <select name="producto_modelo" id="producto_modelo" class="form-control select2-default" required>
-                <option value="" selected>Seleccione</option>
-                @foreach( App\Models\Inventario\Modelo::getModelos() as $key => $value)
-                    <option value="{{ $key }}" <%- producto_modelo == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="form-group col-md-1 col-sm-1 col-xs-1">
-        <br>
-            <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="modelo" data-field="producto_modelo" > <i class="fa fa-plus"></i></button>
-        </div>
-    </div>
-
-    <div class="row">
         <div class="form-group col-md-3 col-sm-5 col-xs-10">
         <label for="producto_marca" class="control-label">Marca</label>
-            <select name="producto_marca" id="producto_marca" class="form-control select2-default" required>
+            <select name="producto_marca" id="producto_marca" class="form-control select2-default change-marca" required>
                 <option value="" selected>Seleccione</option>
-                @foreach( App\Models\Inventario\Marca::getMarcas() as $key => $value)
+                @foreach( App\Models\Inventario\Marca::getModels() as $key => $value)
                     <option value="{{ $key }}" <%- producto_marca == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
                 @endforeach
             </select>
         </div>
-        <div class="form-group col-md-1 col-sm-1 col-xs-1">
-        <br>
-            <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="marca" data-field="producto_marca">
-                <i class="fa fa-plus"></i>
-            </button>
+        <div class="form-group col-md-3 col-sm-5 col-xs-10">
+            <label for="producto_modelo" class="control-label">Modelo</label>
+            <select name="producto_modelo" id="producto_modelo" class="form-control select2-default change-modelo" required>
+                <option value="<%- producto_modelo %>"><%- typeof(id) !== 'undefined' && !_.isUndefined(id) && !_.isNull(id) && id != '' ? modelo_nombre : '' %></option>
+            </select>
         </div>
+    </div>
 
+    <div class="row">
+        <div class="form-group col-md-6 col-sm-12 col-xs-12">
+            <label for="producto_nombre" class="control-label">Nombre</label>
+            <input type="text" id="producto_nombre" name="producto_nombre" value="<%- modelo_nombre_producto %>" placeholder="Nombre Producto" class="form-control input-sm input-toupper" maxlength="100" required readonly>
+        </div>
+        <div class="form-group col-md-3 col-sm-4 col-xs-12">
+            <label for="producto_referencia" class="control-label">Referencia de proveedor</label>
+            <input type="text" id="producto_referencia" name="producto_referencia" value="<%- modelo_referencia_producto %>" placeholder="Referencia" class="form-control input-sm input-toupper" maxlength="20" required readonly>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-3 col-sm-4 col-xs-12">
+            <label for="producto_serie" class="control-label">Serie</label>
+            <input type="text" id="producto_serie" name="producto_serie" value="<%- producto_serie %>" placeholder="Serie" class="form-control input-sm input-toupper" maxlength="20" required>
+        </div>  
+        <div class="form-group col-md-3 col-sm-5 col-xs-12">
+            <label for="producto_codigo" class="control-label">Codigo contable</label>
+            <input type="text" id="producto_codigo" name="producto_codigo" value="<%- producto_codigo %>" placeholder="Codigo" class="form-control input-sm input-toupper" maxlength="20" required>
+        </div>
         <div class="form-group col-md-3 col-sm-5 col-xs-10">
             <label for="producto_estado" class="control-label">Estado</label>
             <select name="producto_estado" id="producto_estado" class="form-control select2-default" required>
@@ -245,7 +225,7 @@
         <br>
             <button type="button" class="btn btn-default btn-flat btn-sm btn-add-resource-koi-component" data-resource="estado" data-field="producto_estado"> <i class="fa fa-plus"></i></button>
         </div>
-    </div>
+    </div>        
 
     <div class="row">
         <div class="form-group col-md-2 col-sm-4 col-xs-5">

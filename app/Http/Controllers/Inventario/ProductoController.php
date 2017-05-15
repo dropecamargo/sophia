@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 use DB, Log, Datatables, Cache;
 use App\Models\Inventario\Producto, App\Models\Inventario\Contador, App\Models\Inventario\ProductoContador;
-use App\Models\Inventario\Marca, App\Models\Inventario\Modelo, App\Models\Inventario\Tipo;
+use App\Models\Inventario\Marca, App\Models\Inventario\Tipo, App\Models\Inventario\Modelo;
 use App\Models\Base\Tercero , App\Models\Base\Estado;
 use App\Models\Tecnico\AsignacionDetalle;
 use App\Models\Tecnico\Asignacion;
@@ -88,7 +88,7 @@ class ProductoController extends Controller
                             if($tipo instanceof Tipo){
                                 $query->where('producto_tipo',$tipo->id); 
                             }
-                            
+                                
                             if($tipo->tipo_codigo == 'EQ'){
                                 $query->whereNull('producto_contrato')->whereNull('producto_tercero');
                                 $query->orWhere('producto_tercero', $tercero->id)->where('producto_contrato', $request->contrato);
@@ -146,6 +146,30 @@ class ProductoController extends Controller
                         $producto->producto_proveedor = $tercero->id;
                     }
 
+                    // Validar Modelo insertado corresponda a la marca
+                    if(!empty($request->producto_modelo)){
+                        $modelo = Modelo::find($request->producto_modelo);
+                        if(!$modelo instanceof Modelo){
+                            DB::rollback();
+                            return response()->json(['success'=>false, 'errors'=>'No es posible recuperar el modelo, por favor verifique la información o consulte al administrador.']);
+                        }
+
+                        if($modelo->producto_nombre != $request->producto_nombre){
+                            DB::rollback();
+                            return response()->json(['success'=>false, 'errors'=>'El nombre no corresponde a ese modelo, por favor verifique la información o consulte al administrador.']);
+                        }
+
+                        if($modelo->producto_referencia != $request->producto_referencia){
+                            DB::rollback();
+                            return response()->json(['success'=>false, 'errors'=>'La referencia no corresponde a ese modelo, por favor verifique la información o consulte al administrador.']);
+                        }
+
+                        if($modelo->producto_marca != $request->producto_marca){
+                            DB::rollback();
+                            return response()->json(['success'=>false, 'errors'=>'El modelo no corresponde a esa marca, por favor verifique la información o consulte al administrador.']);
+                        }
+                    }
+
                     $producto->fill($data);
 
                     // Validar producto
@@ -157,18 +181,6 @@ class ProductoController extends Controller
                     $producto->save();
 
                     if(in_array($producto->tipo->tipo_codigo, ['EQ'])) {
-                        // actualizar modelo
-                        $modelo = Modelo::find($request->producto_modelo);
-                        if(!$modelo instanceof Modelo) {
-                            DB::rollback();
-                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar modelo, por favor verifique la información o consulte al administrador.']);
-                        }
-
-                        $modelo->producto_referencia = $request->producto_referencia;
-                        $modelo->producto_nombre = $request->producto_nombre;
-                        $modelo->producto_marca = $request->producto_marca;
-                        $modelo->save();
-
                         $contador = Contador::find(Contador::$ctr_machines);
                         if(!$contador instanceof Contador) {
                             DB::rollback();
@@ -222,7 +234,7 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        $producto = Producto::findOrFail($id);
+        $producto = Producto::getProducto($id);
         return view('inventario.producto.edit', ['producto' => $producto]);
     }
 
@@ -250,6 +262,30 @@ class ProductoController extends Controller
                         $producto->producto_proveedor = $tercero->id;
                     }
 
+                    // Validar Modelo insertado corresponda a la marca
+                    if(!empty($request->producto_modelo)){
+                        $modelo = Modelo::find($request->producto_modelo);
+                        if(!$modelo instanceof Modelo){
+                            DB::rollback();
+                            return response()->json(['success'=>false, 'errors'=>'No es posible recuperar el modelo, por favor verifique la información o consulte al administrador.']);
+                        }
+
+                        if($modelo->producto_nombre != $request->producto_nombre){
+                            DB::rollback();
+                            return response()->json(['success'=>false, 'errors'=>'El nombre no corresponde a ese modelo, por favor verifique la información o consulte al administrador.']);
+                        }
+
+                        if($modelo->producto_referencia != $request->producto_referencia){
+                            DB::rollback();
+                            return response()->json(['success'=>false, 'errors'=>'La referencia no corresponde a ese modelo, por favor verifique la información o consulte al administrador.']);
+                        }
+
+                        if($modelo->producto_marca != $request->producto_marca){
+                            DB::rollback();
+                            return response()->json(['success'=>false, 'errors'=>'El modelo no corresponde a esa marca, por favor verifique la información o consulte al administrador.']);
+                        }
+                    }
+
                     // Validar que Tipo no se cambie
                     if($request->producto_tipo != $producto->producto_tipo){
                         DB::rollback();
@@ -267,18 +303,6 @@ class ProductoController extends Controller
                     
                     //Valida unico contadores
                     if(in_array($producto->tipo->tipo_codigo, ['EQ'])) {
-                        // actualizar modelo
-                        $modelo = Modelo::find($request->producto_modelo);
-                        if(!$modelo instanceof Modelo) {
-                            DB::rollback();
-                            return response()->json(['success' => false, 'errors' => 'No es posible recuperar modelo, por favor verifique la información o consulte al administrador.']);
-                        }
-
-                        $modelo->producto_referencia = $request->producto_referencia;
-                        $modelo->producto_nombre = $request->producto_nombre;
-                        $modelo->producto_marca = $request->producto_marca;
-                        $modelo->save();
-                        
                         $contador = Contador::find(Contador::$ctr_machines);
                         if(!$contador instanceof Contador) {
                             DB::rollback();
