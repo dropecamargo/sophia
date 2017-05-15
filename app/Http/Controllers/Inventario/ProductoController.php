@@ -24,7 +24,6 @@ class ProductoController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-           // dd($request->all());
             $query = Producto::query();
             $query->select('producto.id','producto_placa','producto_serie' ,'producto_nombre','tipo_codigo', 'tipo_nombre', 'producto_referencia', 'producto_tercero', 'producto_contrato');
             $query->join('tipo', 'producto.producto_tipo', '=', 'tipo.id');
