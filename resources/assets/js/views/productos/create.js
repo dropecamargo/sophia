@@ -38,6 +38,7 @@ app || (app = {});
 
             // Attributes
             this.$wraperForm = this.$('#render-form-producto');
+            this.msgSuccess = 'Producto guardado con exito!';
 
             // Model exist
             if( this.model.id != undefined ) {
@@ -288,6 +289,8 @@ app || (app = {});
                     alertify.error(text);
                     return;
                 }
+
+                alertify.success(this.msgSuccess);
 
                 // ProductoView undelegateEvents
                 if ( this.createProductoView instanceof Backbone.View ){

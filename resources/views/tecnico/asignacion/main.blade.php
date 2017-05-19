@@ -89,11 +89,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="asignacion1_municipio" class="control-label">Municipio</label>
-                        <select name="asignacion1_municipio" id="asignacion1_municipio" class="form-control select2-default" required>
-                            <option value="" selected>Seleccione</option>
-                            @foreach( App\Models\Base\Municipio::getMunicipios() as $key => $value)
-                                <option value="{{ $key }}" <%- asignacion1_municipio == '{{ $key }}' ? 'selected': ''%> >{{ $value }}</option>
-                            @endforeach
+                        <select name="asignacion1_municipio" id="asignacion1_municipio" class="form-control choice-select-autocomplete" data-ajax-url="<%- window.Misc.urlFull(Route.route('municipios.index'))%>" data-placeholder="Seleccione" placeholder="Seleccione" data-initial-value="<%- asignacion1_municipio %>">
                         </select>
                     </div>
                 </div>

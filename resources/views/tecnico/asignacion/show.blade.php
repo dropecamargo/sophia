@@ -7,13 +7,6 @@
 
 @section('module')
 	<div class="box box-danger" id="asignacion-show">
-        <div class="box-header with-border">
-            <div class="row">
-                <div class="col-md-2 col-sm-6 col-xs-6 text-left">
-                    <a href=" {{ route('asignaciones.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.comeback') }}</a>
-                </div>
-            </div>
-        </div>
         <div class="box-body">
             @if( $asignacion1->asignacion1_tipo == 'E')
                 <div class="row">
@@ -114,7 +107,6 @@
                 </div>
             @endif
         </div>
-
         <div class="box-body table-responsive">
             <table id="browse-asignacion2-list" class="table table-hover table-bordered" cellspacing="0" width="100%">
                 <tr>
@@ -123,6 +115,13 @@
                     <th>De</th>
                 </tr>
             </table>
+        </div>
+        <div class="box-footer with-border">
+            <div class="row">
+                <div class="col-md-2 col-md-offset-5 col-sm-6 col-xs-6 text-left">
+                    <a href=" {{ route('asignaciones.index') }}" class="btn btn-default btn-sm btn-block">{{ trans('app.comeback') }}</a>
+                </div>
+            </div>
         </div>
     </div>
 @stop
