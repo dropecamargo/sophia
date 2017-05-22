@@ -570,7 +570,7 @@
 </script>
 
 <script type="text/template" id="add-actividad-tpl">
-    <data></data>iv class="row">
+    <div class="row">
 		<div class="form-group col-md-2">
 			<label for="actividad_codigo" class="control-label">Código</label>
 			<input type="text" id="actividad_codigo" name="actividad_codigo" value="<%- actividad_codigo %>" placeholder="Código" class="form-control input-sm input-toupper" maxlength="11" required>
@@ -729,7 +729,7 @@
 	<div class="row">
 		<div class="form-group col-md-8">
 			<label for="prioridad_nombre" class="control-label">Nombre</label>
-			<input type="text" id="prioridad_nombre" name="prioridad_nombre" value="<%- prioridad_nombre %>" placeholder="prioridad" class="form-control input-sm input-toupper" maxlength="200" required>
+			<input type="text" id="prioridad_nombre" name="prioridad_nombre" value="<%- prioridad_nombre %>" placeholder="Prioridad" class="form-control input-sm input-toupper" maxlength="200" required>
 		</div>
 
 		<div class="form-group col-md-2 col-xs-8 col-sm-3">
