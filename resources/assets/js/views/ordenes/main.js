@@ -48,11 +48,9 @@ app || (app = {});
                 },
                 columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'orden_fecha', name: 'orden_fecha' },
+                    { data: 'orden_fecha_servicio', name: 'orden_fecha_servicio' },
+                    { data: 'orden_hora_servicio', name: 'orden_hora_servicio' },
                     { data: 'tercero_nombre', name: 'tercero_nombre' },
-                    { data: 'orden_abierta', name: 'orden_abierta' },
-
-
                 ],
                 columnDefs: [
                     {
@@ -64,15 +62,14 @@ app || (app = {});
                             return '<a href="'+ window.Misc.urlFull( Route.route('ordenes.show', {ordenes: full.id }) )  +'">' + data + '</a>';
                         }
                     },
-                    {
-                        targets: 3,
-                        width: '10%',
-                        render: function ( data, type, full, row ) {
-                            return data ? 'Si' : 'No';
-                        },
-                    }
                 ],
-               
+                fnRowCallback: function( row, data ) {
+                    if ( parseInt(data.orden_abierta) ) {
+                        $(row).css( {"color":"#00a65a"} );
+                    }else{
+                        $(row).css( {"color":"red"} );
+                    }
+                }
             });
         },
 

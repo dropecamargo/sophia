@@ -318,6 +318,9 @@ class ProductoController extends Controller
                         }
                     }
 
+                    //forget cache
+                    Cache::forget( Producto::$key_cache );
+
                     // Commit Transaction
                     DB::commit();
                     return response()->json(['success' => true, 'id' => $producto->id]);

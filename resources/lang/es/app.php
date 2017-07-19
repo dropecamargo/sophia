@@ -28,4 +28,10 @@ return [
 
     'pdf' => 'Generar PDF',
     'xls' => 'Generar XLS',
+
+    'files' => [
+        'upload' => 'Seleccionar archivo',
+        'drop' => 'Suelta los archivos aquí',
+        'retry' => 'Volver a intentar'
+    ] 
 ];

@@ -821,12 +821,17 @@ app || (app = {});
             this.ordenModel = new app.OrdenModel();
             this.ordenModel.set({'id': orden}, {'silent':true});
 
+            if ( this.editOrdenView instanceof Backbone.View ){
+                this.editOrdenView.stopListening();
+                this.editOrdenView.undelegateEvents();
+            }
+
             if ( this.createOrdenView instanceof Backbone.View ){
                 this.createOrdenView.stopListening();
                 this.createOrdenView.undelegateEvents();
             }
 
-            this.createOrdenView = new app.CreateOrdenView({ model: this.ordenModel });
+            this.editOrdenView = new app.EditOrdenView({ model: this.ordenModel });
             this.ordenModel.fetch();
         },
 

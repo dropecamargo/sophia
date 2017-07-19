@@ -30,6 +30,8 @@ app || (app = {});
             if( opts !== undefined && _.isObject(opts.parameters) )
                 this.parameters = $.extend({},this.parameters, opts.parameters);
 
+            this.$tableResp = $('#browse-orden-visitasp-list');
+
             // Events Listeners
             this.listenTo( this.collection, 'add', this.addOne );
             this.listenTo( this.collection, 'reset', this.addAll );
@@ -53,15 +55,15 @@ app || (app = {});
         * @param Object contactModel Model instance
         */
         addOne: function (visitaModel) {
-            
+            var model = this.collection.at(this.collection.length -1);
             var view = new app.VisitasItemView({
                 model: visitaModel,
                 parameters: {
-                    edit: this.parameters.edit
+                    edit: this.parameters.edit,
+                    last: model.get('id')
                 }
             });
             visitaModel.view = view;
-            
             this.$el.prepend( view.render().el );
         },
 
@@ -69,8 +71,7 @@ app || (app = {});
         * Render all view Marketplace of the collection
         */
         addAll: function () {
-            
-             this.collection.forEach( this.addOne, this );
+            this.collection.forEach( this.addOne, this );
         },
 
         storeOne: function (data) {
@@ -102,6 +103,10 @@ app || (app = {});
 
                         // Add model in collection
                         _this.collection.add(model);
+
+                        var model = _this.collection.at(_this.collection.length -2);
+                        _this.$wrappertd = _this.$el.find("#td_"+model.get('id'));
+                        _this.$wrappertd.find('a').remove();
                     }
                 },
                 error : function(model, error) {
@@ -134,6 +139,10 @@ app || (app = {});
                             }
 
                             model.view.remove();
+
+                            var model = _this.collection.at(_this.collection.length -1);
+                            _this.$wrappertd = _this.$el.find("#td_"+model.get('id'));
+                            _this.$wrappertd.html("<a class='btn btn-default btn-xs item-visita-remove' data-resource='"+ model.get('id')+"'><span><i class='fa fa-times'></i></span></a>");
                         }
                     }
                 });
@@ -153,6 +162,24 @@ app || (app = {});
         */
         responseServer: function ( target, resp, opts ) {
             window.Misc.removeSpinner( this.parameters.wrapper );
+
+            if(!_.isUndefined(resp.success)) {
+                // response success or error
+                var text = resp.success ? '' : resp.errors;
+                if( _.isObject( resp.errors ) ) {
+                    text = window.Misc.parseErrors(resp.errors);
+                }
+
+                if( !resp.success ) {
+                    alertify.error(text);
+                    return;
+                }
+
+                window.Misc.clearForm( $('#form-visitas') );
+                window.Misc.clearForm( $('#form-visitasp') );
+                window.Misc.clearForm( $('#form-contadoresp') );
+                this.$tableResp.find('tbody').html('');
+            }
         }
    });
 

@@ -20,7 +20,7 @@ app || (app = {});
         },
         parameters: {
             edit: false,
-
+            last: false
         },
 
         /**
@@ -52,10 +52,14 @@ app || (app = {});
         */
         render: function(){
             var attributes = this.model.toJSON();
-            attributes.edit = this.parameters.edit;
+                attributes.edit = this.parameters.edit;
+                attributes.last = false;
+                
+            if (this.parameters.last == this.model.get('id')) {
+                attributes.last = true;
+            }
 
             this.$el.html( this.template(attributes) );
-
             return this;
         },
 
@@ -74,8 +78,8 @@ app || (app = {});
             //fetch vistas 
             this.visitap.fetch({ reset: true, data: { visitap: this.model.get('id') } });
             this.contadoresp.fetch({ reset: true, data: { contadoresp: this.model.get('id') } });
+
             // Open modal
-           
             this.$modalInfo.modal('show');
         },
 
@@ -100,9 +104,6 @@ app || (app = {});
             });
 
             this.$wrapperContadoresp.append( view.render().el );
-
-          
-                    
         },
 
         /**

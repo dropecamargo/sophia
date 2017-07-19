@@ -107,6 +107,7 @@ Route::group(['middleware' => 'auth'], function()
 	{
 		Route::resource('visitas','Tecnico\VisitaController',['only'=>['index', 'store', 'destroy']]);
 		Route::resource('visitasp','Tecnico\VisitapController',['only'=>['index', 'store']]);
+		Route::resource('imagenes','Tecnico\OrdenImagenController',['only'=>['index', 'store', 'destroy']]);
 		Route::resource('contadoresp','Tecnico\ContadorespController',['only'=>['index']]);
 	});
 	Route::resource('contratos', 'Tecnico\ContratoController', ['except' => ['destroy']]);

@@ -22,7 +22,7 @@ class OrdenController extends Controller
     {
          if($request->ajax()){
             $query = Orden::query();
-            $query->select('orden.*',
+            $query->select('orden.*', DB::raw("SUBSTRING_INDEX(orden_fh_servicio, ' ', 1) as orden_fecha_servicio"), DB::raw("SUBSTRING_INDEX(orden_fh_servicio, ' ', -1) as orden_hora_servicio"),
                 DB::raw("
                     CONCAT(
                         (CASE WHEN tercero_persona = 'N'
@@ -169,6 +169,11 @@ class OrdenController extends Controller
         if($request->ajax()){
             return response()->json($orden);
         }
+
+        if( $orden->orden_abierta == true ) {
+            return redirect()->route('ordenes.edit', ['orden' => $orden]);
+        }
+
         return view('tecnico.orden.show',['orden' => $orden]);
     }
 
@@ -184,7 +189,12 @@ class OrdenController extends Controller
         if(!$orden instanceof Orden) {
             abort(404);
         }
-        return view('tecnico.orden.edit', ['orden' => $orden]);    
+        
+        if( $orden->orden_abierta == false ) {
+            return redirect()->route('ordenes.show', ['orden' => $orden]);
+        }
+
+        return view('tecnico.orden.create', ['orden' => $orden]);    
     }
 
     /**
@@ -238,12 +248,9 @@ class OrdenController extends Controller
                     }
 
                     // ordenes
-                    $orden->orden_fh_servicio = "$request->orden_fecha_servicio $request->orden_hora_servicio";
                     $orden->orden_placa = $producto->id;
                     $orden->orden_tercero = $tercero->id;
                     $orden->orden_tecnico = $tecnico->id;
-                    $orden->orden_usuario_elaboro = Auth::user()->id;
-                    $orden->orden_fecha_elaboro =  date('Y-m-d H:m:s');
                     $orden->save();
 
                     // Commit Transaction

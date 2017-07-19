@@ -16,11 +16,6 @@ app || (app = {});
         events: {
             'click .submit-orden': 'submitOrden',
             'submit #form-orden': 'onStore',
-            'click .submit-visitas': 'submitVisita',
-            'submit #form-visitas': 'onStoreVisita',
-            'submit #form-contadoresp': 'onStoreContadoresp',
-            'submit #form-visitasp': 'onStoreVisitap',
-            
         },
         parameters: {
         },
@@ -33,17 +28,6 @@ app || (app = {});
             if( opts !== undefined && _.isObject(opts.parameters) )
                 this.parameters = $.extend({}, this.parameters, opts.parameters);
 
-            // Attributes
-            this.msgSuccess = 'Orden guardada con exito!';
-            this.$wraperForm = this.$('#render-form-orden');
-
-            //Model Exists
-            if( this.model.id != undefined ) {
-                
-                this.visita = new app.VisitaCollection();
-                this.visitap = new app.VisitapCollection();
-                this.contadoresp = new app.ContadorespCollection(); 
-            }
             // Events
             this.listenTo( this.model, 'change', this.render );
             this.listenTo( this.model, 'sync', this.responseServer );
@@ -55,55 +39,21 @@ app || (app = {});
         */
         render: function() {
             var attributes = this.model.toJSON();
+                attributes.edit = false;
              
-            this.$wraperForm.html( this.template(attributes) );
+            this.$el.html( this.template(attributes) );
             this.$form = this.$('#form-orden');
-            this.$formvisitasp = this.$('#form-visitas');
-            this.$formcontadoresp = this.$('#form-contadoresp');
-            
-            // Model exist
-            if( this.model.id != undefined ) {
-                // Reference views
-                this.referenceViews();
-            }
+
+            // Attributes
+            this.msgSuccess = 'Orden guardada con exito!';
+
+            // Spinner
+            this.spinner = this.$('#spinner-main');
+
+            // this ready
             this.ready();
         },
 
-        referenceViews:function(){
-            this.visitasView = new app.VisitasView( {
-                collection: this.visita,
-                parameters: {
-                    edit: true,
-                    wrapper: this.$('#wrapper-visitas'),
-                    dataFilter: {
-                        'orden_id': this.model.get('id')
-                    }
-                }
-            });
-
-            this.visitaspView = new app.VisitaspView( {
-                collection: this.visitap,
-                parameters: {
-                    edit: true,
-                    wrapper: this.$('#wrapper-visitasp'),
-                    dataFilter: {
-                        'orden_id': this.model.get('id')
-                    }
-                }
-            });
-
-            this.contadorespView = new app.ContadorespView( {
-                collection: this.contadoresp,
-                parameters: {
-                    edit: true,
-                    wrapper: this.$('#wrapper-contadoresp'),
-                    dataFilter: {
-                        'producto_id': this.model.get('id_p')
-                    }
-                }
-            });
-        },
-        
         /**
         *Event Click to Button
         */
@@ -122,42 +72,6 @@ app || (app = {});
                 this.model.save( data, {patch: true, silent: true} );
             }
         },  
-
-        submitVisita:function(e){
-            this.$formvisitasp.submit();
-        },
-
-        /**
-        * Event Create visita
-        */
-        onStoreVisita: function (e) {
-            if (!e.isDefaultPrevented()) {
-                e.preventDefault();
-
-                var data = window.Misc.formToJson( e.target );
-                data.visita_orden = this.model.get('id');
-                
-                // Contadores
-                data = $.extend({}, data, window.Misc.formToJson( this.$formcontadoresp ));
-
-                // Repuestos
-                data.visitap = this.visitap.toJSON();
-                this.visita.trigger( 'store', data );
-            }
-        },  
-
-        /**
-        * Event Create visitap
-        */
-
-        onStoreVisitap: function (e) {
-            if (!e.isDefaultPrevented()) {
-                e.preventDefault();
-
-                var data = window.Misc.formToJson( e.target );
-                this.visitap.trigger( 'store', data );
-            }
-        },   
 
         /**
         * fires libraries js
@@ -190,14 +104,14 @@ app || (app = {});
         * Load spinner on the request
         */
         loadSpinner: function (model, xhr, opts) {
-            window.Misc.setSpinner( this.el );
+            window.Misc.setSpinner( this.spinner );
         },
 
         /**
         * response of the server
         */
         responseServer: function ( model, resp, opts ) {
-            window.Misc.removeSpinner( this.el );
+            window.Misc.removeSpinner( this.spinner );
             if(!_.isUndefined(resp.success)) {
                 // response success or error
                 var text = resp.success ? '' : resp.errors;
@@ -210,13 +124,13 @@ app || (app = {});
                     return;
                 }
 
-                alertify.success(this.msgSuccess);
-
                 // CreateOrdenView undelegateEvents
                 if ( this.createOrdenView instanceof Backbone.View ){
                     this.createOrdenView.stopListening();
                     this.createOrdenView.undelegateEvents();
                 }
+
+                alertify.success( this.msgSuccess );
 
                 // Redirect to edit orden
                 Backbone.history.navigate(Route.route('ordenes.edit', { ordenes: resp.id}), { trigger:true });
