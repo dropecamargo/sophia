@@ -189,10 +189,10 @@ app || (app = {});
         },
 
         onSessionRequestComplete: function (id, name, resp){
-            _.each( id, function (item, i){
-                var previewLink = this.$uploaderFile.fineUploader('getItemByFileId', i).find('.preview-link');
-                previewLink.attr("href", item.thumbnailUrl);
-            }, this);
+            // _.each( id, function (item, i){
+            //     var previewLink = this.$uploaderFile.fineUploader('getItemByFileId', i).find('.preview-link');
+            //     previewLink.attr("href", item.thumbnailUrl);
+            // }, this);
         },
 
         submitVisita:function(e){
