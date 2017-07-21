@@ -7,17 +7,16 @@
 @section('module')
 	<div id="contrato-main">
         <div class="box box-danger">
-            <div class="box-body table-responsive">
-
-            {!! Form::open(['id' => 'form-koi-search-tercero-component', 'class' => 'form-horizontal', 'data-toggle' => 'validator', 'role' => 'form']) !!}
-                    <div class="row col-md-offset-1">
+            <div class="box-body">
+                {!! Form::open(['id' => 'form-koi-search-tercero-component', 'class' => 'form-horizontal', 'data-toggle' => 'validator', 'role' => 'form']) !!}
+                    <div class="row">
                         <label for="searchcontrato_contrato_id" class="col-md-1 control-label">Código</label>
                         <div class="col-md-2">
                             <input id="searchcontrato_contrato_numero" placeholder="Código" class="form-control input-sm" name="searchcontrato_contrato_numero" type="text" maxlength="15" value="{{ session('searchcontrato_contrato_numero') }}">
                         </div>
 
                         <label for="searchcontrato_tercero" class="col-sm-1 control-label">Tercero</label>
-                        <div class="form-group col-sm-3">
+                        <div class="col-sm-3">
                             <div class="input-group input-group-sm">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default btn-flat btn-koi-search-tercero-component-table" data-field="searchcontrato_tercero">
@@ -30,9 +29,9 @@
                         <div class="col-sm-4">
                             <input id="searchcontrato_tercero_nombre" name="searchcontrato_tercero_nombre" placeholder="Tercero beneficiario" class="form-control input-sm" type="text" maxlength="15" readonly value="{{ session('searchcontrato_tercero_nombre') }}">
                         </div>
-                    </div>
+                    </div><br>
 
-                    <div class="form-group">
+                    <div class="row">
                         <div class="col-md-offset-3 col-md-2 col-xs-4">
                             <button type="button" class="btn btn-default btn-block btn-sm btn-clear">Limpiar</button>
                         </div>
@@ -46,16 +45,17 @@
                         </div>
                     </div>
                 {!! Form::close() !!}
+            </div>
+
+            <div class="box-body table-responsive">
                 <table id="contrato-search-table" class="table table-bordered table-striped" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                         
-                            <th>Número </th>
+                            <th>Número</th>
                             <th>Tercero</th>
                             <th>F. Inicio</th>
                             <th>F. Vencimiento</th>
                             <th>Activo</th>
-                            
                         </tr>
                     </thead>
                 </table>

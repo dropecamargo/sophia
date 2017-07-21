@@ -133,15 +133,15 @@ app || (app = {});
                 debug: false,
                 template: 'qq-template',
                 session: {
-                    endpoint: window.Misc.urlFull(Route.route('ordenes.imagenes.index')),
+                    endpoint: window.Misc.urlFull( Route.route('ordenes.imagenes.index') ),
                     params: {
                         'orden_id': _this.model.get('id')
                     },
-                    refreshOnRequest: false
+                    refreshOnRequest: false,
                 },
                 request: {
                     inputName: 'file',
-                    endpoint: window.Misc.urlFull( Route.route( 'ordenes.imagenes.index' ) ),
+                    endpoint: window.Misc.urlFull( Route.route('ordenes.imagenes.index') ),
                     params: {
                         '_token': $('meta[name="csrf-token"]').attr('content'),
                         'orden_id': _this.model.get('id')
@@ -149,26 +149,27 @@ app || (app = {});
                 },
                 deleteFile: {
                     enabled: true,
-                    confirmMessage: 'Are you sure you want to delete {filename}?',
-                    endpoint: window.Misc.urlFull( Route.route( 'ordenes.imagenes.index' ) ),
+                    forceConfirm: true,
+                    confirmMessage: '¿Esta seguro de que desea eliminar este archivo de forma permanente? {filename}',
+                    endpoint: window.Misc.urlFull( Route.route('ordenes.imagenes.index') ),
                     params: {
                         '_token': $('meta[name="csrf-token"]').attr('content'),
-                        'orden_id': _this.model.get('id')   
+                        'orden_id': _this.model.get('id')
                     }
                 },
                 validation: {
                     itemLimit: 5,
                     sizeLimit: ( 4 * 1024 ) * 1024, // 4mb,
-                    allowedExtensions: ['jpeg', 'jpg', 'png'],
+                    allowedExtensions: ['jpeg', 'jpg', 'png']
                 },
                 messages: {
                     typeError: '{file} extensión no valida. Extensiones validas: {extensions}.',
-                    sizeError: '{file} es demasiado grande, el tamaño máximo del archivo es {minSizeLimit}.',
+                    sizeError: '{file} es demasiado grande, el tamaño máximo del archivo es {sizeLimit}.'
                 },
                 callbacks: {
                     onComplete: _this.onCompleteLoadFile,
-                    onSessionRequestComplete: _this.onSessionRequestComplete,
-                }
+                    onSessionRequestComplete: _this.onSessionRequestComplete
+                },
             });
         },
 
@@ -188,13 +189,12 @@ app || (app = {});
             previewLink.attr("href", resp.url);
         },
 
-        onSessionRequestComplete: function (id, name, resp){
-            var _this = this;
+        onSessionRequestComplete: function (id, name, resp) {
             
-            _.each( id, function ( value, key ){
-                var previewLink = _this.$uploaderFile.fineUploader('getItemByFileId', key).find('.preview-link');
+            _.each( id, function ( value, key){
+                var previewLink = this.$uploaderFile.fineUploader('getItemByFileId', key).find('.preview-link');
                 previewLink.attr("href", value.thumbnailUrl);
-            }, _this);
+            }, this);
         },
 
         submitVisita:function(e){
@@ -237,8 +237,6 @@ app || (app = {});
                 e.preventDefault();
 
                 var data = window.Misc.formToJson( e.target );
-                console.log(data);
-                // this.visitap.trigger( 'store', data );
             }
         },
 
