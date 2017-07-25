@@ -181,19 +181,19 @@ app || (app = {});
         */
         onCompleteLoadFile: function (id, name, resp) {
 
-            var $itemFile = this.$uploaderFile.fineUploader('getItemByFileId', id);
+            var itemFile = this.$uploaderFile.fineUploader('getItemByFileId', id);
             this.$uploaderFile.fineUploader('setUuid', id, resp.id);
             this.$uploaderFile.fineUploader('setName', id, resp.name);
                 
             var previewLink = this.$uploaderFile.fineUploader('getItemByFileId', id).find('.preview-link');
-            previewLink.attr("href", resp.url);
+                previewLink.attr("href", resp.url);
         },
 
         onSessionRequestComplete: function (id, name, resp) {
             
             _.each( id, function ( value, key){
                 var previewLink = this.$uploaderFile.fineUploader('getItemByFileId', key).find('.preview-link');
-                previewLink.attr("href", value.thumbnailUrl);
+                    previewLink.attr("href", value.thumbnailUrl);
             }, this);
         },
 
