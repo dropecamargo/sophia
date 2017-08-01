@@ -186,14 +186,14 @@ app || (app = {});
             this.$uploaderFile.fineUploader('setName', id, resp.name);
                 
             var previewLink = this.$uploaderFile.fineUploader('getItemByFileId', id).find('.preview-link');
-                previewLink.attr("href", resp.url);
+            previewLink.attr("href", resp.url);
         },
 
         onSessionRequestComplete: function (id, name, resp) {
             
             _.each( id, function ( value, key){
                 var previewLink = this.$uploaderFile.fineUploader('getItemByFileId', key).find('.preview-link');
-                    previewLink.attr("href", value.thumbnailUrl);
+                previewLink.attr("href", value.thumbnailUrl);
             }, this);
         },
 
@@ -265,9 +265,6 @@ app || (app = {});
 
             if( typeof window.initComponent.initTimePicker == 'function' )
                 window.initComponent.initTimePicker();
-
-            if( typeof window.initComponent.initFineUploader == 'function' )
-                window.initComponent.initFineUploader();
         },
 
         /**
